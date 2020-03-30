@@ -35,6 +35,29 @@ body {
 .tooltip.active {
   display: block;
 }
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #222;
+  background: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 7px 14px;
+  border: 0px;
+  transition: 0.2s ease-in-out all;
+}
+input:hover {
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+input:focus {
+  outline: 0;
+}
+input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
 button,
 .button {
   font-family: 'Open Sans', sans-serif;

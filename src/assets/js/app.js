@@ -1,9 +1,11 @@
+const { ipcRenderer } = require('electron');
 const { dialog, shell, app } = require('electron').remote;
-let fs = require('fs');
-let path = require('path');
-let rimraf = require('rimraf');
-let ncp = require('ncp');
-let unzipper = require('unzipper');
+const fs = require('fs');
+const path = require('path');
+const rimraf = require('rimraf');
+const ncp = require('ncp');
+const http = require('http');
+const unzipper = require('unzipper');
 
 // System References
 let systemOS = "";
@@ -21,6 +23,9 @@ let currentSongTrackInfo = {};
 let DOMSectionStartup = document.querySelector(".section-startup");
 let DOMSectionTrackinfo = document.querySelector(".section-trackinfo");
 let DOMSectionResult = document.querySelector(".section-result");
+
+let DOMExternalBackupID = document.querySelector(".external-backup-id");
+let DOMExternalBackupProgress = document.querySelector(".external-backup-progress");
 
 let DOMUISongCover = document.querySelector(".ui-song-cover");
 let DOMUISongTitle = document.querySelector(".ui-song-title");
@@ -75,6 +80,36 @@ function UIUpdateMetadata() {
     DOMUISongAuthor.innerHTML = "Chart by " + currentSongTrackInfo.charter;
 }
 
+let apiVersion = 1;
+function UIDownloadBackup() {
+    DOMExternalBackupProgress.innerHTML = "";
+
+    http.get('http://localhost/www/customspeens-server/public/index.php/api/song/' + DOMExternalBackupID.value, function(response) {
+        let data = "";
+
+        response.on('data', function(chunk) { data += chunk; });
+
+        response.on('end', function() {
+            let apiResponse = JSON.parse( data );
+
+            if(apiResponse.version === apiVersion) {
+                console.log(apiResponse.data);
+
+                DOMExternalBackupProgress.innerHTML = "Downloading...";
+
+                // Let the main renderer download the backup
+                ipcRenderer.send("download", {
+                    url: apiResponse.data.paths.zip,
+                    properties: { directory: tempDirLocation }
+                });
+            } else {
+                console.error("Client is outdated!");
+                DOMExternalBackupProgress.innerHTML = "Client is outdated!";
+            }
+        });
+    });
+}
+
 async function loadBackup(filePath, fileName) {
     if(currentBackupLocation != "") {
         console.log("Unload previous Backup.");
@@ -83,7 +118,7 @@ async function loadBackup(filePath, fileName) {
 
     console.log("Extracting Backup.");
 
-    currentBackupLocation = path.join(tempDirLocation, fileName);
+    currentBackupLocation = path.join(tempDirLocation, "extract-" + fileName);
     console.info(currentBackupLocation);
 
     // Unzip to temp/CustomSpeens/Song
@@ -158,3 +193,14 @@ function getSongCover(extension) {
 
     return base64Data;
 }
+
+ipcRenderer.on("download-complete", (event, info) => {
+    loadBackup(info, path.basename(info)).then(function(result) {
+        if(result) {
+            DOMExternalBackupProgress.innerHTML = "";
+            UIUpdateMetadata();
+        } else {
+            console.error("Backup could not be loaded!");
+        }
+    });
+});

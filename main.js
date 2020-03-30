@@ -1,10 +1,13 @@
-const { app, BrowserWindow, protocol } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { download } = require('electron-dl');
+
+let win;
 
 const PROTOCOL_PREFIX = "csinstall";
 app.setAsDefaultProtocolClient(PROTOCOL_PREFIX);
 
 function createWindow () {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1300,
     height: 700,
     minHeight: 590,
@@ -37,4 +40,10 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+ipcMain.on("download", (event, info) => {
+  console.log("Download Request Received");
+  download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
+      .then(dl => win.webContents.send("download-complete", dl.getSavePath()));
 });

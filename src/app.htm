@@ -19,7 +19,11 @@
       </header>
 
       <section class="section-startup active">
-        <button class="open-backup-button" onclick="UIOpenBackup()">Open Backup</button>
+        <button class="open-backup-button" onclick="UIOpenBackup()">Open Backup</button><br /><br />
+
+        <input type="number" class="external-backup-id" placeholder="External Backup ID" />
+        <button class="external-backup-button" onclick="UIDownloadBackup()">Download</button>
+        <span class="external-backup-progress"></span>
       </section>
 
       <section class="section-trackinfo">
