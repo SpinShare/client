@@ -6,6 +6,11 @@
   "scripts": {
     "start": "electron ."
   },
+  "protocols": [{
+    "name": "customspeens",
+    "role": "CustomSpeens",
+    "schemes": ["csinstall"]
+  }],
   "author": "Andreas Heimann",
   "license": "MIT",
   "devDependencies": {

@@ -1,4 +1,7 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, protocol } = require('electron');
+
+const PROTOCOL_PREFIX = "csinstall";
+app.setAsDefaultProtocolClient(PROTOCOL_PREFIX);
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -15,6 +18,11 @@ function createWindow () {
 
   win.webContents.openDevTools();
   win.setMenuBarVisibility(false);
+
+  protocol.registerHttpProtocol(PROTOCOL_PREFIX, (req, cb) => {
+    const fullUrl = formFullTodoUrl(req.url);
+    console.log(fullUrl);
+  });
 }
 
 app.whenReady().then(createWindow);
