@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Spin Rhythm XD Custom Songs</title>
+
+      <!-- Meta Tags -->
+      <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+      <!-- Styles -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
+      <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css" />
+      <link rel="stylesheet" href="assets/css/main.css" />
+    </head>
+    <body>
+      <header>
+        <div class="title">CustomSpeens</div>
+      </header>
+
+      <section class="section-startup active">
+        <button class="open-backup-button" onclick="UIOpenBackup()">Open Backup</button>
+      </section>
+
+      <section class="section-trackinfo">
+        <div class="cover ui-song-cover"></div>
+
+        <div class="metadata">
+          <div class="ui-song-title">Title is here!</div>
+          <div class="ui-song-subtitle">Subtitle is here!</div>
+          <div class="ui-song-artist">Song by Artist</div>
+          <div class="ui-song-author">Chart by Author</div>
+        </div>
+
+        <div class="actions">
+          <button class="copy-backup-button" onclick="UICopyBackup()">Copy to Game</button>
+        </div>
+      </section>
+
+      <section class="section-result"></section>
+
+      <!-- Scripts -->
+      <script src="./assets/js/app.js"></script>
+    </body>
+  </html>

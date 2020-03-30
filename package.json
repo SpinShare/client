@@ -1,0 +1,19 @@
+{
+  "name": "customspeens-client",
+  "version": "0.1.0",
+  "main": "main.js",
+  "description": "Spin Rhythm XD Custom Songs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Andreas Heimann",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.0.1"
+  },
+  "dependencies": {
+    "ncp": "^2.0.0",
+    "rimraf": "^3.0.2",
+    "unzipper": "^0.10.10"
+  }
+}
