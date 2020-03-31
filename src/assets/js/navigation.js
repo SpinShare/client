@@ -1,6 +1,3 @@
-const path = require('path');
-const SHAPI = require( path.resolve(__dirname, './assets/js/api.js') );
-
 let api = new SHAPI();
 
 let DOMNavigationItems = document.querySelectorAll("aside .item");
@@ -10,7 +7,15 @@ let DOMSectionSongDetail = document.querySelector(".section-song-detail");
 
 let currentSection = 0;
 
+let currentSongId = 0;
+let currentSongData = {};
+let currentPreviewAudio;
+
 function NavigateToSection(sectionIndex) {
+    // Stop audio if playing
+    if(currentPreviewAudio)
+    currentPreviewAudio.pause();
+
     // Navigation
     DOMNavigationItems.forEach(function(DOMNavigation) {
         DOMNavigation.classList.remove("active");
@@ -29,6 +34,10 @@ function NavigateToSection(sectionIndex) {
 NavigateToSection(0);
 
 function NavigateToSongDetail(songId) {
+    // Stop audio if playing
+    if(currentPreviewAudio)
+    currentPreviewAudio.pause();
+
     // Navigation
     DOMNavigationItems.forEach(function(DOMNavigation) {
         DOMNavigation.classList.remove("active");
@@ -42,5 +51,5 @@ function NavigateToSongDetail(songId) {
     // Load Detail
     DOMSectionSongDetail.classList.add("active");
 
-    LoadSongDetail(songId);
+    SongDetailLoad(songId);
 }

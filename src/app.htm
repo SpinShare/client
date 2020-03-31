@@ -12,7 +12,9 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css" />
       <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="assets/css/download.css" />
       <link rel="stylesheet" href="assets/css/startup.css" />
+      <link rel="stylesheet" href="assets/css/songdetail.css" />
     </head>
     <body>
       <main>
@@ -163,44 +165,54 @@
           EXPLICIT? YES/NO
         </section>
         <section class="section-song-detail">
-          SONG DETAIL
+          <div class="song-detail-background">
+            <div class="song-detail-dim">
+              <div class="song-detail">
+                <div class="song-cover"></div>
+                <div class="song-meta-data">
+                  <div class="song-title">Lorem Ipsum</div>
+                  <div class="song-artist">Lorem Ipsum</div>
+                  <div class="song-tags">
+                    <div class="tag">Test</div>
+                    <div class="tag">Demo</div>
+                    <div class="tag">Debug</div>
+                    <div class="tag">API</div>
+                  </div>
+                  <div class="song-charter">
+                    <div class="song-charter-user">
+                      <i class="mdi mdi-account-circle"></i>
+                      <span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="song-detail-actions">
+            <button class="button-download button button-primary" onclick="SongDetailDownload()">Download</button>
+            <button class="button-preview button" onclick="SongDetailTogglePreview()">Play Preview</button>
+            <button class="button-copylink button" onclick="SongDetailCopyLink()">Copy Link</button>
+            <button class="button-report button" onclick="SongDetailReport()">Report</button>
+          </div>
         </section>
       </main>
 
-      <!--
-      <header>
-        <div class="title">CustomSpeens</div>
-      </header>
-
-      <section class="section-startup active">
-        <button class="open-backup-button" onclick="UIOpenBackup()">Open Backup</button><br /><br />
-
-        <input type="number" class="external-backup-id" placeholder="External Backup ID" />
-        <button class="external-backup-button" onclick="UIDownloadBackup()">Download</button>
-        <span class="external-backup-progress"></span>
-      </section>
-
-      <section class="section-trackinfo">
-        <div class="cover ui-song-cover"></div>
-
-        <div class="metadata">
-          <div class="ui-song-title">Title is here!</div>
-          <div class="ui-song-subtitle">Subtitle is here!</div>
-          <div class="ui-song-artist">Song by Artist</div>
-          <div class="ui-song-author">Chart by Author</div>
+      <div class="download-overlay">
+        <div class="download-content">
+          <div class="download-output">Output</div>
+          <div class="download-actions">
+            <button class="button" onclick="CloseDownloadOverlay()">Close</button>
+          </div>
         </div>
-
-        <div class="actions">
-          <button class="copy-backup-button" onclick="UICopyBackup()">Copy to Game</button>
-        </div>
-      </section>
-
-      <section class="section-result"></section> -->
+      </div>
 
       <!-- Scripts -->
+      <script src="./assets/js/init.js"></script>
+      <script src="./assets/js/system.js"></script>
       <script src="./assets/js/navigation.js"></script>
       <script src="./assets/js/section.startup.js"></script>
       <script src="./assets/js/section.songdetail.js"></script>
+      <script src="./assets/js/download.js"></script>
       <!-- <script src="./assets/js/app.js"></script> -->
     </body>
   </html>

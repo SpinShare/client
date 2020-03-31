@@ -1,0 +1,38 @@
+.download-overlay {
+    position: absolute;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    & .download-content {
+        width: 500px;
+        background: #212629;
+        border-radius: 6px;
+
+        & .download-output {
+            text-align: center;
+            padding: 25px;
+        }
+
+        & .download-actions {
+            display: none;
+            justify-content: flex-end;
+            padding: 25px;
+            background: rgba(0,0,0,0.4);
+
+            &.active {
+                display: flex;
+            }
+        }
+    }
+
+    &.active {
+        display: flex;
+    }
+}
