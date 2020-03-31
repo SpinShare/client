@@ -3,7 +3,7 @@
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Spin Rhythm XD Custom Songs</title>
+      <title>SpinSha.re</title>
 
       <!-- Meta Tags -->
       <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
@@ -12,8 +12,162 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css" />
       <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="assets/css/startup.css" />
     </head>
     <body>
+      <main>
+        <aside>
+          <nav>
+            <div class="item" onclick="NavigateToSection(0)"><i class="mdi mdi-home-outline"></i></div>
+            <div class="item" onclick="NavigateToSection(1)"><i class="mdi mdi-magnify"></i></div>
+            <div class="item" onclick="NavigateToSection(2)"><i class="mdi mdi-music-box-multiple-outline"></i></div>
+          </nav>
+
+          <nav>
+            <div class="item" onclick="NavigateToSection(3)"><i class="mdi mdi-cog-outline"></i></div>
+          </nav>
+        </aside>
+        <section class="section-startup">
+          <div class="staff-ads">
+            <div class="staff-ad ad-loading"></div>
+            <div class="staff-ad ad-loading"></div>
+          </div>
+          <div class="song-row song-row-new">
+            <div class="song-header">
+              <div class="row-title">NEW SONGS</div>
+              <div class="row-controls">
+                <div class="item disabled row-controls-previous" onclick="NewSongsPrevious()"><i class="mdi mdi-chevron-left"></i></div>
+                <div class="item row-controls-next" onclick="NewSongsNext()"><i class="mdi mdi-chevron-right"></i></div>
+              </div>
+            </div>
+            <div class="song-list">
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="song-row song-row-popular">
+            <div class="song-header">
+              <div class="row-title">POPULAR SONGS</div>
+              <div class="row-controls">
+                <div class="item disabled row-controls-previous" onclick="PopularSongsPrevious()"><i class="mdi mdi-chevron-left"></i></div>
+                <div class="item row-controls-next" onclick="PopularSongsNext()"><i class="mdi mdi-chevron-right"></i></div>
+              </div>
+            </div>
+            <div class="song-list">
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+              <div class="song-item song-item-loading">
+                <div class="song-cover">
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">&nbsp;</div>
+                  <div class="song-artist">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section-search">
+          SEARCH
+        </section>
+        <section class="section-library">
+          LIBRARY
+        </section>
+        <section class="section-settings">
+          SETTINGS<br /><br />
+          GAME DIRECTORY<br />
+          EXPLICIT? YES/NO
+        </section>
+        <section class="section-song-detail">
+          SONG DETAIL
+        </section>
+      </main>
+
+      <!--
       <header>
         <div class="title">CustomSpeens</div>
       </header>
@@ -41,9 +195,11 @@
         </div>
       </section>
 
-      <section class="section-result"></section>
+      <section class="section-result"></section> -->
 
       <!-- Scripts -->
-      <script src="./assets/js/app.js"></script>
+      <script src="./assets/js/navigation.js"></script>
+      <script src="./assets/js/section.startup.js"></script>
+      <!-- <script src="./assets/js/app.js"></script> -->
     </body>
   </html>
