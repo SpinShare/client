@@ -41,4 +41,6 @@ function NavigateToSongDetail(songId) {
 
     // Load Detail
     DOMSectionSongDetail.classList.add("active");
+
+    LoadSongDetail(songId);
 }
