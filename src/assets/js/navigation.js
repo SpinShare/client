@@ -1,5 +1,3 @@
-let api = new SHAPI();
-
 let DOMNavigationItems = document.querySelectorAll("aside .item");
 let DOMSections = document.querySelectorAll("section");
 
@@ -13,8 +11,7 @@ let currentPreviewAudio;
 
 function NavigateToSection(sectionIndex) {
     // Stop audio if playing
-    if(currentPreviewAudio)
-    currentPreviewAudio.pause();
+    SongDetailStopPreview();
 
     // Navigation
     DOMNavigationItems.forEach(function(DOMNavigation) {
@@ -35,8 +32,7 @@ NavigateToSection(0);
 
 function NavigateToSongDetail(songId) {
     // Stop audio if playing
-    if(currentPreviewAudio)
-    currentPreviewAudio.pause();
+    SongDetailStopPreview();
 
     // Navigation
     DOMNavigationItems.forEach(function(DOMNavigation) {

@@ -7,3 +7,5 @@ const rimraf = require('rimraf');
 const ncp = require('ncp');
 const http = require('http');
 const unzipper = require('unzipper');
+
+let api = new SHAPI();

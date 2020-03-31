@@ -3,6 +3,7 @@ const DOMSongDetailActions = document.querySelector(".song-detail-actions");
 const DOMSongDetail = document.querySelector(".section-song-detail .song-detail");
 const DOMSongDetailCover = document.querySelector(".section-song-detail .song-cover");
 
+let isPlayingPreview = false;
 
 const DOMButtonPreview = DOMSongDetailActions.querySelector(".button-preview");
 
@@ -48,19 +49,29 @@ function SongDetailLoad(songId) {
 }
 
 function SongDetailTogglePreview() {
-    if(currentPreviewAudio != undefined || currentPreviewAudio != null) {
+    if(isPlayingPreview) {
+        SongDetailStopPreview();
+    } else {
+        SongDetailStartPreview();
+    }
+}
+function SongDetailStartPreview() {
+    currentPreviewAudio = new Audio(currentSongData.paths.ogg);
+    currentPreviewAudio.play();
+    isPlayingPreview = true;
+    DOMButtonPreview.innerText = "PAUSE PREVIEW";
+    DOMButtonPreview.classList.add("button-primary");
+}
+function SongDetailStopPreview() {
+    if(currentPreviewAudio) {
         currentPreviewAudio.pause();
         currentPreviewAudio.currentTime = 0;
-        currentPreviewAudio = null;
-
-        DOMButtonPreview.innerText = "PLAY PREVIEW";
-        DOMButtonPreview.classList.remove("button-primary");
-    } else {
-        currentPreviewAudio = new Audio(currentSongData.paths.ogg);
-        currentPreviewAudio.play();
-        DOMButtonPreview.innerText = "PAUSE PREVIEW";
-        DOMButtonPreview.classList.add("button-primary");
     }
+    currentPreviewAudio = null;
+    isPlayingPreview = false;
+
+    DOMButtonPreview.innerText = "PLAY PREVIEW";
+    DOMButtonPreview.classList.remove("button-primary");
 }
 
 function SongDetailDownload() {
