@@ -13,6 +13,8 @@ let currentNewOffset = 0;
 let currentPopularOffset = 0;
 
 function InitStartup() {
+    console.log("Refreshing Startup");
+    
     // Loading Ads
     api.getAds().then(function(ads) {
         DOMStaffAds.innerHTML = "";
@@ -28,8 +30,6 @@ function InitStartup() {
     // Loading Hot Songs
     LoadPopularSongs();
 }
-
-InitStartup();
 
 function NewSongsPrevious() {
     if(currentNewOffset == 0) return;

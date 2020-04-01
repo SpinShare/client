@@ -24,8 +24,12 @@
   font-weight: bold;
   font-size: 48px;
 }
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-artist {
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-subtitle {
   font-size: 20px;
+}
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-artist {
+  margin-top: 5px;
+  font-size: 18px;
   opacity: 0.6;
 }
 .section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-tags {

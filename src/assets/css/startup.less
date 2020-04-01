@@ -3,6 +3,10 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px;
 
+    &:empty {
+        display: none;
+    }
+
     & .staff-ad {
         background: #fff;
         border-radius: 6px;
@@ -156,7 +160,7 @@
                 }
             }
 
-            &:not(.song-item-loading):hover {
+            &:not(.song-item-loading):not(.song-item-local):hover {
                 transform: scale(1.1);
                 cursor: pointer;
                 box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
@@ -164,6 +168,17 @@
                 & .song-cover {
                     & .song-charter {
                         opacity: 1;
+                    }
+                }
+            }
+            &.song-item-local {
+                opacity: 0.6;
+
+                &:hover {
+                    & .song-cover {
+                        & .song-charter {
+                            opacity: 1;
+                        }
                     }
                 }
             }

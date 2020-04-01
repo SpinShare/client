@@ -57,7 +57,7 @@ main aside .item:hover {
 }
 main aside .item.active {
   opacity: 1;
-  background: linear-gradient(135deg, #00FFEE, #45C1FF);
+  background: linear-gradient(135deg, #00FFF0, #46BEFF);
 }
 main aside .item .mdi {
   font-size: 22px;
@@ -121,4 +121,7 @@ section.section-startup.active {
   display: grid;
   grid-template-rows: auto;
   grid-gap: 25px;
+}
+section.section-library {
+  padding: 50px;
 }

@@ -8,6 +8,7 @@ let isPlayingPreview = false;
 const DOMButtonPreview = DOMSongDetailActions.querySelector(".button-preview");
 
 const DOMSongTitle = DOMSongDetail.querySelector(".song-title");
+const DOMSongSubtitle = DOMSongDetail.querySelector(".song-subtitle");
 const DOMSongArtist = DOMSongDetail.querySelector(".song-artist");
 const DOMSongCharter = DOMSongDetail.querySelector(".song-charter span");
 const DOMSongTags = DOMSongDetail.querySelector(".song-tags");
@@ -27,6 +28,7 @@ function SongDetailLoad(songId) {
         DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
 
         DOMSongTitle.innerText = songData.title;
+        DOMSongSubtitle.innerText = songData.subtitle;
         DOMSongArtist.innerText = songData.artist;
         DOMSongCharter.innerText = songData.charter;
 
@@ -57,7 +59,11 @@ function SongDetailTogglePreview() {
 }
 function SongDetailStartPreview() {
     currentPreviewAudio = new Audio(currentSongData.paths.ogg);
+    currentPreviewAudio.volume = 0.4;
     currentPreviewAudio.play();
+    currentPreviewAudio.onended = function() {
+        SongDetailStopPreview();
+    }
     isPlayingPreview = true;
     DOMButtonPreview.innerText = "PAUSE PREVIEW";
     DOMButtonPreview.classList.add("button-primary");

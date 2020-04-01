@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="assets/css/download.css" />
       <link rel="stylesheet" href="assets/css/startup.css" />
       <link rel="stylesheet" href="assets/css/songdetail.css" />
+      <link rel="stylesheet" href="assets/css/library.css" />
     </head>
     <body>
       <main>
@@ -157,7 +158,25 @@
           SEARCH
         </section>
         <section class="section-library">
-          LIBRARY
+          <div class="song-row song-row-library">
+            <div class="song-header">
+              <div class="row-title">INSTALLED SONGS</div>
+              <div class="row-controls">
+                <div class="item row-controls-reload" onclick="RefreshLibrary()"><i class="mdi mdi-refresh"></i></div>
+              </div>
+            </div>
+            <div class="song-list">
+              <div class="song-item song-item-add" onclick="InstallBackupManually()">
+                <div class="song-cover">
+                  <div class="song-icon"><i class="mdi mdi-folder-music"></i></div>
+                </div>
+                <div class="song-metadata">
+                  <div class="song-title">Install</div>
+                  <div class="song-artist">Install a local .zip</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
         <section class="section-settings">
           SETTINGS<br /><br />
@@ -171,12 +190,9 @@
                 <div class="song-cover"></div>
                 <div class="song-meta-data">
                   <div class="song-title">Lorem Ipsum</div>
+                  <div class="song-subtitle">Lorem Ipsum</div>
                   <div class="song-artist">Lorem Ipsum</div>
                   <div class="song-tags">
-                    <div class="tag">Test</div>
-                    <div class="tag">Demo</div>
-                    <div class="tag">Debug</div>
-                    <div class="tag">API</div>
                   </div>
                   <div class="song-charter">
                     <div class="song-charter-user">
@@ -208,9 +224,10 @@
 
       <!-- Scripts -->
       <script src="./assets/js/init.js"></script>
-      <script src="./assets/js/system.js"></script>
+      <script src="./assets/js/userData.js"></script>
       <script src="./assets/js/section.startup.js"></script>
       <script src="./assets/js/section.songdetail.js"></script>
+      <script src="./assets/js/section.library.js"></script>
       <script src="./assets/js/download.js"></script>
       <script src="./assets/js/navigation.js"></script>
       <!-- <script src="./assets/js/app.js"></script> -->

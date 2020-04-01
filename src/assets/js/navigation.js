@@ -26,6 +26,26 @@ function NavigateToSection(sectionIndex) {
     DOMSections[sectionIndex].classList.add("active");
     
     currentSection = sectionIndex;
+
+    switch(sectionIndex) {
+        case 0:
+            // Startup
+            InitStartup();
+            break;
+        case 1:
+            // Search
+            break;
+        case 2:
+            // Library
+            RefreshLibrary();
+            break;
+        case 3:
+            // Settings
+            break;
+        case 4:
+            // SongDetail
+            break;
+    }
 }
 
 NavigateToSection(0);
