@@ -1,0 +1,37 @@
+.section-user-detail .user-detail-background {
+  background-size: cover;
+  background-position: center;
+}
+.section-user-detail .user-detail-background .user-detail-dim {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), #212629);
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail {
+  padding: 50px;
+  display: none;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 25px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar {
+  width: 200px;
+  height: 200px;
+  align-self: center;
+  background: #eee;
+  border-radius: 6px;
+  background-size: cover;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-name {
+  font-weight: bold;
+  font-size: 48px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail.active {
+  display: grid;
+}
+.section-user-detail .song-row-user {
+  padding: 0px 50px;
+  margin-bottom: 50px;
+  display: none;
+}
+.section-user-detail .song-row-user.active {
+  display: grid;
+}

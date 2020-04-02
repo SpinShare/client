@@ -1,4 +1,4 @@
-.download-overlay {
+.update-overlay {
     position: fixed;
     z-index: 100;
     top: 0px;
@@ -10,29 +10,14 @@
     justify-content: center;
     align-items: center;
 
-    & .download-content {
+    & .update-content {
         width: 500px;
         background: #212629;
         border-radius: 6px;
         position: relative;
         overflow: hidden;
 
-        & .download-statusbar {
-            position: absolute;
-            height: 5px;
-            background: rgba(0,0,0,0.2);
-            left: 0px;
-            right: 0px;
-
-            & .download-statusbar-handle {
-                height: 5px;
-                width: 0px;
-                background: #74b959;
-                transition: 1s ease-in-out width;
-            }
-        }
-
-        & .download-status {
+        & .update-status {
             padding: 25px;
             display: none;
             grid-template-rows: 1fr auto;
@@ -53,23 +38,21 @@
 
             & .text {
                 text-align: center;
-                font-size: 14px;
-                font-weight: bold;
-                text-transform: uppercase;
-                letter-spacing: 0.25em;
             }
-
             &.active {
                 display: grid;
             }
         }
 
-        & .download-actions {
+        & .update-actions {
             display: none;
             justify-content: flex-end;
             padding: 25px;
             background: rgba(0,0,0,0.4);
 
+            & button {
+                margin-left: 10px;
+            }
             &.active {
                 display: flex;
             }

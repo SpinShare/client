@@ -2,7 +2,11 @@ const axios = require('axios');
 
 class SHAPI {
     constructor() {
-        this.apiBase = "http://localhost/www/customspeens-server/public/index.php/api/";
+        if(isDev) {
+            this.apiBase = "https://spinsha.re/api/";
+        } else {
+            this.apiBase = "http://localhost/www/spinshare-server/public/index.php/api/";
+        }
         this.supportedVersion = 1;
     }
 
@@ -32,6 +36,21 @@ class SHAPI {
                 throw new Error("Client is outdated!");
             }
             
+            return response.data.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getCurrentVersion() {
+        let apiPath = this.apiBase + "currentVersion";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
             return response.data.data;
         }).catch(function(error) {
             throw new Error(error);
@@ -74,7 +93,37 @@ class SHAPI {
         let apiPath = this.apiBase + "song/" + _songId;
         let supportedVersion = this.supportedVersion;
 
-        console.log(apiPath);
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getUserDetail(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async search(_searchQuery) {
+        let apiPath = this.apiBase + "search/" + _searchQuery;
+        let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
         .then(function(response) {

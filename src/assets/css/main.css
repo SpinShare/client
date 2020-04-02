@@ -63,28 +63,22 @@ main aside .item.active {
 main aside .item .mdi {
   font-size: 22px;
 }
-input {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  color: #222;
-  background: #fff;
-  text-transform: uppercase;
-  font-weight: 700;
-  border-radius: 4px;
-  padding: 7px 14px;
-  border: 0px;
-  transition: 0.2s ease-in-out all;
+section {
+  display: none;
 }
-input:hover {
-  background: #fff;
-  color: #222;
-  cursor: pointer;
+section.active {
+  display: block;
 }
-input:focus {
-  outline: 0;
+section.section-startup {
+  padding: 50px;
 }
-input::placeholder {
-  color: rgba(0, 0, 0, 0.6);
+section.section-startup.active {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 25px;
+}
+section.section-library {
+  padding: 50px;
 }
 button,
 .button {
@@ -109,20 +103,201 @@ button:focus,
 .button:focus {
   outline: 0;
 }
-section {
-  display: none;
+.song-row {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 5px;
 }
-section.active {
+.song-row .song-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.song-row .song-header .row-title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.song-row .song-header .row-title.row-title-noactions {
+  margin: 10px 0px;
+}
+.song-row .song-header .row-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+.song-row .song-header .row-controls .item {
+  width: 28px;
+  height: 28px;
+  font-size: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.song-row .song-header .row-controls .item.disabled {
+  opacity: 0.4;
+}
+.song-row .song-header .row-controls .item:not(.disabled):hover {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.song-row .song-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+}
+.song-row .song-list .song-item {
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.song-row .song-list .song-item .song-cover {
+  background: rgba(255, 255, 255, 0.1);
+  background-size: cover;
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+.song-row .song-list .song-item .song-cover .song-charter {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+  opacity: 0;
+  padding: 15px;
+  overflow: hidden;
+  display: grid;
+  transition: 0.2s ease-in-out opacity;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
+  align-items: flex-end;
+}
+.song-row .song-list .song-item .song-cover .song-charter .song-charter-info {
+  display: grid;
+  align-items: center;
+}
+.song-row .song-list .song-item .song-cover .song-charter .song-charter-info .mdi {
+  font-size: 18px;
+}
+.song-row .song-list .song-item .song-cover .song-charter .song-charter-info span {
+  font-size: 12px;
+  color: transparent;
+  transition: 0.2s ease-in-out color;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.song-row .song-list .song-item .song-metadata {
+  padding: 15px;
+}
+.song-row .song-list .song-item .song-metadata .song-title {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.song-row .song-list .song-item .song-metadata .song-artist {
+  margin-top: 5px;
+  opacity: 0.6;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.song-row .song-list .song-item:not(.song-item-loading):not(.song-item-local):hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
+}
+.song-row .song-list .song-item:not(.song-item-loading):not(.song-item-local):hover .song-cover .song-charter {
+  opacity: 1;
+}
+.song-row .song-list .song-item.song-item-loading {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  animation-name: songLoadingShimmer;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+.song-row .song-list .song-item.song-item-loading .song-cover {
+  opacity: 0;
+}
+.song-row .song-list .song-item.song-item-local {
+  opacity: 0.6;
+}
+.song-row .song-list .song-item.song-item-local:hover .song-cover .song-charter {
+  opacity: 1;
+}
+.song-row .song-list-noresults {
+  display: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+  opacity: 0.6;
+  text-align: center;
+}
+.song-row .song-list-noresults.active {
   display: block;
 }
-section.section-startup {
-  padding: 50px;
-}
-section.section-startup.active {
+.user-row {
   display: grid;
-  grid-template-rows: auto;
-  grid-gap: 25px;
+  grid-template-rows: auto 1fr;
+  grid-gap: 5px;
 }
-section.section-library {
-  padding: 50px;
+.user-row .user-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.user-row .user-header .row-title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.user-row .user-header .row-title.row-title-noactions {
+  margin: 10px 0px;
+}
+.user-row .user-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+}
+.user-item {
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
+  overflow: hidden;
+  border-radius: 6px;
+  display: grid;
+  padding: 10px;
+  grid-gap: 15px;
+  grid-template-columns: 32px 1fr;
+}
+.user-item .user-avatar {
+  background: rgba(255, 255, 255, 0.1);
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+}
+.user-item .user-metadata {
+  align-self: center;
+}
+.user-item .user-metadata .user-name {
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.user-item:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
+}
+@keyframes songLoadingShimmer {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 173px 0px;
+  }
 }

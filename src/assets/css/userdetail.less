@@ -1,0 +1,47 @@
+.section-user-detail {
+    & .user-detail-background {
+        background-size: cover;
+        background-position: center;
+
+        & .user-detail-dim {
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(0,0,0,0.4), #212629);
+
+            & .user-detail {
+                padding: 50px;
+                display: none;
+                grid-template-columns: 200px 1fr;
+                grid-gap: 25px;
+
+                & .user-avatar {
+                    width: 200px;
+                    height: 200px;
+                    align-self: center;
+                    background: #eee;
+                    border-radius: 6px;
+                    background-size: cover;
+                }
+                & .user-meta-data {
+                    & .user-name {
+                        font-weight: bold;
+                        font-size: 48px;
+                    }
+                }
+
+                &.active {
+                    display: grid;
+                }
+            }
+        }
+    }
+
+    & .song-row-user {
+        padding: 0px 50px;
+        margin-bottom: 50px;
+        display: none;
+
+        &.active {
+            display: grid;
+        }
+    }
+}

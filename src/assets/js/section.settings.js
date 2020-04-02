@@ -14,10 +14,6 @@ function InitSettings() {
     DOMSettingsInputGameDirectory.value = userSettings.get('gameDirectory');
 }
 
-function CheckForUpdate() {
-
-}
-
 function SettingsChangeLanguage() {
     let selectedLanguage = DOMSettingsInputLanguage.value;
     userSettings.set('language', selectedLanguage);

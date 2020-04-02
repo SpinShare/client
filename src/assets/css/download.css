@@ -1,5 +1,5 @@
 .download-overlay {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top: 0px;
   left: 0px;
@@ -14,10 +14,48 @@
   width: 500px;
   background: #212629;
   border-radius: 6px;
+  position: relative;
+  overflow: hidden;
 }
-.download-overlay .download-content .download-output {
-  text-align: center;
+.download-overlay .download-content .download-statusbar {
+  position: absolute;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  left: 0px;
+  right: 0px;
+}
+.download-overlay .download-content .download-statusbar .download-statusbar-handle {
+  height: 5px;
+  width: 0px;
+  background: #74b959;
+  transition: 1s ease-in-out width;
+}
+.download-overlay .download-content .download-status {
   padding: 25px;
+  display: none;
+  grid-template-rows: 1fr auto;
+  grid-gap: 25px;
+}
+.download-overlay .download-content .download-status .icon {
+  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.download-overlay .download-content .download-status .icon .mdi {
+  font-size: 72px;
+}
+.download-overlay .download-content .download-status .text {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+.download-overlay .download-content .download-status.active {
+  display: grid;
 }
 .download-overlay .download-content .download-actions {
   display: none;

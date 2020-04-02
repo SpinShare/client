@@ -10,8 +10,9 @@ const DOMButtonPreview = DOMSongDetailActions.querySelector(".button-preview");
 const DOMSongTitle = DOMSongDetail.querySelector(".song-title");
 const DOMSongSubtitle = DOMSongDetail.querySelector(".song-subtitle");
 const DOMSongArtist = DOMSongDetail.querySelector(".song-artist");
-const DOMSongCharter = DOMSongDetail.querySelector(".song-charter span");
+const DOMSongCharter = DOMSongDetail.querySelector(".song-charter");
 const DOMSongTags = DOMSongDetail.querySelector(".song-tags");
+const DOMSongUploader = DOMSongDetail.querySelector(".song-uploader");
 
 function SongDetailLoad(songId) {
     currentSongId = 0;
@@ -23,31 +24,43 @@ function SongDetailLoad(songId) {
     api.getSongDetail(songId).then(function(apiResponse) {
         let songData = apiResponse.data;
 
-        if(apiResponse.status == 404) {
-            NavigateToSection(6);
+        if(apiResponse.status == 404 || songData.length == 0) {
+            NavigateToSection(7);
         } else {
-            DOMSongDetail.classList.add("active");
-            DOMSongDetailActions.classList.add("active");
+            api.getUserDetail(songData.uploader).then(function(uploaderResponse) {
+                let uploaderData = uploaderResponse.data;
 
-            DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
-            DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
+                DOMSongDetail.classList.add("active");
+                DOMSongDetailActions.classList.add("active");
 
-            DOMSongTitle.innerText = songData.title;
-            DOMSongSubtitle.innerText = songData.subtitle;
-            DOMSongArtist.innerText = songData.artist;
-            DOMSongCharter.innerText = songData.charter;
+                DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
+                DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
 
-            DOMButtonPreview.innerText = "PLAY PREVIEW";
+                DOMSongTitle.innerText = songData.title;
+                DOMSongSubtitle.innerText = songData.subtitle;
+                DOMSongArtist.innerText = songData.artist;
+                DOMSongCharter.innerText = locale.get('songdetail.createdBy') + " " + songData.charter;
 
-            DOMSongTags.innerHTML = "";
-            songData.tags.forEach(function(tag) {
-                if(tag != "") {
-                    let newTag = document.createElement("div");
-                    newTag.classList.add("tag");
-                    newTag.innerText = tag;
+                DOMSongUploader.innerHTML = "";
+                DOMSongUploader.appendChild(BuildUserDOM(uploaderData));
 
-                    DOMSongTags.appendChild(newTag);
-                }
+                DOMButtonPreview.innerText = locale.get('songdetail.actions.playPreviewButton');
+
+                DOMSongTags.innerHTML = "";
+                songData.tags.forEach(function(tag) {
+                    if(tag != "") {
+                        let newTag = document.createElement("div");
+                        newTag.classList.add("tag");
+                        newTag.innerText = tag;
+
+                        newTag.addEventListener('click', function() {
+                            NavigateToSection(1);
+                            SearchQuery(tag);
+                        });
+
+                        DOMSongTags.appendChild(newTag);
+                    }
+                });
             });
         }
 
@@ -55,7 +68,7 @@ function SongDetailLoad(songId) {
         currentSongData = songData;
     }).catch(function(error) {
         console.error(error);
-        NavigateToSection(5);
+        NavigateToSection(6);
     });
 }
 
@@ -74,7 +87,7 @@ function SongDetailStartPreview() {
         SongDetailStopPreview();
     }
     isPlayingPreview = true;
-    DOMButtonPreview.innerText = "PAUSE PREVIEW";
+    DOMButtonPreview.innerText = locale.get('songdetail.actions.stopPreviewButton');
     DOMButtonPreview.classList.add("button-primary");
 }
 function SongDetailStopPreview() {
@@ -85,7 +98,7 @@ function SongDetailStopPreview() {
     currentPreviewAudio = null;
     isPlayingPreview = false;
 
-    DOMButtonPreview.innerText = "PLAY PREVIEW";
+    DOMButtonPreview.innerText = locale.get('songdetail.actions.playPreviewButton');
     DOMButtonPreview.classList.remove("button-primary");
 }
 
@@ -94,9 +107,9 @@ function SongDetailDownload() {
 }
 
 function SongDetailCopyLink() {
-
+    clipboard.writeText("https://spinsha.re/song/" + currentSongId);
 }
 
 function SongDetailReport() {
-    alert("Coming soon...");
+    shell.openExternal("https://spinsha.re/report/" + currentSongId);
 }

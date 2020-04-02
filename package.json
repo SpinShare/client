@@ -1,24 +1,17 @@
 {
   "name": "customspeens-client",
-  "version": "0.1.0",
-  "main": "main.js",
+  "version": "1.0.0",
+  "main": "./main.js",
   "description": "Spin Rhythm XD Custom Songs",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
-  "protocols": [
-    {
-      "name": "customspeens",
-      "role": "CustomSpeens",
-      "schemes": [
-        "csinstall"
-      ]
-    }
-  ],
   "author": "Andreas Heimann",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^8.0.1"
+    "electron": "^8.0.1",
+    "electron-builder": "^22.4.1"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -28,5 +21,40 @@
     "rimraf": "^3.0.2",
     "uniqid": "^5.2.0",
     "unzipper": "^0.10.10"
+  },
+  "build": {
+    "productName": "SpinShare",
+    "appId": "re.spinsha.client",
+    "directories": {
+      "output": "build"
+    },
+    "protocols": {
+      "name": "spinshare-song-deeplink",
+      "schemes": ["spinshare-song"]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icons"
+    }
   }
 }

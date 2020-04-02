@@ -2,6 +2,7 @@ let DOMNavigationItems = document.querySelectorAll("aside .item");
 let DOMSections = document.querySelectorAll("section");
 
 let DOMSectionSongDetail = document.querySelector(".section-song-detail");
+let DOMSectionUserDetail = document.querySelector(".section-user-detail");
 
 let currentSection = 0;
 
@@ -36,6 +37,7 @@ function NavigateToSection(sectionIndex) {
             break;
         case 1:
             // Search
+            InitSearch();
             break;
         case 2:
             // Library
@@ -48,12 +50,23 @@ function NavigateToSection(sectionIndex) {
         case 4:
             // SongDetail
             break;
+        case 5:
+            // Connection Error
+            break;
+        case 6:
+            // 404 Error
+            break;
+        case 7:
+            // User Detail
+            break;
     }
 }
 
 NavigateToSection(0);
 
 function NavigateToSongDetail(songId) {
+    console.log("Loading Song " + songId);
+    
     // Stop audio if playing
     SongDetailStopPreview();
 
@@ -71,4 +84,24 @@ function NavigateToSongDetail(songId) {
     DOMSectionSongDetail.classList.add("active");
 
     SongDetailLoad(songId);
+}
+
+function NavigateToUser(userId) {
+    // Stop audio if playing
+    SongDetailStopPreview();
+
+    // Navigation
+    DOMNavigationItems.forEach(function(DOMNavigation) {
+        DOMNavigation.classList.remove("active");
+    });
+
+    // Section
+    DOMSections.forEach(function(DOMSection) {
+        DOMSection.classList.remove("active");
+    });
+
+    // Load Detail
+    DOMSectionUserDetail.classList.add("active");
+
+    UserDetailLoad(userId);
 }

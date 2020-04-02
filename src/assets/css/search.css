@@ -1,0 +1,63 @@
+.section-search {
+  grid-template-rows: auto 1fr;
+  grid-gap: 25px;
+  padding: 50px;
+}
+.section-search .search-bar input {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 14px 28px;
+  border: 0px;
+  transition: 0.2s ease-in-out all;
+}
+.section-search .search-bar input:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.section-search .search-bar input:focus {
+  outline: 0;
+}
+.section-search .search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.section-search .search-results {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  grid-gap: 25px;
+}
+.section-search .search-results .search-results-users {
+  display: none;
+}
+.section-search .search-results .search-results-users.active {
+  display: grid;
+}
+.section-search .search-results .search-results-songs {
+  display: none;
+}
+.section-search .search-results .search-results-songs.active {
+  display: grid;
+}
+.section-search .search-results .search-results-noresults {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+  display: none;
+}
+.section-search .search-results .search-results-noresults .noresults-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.section-search .search-results .search-results-noresults .noresults-text {
+  opacity: 0.6;
+}
+.section-search .search-results .search-results-noresults.active {
+  display: block;
+}
+.section-search.active {
+  display: grid;
+}

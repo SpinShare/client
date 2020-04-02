@@ -23,7 +23,7 @@ function InitStartup() {
             DOMStaffAds.appendChild(BuildAdDOM(ad));
         });
     }).catch(function(error) {
-        NavigateToSection(5);
+        NavigateToSection(6);
         console.error(error);
     });
 
@@ -84,7 +84,7 @@ function LoadNewSongs() {
             DOMNewSongsList.appendChild(BuildSongDOM(song));
         });
     }).catch(function(error) {
-        NavigateToSection(5);
+        NavigateToSection(6);
         console.error(error);
     });
 }
@@ -97,7 +97,7 @@ function LoadPopularSongs() {
             DOMPopularSongsList.appendChild(BuildSongDOM(song));
         });
     }).catch(function(error) {
-        NavigateToSection(5);
+        NavigateToSection(6);
         console.error(error);
     });
 }
@@ -141,14 +141,14 @@ function BuildAdDOM(adItem) {
             break;
         case 2:
             // Search Query
-            // TODO
+            NavigateToSection(1);
+            SearchQuery(adItem.button.data);
             break;
         case 3:
             // External
             adButton.addEventListener('click', function() {
                 shell.openExternal(adItem.button.data);
             });
-            // TODO
     }
 
     adContainer.appendChild(adButton);

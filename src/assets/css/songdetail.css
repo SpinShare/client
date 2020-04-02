@@ -30,6 +30,10 @@
 .section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-artist {
   margin-top: 5px;
   font-size: 18px;
+}
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter {
+  margin-top: 10px;
+  font-size: 14px;
   opacity: 0.6;
 }
 .section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-tags {
@@ -50,28 +54,13 @@
   opacity: 0.6;
   cursor: pointer;
 }
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter {
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-uploader {
   margin-top: 15px;
   display: flex;
 }
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter .song-charter-user {
-  justify-self: left;
-  background: #222;
-  padding: 10px 15px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  transition: 0.2s ease-in-out all;
-}
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter .song-charter-user .mdi {
-  font-size: 22px;
-}
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter .song-charter-user span {
-  margin-left: 15px;
-}
-.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-charter .song-charter-user:hover {
-  opacity: 0.6;
-  cursor: pointer;
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-uploader .user-item {
+  width: auto;
+  padding-right: 15px;
 }
 .section-song-detail .song-detail-background .song-detail-dim .song-detail.active {
   display: grid;

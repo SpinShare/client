@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-const { dialog, shell, app } = require('electron').remote;
+const { dialog, shell, app, clipboard } = require('electron').remote;
 const isDev = require('electron-is-dev');
 const path = require('path');
 const SSAPI = require( path.resolve(__dirname, './assets/js/module.api.js') );
@@ -25,6 +25,7 @@ function detectGameDirectory() {
     }
 }
 
+// Initialize User Settings
 let userSettings = new UserSettings({
     defaults: {
         showExplicit: false,
@@ -33,8 +34,13 @@ let userSettings = new UserSettings({
     }
 });
 
+// Initialize Locale
 let locale = new Locale(userSettings.get('language'));
 const DOMLocaleElements = document.querySelectorAll("*[locale]");
 DOMLocaleElements.forEach(function(localeElement) {
     localeElement.innerHTML = locale.get(localeElement.innerHTML);
+});
+const DOMLocalePlaceholderElements = document.querySelectorAll("*[localePlaceholder]");
+DOMLocalePlaceholderElements.forEach(function(localePlaceholderElement) {
+    localePlaceholderElement.placeholder = locale.get(localePlaceholderElement.placeholder);
 });
