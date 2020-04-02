@@ -164,3 +164,4 @@ function BuildSongDOM(songItem) {
 
     return songContainer;
 }
+

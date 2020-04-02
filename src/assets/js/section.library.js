@@ -1,24 +1,46 @@
 const DOMLibrarySongsList = document.querySelector(".song-row-library .song-list");
 
+//The Extraction Process
+function ExtractionProcess(filePath){
+//Basic .zip detection so the console doesnt throw a flurry of errors complaining it can't unzip.
+if (filePath.endsWith('.zip')){
+let fileName = path.basename(filePath)
+srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
+    if(extractResults) {
+        installBackup(extractResults);
+        setTimeout(function() {
+            RefreshLibrary();
+        }, 200);
+    } 
+        else {
+        console.error("Backup could not be loaded!");
+            }
+    });   
+}
+    else {console.error('Not a zip!');}
+}
+
+//Upload Manually
 function InstallBackupManually() {
     dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
         if(!result.canceled) {
             let filePath = result.filePaths[0];
-            let fileName = path.basename(filePath);
-
-            srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
-                if(extractResults) {
-                    installBackup(extractResults);
-                    setTimeout(function() {
-                        RefreshLibrary();
-                    }, 200);
-                } else {
-                    console.error("Backup could not be loaded!");
-                }
-            });
+            ExtractionProcess(filePath);
         }
     });
 }
+
+//Drag and Drop
+document.ondragover = document.ondrop = (dragndrop) => {
+    dragndrop.preventDefault();
+  }
+  
+  document.body.ondrop = (ev) => {
+    let filePath = (ev.dataTransfer.files[0].path)
+    ev.preventDefault()
+    ExtractionProcess(filePath);
+  }
+
 function RefreshLibrary() {
     // Clear current songs
     let installElement = DOMLibrarySongsList.firstElementChild;
