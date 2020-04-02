@@ -74,13 +74,15 @@ class SHAPI {
         let apiPath = this.apiBase + "song/" + _songId;
         let supportedVersion = this.supportedVersion;
 
+        console.log(apiPath);
+
         return axios.get(apiPath)
         .then(function(response) {
             if(response.data.version !== supportedVersion) {
                 throw new Error("Client is outdated!");
             }
             
-            return response.data.data;
+            return response.data;
         }).catch(function(error) {
             throw new Error(error);
         });
