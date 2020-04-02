@@ -1,13 +1,13 @@
 {
-  "name": "customspeens-client",
+  "name": "spinshare-client",
   "version": "1.0.0",
   "main": "./main.js",
-  "description": "Spin Rhythm XD Custom Songs",
+  "description": "SpinSha.re Client",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
-  "author": "Andreas Heimann",
+  "author": "SpinSha.re",
   "license": "MIT",
   "devDependencies": {
     "electron": "^8.0.1",
