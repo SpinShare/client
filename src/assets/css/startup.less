@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px;
+    width: 1114px;
+    margin: 0 auto;
 
     &:empty {
         display: none;
@@ -49,7 +51,12 @@
         }
 
         &.ad-loading {
-            opacity: 0.2;
+            background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            animation-name: adLoadingShimmer;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-duration: 1s;
         }
     }
 }
@@ -60,10 +67,10 @@
 
     & .song-header {
         display: grid;
-        letter-spacing: 0.25em;
         grid-template-columns: 1fr auto;
 
         & .row-title {
+            letter-spacing: 0.25em;
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
@@ -102,6 +109,7 @@
             background: rgba(255,255,255,0.1);
             transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
             overflow: hidden;
+            border-radius: 6px;
 
             & .song-cover {
                 background: rgba(255,255,255,0.1);
@@ -171,6 +179,18 @@
                     }
                 }
             }
+            &.song-item-loading {
+                background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+                animation-name: songLoadingShimmer;
+                animation-fill-mode: forwards;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-duration: 2s;
+
+                & .song-cover {
+                    opacity: 0;
+                }
+            }
             &.song-item-local {
                 opacity: 0.6;
 
@@ -183,5 +203,23 @@
                 }
             }
         }
+    }
+}
+
+@keyframes adLoadingShimmer {
+    from {
+        background-position: 0px 0px;
+    }
+    to {
+        background-position: 544px 0px;
+    }
+}
+
+@keyframes songLoadingShimmer {
+    from {
+        background-position: 0px 0px;
+    }
+    to {
+        background-position: 173px 0px;
     }
 }
