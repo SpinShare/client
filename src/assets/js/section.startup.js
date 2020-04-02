@@ -22,6 +22,9 @@ function InitStartup() {
         ads.forEach(function (ad) {
             DOMStaffAds.appendChild(BuildAdDOM(ad));
         });
+    }).catch(function(error) {
+        NavigateToSection(5);
+        console.error(error);
     });
 
     // Loading New Songs
@@ -80,6 +83,9 @@ function LoadNewSongs() {
         songs.forEach(function(song) {
             DOMNewSongsList.appendChild(BuildSongDOM(song));
         });
+    }).catch(function(error) {
+        NavigateToSection(5);
+        console.error(error);
     });
 }
 
@@ -90,6 +96,9 @@ function LoadPopularSongs() {
         songs.forEach(function(song) {
             DOMPopularSongsList.appendChild(BuildSongDOM(song));
         });
+    }).catch(function(error) {
+        NavigateToSection(5);
+        console.error(error);
     });
 }
 
@@ -110,6 +119,7 @@ function BuildAdDOM(adItem) {
     let adTitle = document.createElement("div");
     adTitle.classList.add("ad-title");
     adTitle.innerHTML = adItem.title;
+    adTitle.style.color = adItem.textColor;
     adContainer.appendChild(adTitle);
 
     // Button
@@ -117,9 +127,31 @@ function BuildAdDOM(adItem) {
     adButton.classList.add("ad-button");
     adButton.style.backgroundColor = adItem.color;
     adButton.innerText = "CHECK IT OUT";
-    adContainer.appendChild(adButton);
 
-    // TODO: Add Button Logic
+    switch(adItem.button.type) {
+        case 0:
+            // Song
+            adButton.addEventListener('click', function() {
+                NavigateToSongDetail(adItem.button.data);
+            });
+            break;
+        case 1:
+            // Playlist
+            // Unused for now
+            break;
+        case 2:
+            // Search Query
+            // TODO
+            break;
+        case 3:
+            // External
+            adButton.addEventListener('click', function() {
+                shell.openExternal(adItem.button.data);
+            });
+            // TODO
+    }
+
+    adContainer.appendChild(adButton);
 
     return adContainer;
 }
