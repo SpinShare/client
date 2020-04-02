@@ -1,0 +1,19 @@
+{
+	"startup.newsongs.header": "新歌",
+	"startup.popularsongs.header": "热歌",
+	
+	"library.installed.header": "已安装的歌曲",
+	"library.installed.install.title": "安装",
+	"library.installed.install.text": "安装一个 .zip",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "版本",
+	"settings.general.update.label": "更新",
+	"settings.general.update.button": "检查更新",
+	"settings.language.header": "语言",
+	"settings.language.selectLanguage.label": "选择语言",
+	"settings.directories.header": "目录",
+	"settings.directories.gameDirectory.label": "游戏安装目录",
+	"settings.directories.gameDirectory.changeButton": "改变",
+	"settings.directories.gameDirectory.resetButton": "重置"
+}
