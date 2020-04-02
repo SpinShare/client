@@ -39,7 +39,7 @@ ipcRenderer.on("download-complete", (event, downloadPath) => {
 // Install local backup folder
 async function installBackup(backupLocation) {
     // Copy temp folder to game dir
-    await ncp(backupLocation, userGameDirectory, function(error) {
+    await ncp(backupLocation, userSettings.get('gameDirectory'), function(error) {
         if(error) {
             console.error(error);
             console.error("Couldn't copy backup!");
