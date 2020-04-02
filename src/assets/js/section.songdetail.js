@@ -20,33 +20,42 @@ function SongDetailLoad(songId) {
     DOMSongDetail.classList.remove("active");
     DOMSongDetailActions.classList.remove("active");
 
-    api.getSongDetail(songId).then(function(songData) {
-        DOMSongDetail.classList.add("active");
-        DOMSongDetailActions.classList.add("active");
+    api.getSongDetail(songId).then(function(apiResponse) {
+        let songData = apiResponse.data;
 
-        DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
-        DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
+        if(apiResponse.status == 404) {
+            NavigateToSection(6);
+        } else {
+            DOMSongDetail.classList.add("active");
+            DOMSongDetailActions.classList.add("active");
 
-        DOMSongTitle.innerText = songData.title;
-        DOMSongSubtitle.innerText = songData.subtitle;
-        DOMSongArtist.innerText = songData.artist;
-        DOMSongCharter.innerText = songData.charter;
+            DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
+            DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
 
-        DOMButtonPreview.innerText = "PLAY PREVIEW";
+            DOMSongTitle.innerText = songData.title;
+            DOMSongSubtitle.innerText = songData.subtitle;
+            DOMSongArtist.innerText = songData.artist;
+            DOMSongCharter.innerText = songData.charter;
 
-        DOMSongTags.innerHTML = "";
-        songData.tags.forEach(function(tag) {
-            if(tag != "") {
-                let newTag = document.createElement("div");
-                newTag.classList.add("tag");
-                newTag.innerText = tag;
+            DOMButtonPreview.innerText = "PLAY PREVIEW";
 
-                DOMSongTags.appendChild(newTag);
-            }
-        });
+            DOMSongTags.innerHTML = "";
+            songData.tags.forEach(function(tag) {
+                if(tag != "") {
+                    let newTag = document.createElement("div");
+                    newTag.classList.add("tag");
+                    newTag.innerText = tag;
+
+                    DOMSongTags.appendChild(newTag);
+                }
+            });
+        }
 
         currentSongId = songId;
         currentSongData = songData;
+    }).catch(function(error) {
+        console.error(error);
+        NavigateToSection(5);
     });
 }
 
