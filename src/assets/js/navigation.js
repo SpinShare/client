@@ -17,7 +17,9 @@ function NavigateToSection(sectionIndex) {
     DOMNavigationItems.forEach(function(DOMNavigation) {
         DOMNavigation.classList.remove("active");
     });
-    DOMNavigationItems[sectionIndex].classList.add("active");
+    if(DOMNavigationItems[sectionIndex]) {
+        DOMNavigationItems[sectionIndex].classList.add("active");
+    }
 
     // Section
     DOMSections.forEach(function(DOMSection) {
@@ -41,6 +43,7 @@ function NavigateToSection(sectionIndex) {
             break;
         case 3:
             // Settings
+            InitSettings();
             break;
         case 4:
             // SongDetail
