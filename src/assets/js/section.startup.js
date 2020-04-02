@@ -109,7 +109,7 @@ function BuildAdDOM(adItem) {
     // Title
     let adTitle = document.createElement("div");
     adTitle.classList.add("ad-title");
-    adTitle.innerText = adItem.title;
+    adTitle.innerHTML = adItem.title;
     adContainer.appendChild(adTitle);
 
     // Button
