@@ -3,9 +3,9 @@ const axios = require('axios');
 class SHAPI {
     constructor() {
         if(isDev) {
-            this.apiBase = "https://spinsha.re/api/";
-        } else {
             this.apiBase = "http://localhost/www/spinshare-server/public/index.php/api/";
+        } else {
+            this.apiBase = "https://spinsha.re/api/";
         }
         this.supportedVersion = 1;
     }
