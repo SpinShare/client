@@ -38,6 +38,7 @@ document.body.ondrop = function(ev) {
     ExtractionProcess(filePath);
 }
 
+//Refresh Button
 function RefreshLibrary() {
     console.log("Refreshing Library");
 
@@ -61,6 +62,14 @@ function RefreshLibrary() {
 
         DOMLibrarySongsList.appendChild(BuildLibrarySongDOM(songDetail, spinShareReference));
     })
+}
+//Speens the refresh button. CSS animations are a lil weird, so basically this just uses an onclick and the JS appends the CSS animation.
+function RefreshSpeen(){
+    var style = document.createElement('style');
+    style.innerHTML = '.refresh-speen {animation-name: refreshspeen; animation-duration: 500ms; animation-timing-function: ease;}';
+    document.head.appendChild(style)
+    //When the animation is finished, the class is removed.
+    setTimeout(() => {  style.innerHTML = ''; document.head.appendChild(style);}, 500);
 }
 
 function BuildLibrarySongDOM(songDetail, spinShareReference) {

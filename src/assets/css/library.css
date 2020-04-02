@@ -9,3 +9,13 @@
   align-items: center;
   font-size: 32px;
 }
+
+/*The spinning animation for the refresh button.*/
+@keyframes refreshspeen {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
