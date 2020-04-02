@@ -50,13 +50,13 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns"
+      "icon": "icons/AppIcon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "icons/AppIcon.ico"
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "icons"
     }
   }
 }
