@@ -1,0 +1,19 @@
+{
+	"startup.newsongs.header": "New Songs",
+	"startup.popularsongs.header": "Popular Songs",
+	
+	"library.installed.header": "Installed Songs",
+	"library.installed.install.title": "Install",
+	"library.installed.install.text": "Install a local .zip",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Version",
+	"settings.general.update.label": "Update",
+	"settings.general.update.button": "Check for Updates",
+	"settings.language.header": "Language",
+	"settings.language.selectLanguage.label": "Select Language",
+	"settings.directories.header": "Directories",
+	"settings.directories.gameDirectory.label": "Game Directory",
+	"settings.directories.gameDirectory.changeButton": "Change",
+	"settings.directories.gameDirectory.resetButton": "Reset"
+}
