@@ -164,3 +164,24 @@ function BuildSongDOM(songItem) {
 
     return songContainer;
 }
+
+document.ondragover = document.ondrop = (dragndrop) => {
+    dragndrop.preventDefault()
+  }
+  
+  document.body.ondrop = (ev) => {
+    console.log("File dragged: " + ev.dataTransfer.files[0].path)
+    let filePath = (ev.dataTransfer.files[0].path)
+    let fileName = path.basename(filePath)
+    ev.preventDefault()
+    srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
+        if(extractResults) {
+            installBackup(extractResults);
+            setTimeout(function() {
+                RefreshLibrary();
+            }, 200);
+        } else {
+            console.error("Backup could not be loaded!");
+        }
+    });
+  }
