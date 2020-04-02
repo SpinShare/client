@@ -10,4 +10,4 @@ npm install electron -g
 ```
 4. Using the node.js command prompt, cd to where you cloned the repository.
 5. Install electron-dl with ```npm install electron-dl```
-5. Run ```electron .```
+6. Run ```electron .```
