@@ -30,7 +30,9 @@
     },
     "protocols": {
       "name": "spinshare-song-deeplink",
-      "schemes": ["spinshare-song"]
+      "schemes": [
+        "spinshare-song"
+      ]
     },
     "dmg": {
       "contents": [
