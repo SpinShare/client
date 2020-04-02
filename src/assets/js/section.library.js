@@ -1,20 +1,17 @@
 const DOMLibrarySongsList = document.querySelector(".song-row-library .song-list");
 
-//The Extraction Process
-function ExtractionProcess(filePath){
-//Basic .zip detection so the console doesnt throw a flurry of errors complaining it can't unzip.
+function ExtractionProcess(filePath) {
 if (filePath.endsWith('.zip')){
-let fileName = path.basename(filePath)
-srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
-    if(extractResults) {
-        installBackup(extractResults);
-        setTimeout(function() {
-            RefreshLibrary();
-        }, 200);
-    } 
-        else {
-        console.error("Backup could not be loaded!");
-            }
+    let fileName = path.basename(filePath);
+    srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
+        if(extractResults) {
+            installBackup(extractResults);
+            setTimeout(function() {
+                RefreshLibrary();
+            }, 200);
+        } else {
+            console.error("Backup could not be loaded!");
+        }
     });   
 }
     else {console.error('Not a zip!');}
@@ -30,18 +27,20 @@ function InstallBackupManually() {
     });
 }
 
-//Drag and Drop
-document.ondragover = document.ondrop = (dragndrop) => {
+// Drag and Drop
+document.ondragover = document.ondrop = function(dragndrop) {
     dragndrop.preventDefault();
-  }
+}
   
-  document.body.ondrop = (ev) => {
-    let filePath = (ev.dataTransfer.files[0].path)
-    ev.preventDefault()
+document.body.ondrop = function(ev) {
+    let filePath = (ev.dataTransfer.files[0].path);
+    ev.preventDefault();
     ExtractionProcess(filePath);
-  }
+}
 
 function RefreshLibrary() {
+    console.log("Refreshing Library");
+
     // Clear current songs
     let installElement = DOMLibrarySongsList.firstElementChild;
 
@@ -49,15 +48,15 @@ function RefreshLibrary() {
     DOMLibrarySongsList.appendChild(installElement);
 
     // Load all custom songs
-    let customSongs = srxdControl.getLocalSongs(userGameDirectory);
+    let customSongs = srxdControl.getLocalSongs(userSettings.get('gameDirectory'));
 
     // remove current songs
     customSongs.forEach(function(customSong) {
-        let songDetail = srxdControl.getSongDetail(path.join(userGameDirectory, customSong));
+        let songDetail = srxdControl.getSongDetail(path.join(userSettings.get('gameDirectory'), customSong));
         let spinShareReference = false;
 
         if(customSong.includes("spinshare_")) {
-            spinShareReference = customSong.replace("spinshare_", "").replace(".srtb", "");
+            spinShareReference = customSong.replace(".srtb", "");
         }
 
         DOMLibrarySongsList.appendChild(BuildLibrarySongDOM(songDetail, spinShareReference));
