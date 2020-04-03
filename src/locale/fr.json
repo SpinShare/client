@@ -1,0 +1,53 @@
+{
+	"startup.newsongs.header": "Nouveaux Chansons",
+	"startup.popularsongs.header": "Chansons Populaires",
+	
+	"search.input.placeholder": "Recherchez des chansons, tag & profiles...",
+	"search.results.users.header": "Usagers",
+	"search.results.songs.header": "Chansons",
+	"search.noresults.text": "Votre recherce n'a pas trouvé de chansons ou usagers. Faites certain d'épeler correctement ou essaie une autre terme.",
+	
+	"library.installed.header": "Chansons Installés",
+	"library.installed.install.title": "Installer",
+	"library.installed.install.text": "Installer un .zip locale",
+	
+	"songdetail.createdBy": "Crée par ",
+	"songdetail.actions.downloadButton": "Télécharger",
+	"songdetail.actions.playPreviewButton": "Écouter aperçu",
+	"songdetail.actions.stopPreviewButton": "Arrêter aperçu",
+	"songdetail.actions.copyLinkButton": "Copier Lien",
+	"songdetail.actions.reportButton": "Signaler",
+	
+	"userdetail.uploaded.header": "Afficher Chansons",
+	"userdetail.uploaded.noresults": "Usager n'a pas encore affiché un chanson.",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Version",
+	"settings.general.update.label": "Mise-a-Jour",
+	"settings.general.update.button": "Vérifier pour Mise-a-Jour",
+	"settings.language.header": "Langue",
+	"settings.language.selectLanguage.label": "Changer Langue",
+	"settings.directories.header": "Répertoires",
+	"settings.directories.gameDirectory.label": "Répertoire du Jeu",
+	"settings.directories.gameDirectory.changeButton": "Modifier",
+	"settings.directories.gameDirectory.resetButton": "réinitialiser",
+	
+	"connectionerror.server.title": "Erreur de connection",
+	"connectionerror.server.text": "Verifier votre connection a l'internet ou essayez plus tard. Vous pouvez encore accèder votre collection et installer des .zips locales.",
+	"connectionerror.notfound.title": "404 - Rien Trouvé",
+	"connectionerror.notfound.text": "Désolée, cela est introuvable. C'était soit enlevé ou n'existe pas.",
+	
+	"download.status.downloading": "Téléchargement",
+	"download.status.extracting": "Extraction",
+	"download.status.extractingFailed": "Ne pouvait pas extraire le chanson!",
+	"download.status.installing": "Installation",
+	"download.status.installingFailed": "Ne pouvait pas installer le chanson!",
+	"download.status.done": "Fini",
+	"download.closeButton": "Fermer",
+	
+	"update.availableText": "Un mise-a-jour est disponible.",
+	"update.latestText": "Vous-êtes déja sur la dernière version.",
+	"update.download": "Télécharger",
+	"update.later": "Plus tard",
+	"update.close": "Fermer"
+}
