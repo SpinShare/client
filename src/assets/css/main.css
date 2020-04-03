@@ -159,6 +159,7 @@ button:focus,
   width: 100%;
   padding-top: 100%;
   position: relative;
+  background-position: center;
 }
 .song-row .song-list .song-item .song-cover .song-charter {
   position: absolute;
@@ -276,6 +277,7 @@ button:focus,
 .user-item .user-avatar {
   background: rgba(255, 255, 255, 0.1);
   background-size: cover;
+  background-position: center;
   width: 32px;
   height: 32px;
   border-radius: 32px;
