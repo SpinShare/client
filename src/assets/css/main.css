@@ -295,15 +295,6 @@ button:focus,
   cursor: pointer;
   box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
 }
-@keyframes songLoadingShimmer {
-  from {
-    background-position: 0px 0px;
-  }
-  to {
-    background-position: 173px 0px;
-  }
-}
-
  /* Darken background for drag and drop */
  .drag-darken {
   display: flex;
@@ -332,5 +323,13 @@ button:focus,
   display: flex;
   font-size: 64px;
   background: linear-gradient(135deg, #fd2f85, #7a34ec);
+  background-size: 200%, 200%;
 }
-
+@keyframes songLoadingShimmer {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 173px 0px;
+  }
+}
