@@ -298,8 +298,7 @@ button:focus,
  /* Darken background for drag and drop */
  .drag-darken {
   display: flex;
-  position: fixed; 
-  z-index: 1; 
+  position: fixed;  
   left: 0;
   top: 0;
   width: 100%; 
@@ -313,7 +312,6 @@ button:focus,
 /* Popup for drag and drop*/
 .drag-notice {
   position: relative;
-  vertical-align: baseline;
   padding: 20px;
   border-radius: 6px;
   width: 80%; 

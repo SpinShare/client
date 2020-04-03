@@ -55,10 +55,10 @@ document.ondragenter = function(){
         dragNotice.className = "drag-notice";
         dragNotice.id = "drag-notice";
         document.getElementById("drag-darken").appendChild(dragNotice);
-        //create text
+        //create icon
         var dragNoticeInstall = document.createElement('i');
         dragNoticeInstall.className = "mdi mdi-folder-music";
-        document.getElementById("drag-notice").appendChild(dragNoticeInstall);        
+        document.getElementById("drag-notice").appendChild(dragNoticeInstall);       
     }
 }
 document.ondragleave = function(){
@@ -69,7 +69,6 @@ var dragCounter = 0;
 function ClearDragAndDrop(){
     dragCounter--;
     if (dragCounter === 0) { 
-        //Delete Dark back
         var drag = document.getElementsByClassName("drag");
             while(drag.length > 0){
                 drag[0].remove();
