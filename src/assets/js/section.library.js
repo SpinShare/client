@@ -27,7 +27,7 @@ function InstallBackupManually() {
     });
 }
 
-//(Counter is for applying and deleting the dragenter notice)
+
 // Drag and Drop
 document.ondragover = document.ondrop = function(dragndrop) {
     dragndrop.preventDefault();
