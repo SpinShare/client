@@ -316,8 +316,8 @@ button:focus,
   vertical-align: baseline;
   padding: 20px;
   border-radius: 6px;
-  width: 300px; 
-  height: 300px;
+  width: 80%; 
+  height: 80%;
   justify-content: center;
   align-items: center;
   display: flex;

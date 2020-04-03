@@ -36,12 +36,12 @@ document.ondragover = document.ondrop = function(dragndrop) {
 document.body.ondrop = function(ev) {
     let filePath = (ev.dataTransfer.files[0].path);
     ev.preventDefault();
+    NavigateToSection(2);
     ClearDragAndDrop(dragCounter);
-	NavigateToSection(2);
     ExtractionProcess(filePath);
 }
 
-// Drag and Drop Notice
+// Drag and Drop Notice 
 document.ondragenter = function(){
     dragCounter++;
     if (dragCounter === 1) { 
