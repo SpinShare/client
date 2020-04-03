@@ -35,6 +35,7 @@ document.ondragover = document.ondrop = function(dragndrop) {
 document.body.ondrop = function(ev) {
     let filePath = (ev.dataTransfer.files[0].path);
     ev.preventDefault();
+	NavigateToSection(2);
     ExtractionProcess(filePath);
 }
 
