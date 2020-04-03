@@ -304,9 +304,9 @@ button:focus,
   }
 }
 
- /* Darken drop for drag and drop */
+ /* Darken background for drag and drop */
  .drag-darken {
-  display: block;
+  display: flex;
   position: fixed; 
   z-index: 1; 
   left: 0;
@@ -315,13 +315,14 @@ button:focus,
   height: 100%; 
   overflow: hidden; 
   background-color: rgba(0,0,0,0.4); 
+  justify-content: center;
+  align-items: center; 
 }
 
 /* Popup for drag and drop*/
 .drag-notice {
   position: relative;
   vertical-align: baseline;
-  margin: auto; 
   padding: 20px;
   border-radius: 6px;
   width: 300px; 
@@ -331,6 +332,5 @@ button:focus,
   display: flex;
   font-size: 64px;
   background: linear-gradient(135deg, #fd2f85, #7a34ec);
-  box-sizing: in;
 }
 
