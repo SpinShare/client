@@ -1,0 +1,53 @@
+{
+	"startup.newsongs.header": "Новые песни",
+	"startup.popularsongs.header": "Популярные песни",
+	
+	"search.input.placeholder": "Поиск по песням, тэгам и профилям...",
+	"search.results.users.header": "Пользователи",
+	"search.results.songs.header": "Песни",
+	"search.noresults.text": "Ваш запрос не нашёл совпадений с существующими пользователями и песнями. Убедитесь, что запрос сформулирован корректно, или выполните другой запрос.",
+	
+	"library.installed.header": "Установленные песни",
+	"library.installed.install.title": "Установить",
+	"library.installed.install.text": "Установить через существующий .zip",
+	
+	"songdetail.createdBy": "Автор ",
+	"songdetail.actions.downloadButton": "Скачать",
+	"songdetail.actions.playPreviewButton": "Предпросмотр",
+	"songdetail.actions.stopPreviewButton": "Остановить предпросмотр",
+	"songdetail.actions.copyLinkButton": "Копировать ссылку",
+	"songdetail.actions.reportButton": "Пожаловаться",
+	
+	"userdetail.uploaded.header": "Загруженные песни",
+	"userdetail.uploaded.noresults": "Этот пользователь ещё не загрузил ни одной песни.",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Версия",
+	"settings.general.update.label": "Обновление",
+	"settings.general.update.button": "Проверить обновления",
+	"settings.language.header": "Язык",
+	"settings.language.selectLanguage.label": "Выберите язык",
+	"settings.directories.header": "Пути",
+	"settings.directories.gameDirectory.label": "Путь игры",
+	"settings.directories.gameDirectory.changeButton": "Изменить",
+	"settings.directories.gameDirectory.resetButton": "Сброс",
+	
+	"connectionerror.server.title": "Ошибка соединения",
+	"connectionerror.server.text": "Пожалуйста, проверьте своё соединение или повторите попытку позже. Вы всё ещё можете просмотреть установленные песни или установить новые песни чез zip-файл.",
+	"connectionerror.notfound.title": "404 - Не найдено",
+	"connectionerror.notfound.text": "Сожалеем, но ничего не найдено. Скорее всего, искомое было удалено или не существует.",
+	
+	"download.status.downloading": "Загрузка",
+	"download.status.extracting": "Извлечение",
+	"download.status.extractingFailed": "Неудача при извлечении!",
+	"download.status.installing": "Установка",
+	"download.status.installingFailed": "Неудача при установке!",
+	"download.status.done": "Выполнено",
+	"download.closeButton": "Закрыть",
+	
+	"update.availableText": "Доступно обновление.",
+	"update.latestText": "Ваша версия не нуждается в обновлении.",
+	"update.download": "Загрузить",
+	"update.later": "Позже",
+	"update.close": "Закрыть"
+}
