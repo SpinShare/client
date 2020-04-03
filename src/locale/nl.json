@@ -1,0 +1,53 @@
+{
+	"startup.newsongs.header": "Nieuwe Nummers",
+	"startup.popularsongs.header": "Populaire Nummers",
+	
+	"search.input.placeholder": "Zoek naar nummers, labels & Profielen",
+	"search.results.users.header": "Gebruikers",
+	"search.results.nummers.header": "Nummers",
+	"search.noresults.text": "Jouw zoekopdracht leverde geen nummers of gebruikers op. Check of alle woorden correct zijn gespeld, of probeer een andere zoekopdracht.",
+	
+	"library.installed.header": "Geïnstalleerde nummers",
+	"library.installed.install.title": "Installeer",
+	"library.installed.install.text": "Installeer een lokale .zip",
+	
+	"songdetail.createdBy": "Gemaakt door ",
+	"songdetail.actions.downloadButton": "Download",
+	"songdetail.actions.playPreviewButton": "Speel Voorbeeld",
+	"songdetail.actions.stopPreviewButton": "Stop Voorbeeld",
+	"songdetail.actions.copyLinkButton": "Kopieer Link",
+	"songdetail.actions.reportButton": "Rapporteren",
+	
+	"userdetail.uploaded.header": "Geüploade nummers",
+	"userdetail.uploaded.noresults": "Deze gebruiker heeft nog geen nummers geüpload.",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Versie",
+	"settings.general.update.label": "Update",
+	"settings.general.update.button": "Check voor Updates",
+	"settings.language.header": "Taal",
+	"settings.language.selectLanguage.label": "Selecteer Taal",
+	"settings.directories.header": "Mappen",
+	"settings.directories.gameDirectory.label": "Game Directory",
+	"settings.directories.gameDirectory.changeButton": "Wijzig",
+	"settings.directories.gameDirectory.resetButton": "Reset",
+	
+	"connectionerror.server.title": "Verbinding error",
+	"connectionerror.server.text": "Check a.u.b. uw internetverbinding of probeer het later opnieuw. U kunt nog steeds toegang krijgen tot uw bibliotheek en lokale .zip back-ups installeren",
+	"connectionerror.notfound.title": "404 – Niet Gevonden",
+	"connectionerror.notfound.text": "Sorry, dat konden we niet vinden. Het is of verwijderd, of het heft nooit bestaan",
+	
+	"download.status.downloading": "Downloaden",
+	"download.status.extracting": "Uitpakken",
+	"download.status.extractingFailed": "Kon het nummer niet uitpakken!",
+	"download.status.installing": "Installeren",
+	"download.status.installingFailed": "Kon nummer niet installeren!",
+	"download.status.done": "Klaar!",
+	"download.closeButton": "Sluit",
+	
+	"update.availableText": "Er is een update beschikbaar.",
+	"update.latestText": "Je hebt al de meest recente versie.",
+	"update.download": "Download",
+	"update.later": "Later",
+	"update.close": "Sluit"
+}
