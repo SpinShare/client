@@ -27,7 +27,8 @@ function InstallBackupManually() {
     });
 }
 
-// Drag and Drop
+// Drag and Drop (Counter is for applying and deleting the dragenter notice)
+var dragCounter = 0;
 document.ondragover = document.ondrop = function(dragndrop) {
     dragndrop.preventDefault();
 }
@@ -35,32 +36,38 @@ document.ondragover = document.ondrop = function(dragndrop) {
 document.body.ondrop = function(ev) {
     let filePath = (ev.dataTransfer.files[0].path);
     ev.preventDefault();
+    ClearDragAndDrop(dragCounter);
 	NavigateToSection(2);
     ExtractionProcess(filePath);
 }
+
 // Drag and Drop Notice
-var dragCounter = 0;
 document.ondragenter = function(){
     dragCounter++;
     if (dragCounter === 1) { 
-        console.log('enter');
-
         //create dark background
         var dragDarken = document.createElement('div');
         dragDarken.className = "drag-darken drag";
         dragDarken.id = "drag-darken";
         document.body.appendChild(dragDarken);
-
         //create box
         var dragNotice = document.createElement('div');
-        dragNotice.className = "drag-notice drag";
+        dragNotice.className = "drag-notice";
+        dragNotice.id = "drag-notice";
         document.getElementById("drag-darken").appendChild(dragNotice);
+        //create text
+        var dragNoticeInstall = document.createElement('i');
+        dragNoticeInstall.className = "mdi mdi-folder-music";
+        document.getElementById("drag-notice").appendChild(dragNoticeInstall);        
     }
 }
 document.ondragleave = function(){
+    ClearDragAndDrop(dragCounter);
+}
+//Clear the drag and drop objects
+function ClearDragAndDrop(){
     dragCounter--;
     if (dragCounter === 0) { 
-        console.log('leave');
         //Delete Dark back
         var drag = document.getElementsByClassName("drag");
             while(drag.length > 0){
