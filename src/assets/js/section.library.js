@@ -38,6 +38,36 @@ document.body.ondrop = function(ev) {
 	NavigateToSection(2);
     ExtractionProcess(filePath);
 }
+// Drag and Drop Notice
+var dragCounter = 0;
+document.ondragenter = function(){
+    dragCounter++;
+    if (dragCounter === 1) { 
+        console.log('enter');
+
+        //create dark background
+        var dragDarken = document.createElement('div');
+        dragDarken.className = "drag-darken drag";
+        dragDarken.id = "drag-darken";
+        document.body.appendChild(dragDarken);
+
+        //create box
+        var dragNotice = document.createElement('div');
+        dragNotice.className = "drag-notice drag";
+        document.getElementById("drag-darken").appendChild(dragNotice);
+    }
+}
+document.ondragleave = function(){
+    dragCounter--;
+    if (dragCounter === 0) { 
+        console.log('leave');
+        //Delete Dark back
+        var drag = document.getElementsByClassName("drag");
+            while(drag.length > 0){
+                drag[0].remove();
+            }       
+        }
+}
 
 function RefreshLibrary() {
     console.log("Refreshing Library");
