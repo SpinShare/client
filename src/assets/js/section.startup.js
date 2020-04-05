@@ -1,4 +1,4 @@
-const DOMStaffAds = document.querySelector(".staff-ads");
+const DOMStaffPromos = document.querySelector(".staff-promos");
 
 const DOMNewSongsList = document.querySelector(".song-row-new .song-list");
 const DOMPopularSongsList = document.querySelector(".song-row-popular .song-list");
@@ -16,11 +16,11 @@ function InitStartup() {
     console.log("Refreshing Startup");
     
     // Loading Ads
-    api.getAds().then(function(ads) {
-        DOMStaffAds.innerHTML = "";
+    api.getPromos().then(function(promos) {
+        DOMStaffPromos.innerHTML = "";
 
-        ads.forEach(function (ad) {
-            DOMStaffAds.appendChild(BuildAdDOM(ad));
+        promos.forEach(function (promo) {
+            DOMStaffPromos.appendChild(BuildPromoDOM(promo));
         });
     }).catch(function(error) {
         NavigateToSection(6);
@@ -102,37 +102,37 @@ function LoadPopularSongs() {
     });
 }
 
-function BuildAdDOM(adItem) {
+function BuildPromoDOM(promoItem) {
     // Holder
-    let adContainer = document.createElement("div");
-    adContainer.classList.add("staff-ad");
-    adContainer.style.backgroundImage = "url('" + adItem.image_path + "')";
+    let promoContainer = document.createElement("div");
+    promoContainer.classList.add("staff-promo");
+    promoContainer.style.backgroundImage = "url('" + promoItem.image_path + "')";
 
     // Type
-    let adType = document.createElement("div");
-    adType.classList.add("ad-type");
-    adType.style.color = adItem.color;
-    adType.innerText = adItem.type;
-    adContainer.appendChild(adType);
+    let promoType = document.createElement("div");
+    promoType.classList.add("promo-type");
+    promoType.style.color = promoItem.color;
+    promoType.innerText = promoItem.type;
+    promoContainer.appendChild(promoType);
 
     // Title
-    let adTitle = document.createElement("div");
-    adTitle.classList.add("ad-title");
-    adTitle.innerHTML = adItem.title;
-    adTitle.style.color = adItem.textColor;
-    adContainer.appendChild(adTitle);
+    let promoTitle = document.createElement("div");
+    promoTitle.classList.add("promo-title");
+    promoTitle.innerHTML = promoItem.title;
+    promoTitle.style.color = promoItem.textColor;
+    promoContainer.appendChild(promoTitle);
 
     // Button
-    let adButton = document.createElement("div");
-    adButton.classList.add("ad-button");
-    adButton.style.backgroundColor = adItem.color;
-    adButton.innerText = "CHECK IT OUT";
+    let promoButton = document.createElement("div");
+    promoButton.classList.add("promo-button");
+    promoButton.style.backgroundColor = promoItem.color;
+    promoButton.innerText = "CHECK IT OUT";
 
-    switch(adItem.button.type) {
+    switch(promoItem.button.type) {
         case 0:
             // Song
-            adButton.addEventListener('click', function() {
-                NavigateToSongDetail(adItem.button.data);
+            promoButton.addEventListener('click', function() {
+                NavigateToSongDetail(promoItem.button.data);
             });
             break;
         case 1:
@@ -142,18 +142,18 @@ function BuildAdDOM(adItem) {
         case 2:
             // Search Query
             NavigateToSection(1);
-            SearchQuery(adItem.button.data);
+            SearchQuery(promoItem.button.data);
             break;
         case 3:
             // External
-            adButton.addEventListener('click', function() {
-                shell.openExternal(adItem.button.data);
+            promoButton.addEventListener('click', function() {
+                shell.openExternal(promoItem.button.data);
             });
     }
 
-    adContainer.appendChild(adButton);
+    promoContainer.appendChild(promoButton);
 
-    return adContainer;
+    return promoContainer;
 }
 
 function BuildSongDOM(songItem) {

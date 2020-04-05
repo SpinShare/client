@@ -1,4 +1,4 @@
-.staff-ads {
+.staff-promos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 25px;
@@ -9,7 +9,7 @@
         display: none;
     }
 
-    & .staff-ad {
+    & .staff-promo {
         background: #fff;
         border-radius: 6px;
         padding: 50px;
@@ -18,14 +18,14 @@
         transition: 0.2s ease all;
         grid-template-rows: auto 100px auto;
 
-        & .ad-type {
+        & .promo-type {
             color: #aaa;
             justify-self: left;
             font-size: 12px;
             font-weight: bold;
             letter-spacing: 0.3em;
         }
-        & .ad-title {
+        & .promo-title {
             font-weight: bold;
             font-size: 34px;
             justify-self: left;
@@ -33,7 +33,7 @@
             letter-spacing: -0.025em;
             color: #222;
         }
-        & .ad-button {
+        & .promo-button {
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
@@ -50,9 +50,9 @@
             }
         }
 
-        &.ad-loading {
+        &.promo-loading {
             background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.2), rgba(255,255,255,0.1));
-            animation-name: adLoadingShimmer;
+            animation-name: promoLoadingShimmer;
             animation-fill-mode: forwards;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
@@ -61,7 +61,7 @@
     }
 }
 
-@keyframes adLoadingShimmer {
+@keyframes promoLoadingShimmer {
     from {
         background-position: 0px 0px;
     }
