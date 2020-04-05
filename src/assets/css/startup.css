@@ -4,6 +4,7 @@
   grid-gap: 25px;
   width: 1114px;
   margin: 0 auto;
+  margin-bottom: 25px;
 }
 .staff-promos:empty {
   display: none;
@@ -54,6 +55,9 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-duration: 1s;
+}
+.song-row-new {
+  margin-bottom: 25px;
 }
 @keyframes promoLoadingShimmer {
   from {

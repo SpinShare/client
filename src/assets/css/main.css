@@ -73,9 +73,7 @@ section.section-startup {
   padding: 50px;
 }
 section.section-startup.active {
-  display: grid;
-  grid-template-rows: auto;
-  grid-gap: 25px;
+  display: block;
 }
 section.section-library {
   padding: 50px;
