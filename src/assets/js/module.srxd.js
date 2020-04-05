@@ -100,11 +100,15 @@ class SRXD {
         let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), "AlbumArt") );
         let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
     
-        let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
+        if(fileExtension.length > 0) {
+            let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
     
-        let base64Data = "data:image/jpg;base64," + fs.readFileSync(finalPath, { encoding: 'base64' });
-    
-        return base64Data;
+            let base64Data = "data:image/jpg;base64," + fs.readFileSync(finalPath, { encoding: 'base64' });
+        
+            return base64Data;
+        } else {
+            return "";
+        }
     }
     getSongTrackInfo() {
         return this.songTrackInfo;
