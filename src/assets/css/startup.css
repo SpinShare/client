@@ -1,14 +1,15 @@
-.staff-ads {
+.staff-promos {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 25px;
   width: 1114px;
   margin: 0 auto;
+  margin-bottom: 25px;
 }
-.staff-ads:empty {
+.staff-promos:empty {
   display: none;
 }
-.staff-ads .staff-ad {
+.staff-promos .staff-promo {
   background: #fff;
   border-radius: 6px;
   padding: 50px;
@@ -17,14 +18,14 @@
   transition: 0.2s ease all;
   grid-template-rows: auto 100px auto;
 }
-.staff-ads .staff-ad .ad-type {
+.staff-promos .staff-promo .promo-type {
   color: #aaa;
   justify-self: left;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0.3em;
 }
-.staff-ads .staff-ad .ad-title {
+.staff-promos .staff-promo .promo-title {
   font-weight: bold;
   font-size: 34px;
   justify-self: left;
@@ -32,7 +33,7 @@
   letter-spacing: -0.025em;
   color: #222;
 }
-.staff-ads .staff-ad .ad-button {
+.staff-promos .staff-promo .promo-button {
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
@@ -43,19 +44,22 @@
   border-radius: 6px;
   transition: 0.2s ease-in-out all;
 }
-.staff-ads .staff-ad .ad-button:hover {
+.staff-promos .staff-promo .promo-button:hover {
   cursor: pointer;
   opacity: 0.6;
 }
-.staff-ads .staff-ad.ad-loading {
+.staff-promos .staff-promo.promo-loading {
   background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-  animation-name: adLoadingShimmer;
+  animation-name: promoLoadingShimmer;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-duration: 1s;
 }
-@keyframes adLoadingShimmer {
+.song-row-new {
+  margin-bottom: 25px;
+}
+@keyframes promoLoadingShimmer {
   from {
     background-position: 0px 0px;
   }

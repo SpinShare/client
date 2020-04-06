@@ -26,8 +26,8 @@ class SHAPI {
         });
     }
 
-    async getAds() {
-        let apiPath = this.apiBase + "ads";
+    async getPromos() {
+        let apiPath = this.apiBase + "promos";
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
