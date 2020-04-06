@@ -42,8 +42,8 @@ class SHAPI {
         });
     }
 
-    async getCurrentVersion() {
-        let apiPath = this.apiBase + "currentVersion";
+    async getLatestVersion() {
+        let apiPath = this.apiBase + "latestVersion/" + process.platform;
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)

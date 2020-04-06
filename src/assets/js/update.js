@@ -6,13 +6,13 @@ const DOMUpdateActionsLatest = DOMUpdateOverlay.querySelector(".update-actions-l
 
 // Check Updates
 function CheckForUpdates(showIfLatest) {
-    api.getCurrentVersion().then(function(versionData) {
+    api.getLatestVersion().then(function(versionData) {
         DOMUpdateStatusAvailable.classList.remove("active");
         DOMUpdateStatusLatest.classList.remove("active");
         DOMUpdateActionsAvailable.classList.remove("active");
         DOMUpdateActionsLatest.classList.remove("active");
 
-        if(versionData.join(".") != app.getVersion() && !isDev) {
+        if(versionData.stringVersion != app.getVersion() && !isDev) {
             DOMUpdateOverlay.classList.add("active");
             DOMUpdateStatusAvailable.classList.add("active");
             DOMUpdateActionsAvailable.classList.add("active");
@@ -30,7 +30,7 @@ function CheckForUpdates(showIfLatest) {
 }
 
 function DownloadUpdate() {
-    shell.openExternal("https://spinsha.re/client/download");
+    shell.openExternal("https://spinsha.re/client/download/" + process.platform);
 }
 function IgnoreUpdate() {
     DOMUpdateOverlay.classList.remove("active");
