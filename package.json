@@ -31,7 +31,8 @@
     "protocols": {
       "name": "spinshare-song-deeplink",
       "schemes": [
-        "spinshare-song"
+        "spinshare-song",
+        "spinshare-user"
       ]
     },
     "dmg": {

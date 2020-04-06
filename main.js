@@ -4,6 +4,7 @@ const isDev = require('electron-is-dev');
 
 let win;
 let deeplinkingUrl;
+let deeplinkingType;
 
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
@@ -18,13 +19,25 @@ function executeDeeplink(commandLine) {
   if (process.platform == 'win32') {
     let commandLineString = commandLine.slice(1) + '';
     let commandLineArgs = commandLineString.split(",");
-    deeplinkingUrl = commandLineArgs[commandLineArgs.length - 1].replace("spinshare-song://", "").replace("/", "");
+    let fullCommand = commandLineArgs[commandLineArgs.length - 1];
+
+    if(fullCommand.includes("spinshare-song")) {
+      deeplinkingType = "song";
+      deeplinkingUrl = fullCommand.replace("spinshare-song://", "").replace("/", "");
+    } else if(fullCommand.includes("spinshare-user")) {
+      deeplinkingType = "user";
+      deeplinkingUrl = fullCommand.replace("spinshare-user://", "").replace("/", "");
+    }
   }
 
   if (win) {
     if (win.isMinimized()) win.restore();
     win.focus();
-    win.webContents.executeJavaScript(`NavigateToSongDetail("${deeplinkingUrl}")`);
+    if(deeplinkingType == "song") {
+      win.webContents.executeJavaScript(`NavigateToSongDetail("${deeplinkingUrl}")`);
+    } else if(deeplinkingType == "user") {
+      win.webContents.executeJavaScript(`NavigateToUser("${deeplinkingUrl}")`);
+    }
   }
 }
 
@@ -70,8 +83,8 @@ app.on('open-url', function (event, url) {
   deeplinkingUrl = url;
 });
 
-const PROTOCOL_PREFIX_SONG = "spinshare-song";
-app.setAsDefaultProtocolClient(PROTOCOL_PREFIX_SONG);
+app.setAsDefaultProtocolClient("spinshare-song");
+app.setAsDefaultProtocolClient("spinshare-user");
 
 ipcMain.on("download", (event, info) => {
   console.log("Download Request Received");

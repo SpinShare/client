@@ -87,6 +87,8 @@ function NavigateToSongDetail(songId) {
 }
 
 function NavigateToUser(userId) {
+    console.log("Loading User " + userId);
+
     // Stop audio if playing
     SongDetailStopPreview();
 
