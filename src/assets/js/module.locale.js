@@ -16,6 +16,7 @@ class Locale {
 
     this.strings = parseDataFile(this.path);
     console.log("Loaded Locale " + localeToLoad);
+    document.getElementsByTagName('html')[0].setAttribute('lang', localeToLoad);
   }
   
   get(key) {
