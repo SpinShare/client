@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "Geüploade nummers",
 	"userdetail.uploaded.noresults": "Deze gebruiker heeft nog geen nummers geüpload.",
+	"userdetail.actions.reportButton": "Rapporteren",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Versie",

@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "以上传的音乐",
 	"userdetail.uploaded.noresults": "这用户还没有上传任何音乐。",
+	"userdetail.actions.reportButton": "提交报告",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "版本",

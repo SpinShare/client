@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "Músicas Postadas",
 	"userdetail.uploaded.noresults": "Este usuário ainda não postou nenhuma música.",
+	"userdetail.actions.reportButton": "Reportar",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Versão",

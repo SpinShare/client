@@ -27,6 +27,38 @@
 .section-user-detail .user-detail-background .user-detail-dim .user-detail.active {
   display: grid;
 }
+.section-user-detail .user-detail-actions {
+  padding: 50px;
+  padding-top: 0px;
+  display: none;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+.section-user-detail .user-detail-actions .button {
+  padding: 15px 0px;
+  font-size: 16px;
+  transition: 0.2s ease-in-out all, 0.1s ease-in-out transform;
+}
+.section-user-detail .user-detail-actions .button.button-primary {
+  background: #fff;
+  color: #222;
+}
+.section-user-detail .user-detail-actions .button.button-primary:hover {
+  background: #fff;
+  color: #222;
+}
+.section-user-detail .user-detail-actions .button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  opacity: 0.6;
+  transform: translateY(-4px);
+}
+.section-user-detail .user-detail-actions .button:active {
+  transform: translateY(-2px);
+}
+.section-user-detail .user-detail-actions.active {
+  display: grid;
+}
 .section-user-detail .song-row-user {
   padding: 0px 50px;
   margin-bottom: 50px;

@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "Afficher Chansons",
 	"userdetail.uploaded.noresults": "Usager n'a pas encore affiché un chanson.",
+	"userdetail.actions.reportButton": "Signaler",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Version",

@@ -111,5 +111,5 @@ function SongDetailCopyLink() {
 }
 
 function SongDetailReport() {
-    shell.openExternal("https://spinsha.re/report/" + currentSongId);
+    shell.openExternal("https://spinsha.re/report/song/" + currentSongId);
 }

@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "Загруженные песни",
 	"userdetail.uploaded.noresults": "Этот пользователь ещё не загрузил ни одной песни.",
+	"userdetail.actions.reportButton": "Пожаловаться",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Версия",

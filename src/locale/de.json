@@ -20,6 +20,7 @@
 	
 	"userdetail.uploaded.header": "Hochgeladene Songs",
 	"userdetail.uploaded.noresults": "Dieser Nutzer hat noch keine Songs hochgeladen.",
+	"userdetail.actions.reportButton": "Melden",
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Version",
