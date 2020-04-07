@@ -82,14 +82,19 @@ class SRXD {
     getSongDetail(srtbPath) {
         let srtbFile = JSON.parse( fs.readFileSync(srtbPath) );
         let songTrackInfo = "";
+        let songOggInfo = "";
+        
 
         srtbFile.largeStringValuesContainer.values.forEach(function(value) {
             if(value.key == "SO_TrackInfo_TrackInfo") {
                 songTrackInfo = JSON.parse( value.val );
             }
+            if(value.key == "SO_ClipInfo_ClipInfo_0") {
+                songOggInfo = JSON.parse( value.val );
+            }
         });
 
-        return [songTrackInfo, this.getSongCover(songTrackInfo.albumArtReference.assetName)];
+        return [songTrackInfo, this.getSongCover(songTrackInfo.albumArtReference.assetName), this.getSongAssetDirectory(songOggInfo.clipAssetReference.assetName, "AudioClips"), this.getSongAssetDirectory(songTrackInfo.albumArtReference.assetName, "AlbumArt"), srtbPath];
     }
 
     // Used to find files by file extension
@@ -102,9 +107,13 @@ class SRXD {
         let dir = fs.readdirSync( path );
         return dir.filter( elm => elm.match(new RegExp(`.*\.srtb$`, 'ig')));
     }
+    getFileExtension(fileName, path)
+    {
+        let dir = fs.readdirSync( path );
+        return dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+    }
     getSongCover(fileName) {
-        let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), "AlbumArt") );
-        let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), "AlbumArt") );
     
         if(fileExtension.length > 0) {
             let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
@@ -116,8 +125,33 @@ class SRXD {
             return "";
         }
     }
+    
     getSongTrackInfo() {
         return this.songTrackInfo;
+    }
+
+    //Gets directory of files to delete
+    getSongAssetDirectory(fileName, fileType) {
+        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), fileType));
+        if (fileExtension.join() != '') {
+        let finalPath = path.join(userSettings.get('gameDirectory'), fileType, fileExtension.join());
+        return finalPath;
+        }
+        else {return fileName;}        
+    }
+    //Deletes Files
+    deleteFiles(songDetail) {
+        var deleteFiles = [songDetail[2], songDetail[3], songDetail[4]];
+        console.log('Deleting files:')
+        for(var i = 0; i < deleteFiles.length; i++){
+                try {
+                    fs.unlinkSync(deleteFiles[i]);
+                    console.log("Deleted " + deleteFiles[i]);
+                  } catch(err) {
+                    console.error(deleteFiles[i] + " doesn't exist, therefore weren't deleted: " + err)
+                  }
+        }
+        RefreshLibrary();
     }
 }
 

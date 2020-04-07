@@ -84,6 +84,12 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
     songCharter.innerHTML = "<i class=\"mdi mdi-account-circle\"></i><span>" + songDetail[0].charter + "</span>";
     songCharterInfo.appendChild(songCharter);
     
+    let songDeleteButton = document.createElement("button"); //Creates delete button
+    songDeleteButton.classList.add("song-delete-button");
+    songDeleteButton.addEventListener("click", function(){srxdControl.deleteFiles(songDetail);});
+    songDeleteButton.innerHTML = "X";
+    songCharter.appendChild(songDeleteButton);
+
     songCover.appendChild(songCharterInfo);
     songContainer.appendChild(songCover);
 

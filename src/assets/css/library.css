@@ -9,3 +9,16 @@
   align-items: center;
   font-size: 32px;
 }
+.song-delete-button {
+  position: absolute;
+  display: flex;
+  align-self: flex-start;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  color: white;
+}
+.song-delete-button:hover {
+  background-color: #000000;
+  color: white;
+}
