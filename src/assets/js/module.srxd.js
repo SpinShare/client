@@ -107,9 +107,13 @@ class SRXD {
         let dir = fs.readdirSync( path );
         return dir.filter( elm => elm.match(new RegExp(`.*\.srtb$`, 'ig')));
     }
+    getFileExtension(fileName, path)
+    {
+        let dir = fs.readdirSync( path );
+        return dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+    }
     getSongCover(fileName) {
-        let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), "AlbumArt") );
-        let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), "AlbumArt") );
     
         if(fileExtension.length > 0) {
             let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
@@ -128,8 +132,7 @@ class SRXD {
 
     //Gets directory of files to delete
     getSongAssetDirectory(fileName, fileType) {
-        let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), fileType) );
-        let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), fileType));
         if (fileExtension.join() != '') {
         let finalPath = path.join(userSettings.get('gameDirectory'), fileType, fileExtension.join());
         return finalPath;
