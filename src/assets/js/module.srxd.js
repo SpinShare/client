@@ -143,7 +143,7 @@ class SRXD {
                 try {
                     fs.unlinkSync(deleteFiles[i]);
                   } catch(err) {
-                    console.error(oggDirectory + " or " + artDirectory + " doesn't exist, therefore weren't deleted.")
+                    console.error("Either" + oggDirectory + " or " + artDirectory + " doesn't exist, therefore weren't deleted.")
                     console.log(err);
                   }
         }
