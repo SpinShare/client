@@ -137,13 +137,15 @@ class SRXD {
         else {return fileName;}        
     }
     //Deletes Files
-    deleteFiles(oggDirectory, artDirectory, srtbDirectory) {
-        var deleteFiles = [oggDirectory, artDirectory, srtbDirectory];
+    deleteFiles(songDetail) {
+        var deleteFiles = [songDetail[2], songDetail[3], songDetail[4]];
+        console.log('Deleting files:')
         for(var i = 0; i < deleteFiles.length; i++){
                 try {
                     fs.unlinkSync(deleteFiles[i]);
+                    console.log("Deleted " + deleteFiles[i]);
                   } catch(err) {
-                    console.error(deleteFiles[i] + " doesn't exist, therefore weren't deleted.")
+                    console.error(deleteFiles[i] + " doesn't exist, therefore weren't deleted: " + err)
                   }
         }
         RefreshLibrary();

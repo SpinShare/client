@@ -86,7 +86,7 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
     
     let songDeleteButton = document.createElement("button"); //Creates delete button
     songDeleteButton.classList.add("song-delete-button");
-    songDeleteButton.addEventListener("click", function(){srxdControl.deleteFiles(songDetail[2], songDetail[3], songDetail[4]);});
+    songDeleteButton.addEventListener("click", function(){srxdControl.deleteFiles(songDetail);});
     songDeleteButton.innerHTML = "X";
     songCharter.appendChild(songDeleteButton);
 
