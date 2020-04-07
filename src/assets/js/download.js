@@ -59,11 +59,9 @@ async function installBackup(backupLocation) {
             DOMDownloadActions.classList.add("active");
             // DOMDownloadOutput.innerText = locale.get('download.status.installingFailed');
         }
-
-        setTimeout(function() {
-            DOMDownloadActions.classList.add("active");
-            UpdateDownloadStatus(3);
-        }, 750);
+        
+        DOMDownloadActions.classList.add("active");
+        UpdateDownloadStatus(3);
     });
 }
 

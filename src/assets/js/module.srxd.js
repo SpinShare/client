@@ -141,16 +141,13 @@ class SRXD {
     }
     //Deletes Files
     deleteFiles(songDetail) {
-        var deleteFiles = [songDetail[2], songDetail[3], songDetail[4]];
-        console.log('Deleting files:')
-        for(var i = 0; i < deleteFiles.length; i++){
-                try {
-                    fs.unlinkSync(deleteFiles[i]);
-                    console.log("Deleted " + deleteFiles[i]);
-                  } catch(err) {
-                    console.error(deleteFiles[i] + " doesn't exist, therefore weren't deleted: " + err)
-                  }
-        }
+        let deleteFiles = [songDetail[2], songDetail[3], songDetail[4]];
+        deleteFiles.forEach(function(file) {
+            let foundFiles = glob.sync(file);
+            if(foundFiles.length > 0) {
+                fs.unlinkSync(foundFiles[0]);
+            }
+        });
         RefreshLibrary();
     }
 }

@@ -1,28 +1,42 @@
 const DOMLibrarySongsList = document.querySelector(".song-row-library .song-list");
 
-function ExtractionProcess(filePath) {
-if (filePath.endsWith('.zip')){
-    let fileName = path.basename(filePath);
-    srxdControl.extractBackup(filePath, fileName).then(function(extractResults) {
-        if(extractResults) {
-            installBackup(extractResults);
-            setTimeout(function() {
-                RefreshLibrary();
-            }, 200);
-        } else {
-            console.error("Backup could not be loaded!");
-        }
-    });   
-}
-    else {console.error('Not a zip!');}
+async function ExtractionProcess(filePath) {
+    console.log(filePath);
+
+    if(filePath.endsWith('.zip')) {
+        let fileName = path.basename(filePath);
+        let newControl = new SRXD();
+
+        newControl.extractBackup(filePath, fileName).then(function(extractResults) {
+            if(extractResults) {
+                installBackup(extractResults).then(function() {
+                    RefreshLibrary();
+                });
+
+                // I know this sucks, but it works. So don't be mad at me!
+                // ~ thatanimeweirdo
+                setTimeout(function() {
+                    RefreshLibrary();
+                }, 200);
+            } else {
+                console.error("Backup could not be loaded!");
+            }
+        });
+    } else {
+        console.error('Not a zip!');
+    }
 }
 
 //Upload Manually
 function InstallBackupManually() {
-    dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
+    dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile', 'multiSelections'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
         if(!result.canceled) {
-            let filePath = result.filePaths[0];
-            ExtractionProcess(filePath);
+            result.filePaths.forEach(function(rawFilePath) {
+                let filePath = glob.sync(rawFilePath);
+                if(filePath.length > 0) {
+                    ExtractionProcess(filePath[0]);
+                }
+            });
         }
     });
 }
@@ -33,10 +47,11 @@ document.ondragover = document.ondrop = function(dragndrop) {
 }
   
 document.body.ondrop = function(ev) {
-    let filePath = (ev.dataTransfer.files[0].path);
+    Array.from(ev.dataTransfer.files).forEach(function(file) {
+        ExtractionProcess(file.path);
+    });
+    NavigateToSection(2);
     ev.preventDefault();
-	NavigateToSection(2);
-    ExtractionProcess(filePath);
 }
 
 function RefreshLibrary() {
@@ -61,7 +76,7 @@ function RefreshLibrary() {
         }
 
         DOMLibrarySongsList.appendChild(BuildLibrarySongDOM(songDetail, spinShareReference));
-    })
+    });
 }
 
 function BuildLibrarySongDOM(songDetail, spinShareReference) {
@@ -83,12 +98,6 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
     songCharter.classList.add("song-charter");
     songCharter.innerHTML = "<i class=\"mdi mdi-account-circle\"></i><span>" + songDetail[0].charter + "</span>";
     songCharterInfo.appendChild(songCharter);
-    
-    let songDeleteButton = document.createElement("button"); //Creates delete button
-    songDeleteButton.classList.add("song-delete-button");
-    songDeleteButton.addEventListener("click", function(){srxdControl.deleteFiles(songDetail);});
-    songDeleteButton.innerHTML = "X";
-    songCharter.appendChild(songDeleteButton);
 
     songCover.appendChild(songCharterInfo);
     songContainer.appendChild(songCover);
@@ -113,6 +122,13 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
             NavigateToSongDetail(spinShareReference);
         });
     }
+
+    songContainer.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        ClearContextMenu();
+        AddContextMenuItem("delete", "Delete", function() { srxdControl.deleteFiles(songDetail) });
+        ShowContextMenu(e.clientX, e.clientY);
+    });
 
     return songContainer;
 }

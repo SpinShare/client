@@ -301,3 +301,40 @@ button:focus,
     background-position: 173px 0px;
   }
 }
+.contextmenu {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 250px;
+  background: #000;
+  border-radius: 6px;
+  z-index: 90;
+  display: none;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.contextmenu .menu-item {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  grid-gap: 10px;
+}
+.contextmenu .menu-item .icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+.contextmenu .menu-item .text {
+  display: flex;
+  align-items: center;
+}
+.contextmenu .menu-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.contextmenu.active {
+  display: block;
+}

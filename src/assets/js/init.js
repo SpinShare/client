@@ -9,6 +9,7 @@ const Locale = require( path.resolve(__dirname, './assets/js/module.locale.js') 
 const fs = require('fs');
 const ncp = require('ncp');
 const http = require('http');
+const glob = require('glob');
 
 let systemOS = process.platform;
 let tempDirLocation = app.getPath('temp');
