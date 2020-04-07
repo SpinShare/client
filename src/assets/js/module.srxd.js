@@ -82,14 +82,19 @@ class SRXD {
     getSongDetail(srtbPath) {
         let srtbFile = JSON.parse( fs.readFileSync(srtbPath) );
         let songTrackInfo = "";
+        let songOggInfo = "";
+        
 
         srtbFile.largeStringValuesContainer.values.forEach(function(value) {
             if(value.key == "SO_TrackInfo_TrackInfo") {
                 songTrackInfo = JSON.parse( value.val );
             }
+            if(value.key == "SO_ClipInfo_ClipInfo_0") {
+                songOggInfo = JSON.parse( value.val );
+            }
         });
 
-        return [songTrackInfo, this.getSongCover(songTrackInfo.albumArtReference.assetName)];
+        return [songTrackInfo, this.getSongCover(songTrackInfo.albumArtReference.assetName), this.getSongOggDirectory(songOggInfo.clipAssetReference.assetName), this.getSongCoverDirectory(songTrackInfo.albumArtReference.assetName), srtbPath];
     }
 
     // Used to find files by file extension
@@ -116,8 +121,41 @@ class SRXD {
             return "";
         }
     }
+    
     getSongTrackInfo() {
         return this.songTrackInfo;
+    }
+    //Gets directory of files to delete
+    getSongCoverDirectory(fileName) {
+        let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), "AlbumArt") );
+        let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+
+        let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension.join());
+
+        return finalPath;
+    }
+    getSongOggDirectory(fileName) {
+        let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), "AudioClips") );
+        let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+        if (fileExtension != ''){
+        let finalPath = path.join(userSettings.get('gameDirectory'), "AudioClips", fileExtension.join());
+        return finalPath;
+        }
+    }
+    //Deletes Files
+    deleteFiles(oggDirectory, artDirectory, srtbDirectory) {
+        var deleteFiles = [oggDirectory, artDirectory, srtbDirectory];
+        for(var i = 0; i < deleteFiles.length; i++){
+            if (deleteFiles[i] != path.join(userSettings.get('gameDirectory'), "AudioClips" && "AlbumArt")){
+                try {
+                    fs.unlinkSync(deleteFiles[i]);
+                  } catch(err) {
+                    console.log("One or more files associated either doesn't exist, or has failed to delete.")
+                  }
+            } 
+        }
+        
+        RefreshLibrary();
     }
 }
 
