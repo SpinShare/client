@@ -10,6 +10,7 @@
 	"library.installed.header": "Músicas Instaladas",
 	"library.installed.install.title": "Instalar",
 	"library.installed.install.text": "Instalar um arquivo .zip local",
+	"library.contextmenu.delete": "Excluir",
 	
 	"songdetail.createdBy": "Criado por",
 	"songdetail.actions.downloadButton": "Baixar",

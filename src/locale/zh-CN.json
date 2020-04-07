@@ -10,6 +10,7 @@
 	"library.installed.header": "已安装的歌曲",
 	"library.installed.install.title": "安装",
 	"library.installed.install.text": "安装一个 .zip",
+	"library.contextmenu.delete": "删掉",
 	
 	"songdetail.createdBy": "创作家 ",
 	"songdetail.actions.downloadButton": "下载",

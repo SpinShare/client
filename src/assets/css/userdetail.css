@@ -19,6 +19,7 @@
   background: #eee;
   border-radius: 50%;
   background-size: cover;
+  background-position: center;
 }
 .section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-name {
   font-weight: bold;

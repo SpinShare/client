@@ -126,7 +126,7 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
     songContainer.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         ClearContextMenu();
-        AddContextMenuItem("delete", "Delete", function() { srxdControl.deleteFiles(songDetail) });
+        AddContextMenuItem("delete", locale.get('library.contextmenu.delete'), function() { srxdControl.deleteFiles(songDetail) });
         ShowContextMenu(e.clientX, e.clientY);
     });
 

@@ -10,6 +10,7 @@
 	"library.installed.header": "Установленные песни",
 	"library.installed.install.title": "Установить",
 	"library.installed.install.text": "Установить через существующий .zip",
+	"library.contextmenu.delete": "удалять",
 	
 	"songdetail.createdBy": "Автор ",
 	"songdetail.actions.downloadButton": "Скачать",

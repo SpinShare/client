@@ -10,6 +10,7 @@
 	"library.installed.header": "Geïnstalleerde nummers",
 	"library.installed.install.title": "Installeer",
 	"library.installed.install.text": "Installeer een lokale .zip",
+	"library.contextmenu.delete": "Verwijder",
 	
 	"songdetail.createdBy": "Gemaakt door ",
 	"songdetail.actions.downloadButton": "Download",
