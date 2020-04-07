@@ -125,11 +125,11 @@ class SRXD {
     getSongTrackInfo() {
         return this.songTrackInfo;
     }
+
     //Gets directory of files to delete
     getSongAssetDirectory(fileName, fileType) {
         let dir = fs.readdirSync( path.join(userSettings.get('gameDirectory'), fileType) );
         let fileExtension = dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
-        console.log(fileExtension)
         if (fileExtension.join() != '') {
         let finalPath = path.join(userSettings.get('gameDirectory'), fileType, fileExtension.join());
         return finalPath;
@@ -143,11 +143,9 @@ class SRXD {
                 try {
                     fs.unlinkSync(deleteFiles[i]);
                   } catch(err) {
-                    console.error("Either" + oggDirectory + " or " + artDirectory + " doesn't exist, therefore weren't deleted.")
-                    console.log(err);
+                    console.error(deleteFiles[i] + " doesn't exist, therefore weren't deleted.")
                   }
         }
-        
         RefreshLibrary();
     }
 }
