@@ -107,10 +107,10 @@ class SRXD {
         let dir = fs.readdirSync( path );
         return dir.filter( elm => elm.match(new RegExp(`.*\.srtb$`, 'ig')));
     }
-    getFileExtension(fileName, path)
-    {
-        let dir = fs.readdirSync( path );
-        return dir.filter( elm => elm.match(new RegExp(`(${fileName}).*\.$`, 'ig')));
+    getFileExtension(fileName, filePath){
+        let filePathJoined = path.join(filePath, fileName);
+        let files = glob.sync(filePathJoined+"*");
+        return [path.parse(files[0]).base];
     }
     getSongCover(fileName) {
         let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), "AlbumArt") );
