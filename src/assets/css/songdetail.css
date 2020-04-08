@@ -60,6 +60,19 @@
   opacity: 0.6;
   cursor: pointer;
 }
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-difficulties {
+  margin-top: 15px;
+  height: 20px;
+  display: flex;
+}
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-difficulties img {
+  height: 20px;
+  margin-right: 10px;
+  opacity: 0.3;
+}
+.section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-difficulties img.active {
+  opacity: 1;
+}
 .section-song-detail .song-detail-background .song-detail-dim .song-detail .song-meta-data .song-uploader {
   margin-top: 15px;
   display: flex;

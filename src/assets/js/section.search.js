@@ -63,6 +63,13 @@ function BuildUserDOM(userItem) {
     userName.innerText = userItem.username;
     userMetaData.appendChild(userName);
     
+    if(userItem.isVerified) {
+        let userBadge = document.createElement("div");
+        userBadge.classList.add("user-badge");
+        userBadge.innerHTML = "<i class=\"mdi mdi-check-decagram\"></i>";
+        userMetaData.appendChild(userBadge);
+    }
+    
     userContainer.appendChild(userMetaData);
 
     userContainer.addEventListener('click', function() {

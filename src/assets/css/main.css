@@ -203,6 +203,19 @@ button:focus,
   overflow: hidden;
   white-space: nowrap;
 }
+.song-row .song-list .song-item .song-metadata .song-difficulties {
+  margin-top: 10px;
+  height: 20px;
+  display: flex;
+}
+.song-row .song-list .song-item .song-metadata .song-difficulties img {
+  height: 18px;
+  margin-right: 10px;
+  opacity: 0.3;
+}
+.song-row .song-list .song-item .song-metadata .song-difficulties img.active {
+  opacity: 1;
+}
 .song-row .song-list .song-item:not(.song-item-loading):not(.song-item-local):hover {
   transform: scale(1.1);
   cursor: pointer;
@@ -281,12 +294,17 @@ button:focus,
   border-radius: 32px;
 }
 .user-item .user-metadata {
-  align-self: center;
+  display: flex;
+  align-items: center;
 }
 .user-item .user-metadata .user-name {
   font-weight: bold;
   overflow: hidden;
   white-space: nowrap;
+}
+.user-item .user-metadata .user-badge {
+  font-size: 18px;
+  margin-left: 10px;
 }
 .user-item:hover {
   transform: scale(1.1);

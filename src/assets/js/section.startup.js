@@ -169,7 +169,7 @@ function BuildSongDOM(songItem) {
     
     let songCharter = document.createElement("div");
     songCharter.classList.add("song-charter");
-    songCharter.innerHTML = "<i class=\"mdi mdi-account-circle\"></i><span>" + songItem.charter + "</span>";
+    songCharter.innerHTML = "<i class=\"mdi mdi-account-circle\"></i><span>" + (songItem.charter ? songItem.charter : "Unknown") + "</span>";
     songCharterInfo.appendChild(songCharter);
     
     songCover.appendChild(songCharterInfo);
@@ -180,13 +180,43 @@ function BuildSongDOM(songItem) {
     
     let songTitle = document.createElement("div");
     songTitle.classList.add("song-title");
-    songTitle.innerText = songItem.title;
+    songTitle.innerText = songItem.title ? songItem.title : "Untitled";
     songMetaData.appendChild(songTitle);
     
     let songArtist = document.createElement("div");
     songArtist.classList.add("song-artist");
-    songArtist.innerText = songItem.artist;
+    songArtist.innerText = songItem.artist ? songItem.artist : "Unknown";
     songMetaData.appendChild(songArtist);
+
+    let songDifficulties = document.createElement("div");
+    songDifficulties.classList.add("song-difficulties");
+
+    songDifficultiesEasy = document.createElement("img");
+    songDifficultiesEasy.src = path.join(__dirname, "assets", "img", "difficultyEasy.svg");
+    if(songItem.hasEasyDifficulty) { songDifficultiesEasy.classList.add("active"); }
+    songDifficulties.appendChild(songDifficultiesEasy);
+
+    songDifficultiesNormal = document.createElement("img");
+    songDifficultiesNormal.src = path.join(__dirname, "assets", "img", "difficultyNormal.svg");
+    if(songItem.hasNormalDifficulty) { songDifficultiesNormal.classList.add("active"); }
+    songDifficulties.appendChild(songDifficultiesNormal);
+
+    songDifficultiesHard = document.createElement("img");
+    songDifficultiesHard.src = path.join(__dirname, "assets", "img", "difficultyHard.svg");
+    if(songItem.hasHardDifficulty) { songDifficultiesHard.classList.add("active"); }
+    songDifficulties.appendChild(songDifficultiesHard);
+
+    songDifficultiesExtreme = document.createElement("img");
+    songDifficultiesExtreme.src = path.join(__dirname, "assets", "img", "difficultyExtreme.svg");
+    if(songItem.hasExtremeDifficulty) { songDifficultiesExtreme.classList.add("active"); }
+    songDifficulties.appendChild(songDifficultiesExtreme);
+
+    songDifficultiesXD = document.createElement("img");
+    songDifficultiesXD.src = path.join(__dirname, "assets", "img", "difficultyXD.svg");
+    if(songItem.hasXDDifficulty) { songDifficultiesXD.classList.add("active"); }
+    songDifficulties.appendChild(songDifficultiesXD);
+
+    songMetaData.appendChild(songDifficulties);
     
     songContainer.appendChild(songMetaData);
 

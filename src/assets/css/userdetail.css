@@ -21,9 +21,24 @@
   background-size: cover;
   background-position: center;
 }
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data {
+  display: flex;
+  height: 48px;
+  align-items: center;
+}
 .section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-name {
   font-weight: bold;
   font-size: 48px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-badge {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-left: 20px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-badge.active {
+  display: flex;
 }
 .section-user-detail .user-detail-background .user-detail-dim .user-detail.active {
   display: grid;

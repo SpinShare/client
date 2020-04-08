@@ -216,6 +216,21 @@ button, .button {
                     overflow: hidden;
                     white-space: nowrap;
                 }
+                & .song-difficulties {
+                    margin-top: 10px;
+                    height: 20px;
+                    display: flex;
+        
+                    & img {
+                        height: 18px;
+                        margin-right: 10px;
+                        opacity: 0.3;
+        
+                        &.active {
+                            opacity: 1;
+                        }
+                    }
+                }
             }
 
             &:not(.song-item-loading):not(.song-item-local):hover {
@@ -313,12 +328,17 @@ button, .button {
     }
 
     & .user-metadata {
-        align-self: center;
+        display: flex;
+        align-items: center;
 
         & .user-name {
             font-weight: bold;
             overflow: hidden;
             white-space: nowrap;
+        }
+        & .user-badge {
+            font-size: 18px;
+            margin-left: 10px;
         }
     }
 

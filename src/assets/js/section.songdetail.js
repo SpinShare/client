@@ -12,6 +12,11 @@ const DOMSongSubtitle = DOMSongDetail.querySelector(".song-subtitle");
 const DOMSongArtist = DOMSongDetail.querySelector(".song-artist");
 const DOMSongCharter = DOMSongDetail.querySelector(".song-charter");
 const DOMSongTags = DOMSongDetail.querySelector(".song-tags");
+const DOMDifficultyEasy = DOMSongDetail.querySelector(".song-difficulties .difficulty-easy");
+const DOMDifficultyNormal = DOMSongDetail.querySelector(".song-difficulties .difficulty-normal");
+const DOMDifficultyHard = DOMSongDetail.querySelector(".song-difficulties .difficulty-hard");
+const DOMDifficultyExtreme = DOMSongDetail.querySelector(".song-difficulties .difficulty-extreme");
+const DOMDifficultyXD = DOMSongDetail.querySelector(".song-difficulties .difficulty-xd");
 const DOMSongUploader = DOMSongDetail.querySelector(".song-uploader");
 
 function SongDetailLoad(songId) {
@@ -20,6 +25,12 @@ function SongDetailLoad(songId) {
 
     DOMSongDetail.classList.remove("active");
     DOMSongDetailActions.classList.remove("active");
+
+    DOMDifficultyEasy.classList.remove("active");
+    DOMDifficultyNormal.classList.remove("active");
+    DOMDifficultyHard.classList.remove("active");
+    DOMDifficultyExtreme.classList.remove("active");
+    DOMDifficultyXD.classList.remove("active");
 
     api.getSongDetail(songId).then(function(apiResponse) {
         let songData = apiResponse.data;
@@ -36,10 +47,10 @@ function SongDetailLoad(songId) {
                 DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
                 DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
 
-                DOMSongTitle.innerText = songData.title;
-                DOMSongSubtitle.innerText = songData.subtitle;
-                DOMSongArtist.innerText = songData.artist;
-                DOMSongCharter.innerText = locale.get('songdetail.createdBy') + " " + songData.charter;
+                DOMSongTitle.innerText = songData.title ? songData.title : "Untitled";
+                DOMSongSubtitle.innerText = songData.subtitle ? songData.subtitle : "";
+                DOMSongArtist.innerText = songData.artist ? songData.artist : "Unknown";
+                DOMSongCharter.innerText = locale.get('songdetail.createdBy') + " " + (songData.charter ? songData.charter : "Unknown");
 
                 DOMSongUploader.innerHTML = "";
                 DOMSongUploader.appendChild(BuildUserDOM(uploaderData));
@@ -61,6 +72,22 @@ function SongDetailLoad(songId) {
                         DOMSongTags.appendChild(newTag);
                     }
                 });
+
+                if(songData.hasEasyDifficulty) {
+                    DOMDifficultyEasy.classList.add("active");
+                }
+                if(songData.hasNormalDifficulty) {
+                    DOMDifficultyNormal.classList.add("active");
+                }
+                if(songData.hasHardDifficulty) {
+                    DOMDifficultyHard.classList.add("active");
+                }
+                if(songData.hasExtremeDifficulty) {
+                    DOMDifficultyExtreme.classList.add("active");
+                }
+                if(songData.hasXDDifficulty) {
+                    DOMDifficultyXD.classList.add("active");
+                }
             });
         }
 

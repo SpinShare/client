@@ -7,6 +7,7 @@ const DOMUserSongRow = document.querySelector(".song-row-user");
 let currentUserId = 0;
 
 const DOMUserName = DOMUserDetail.querySelector(".user-name");
+const DOMUserBadge = DOMUserDetail.querySelector(".user-badge");
 const DOMUserSongsList = document.querySelector(".song-row-user .song-list");
 const DOMUserSongsNoResults = document.querySelector(".song-row-user .song-list-noresults");
 
@@ -34,6 +35,13 @@ function UserDetailLoad(userId) {
             DOMUserDetailAvatar.style.backgroundImage = "url('" + userData.avatar + "')";
 
             DOMUserName.innerText = userData.username;
+
+            if(userData.isVerified) {
+                DOMUserBadge.classList.add("active");
+            } else {
+                DOMUserBadge.classList.remove("active");
+            }
+
             if(userData.songs.length > 0) {
                 userData.songs.forEach(function(song) {
                     DOMUserSongsList.appendChild(BuildSongDOM(song));

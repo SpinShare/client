@@ -23,9 +23,24 @@
                     background-position: center;
                 }
                 & .user-meta-data {
+                    display: flex;
+                    height: 48px;
+                    align-items: center;
+                    
                     & .user-name {
                         font-weight: bold;
                         font-size: 48px;
+                    }
+                    & .user-badge {
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 32px;
+                        margin-left: 20px;
+
+                        &.active {
+                            display: flex;
+                        }
                     }
                 }
 
