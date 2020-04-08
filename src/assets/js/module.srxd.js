@@ -150,7 +150,7 @@ class SRXD {
                         fs.unlinkSync(foundFiles[0]);
                     }
                 }
-            catch(err){}
+                catch(err){}
         });
         RefreshLibrary();
     }
