@@ -11,6 +11,10 @@
 	"library.installed.install.title": "Installer",
 	"library.installed.install.text": "Installer un .zip locale",
 	"library.contextmenu.delete": "Effacer",
+	"library.deletemodal.title": "Confirmation",
+	"library.deletemodal.text": "Ces fichiers vont être supprimés.",
+	"library.deletemodal.delete": "Effacer",
+	"library.deletemodal.close": "Fermer",
 	
 	"songdetail.createdBy": "Crée par ",
 	"songdetail.actions.downloadButton": "Télécharger",

@@ -11,6 +11,10 @@
 	"library.installed.install.title": "Installeer",
 	"library.installed.install.text": "Installeer een lokale .zip",
 	"library.contextmenu.delete": "Verwijder",
+	"library.deletemodal.title": "Bevestiging",
+	"library.deletemodal.text": "Deze bestanden zullen verwijderd worden.",
+	"library.deletemodal.delete": "Verwijder",
+	"library.deletemodal.close": "Sluit",
 	
 	"songdetail.createdBy": "Gemaakt door ",
 	"songdetail.actions.downloadButton": "Download",

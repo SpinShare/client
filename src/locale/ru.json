@@ -11,6 +11,10 @@
 	"library.installed.install.title": "Установить",
 	"library.installed.install.text": "Установить через существующий .zip",
 	"library.contextmenu.delete": "удалять",
+	"library.deletemodal.title": "Подтверждение",
+	"library.deletemodal.text": "Эти файлы будут удалены.",
+	"library.deletemodal.delete": "удалять",
+	"library.deletemodal.close": "Закрыть",
 	
 	"songdetail.createdBy": "Автор ",
 	"songdetail.actions.downloadButton": "Скачать",

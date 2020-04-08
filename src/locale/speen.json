@@ -6,6 +6,10 @@
 	"search.results.users.header": "SPEEN",
 	"search.results.songs.header": "SPEEN",
 	"search.noresults.text": "SPEEN",
+	"library.deletemodal.title": "SPEEN",
+	"library.deletemodal.text": "SPEEN",
+	"library.deletemodal.delete": "SPEEN",
+	"library.deletemodal.close": "SPEEN",
 	
 	"library.installed.header": "SPEEN",
 	"library.installed.install.title": "SPEEN",

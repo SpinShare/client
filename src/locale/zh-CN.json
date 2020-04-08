@@ -11,6 +11,10 @@
 	"library.installed.install.title": "安装",
 	"library.installed.install.text": "安装一个 .zip",
 	"library.contextmenu.delete": "删除",
+	"library.deletemodal.title": "确认",
+	"library.deletemodal.text": "这些文件将会被删掉。",
+	"library.deletemodal.delete": "删除",
+	"library.deletemodal.close": "关闭",
 	
 	"songdetail.createdBy": "创作家 ",
 	"songdetail.actions.downloadButton": "下载",
