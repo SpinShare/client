@@ -143,11 +143,14 @@ class SRXD {
     //Deletes Files
     deleteFiles(songDetail) {
         let deleteFiles = [songDetail[2], songDetail[3], songDetail[4]];
-        deleteFiles.forEach(function(file) {
-            let foundFiles = glob.sync(file);
-            if(foundFiles.length > 0) {
-                fs.unlinkSync(foundFiles[0]);
-            }
+            deleteFiles.forEach(function(file) {
+                try{
+                    let foundFiles = glob.sync(file);
+                    if(foundFiles.length > 0) {
+                        fs.unlinkSync(foundFiles[0]);
+                    }
+                }
+            catch(err){}
         });
         RefreshLibrary();
     }
