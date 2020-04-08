@@ -109,7 +109,7 @@ class SRXD {
     }
     getFileExtension(fileName, filePath){
         let filePathJoined = path.join(filePath, fileName);
-        let files = glob.sync(filePathJoined+"*");
+        let files = glob.sync(filePathJoined+".*");
         if (files[0] != undefined){return [path.parse(files[0]).base];}
         else {return [];}
     }
