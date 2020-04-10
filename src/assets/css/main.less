@@ -63,6 +63,29 @@ main {
                 font-size: 22px;
             }
         }
+        & .uncounted-item {
+            width: 60px;
+            height: 60px;
+            opacity: 0.4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            transition: 0.2s ease opacity, 0.2s ease background;
+
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
+            &.active {
+                opacity: 1;
+                background: linear-gradient(135deg, #fd2f85, #7a34ec);
+            }
+
+            & .mdi {
+                font-size: 22px;
+            }
+        }
     }
 }
 section {
