@@ -44,10 +44,10 @@
                         word-break: break-all;
                     }
                     & .song-tags {
-                        display: flex;
-                        margin-top: 15px;
+                        margin-top: 10px;
 
                         & .tag {
+                            display: inline-block;
                             font-size: 12px;
                             font-weight: bold;
                             color: #222;
@@ -55,12 +55,29 @@
                             padding: 5px 20px;
                             border-radius: 50px;
                             margin-right: 10px;
+                            margin-top: 5px;
                             word-break: break-all;
                             transition: 0.2s ease-in-out all;
 
                             &:hover {
                                 opacity: 0.6;
                                 cursor: pointer;
+                            }
+                        }
+                    }
+
+                    & .song-difficulties {
+                        margin-top: 15px;
+                        height: 20px;
+                        display: flex;
+            
+                        & img {
+                            height: 20px;
+                            margin-right: 10px;
+                            opacity: 0.3;
+            
+                            &.active {
+                                opacity: 1;
                             }
                         }
                     }

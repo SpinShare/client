@@ -11,6 +11,10 @@
 	"library.installed.install.title": "Instalar",
 	"library.installed.install.text": "Instalar um arquivo .zip local",
 	"library.contextmenu.delete": "Excluir",
+	"library.deletemodal.title": "Confirmação",
+	"library.deletemodal.text": "Estes arquivos serão removidos.",
+	"library.deletemodal.delete": "Excluir",
+	"library.deletemodal.close": "Fechar",
 	
 	"songdetail.createdBy": "Criado por",
 	"songdetail.actions.downloadButton": "Baixar",

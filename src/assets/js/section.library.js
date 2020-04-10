@@ -1,4 +1,6 @@
 const DOMLibrarySongsList = document.querySelector(".song-row-library .song-list");
+const DOMDeleteOverlay = document.querySelector(".delete-overlay");
+const DOMDeleteOverlayFiles = document.querySelector(".delete-overlay .delete-files");
 
 async function ExtractionProcess(filePath) {
     console.log(filePath);
@@ -126,9 +128,43 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
     songContainer.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         ClearContextMenu();
-        AddContextMenuItem("delete", locale.get('library.contextmenu.delete'), function() { srxdControl.deleteFiles(songDetail) });
+        AddContextMenuItem("delete", locale.get('library.contextmenu.delete'), function() { ShowDeleteOverlay(songDetail); });
         ShowContextMenu(e.clientX, e.clientY);
     });
 
     return songContainer;
+}
+
+let songToDelete;
+function ShowDeleteOverlay(songDetail) {
+    songToDelete = songDetail;
+
+    let files = [];
+
+    files.push(songToDelete[2]);
+    files.push(songToDelete[3]);
+    files.push(songToDelete[4]);
+
+    DOMDeleteOverlayFiles.innerHTML = "";
+
+    files.forEach(function(file) {
+        let newFile = document.createElement("span");
+
+        newFile.innerText = file.replace(userSettings.get('gameDirectory'), "");
+
+        DOMDeleteOverlayFiles.appendChild(newFile);
+    })
+
+    DOMDeleteOverlay.classList.add("active");
+}
+
+function DeleteConfirm() {
+    srxdControl.deleteFiles(songToDelete);
+
+    DOMDeleteOverlay.classList.remove("active");
+}
+function DeleteDeny() {
+    songToDelete = "";
+
+    DOMDeleteOverlay.classList.remove("active");
 }
