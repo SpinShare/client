@@ -1,4 +1,5 @@
 let DOMContextMenu = document.querySelector(".contextmenu");
+var html = document.documentElement;
 
 function ShowContextMenu(x, y) {
     DOMContextMenu.classList.add("active");
@@ -9,8 +10,7 @@ function ShowContextMenu(x, y) {
     if(y > window.innerHeight - DOMContextMenu.getBoundingClientRect().height) {
         y = window.innerHeight - DOMContextMenu.getBoundingClientRect().height;
     }
-
-    DOMContextMenu.style.top = y + "px";
+    DOMContextMenu.style.top = html.scrollTop + y + "px";
     DOMContextMenu.style.left = x + "px";
 }
 
