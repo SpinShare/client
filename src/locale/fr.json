@@ -1,15 +1,15 @@
 {
-	"startup.newsongs.header": "Nouveaux Chansons",
+	"startup.newsongs.header": "Nouvelles Chansons",
 	"startup.popularsongs.header": "Chansons Populaires",
 	
-	"search.input.placeholder": "Recherchez des chansons, tag & profiles...",
+	"search.input.placeholder": "Rechercher des chansons, tags et profils...",
 	"search.results.users.header": "Usagers",
 	"search.results.songs.header": "Chansons",
 	"search.noresults.text": "Votre recherce n'a pas trouvé de chansons ou usagers. Faites certain d'épeler correctement ou essaie une autre terme.",
 	
-	"library.installed.header": "Chansons Installés",
+	"library.installed.header": "Chansons installées",
 	"library.installed.install.title": "Installer",
-	"library.installed.install.text": "Installer un .zip locale",
+	"library.installed.install.text": "Installer un .zip local",
 	"library.contextmenu.delete": "Effacer",
 	"library.deletemodal.title": "Confirmation",
 	"library.deletemodal.text": "Ces fichiers vont être supprimés.",
@@ -29,10 +29,10 @@
 	
 	"settings.general.header": "SpinShare",
 	"settings.general.version.label": "Version",
-	"settings.general.update.label": "Mise-a-Jour",
+	"settings.general.update.label": "Rechercher si une mise à jour est disponible",
 	"settings.general.update.button": "Vérifier pour Mise-a-Jour",
 	"settings.language.header": "Langue",
-	"settings.language.selectLanguage.label": "Changer Langue",
+	"settings.language.selectLanguage.label": "Changer la langue",
 	"settings.directories.header": "Répertoires",
 	"settings.directories.gameDirectory.label": "Répertoire du Jeu",
 	"settings.directories.gameDirectory.changeButton": "Modifier",
