@@ -107,3 +107,7 @@ function NavigateToUser(userId) {
 
     UserDetailLoad(userId);
 }
+
+function NavigateToExternal(externalLink) {
+    shell.openExternal(externalLink);
+}

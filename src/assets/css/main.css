@@ -42,7 +42,8 @@ main aside {
   bottom: 0px;
   grid-template-rows: 1fr auto;
 }
-main aside .item {
+main aside .item,
+main aside .external-item {
   width: 60px;
   height: 60px;
   opacity: 0.4;
@@ -52,15 +53,18 @@ main aside .item {
   background: transparent;
   transition: 0.2s ease opacity, 0.2s ease background;
 }
-main aside .item:hover {
+main aside .item:hover,
+main aside .external-item:hover {
   opacity: 1;
   cursor: pointer;
 }
-main aside .item.active {
+main aside .item.active,
+main aside .external-item.active {
   opacity: 1;
   background: linear-gradient(135deg, #fd2f85, #7a34ec);
 }
-main aside .item .mdi {
+main aside .item .mdi,
+main aside .external-item .mdi {
   font-size: 22px;
 }
 section {
