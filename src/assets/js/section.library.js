@@ -91,7 +91,7 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
 
     let songCover = document.createElement("div");
     songCover.classList.add("song-cover");
-    songCover.style.backgroundImage = "url('" + songDetail[1] + "')";
+    songCover.style.backgroundImage = "url('" + songDetail[1] + "'), url('assets/img/defaultAlbumArt.jpg')";
 
     let songCharterInfo = document.createElement("div");
     songCharterInfo.classList.add("song-charter-info");

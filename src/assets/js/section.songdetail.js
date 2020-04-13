@@ -44,8 +44,8 @@ function SongDetailLoad(songId) {
                 DOMSongDetail.classList.add("active");
                 DOMSongDetailActions.classList.add("active");
 
-                DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "')";
-                DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "')";
+                DOMSongDetailBackground.style.backgroundImage = "url('" + songData.paths.cover + "'), url('assets/img/defaultAlbumArt.jpg')";
+                DOMSongDetailCover.style.backgroundImage = "url('" + songData.paths.cover + "'), url('assets/img/defaultAlbumArt.jpg')";
 
                 DOMSongTitle.innerText = songData.title ? songData.title : "Untitled";
                 DOMSongSubtitle.innerText = songData.subtitle ? songData.subtitle : "";

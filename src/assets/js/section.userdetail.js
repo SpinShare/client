@@ -7,7 +7,8 @@ const DOMUserSongRow = document.querySelector(".song-row-user");
 let currentUserId = 0;
 
 const DOMUserName = DOMUserDetail.querySelector(".user-name");
-const DOMUserBadge = DOMUserDetail.querySelector(".user-badge");
+const DOMUserBadgeVerified = DOMUserDetail.querySelector(".user-badge-verified");
+const DOMUserBadgePatreon = DOMUserDetail.querySelector(".user-badge-patreon");
 const DOMUserSongsList = document.querySelector(".song-row-user .song-list");
 const DOMUserSongsNoResults = document.querySelector(".song-row-user .song-list-noresults");
 
@@ -37,9 +38,15 @@ function UserDetailLoad(userId) {
             DOMUserName.innerText = userData.username;
 
             if(userData.isVerified) {
-                DOMUserBadge.classList.add("active");
+                DOMUserBadgeVerified.classList.add("active");
             } else {
-                DOMUserBadge.classList.remove("active");
+                DOMUserBadgeVerified.classList.remove("active");
+            }
+            
+            if(userData.isPatreon) {
+                DOMUserBadgePatreon.classList.add("active");
+            } else {
+                DOMUserBadgePatreon.classList.remove("active");
             }
 
             if(userData.songs.length > 0) {

@@ -162,7 +162,7 @@ function BuildSongDOM(songItem) {
 
     let songCover = document.createElement("div");
     songCover.classList.add("song-cover");
-    songCover.style.backgroundImage = "url('" + songItem.cover + "')";
+    songCover.style.backgroundImage = "url('" + songItem.cover + "'), url('assets/img/defaultAlbumArt.jpg')";
 
     let songCharterInfo = document.createElement("div");
     songCharterInfo.classList.add("song-charter-info");

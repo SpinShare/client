@@ -64,10 +64,16 @@ function BuildUserDOM(userItem) {
     userMetaData.appendChild(userName);
     
     if(userItem.isVerified) {
-        let userBadge = document.createElement("div");
-        userBadge.classList.add("user-badge");
-        userBadge.innerHTML = "<i class=\"mdi mdi-check-decagram\"></i>";
-        userMetaData.appendChild(userBadge);
+        let userBadgeVerified = document.createElement("div");
+        userBadgeVerified.classList.add("user-badge");
+        userBadgeVerified.innerHTML = "<i class=\"mdi mdi-check-decagram\"></i>";
+        userMetaData.appendChild(userBadgeVerified);
+    }
+    if(userItem.isPatreon) {
+        let userBadgePatreon = document.createElement("div");
+        userBadgePatreon.classList.add("user-badge");
+        userBadgePatreon.innerHTML = "<i class=\"mdi mdi-patreon\"></i>";
+        userMetaData.appendChild(userBadgePatreon);
     }
     
     userContainer.appendChild(userMetaData);
