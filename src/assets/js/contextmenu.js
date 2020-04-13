@@ -1,13 +1,15 @@
 let DOMContextMenu = document.querySelector(".contextmenu");
 
 function ShowContextMenu(x, y) {
+    let DOMActiveSection = document.querySelector("section.active");
+
     DOMContextMenu.classList.add("active");
 
-    if(x > window.innerWidth - DOMContextMenu.getBoundingClientRect().width) {
-        x = window.innerWidth - DOMContextMenu.getBoundingClientRect().width;
+    if(x > DOMActiveSection.clientWidth - DOMContextMenu.getBoundingClientRect().width) {
+        x = DOMActiveSection.clientWidth - DOMContextMenu.getBoundingClientRect().width;
     }
-    if(y > window.innerHeight - DOMContextMenu.getBoundingClientRect().height) {
-        y = window.innerHeight - DOMContextMenu.getBoundingClientRect().height;
+    if(y > DOMActiveSection.clientHeight - DOMContextMenu.getBoundingClientRect().height) {
+        y = DOMActiveSection.clientHeight - DOMContextMenu.getBoundingClientRect().height;
     }
 
     DOMContextMenu.style.top = y + "px";

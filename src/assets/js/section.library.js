@@ -129,7 +129,7 @@ function BuildLibrarySongDOM(songDetail, spinShareReference) {
         e.preventDefault();
         ClearContextMenu();
         AddContextMenuItem("delete", locale.get('library.contextmenu.delete'), function() { ShowDeleteOverlay(songDetail); });
-        ShowContextMenu(e.clientX, e.clientY);
+        ShowContextMenu(e.pageX, e.pageY);
     });
 
     return songContainer;
