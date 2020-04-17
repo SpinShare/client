@@ -1,0 +1,59 @@
+{
+	"startup.newsongs.header": "Canciones Nuevas",
+	"startup.popularsongs.header": "Canciones Populares",
+	
+	"search.input.placeholder": "Busca canciones, etiquetas y perfiles...",
+	"search.results.users.header": "Usuarios",
+	"search.results.songs.header": "Canciones",
+	"search.noresults.text": "Tu búsqueda no encontró canciones ni usuarios. Asegúrate de que todas las palabras estén escritas correctamente o intenta una búsqueda distinta.",
+	
+	"library.installed.header": "Canciones Instaladas",
+	"library.installed.install.title": "Instalar",
+	"library.installed.install.text": "Instalar un .zip local",
+	"library.contextmenu.delete": "Eliminar",
+	"library.deletemodal.title": "Confirmación",
+	"library.deletemodal.text": "Estos archivos serán eliminados.",
+	"library.deletemodal.delete": "Eliminar",
+	"library.deletemodal.close": "Cerrar",
+	
+	"songdetail.createdBy": "Creado por ",
+	"songdetail.actions.downloadButton": "Descargar",
+	"songdetail.actions.playPreviewButton": "Vista previa",
+	"songdetail.actions.stopPreviewButton": "Detener vista previa",
+	"songdetail.actions.copyLinkButton": "Copiar Enlace",
+	"songdetail.actions.reportButton": "Reportar",
+	
+	"userdetail.uploaded.header": "Canciones Subidas",
+	"userdetail.uploaded.noresults": "Este usuario aún no ha subido canciones.",
+	"userdetail.actions.reportButton": "Reportar",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Versión",
+	"settings.general.update.label": "Actualizar",
+	"settings.general.update.button": "Buscar Actualizaciones",
+	"settings.language.header": "Idioma",
+	"settings.language.selectLanguage.label": "Seleccionar Idioma",
+	"settings.directories.header": "Directorios",
+	"settings.directories.gameDirectory.label": "Directorio del Juego",
+	"settings.directories.gameDirectory.changeButton": "Cambiar",
+	"settings.directories.gameDirectory.resetButton": "Restablecer",
+	
+	"connectionerror.server.title": "Error de conexión",
+	"connectionerror.server.text": "Por favor revisa tu conexión a internet o inténtalo más tarde. Aún puedes acceder a tu librería e instalar respaldos .zip locales.",
+	"connectionerror.notfound.title": "404 - No Encontrado",
+	"connectionerror.notfound.text": "Lo sentimos, no pudimos encontrar eso. Quizá fue removido, o nunca estuvo disponible.",
+	
+	"download.status.downloading": "Descargando",
+	"download.status.extracting": "Extrayendo",
+	"download.status.extractingFailed": "¡No se pudo extraer la canción!",
+	"download.status.installing": "Instalando",
+	"download.status.installingFailed": "¡No se pudo instalar la canción!",
+	"download.status.done": "Terminado",
+	"download.closeButton": "Cerrar",
+	
+	"update.availableText": "Una actualización está disponible.",
+	"update.latestText": "Ya tienes la última versión.",
+	"update.download": "Descargar",
+	"update.later": "Más tarde",
+	"update.close": "Cerrar"
+}

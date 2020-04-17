@@ -1,0 +1,64 @@
+{
+  "name": "spinshare-client",
+  "version": "1.2.1",
+  "main": "./main.js",
+  "description": "SpinSha.re Client",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "SpinSha.re",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.0.1",
+    "electron-builder": "^22.4.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "electron-dl": "^3.0.0",
+    "electron-is-dev": "^1.1.0",
+    "glob": "^7.1.6",
+    "ncp": "^2.0.0",
+    "rimraf": "^3.0.2",
+    "uniqid": "^5.2.0",
+    "unzipper": "^0.10.10"
+  },
+  "build": {
+    "productName": "SpinShare",
+    "appId": "re.spinsha.client",
+    "directories": {
+      "output": "build"
+    },
+    "protocols": {
+      "name": "spinshare-song-deeplink",
+      "schemes": [
+        "spinshare-song",
+        "spinshare-user"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "icons/AppIcon.icns"
+    },
+    "win": {
+      "icon": "icons/AppIcon.ico"
+    },
+    "linux": {
+      "icon": "icons"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+	"startup.newsongs.header": "Músicas Novas",
+	"startup.popularsongs.header": "Músicas Populares",
+	
+	"search.input.placeholder": "Pesquisar por músicas, tags, perfis...",
+	"search.results.users.header": "Usuários",
+	"search.results.songs.header": "Músicas",
+	"search.noresults.text": "Sua pesquisa não obteve nenhum resultado. Certifique-se de que escreveu tudo corretamente ou tente uma nova pesquisa.",
+	
+	"library.installed.header": "Músicas Instaladas",
+	"library.installed.install.title": "Instalar",
+	"library.installed.install.text": "Instalar um arquivo .zip local",
+	"library.contextmenu.delete": "Excluir",
+	"library.deletemodal.title": "Confirmação",
+	"library.deletemodal.text": "Estes arquivos serão removidos.",
+	"library.deletemodal.delete": "Excluir",
+	"library.deletemodal.close": "Fechar",
+	
+	"songdetail.createdBy": "Criado por",
+	"songdetail.actions.downloadButton": "Baixar",
+	"songdetail.actions.playPreviewButton": "Ouvir Um Trecho",
+	"songdetail.actions.stopPreviewButton": "Parar Reprodução",
+	"songdetail.actions.copyLinkButton": "Copiar Link",
+	"songdetail.actions.reportButton": "Reportar",
+	
+	"userdetail.uploaded.header": "Músicas Postadas",
+	"userdetail.uploaded.noresults": "Este usuário ainda não postou nenhuma música.",
+	"userdetail.actions.reportButton": "Reportar",
+	
+	"settings.general.header": "SpinShare",
+	"settings.general.version.label": "Versão",
+	"settings.general.update.label": "Atualizar",
+	"settings.general.update.button": "Buscar Atualizações",
+	"settings.language.header": "Idioma",
+	"settings.language.selectLanguage.label": "Selecionar Idioma",
+	"settings.directories.header": "Diretórios",
+	"settings.directories.gameDirectory.label": "Diretório do Jogo",
+	"settings.directories.gameDirectory.changeButton": "Mudar",
+	"settings.directories.gameDirectory.resetButton": "Resetar",
+	
+	"connectionerror.server.title": "Erro de Conecção",
+	"connectionerror.server.text": "Cheque sua conecção com a internet ou tente novamente mais tarde. Você ainda pode utilizar sua biblioteca e instalar arquivos .zip locais.",
+	"connectionerror.notfound.title": "404 - Não Encontrado",
+	"connectionerror.notfound.text": "Desculpe, nada encontrado! O que você procura pode ter sido removido ou mesmo nunca ter existido.",
+	
+	"download.status.downloading": "Baixando",
+	"download.status.extracting": "Extraindo",
+	"download.status.extractingFailed": "Não pudemos extrair a música!",
+	"download.status.installing": "Instalando",
+	"download.status.installingFailed": "Não pudemos instalar a música!",
+	"download.status.done": "Concluído",
+	"download.closeButton": "Fechar",
+	
+	"update.availableText": "Atualização disponível.",
+	"update.latestText": "Sua versão está atualizada.",
+	"update.download": "Baixar",
+	"update.later": "Depois",
+	"update.close": "Fechar"
+}
