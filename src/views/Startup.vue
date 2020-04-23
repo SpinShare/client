@@ -3,7 +3,8 @@
         <div class="staff-promos">
             <StaffPromoPlaceholder
                 v-if="isPromoLoading"
-                v-for="n in 2" />
+                v-for="n in 2"
+                v-bind:key="n" />
             <StaffPromo
                 v-if="!isPromoLoading"
                 v-for="staffPromo in staffPromos"
@@ -15,7 +16,8 @@
             title="New Songs">
             <SongItemPlaceholder
                 v-if="isNewSongsLoading"
-                v-for="n in 6" />
+                v-for="n in 6"
+                v-bind:key="n" />
             <SongItem
                 v-if="!isNewSongsLoading"
                 v-for="song in newSongs"
@@ -27,7 +29,8 @@
             title="Popular Songs">
             <SongItemPlaceholder
                 v-if="isPopularSongsLoading"
-                v-for="n in 6" />
+                v-for="n in 6"
+                v-bind:key="n" />
             <SongItem
                 v-if="!isPopularSongsLoading"
                 v-for="song in popularSongs"
@@ -60,7 +63,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(true);
+            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
 
             ssapi.getPromos().then((data) => {
                 this.$data.isPromoLoading = false;

@@ -1,7 +1,10 @@
+const glob = require('glob');
 const fs = require('fs');
+const path = require('path');
 const rimraf = require('rimraf');
 const unzipper = require('unzipper');
 const uniqid = require('uniqid');
+const UserSettings = require('./module.usersettings');
 
 class SRXD {
     constructor() {
@@ -9,6 +12,8 @@ class SRXD {
         this.srtbLocation = "";
         this.songTrackInfo = {};
         this.songLocation = "";
+
+        this.userSettings = new UserSettings();
     }
 
     // Extract a local backup folder
@@ -79,11 +84,11 @@ class SRXD {
         this.songLocation = "";
     }
 
-    getSongDetail(srtbPath) {
+    getSongDetail(rootPath, songPath) {
+        let srtbPath = path.join(rootPath, songPath);
         let srtbFile = JSON.parse( fs.readFileSync(srtbPath) );
         let songTrackInfo = "";
         let songOggInfo = "";
-        
 
         srtbFile.largeStringValuesContainer.values.forEach(function(value) {
             if(value.key == "SO_TrackInfo_TrackInfo") {
@@ -114,10 +119,10 @@ class SRXD {
         else {return [];}
     }
     getSongCover(fileName) {
-        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), "AlbumArt") );
+        let fileExtension = this.getFileExtension(fileName, path.join(this.userSettings.get('gameDirectory'), "AlbumArt") );
     
         if(fileExtension.length > 0) {
-            let finalPath = path.join(userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
+            let finalPath = path.join(this.userSettings.get('gameDirectory'), "AlbumArt", fileExtension[0]);
     
             let base64Data = "data:image/jpg;base64," + fs.readFileSync(finalPath, { encoding: 'base64' });
         
@@ -133,9 +138,9 @@ class SRXD {
 
     //Gets directory of files to delete
     getSongAssetDirectory(fileName, fileType) {
-        let fileExtension = this.getFileExtension(fileName, path.join(userSettings.get('gameDirectory'), fileType));
+        let fileExtension = this.getFileExtension(fileName, path.join(this.userSettings.get('gameDirectory'), fileType));
         if (fileExtension.join() != '') {
-        let finalPath = path.join(userSettings.get('gameDirectory'), fileType, fileExtension.join());
+        let finalPath = path.join(this.userSettings.get('gameDirectory'), fileType, fileExtension.join());
         return finalPath;
         }
         else {return fileName;}        

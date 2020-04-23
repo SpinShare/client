@@ -105,71 +105,19 @@
         &:focus {
             outline: 0;
         }
-    }
-    .user-row {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        grid-gap: 5px;
 
-        & .user-header {
-            display: grid;
-            grid-template-columns: 1fr auto;
+        &.button-label {
+            background: transparent;
 
-            & .row-title {
-                letter-spacing: 0.25em;
-                font-size: 14px;
-                font-weight: bold;
-                text-transform: uppercase;
-
-                &.row-title-noactions {
-                    margin: 10px 0px;
-                }
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: #fff;
             }
-        }
-        & .user-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 15px;
-        }
-    }
-    .user-item {
-        background: #383c3f;
-        transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
-        overflow: hidden;
-        border-radius: 6px;
-        display: grid;
-        padding: 10px;
-        grid-gap: 15px;
-        grid-template-columns: 32px 1fr;
-
-        & .user-avatar {
-            background: rgba(255,255,255,0.1);
-            background-size: cover;
-            background-position: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 32px;
-        }
-
-        & .user-metadata {
-            display: flex;
-            align-items: center;
-
-            & .user-name {
-                font-weight: bold;
-                overflow: hidden;
-                white-space: nowrap;
+            &:active {
+                background: #fff;
+                color: #222;
+                cursor: pointer;
             }
-            & .user-badge {
-                font-size: 18px;
-                margin-left: 10px;
-            }
-        }
-
-        &:hover {
-            transform: scale(1.1);
-            cursor: pointer;
-            box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
         }
     }
 </style>

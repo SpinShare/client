@@ -122,6 +122,22 @@ class SSAPI {
         });
     }
 
+    async searchAll() {
+        let apiPath = this.apiBase + "searchAll";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async search(_searchQuery) {
         let apiPath = this.apiBase + "search/" + _searchQuery;
         let supportedVersion = this.supportedVersion;

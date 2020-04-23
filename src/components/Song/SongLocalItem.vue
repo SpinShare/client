@@ -1,0 +1,127 @@
+<template>
+    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)">
+        <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+            <div class="song-charter-info">
+                <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ detail.charter ? detail.charter : "Unknown" }}</span></div>
+            </div>
+        </div>
+        <div class="song-metadata">
+            <div class="song-title">{{ detail.title ? detail.title : "Untitled" }}</div>
+            <div class="song-artist">{{ detail.artist ? detail.artist : "Unknown" }}</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { remote } from 'electron';
+    const { clipboard } = remote;
+
+    export default {
+        name: 'SongLocalItem',
+        props: [
+            'id',
+            'detail',
+            'cover',
+            'isSpinShare'
+        ],
+        data: function() {
+            return {
+                isContextMenuActive: false
+            }
+        },
+        mounted: function() {
+        },
+        methods: {
+            showContextMenu: function(e) {
+                this.$root.$emit('showContextMenu', {
+                    x: e.pageX,
+                    y: e.pageY,
+                    items: [
+                        { icon: "delete", title: "Delete", method: function() { alert('TODO') }.bind(this) }
+                    ]});
+            }
+        }
+    }
+</script>
+
+<style scoped lang="less">
+    .song-item-local {
+        background: rgba(255,255,255,0.1);
+        transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
+        overflow: hidden;
+        border-radius: 6px;
+
+        & .song-cover {
+            background: rgba(255,255,255,0.1);
+            background-size: cover;
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+            background-position: center;
+
+            & .song-charter {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                right: 0px;
+                bottom: 0px;
+                background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+                opacity: 0;
+                padding: 15px;
+                overflow: hidden;
+                display: grid;
+                transition: 0.2s ease-in-out opacity;
+                grid-template-columns: auto 1fr;
+                grid-gap: 10px;
+                align-items: flex-end;
+
+                & .song-charter-info {
+                    display: grid;
+                    align-items: center;
+
+                    & .mdi {
+                        font-size: 18px;
+                    }
+                    & span {
+                        font-size: 12px;
+                        color: transparent;
+                        transition: 0.2s ease-in-out color;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        & .song-metadata {
+            padding: 15px;
+
+            & .song-title {
+                font-weight: bold;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            & .song-artist {
+                margin-top: 5px;
+                opacity: 0.6;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+
+        &:not(.song-item-onlylocal):hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
+
+            & .song-cover {
+                & .song-charter {
+                    opacity: 1;
+                }
+            }
+        }
+        &.song-item-onlylocal {
+            opacity: 0.6;
+        }
+    }
+</style>
