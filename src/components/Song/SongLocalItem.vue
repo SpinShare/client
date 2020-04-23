@@ -38,7 +38,7 @@
                     x: e.pageX,
                     y: e.pageY,
                     items: [
-                        { icon: "delete", title: "Delete", method: () => { this.$root.$emit('delete', this.$props.file); } }
+                        { icon: "delete", title: "Delete", method: () => { this.$parent.$parent.$emit('delete', this.$props.file); } }
                     ]});
             }
         }

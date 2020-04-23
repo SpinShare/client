@@ -2,13 +2,11 @@
     <div id="app">
         <main>
             <Navigation />
-            <router-view />
+            <router-view ref="currentView" />
         </main>
 
         <ContextMenu>
         </ContextMenu>
-
-        <DeleteOverlay v-if="showDeleteOverlay" v-bind:deleteFiles="deleteFiles" />
     </div>
 </template>
 
@@ -21,77 +19,27 @@
 
     import Navigation from '@/components/Navigation/Navigation.vue';
     import ContextMenu from '@/components/ContextMenu/ContextMenu.vue';
-    import DeleteOverlay from '@/components/Overlays/DeleteOverlay.vue';
 
     export default {
         name: 'App',
         components: {
             Navigation,
-            ContextMenu,
-            DeleteOverlay
+            ContextMenu
         },
         data: function() {
             return {
-                downloadQueue: [],
-                showDeleteOverlay: false,
-                deleteFiles: []
+                downloadQueue: []
             }
         },
         mounted: function() {
             this.$root.$on('download', (url) => {
                 this.addToQueue(url);
             });
-            this.$root.$on('delete', (file) => {
-                this.$data.showDeleteOverlay = true;
-                this.$data.deleteFiles = this.getConnectedFiles(file);
-                console.log(this.$data.deleteFiles);
-            });
-            this.$root.$on('deleteDeny', () => {
-                this.$data.showDeleteOverlay = false;
-                this.$data.deleteFiles = "";
-            });
-            this.$root.$on('deleteConfirmed', () => {
-                this.$data.deleteFiles.forEach((file) => {
-                    fs.unlinkSync(file);
-                });
-                this.$data.showDeleteOverlay = false;
-                this.$data.deleteFiles = "";
-            });
         },
         methods: {
             addToQueue: function(url) {
                 this.$data.downloadQueue.push(url);
                 console.log("Added " + url + " to queue");
-            },
-            getConnectedFiles: function(srtbFilePath) {
-                let userSettings = new UserSettings();
-                let srtbContent = JSON.parse( fs.readFileSync(srtbFilePath) );
-                let connectedFiles = [];
-
-                connectedFiles.push(srtbFilePath);
-
-                let stringValueContainers = srtbContent['largeStringValuesContainer'].values;
-
-                stringValueContainers.forEach((stringValueContainer) => {
-                    if(stringValueContainer.key == "SO_TrackInfo_TrackInfo") {
-                        let rawTrackInfo = JSON.parse( stringValueContainer.val );
-                        let coverPath = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", rawTrackInfo.albumArtReference.assetName + ".*"))[0];
-
-                        if(coverPath) {
-                            connectedFiles.push(coverPath);
-                        }
-                    }
-                    if(stringValueContainer.key.includes("SO_ClipInfo")) {
-                        let rawClipInfo = JSON.parse( stringValueContainer.val );
-                        let clipPath = glob.sync(path.join(userSettings.get('gameDirectory'), "AudioClips", rawClipInfo.clipAssetReference.assetName + ".*"))[0];
-
-                        if(clipPath) {
-                            connectedFiles.push(clipPath);
-                        }
-                    }
-                });
-
-                return connectedFiles;
             }
         },
         watch: {

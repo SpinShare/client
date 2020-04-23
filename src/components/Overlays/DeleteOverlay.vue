@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="delete-actions">
-                <button class="button">Delete</button>
+                <button class="button" v-on:click="confirm()">Delete</button>
                 <button class="button" v-on:click="close()">Close</button>
             </div>
         </div>
@@ -27,10 +27,11 @@
         ],
         methods: {
             confirm() {
-                this.$root.$emit('deleteConfirm');
+                console.log("confirm");
+                this.$parent.$emit('deleteConfirm');
             },
             close() {
-                this.$root.$emit('deleteDeny');
+                this.$parent.$emit('deleteDeny');
             }
         }
     }
