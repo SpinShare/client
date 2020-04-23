@@ -1,4 +1,4 @@
-# spinshare-client
+# client
 
 ## Project setup
 ```

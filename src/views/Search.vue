@@ -1,0 +1,106 @@
+<template>
+    <section class="section-search">
+        <div class="search-bar">
+            <div class="show-all">
+                <div class="button button-label" v-on:click="searchAll()" locale="">Show all</div>
+            </div>
+            <input type="search" placeholder="Search for songs, tags &amp; profiles..." localeplaceholder="" v-on:change="search(this.value)">
+        </div>
+    </section>
+</template>
+
+<script>
+    export default {
+        name: 'Search',
+        components: {
+        },
+        methods: {
+            searchAll: function() {
+
+            },
+            search: function(searchQuery) {
+
+            }
+        }
+    }
+</script>
+
+<style scoped lang="less">
+    .section-search {
+        grid-template-rows: auto 1fr;
+        grid-gap: 25px;
+        padding: 50px;
+        display: grid;
+
+        & .search-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            
+            input {
+                width: 100%;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                color: #fff;
+                background: rgba(255,255,255,0.2);
+                border-radius: 4px;
+                padding: 14px 28px;
+                border: 0px;
+                transition: 0.2s ease-in-out all;
+            
+                &:hover {
+                    background: rgba(255,255,255,0.4);
+                    color: #fff;
+                }
+                &:focus {
+                    outline: 0;
+                }
+                &::placeholder {
+                    color: rgba(255,255,255,0.6);
+                }
+            }
+        }
+        & .search-results {
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            grid-gap: 25px;
+
+            & .search-results-users {
+                display: none;
+
+                &.active {
+                    display: grid;
+                }
+            }
+
+            & .search-results-songs {
+                display: none;
+
+                &.active {
+                    display: grid;
+                }
+            }
+
+            & .search-results-noresults {
+                background: rgba(255,255,255,0.1);
+                border-radius: 6px;
+                padding: 25px;
+                display: none;
+
+                & .noresults-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                & .noresults-text {
+                    opacity: 0.6;
+                }
+
+                &.active {
+                    display: block;
+                }
+            }
+        }
+    }
+</style>
