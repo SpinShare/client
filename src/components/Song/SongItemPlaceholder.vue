@@ -5,6 +5,7 @@
             <div class="song-title">&nbsp;</div>
             <div class="song-artist">&nbsp;</div>
             <div class="song-difficulties">
+                <img src="@/assets/img/difficultyEasy.svg" />
             </div>
         </div>
     </div>
@@ -41,14 +42,32 @@
         & .song-metadata {
             padding: 15px;
 
+            & .song-title {
+                height: 19px;
+            }
             & .song-artist {
                 margin-top: 5px;
+                height: 19px;
             }
             & .song-difficulties {
                 margin-top: 10px;
                 height: 20px;
                 display: flex;
+    
+                & img {
+                    height: 18px;
+                    margin-right: 10px;
+                    opacity: 0;
+                }
             }
+        }
+    }
+    @keyframes songLoadingShimmer {
+        from {
+            background-position: 0px 0px;
+        }
+        to {
+            background-position: 173px 0px;
         }
     }
 </style>

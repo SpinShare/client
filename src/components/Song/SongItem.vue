@@ -52,9 +52,9 @@
                     x: e.pageX,
                     y: e.pageY,
                     items: [
-                        { icon: "eye", title: "Open", method: function() { alert('TODO') }.bind(this) },
-                        { icon: "link", title: "Copy Link", method: function() { clipboard.writeText('https://spinsha.re/song/' + this.$props.id) }.bind(this) },
-                        { icon: "download", title: "Download", method: function() { this.$root.$emit('download', this.$props.zip); }.bind(this) }
+                        { icon: "eye", title: "Open", method: () => { alert('TODO') } },
+                        { icon: "link", title: "Copy Link", method: () => { clipboard.writeText('https://spinsha.re/song/' + this.$props.id) } },
+                        { icon: "download", title: "Download", method: () => { this.$root.$emit('download', this.$props.zip); } }
                     ]});
             }
         }

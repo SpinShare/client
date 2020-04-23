@@ -20,6 +20,7 @@
         name: 'SongLocalItem',
         props: [
             'id',
+            'file',
             'detail',
             'cover',
             'isSpinShare'
@@ -37,7 +38,7 @@
                     x: e.pageX,
                     y: e.pageY,
                     items: [
-                        { icon: "delete", title: "Delete", method: function() { alert('TODO') }.bind(this) }
+                        { icon: "delete", title: "Delete", method: () => { this.$root.$emit('delete', this.$props.file); } }
                     ]});
             }
         }

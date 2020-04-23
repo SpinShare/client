@@ -7,7 +7,7 @@
             <input type="search" placeholder="Search for songs, tags &amp; profiles..." v-on:input="search()" v-model="searchQuery">
         </div>
         <div class="search-results">
-            <UserRow title="Users" noactions="true" v-if="searchResultsUsers.length > 0">
+            <UserRow title="Users" v-if="searchResultsUsers.length > 0">
                 <UserItem
                     v-for="user in searchResultsUsers"
                     v-bind:key="user.id"

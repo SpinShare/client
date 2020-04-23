@@ -1,0 +1,94 @@
+<template>
+    <div class="delete-overlay">
+        <div class="delete-content">
+            <div class="delete-main">
+                <div class="delete-title">library.deletemodal.title</div>
+                <div class="delete-text">library.deletemodal.text</div>
+                <div class="delete-files">
+                    <span v-for="deleteFile in deleteFiles">{{ deleteFile }}</span>
+                </div>
+            </div>
+            <div class="delete-actions">
+                <button class="button">Delete</button>
+                <button class="button" v-on:click="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { remote } from 'electron';
+    const { shell } = remote;
+
+    export default {
+        name: 'DeleteOverlay',
+        props: [
+            'deleteFiles'
+        ],
+        methods: {
+            confirm() {
+                this.$root.$emit('deleteConfirm');
+            },
+            close() {
+                this.$root.$emit('deleteDeny');
+            }
+        }
+    }
+</script>
+
+<style scoped lang="less">
+    .delete-overlay {
+        position: fixed;
+        z-index: 100;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background: rgba(0,0,0,0.75);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .delete-content {
+            width: 500px;
+            background: #212629;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+
+            & .delete-main {
+                padding: 25px;
+
+                & .delete-title {
+                    letter-spacing: 0.25em;
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                & .delete-text {
+                    padding: 15px 0px;
+                    opacity: 0.6;
+                }
+                & .delete-files {
+                    font-size: 12px;
+
+                    & span {
+                        display: block;
+                        padding: 5px 0px;
+                    }
+                }
+            }
+
+            & .delete-actions {
+                display: flex;
+                justify-content: flex-end;
+                padding: 25px;
+                background: rgba(0,0,0,0.4);
+
+                & button {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+</style>

@@ -3,12 +3,11 @@
         <div class="song-header">
             <div :class="'row-title ' + (noactions ? 'row-title-noactions' : '')">{{ title }}</div>
             <div class="row-controls" v-if="!noactions">
-                <div class="item disabled row-controls-previous"><i class="mdi mdi-chevron-left"></i></div>
-                <div class="item row-controls-next"><i class="mdi mdi-chevron-right"></i></div>
+                <slot name="controls"></slot>
             </div>
         </div>
         <div class="song-list">
-            <slot></slot>
+            <slot name="song-list"></slot>
         </div>
     </div>
 </template>

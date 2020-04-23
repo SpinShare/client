@@ -1,11 +1,7 @@
 <template>
     <div class="user-row">
         <div class="user-header">
-            <div :class="'row-title ' + (noactions ? 'row-title-noactions' : '')">{{ title }}</div>
-            <div class="row-controls" v-if="!noactions">
-                <div class="item disabled row-controls-previous"><i class="mdi mdi-chevron-left"></i></div>
-                <div class="item row-controls-next"><i class="mdi mdi-chevron-right"></i></div>
-            </div>
+            <div class="row-title">{{ title }}</div>
         </div>
         <div class="user-list">
             <slot></slot>
@@ -20,8 +16,7 @@
     export default {
         name: 'UserRow',
         props: [
-            'title',
-            'noactions'
+            'title'
         ]
     }
 </script>
@@ -41,10 +36,7 @@
                 font-size: 14px;
                 font-weight: bold;
                 text-transform: uppercase;
-
-                &.row-title-noactions {
-                    margin: 10px 0px;
-                }
+                margin: 10px 0px;
             }
         }
         & .user-list {

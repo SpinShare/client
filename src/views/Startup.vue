@@ -14,28 +14,40 @@
 
         <SongRow
             title="New Songs">
-            <SongItemPlaceholder
-                v-if="isNewSongsLoading"
-                v-for="n in 6"
-                v-bind:key="n" />
-            <SongItem
-                v-if="!isNewSongsLoading"
-                v-for="song in newSongs"
-                v-bind:key="song.id"
-                v-bind="song" />
+            <template v-slot:controls>
+                <div :class="'item ' + (newSongsOffset == 0 ? 'disabled' : '')" v-on:click="newPrevious()"><i class="mdi mdi-chevron-left"></i></div>
+                <div :class="'item ' + (newSongs.length < 5 ? 'disabled' : '')" v-on:click="newNext()"><i class="mdi mdi-chevron-right"></i></div>
+            </template>
+            <template v-slot:song-list>
+                <SongItemPlaceholder
+                    v-if="isNewSongsLoading"
+                    v-for="n in 6"
+                    v-bind:key="n" />
+                <SongItem
+                    v-if="!isNewSongsLoading"
+                    v-for="song in newSongs"
+                    v-bind:key="song.id"
+                    v-bind="song" />
+            </template>
         </SongRow>
 
         <SongRow
             title="Popular Songs">
-            <SongItemPlaceholder
-                v-if="isPopularSongsLoading"
-                v-for="n in 6"
-                v-bind:key="n" />
-            <SongItem
-                v-if="!isPopularSongsLoading"
-                v-for="song in popularSongs"
-                v-bind:key="song.id"
-                v-bind="song" />
+            <template v-slot:controls>
+                <div :class="'item ' + (popularSongsOffset == 0 ? 'disabled' : '')" v-on:click="popularPrevious()"><i class="mdi mdi-chevron-left"></i></div>
+                <div :class="'item ' + (popularSongs.length < 5 ? 'disabled' : '')" v-on:click="popularNext()"><i class="mdi mdi-chevron-right"></i></div>
+            </template>
+            <template v-slot:song-list>
+                <SongItemPlaceholder
+                    v-if="isPopularSongsLoading"
+                    v-for="n in 6"
+                    v-bind:key="n" />
+                <SongItem
+                    v-if="!isPopularSongsLoading"
+                    v-for="song in popularSongs"
+                    v-bind:key="song.id"
+                    v-bind="song" />
+            </template>
         </SongRow>
     </section>
 </template>
@@ -86,6 +98,50 @@
             SongRow,
             SongItem,
             SongItemPlaceholder
+        },
+        methods: {
+            newNext: function() {
+                if(this.$data.newSongs.length > 5) {
+                    this.$data.newSongsOffset++;
+                    this.updateNew();
+                }
+            },
+            newPrevious: function() {
+                if(this.$data.newSongsOffset > 0) {
+                    this.$data.newSongsOffset--;
+                    this.updateNew();
+                }
+            },
+            popularNext: function() {
+                if(this.$data.popularSongs.length > 5) {
+                    this.$data.popularSongsOffset++;
+                    this.updatePopular();
+                }
+            },
+            popularPrevious: function() {
+                if(this.$data.popularSongsOffset > 0) {
+                    this.$data.popularSongsOffset--;
+                    this.updatePopular();
+                }
+            },
+            updateNew: function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                this.$data.isNewSongsLoading = true;
+
+                ssapi.getNewSongs(this.$data.newSongsOffset).then((data) => {
+                    this.$data.isNewSongsLoading = false;
+                    this.$data.newSongs = data;
+                });
+            },
+            updatePopular: function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                this.$data.isPopularSongsLoading = true;
+
+                ssapi.getPopularSongs(this.$data.popularSongsOffset).then((data) => {
+                    this.$data.isPopularSongsLoading = false;
+                    this.$data.popularSongs = data;
+                });
+            }
         }
     }
 </script>

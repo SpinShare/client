@@ -1,12 +1,18 @@
 <template>
     <section class="section-library">
-        <SongRow title="Installed Songs" noactions="true">
-            <SongInstallItem />
+        <SongRow title="Installed Songs">
+            <template v-slot:controls>
+                <div class="item"></div>
+                <div class="item" v-on:click="refreshLibrary()"><i class="mdi mdi-refresh"></i></div>
+            </template>
+            <template v-slot:song-list>
+                <SongInstallItem />
 
-            <SongLocalItem
-                v-for="song in librarySongs"
-                v-bind:key="song.detail.id"
-                v-bind="song" />
+                <SongLocalItem
+                    v-for="song in librarySongs"
+                    v-bind:key="song.detail.id"
+                    v-bind="song" />
+            </template>
         </SongRow>
     </section>
 </template>
@@ -61,6 +67,7 @@
                         }
 
                         let librarySong = {
+                            file: file,
                             detail: songDetail,
                             cover: songCover,
                             isSpinShare: songSpinShareReference
