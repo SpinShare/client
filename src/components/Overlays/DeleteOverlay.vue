@@ -2,8 +2,8 @@
     <div class="delete-overlay">
         <div class="delete-content">
             <div class="delete-main">
-                <div class="delete-title">library.deletemodal.title</div>
-                <div class="delete-text">library.deletemodal.text</div>
+                <div class="delete-title">Confirmation</div>
+                <div class="delete-text">These files will be removed.</div>
                 <div class="delete-files">
                     <span v-for="deleteFile in deleteFiles">{{ deleteFile }}</span>
                 </div>

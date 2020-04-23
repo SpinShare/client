@@ -2,7 +2,7 @@
     <div id="app">
         <main>
             <Navigation />
-            <router-view ref="currentView" />
+            <router-view />
         </main>
 
         <ContextMenu>
