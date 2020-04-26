@@ -27,7 +27,6 @@
         ],
         methods: {
             confirm() {
-                console.log("confirm");
                 this.$parent.$emit('deleteConfirm');
             },
             close() {

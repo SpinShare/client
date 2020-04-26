@@ -74,6 +74,22 @@ class SSAPI {
         });
     }
 
+    async getHotSongs(_offset) {
+        let apiPath = this.apiBase + "songs/hot/" + _offset;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async getPopularSongs(_offset) {
         let apiPath = this.apiBase + "songs/popular/" + _offset;
         let supportedVersion = this.supportedVersion;
