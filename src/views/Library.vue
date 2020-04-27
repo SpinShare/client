@@ -2,8 +2,8 @@
     <section class="section-library">
         <SongRow title="Installed Songs">
             <template v-slot:controls>
-                <div class="item"></div>
                 <div class="item" v-on:click="refreshLibrary()"><i class="mdi mdi-refresh"></i></div>
+                <div class="item" v-on:click="getUnusedFiles()"><i class="mdi mdi-delete"></i></div>
             </template>
             <template v-slot:song-list>
                 <SongInstallItem />
@@ -150,7 +150,42 @@
                 });
 
                 return connectedFiles;
-            }
+            },
+            
+                getUnusedFiles: function(srtbFilePath) {
+                let userSettings = new UserSettings();
+                let allLinkedAssets = [[] , []];
+                let differingAssets = [];
+
+                //Create array of assets from the srtb files
+                glob(path.join(userSettings.get('gameDirectory'), "*.srtb"), (error, files) => {
+                    files.forEach((file) => {
+                        allLinkedAssets[0].push((this.getConnectedFiles(file)).slice(1)[0]);
+                        allLinkedAssets[1].push((this.getConnectedFiles(file)).slice(1)[1]);
+                    });
+                });
+
+                //Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
+                glob(path.join(userSettings.get('gameDirectory'), "AlbumArt", "*"), (error, files) => {
+                    files.forEach((file) => {
+                        if (allLinkedAssets[0].includes(file)){}
+                        else{differingAssets.push(file);}
+                    });
+                });
+                glob(path.join(userSettings.get('gameDirectory'), "AudioClips", "*.ogg"), (error, files) => {
+                    files.forEach((file) => {
+                        if (allLinkedAssets[1].includes(file)){}
+                        else{differingAssets.push(file);}
+                    });
+                });
+
+                //Creates delete overlay
+                this.$data.deleteFiles = differingAssets
+                this.$data.showDeleteOverlay = true;
+                
+                console.log(this.$data.deleteFiles);
+
+            },
         }
     }
 </script>
