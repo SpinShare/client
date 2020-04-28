@@ -69,9 +69,9 @@
             });
             this.$on('deleteUnneeded', (file) => {
                 this.getUnusedFiles().then( (data) => {
-                console.log(data)
-                data.thisData.deleteFiles = data.differingAssets;
-                data.thisData.showDeleteOverlay = true;
+                    data.thisData.deleteFiles = data.differingAssets;
+                    data.thisData.showDeleteOverlay = true;
+                    console.log(data.thisData.deleteFiles);
                 });
             });
         },
@@ -158,8 +158,7 @@
 
                 return connectedFiles;
             },
-            
-                getUnusedFiles: async function() {
+            getUnusedFiles: async function() {
                 let userSettings = new UserSettings();
                 let allLinkedAssets = [[] , []];
                 let differingAssets = [];
@@ -191,7 +190,8 @@
                         else{differingAssets.push(file);}
                     });
                 });
-                let thisData = this.$data
+                
+                let thisData = this.$data;
                 return {differingAssets, thisData};
             },
         }
