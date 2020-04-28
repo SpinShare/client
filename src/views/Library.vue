@@ -69,6 +69,7 @@
             });
             this.$on('deleteUnneeded', (file) => {
                 this.getUnusedFiles().then( (data) => {
+                console.log(data)
                 data.thisData.deleteFiles = data.differingAssets;
                 data.thisData.showDeleteOverlay = true;
                 });
@@ -173,10 +174,11 @@
                         resolve(allLinkedAssets);
                     })
                 });
-    
+
+                //Waits for resolve in order to avoid bug where all songs would be added to differingAssets
                 let allLinkedAssetsResults = await allLinkedAssetsPromise;
+
                 //Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
-                
                 glob(path.join(userSettings.get('gameDirectory'), "AlbumArt", "*"), (error, files) => {
                 files.forEach((file) => {
                     if (allLinkedAssetsResults[0].includes(file)){}
