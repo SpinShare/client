@@ -1,7 +1,7 @@
 <template>
     <aside>
         <nav>
-            <router-link to="/" class="item"><i class="mdi mdi-home-outline"></i></router-link>
+            <router-link to="/" exact class="item"><i class="mdi mdi-home-outline"></i></router-link>
             <router-link to="/search" class="item"><i class="mdi mdi-magnify"></i></router-link>
             <router-link to="/library" class="item"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
             <div v-on:click="openExternal('https://www.patreon.com/spinshare');" class="item"><i class="mdi mdi-patreon"></i></div>
@@ -53,7 +53,7 @@
                 opacity: 1;
                 cursor: pointer;
             }
-            &.router-link-exact-active {
+            &.router-link-active {
                 opacity: 1;
                 background: linear-gradient(135deg, #fd2f85, #7a34ec);
             }

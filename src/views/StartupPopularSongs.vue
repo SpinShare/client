@@ -1,6 +1,6 @@
 <template>
     <SongRow
-        title="Popular Songs">
+        :title="$t('startup.popularsongs.header')">
         <template v-slot:controls>
             <div :class="'item ' + (popularSongsOffset == 0 ? 'disabled' : '')" v-on:click="popularPrevious()"><i class="mdi mdi-chevron-left"></i></div>
             <div :class="'item ' + (popularSongs.length < 11 ? 'disabled' : '')" v-on:click="popularNext()"><i class="mdi mdi-chevron-right"></i></div>

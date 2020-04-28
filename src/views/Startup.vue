@@ -1,10 +1,10 @@
 <template>
     <section class="section-startup">
         <div class="tabs">
-            <router-link to="/"><span>FRONTPAGE</span></router-link>
-            <router-link to="/new"><span>NEW</span></router-link>
-            <router-link to="/hot"><span>HOT</span></router-link>
-            <router-link to="/popular"><span>POPULAR</span></router-link>
+            <router-link to="/"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
+            <router-link to="/new"><span>{{ $t('startup.tabs.new') }}</span></router-link>
+            <router-link to="/hot"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
+            <router-link to="/popular"><span>{{ $t('startup.tabs.popular') }}</span></router-link>
         </div>
 
         <router-view></router-view>
@@ -37,6 +37,7 @@
                 padding: 10px 15px;
                 margin: 0px 5px;
                 text-align: center;
+                text-transform: uppercase;
                 opacity: 0.6;
                 transition: 0.2s ease-in-out background, 0.2s ease-in-out opacity;
 

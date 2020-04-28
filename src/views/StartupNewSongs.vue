@@ -1,6 +1,6 @@
 <template>
     <SongRow
-        title="New Songs">
+        :title="$t('startup.newsongs.header')">
         <template v-slot:controls>
             <div :class="'item ' + (newSongsOffset == 0 ? 'disabled' : '')" v-on:click="newPrevious()"><i class="mdi mdi-chevron-left"></i></div>
             <div :class="'item ' + (newSongs.length < 11 ? 'disabled' : '')" v-on:click="newNext()"><i class="mdi mdi-chevron-right"></i></div>

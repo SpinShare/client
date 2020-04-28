@@ -4,8 +4,8 @@
             <div class="song-icon"><i class="mdi mdi-folder-music"></i></div>
         </div>
         <div class="song-metadata">
-            <div class="song-title">Install</div>
-            <div class="song-artist">Install a local .zip</div>
+            <div class="song-title">{{ $t('library.installed.install.title') }}</div>
+            <div class="song-artist">{{ $t('library.installed.install.text') }}</div>
         </div>
     </div>
 </template>

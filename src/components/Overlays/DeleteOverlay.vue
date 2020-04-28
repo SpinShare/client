@@ -2,15 +2,15 @@
     <div class="delete-overlay">
         <div class="delete-content">
             <div class="delete-main">
-                <div class="delete-title">Confirmation</div>
-                <div class="delete-text">These files will be removed.</div>
+                <div class="delete-title">{{ $t('library.deletemodal.title') }}</div>
+                <div class="delete-text">{{ $t('library.deletemodal.text') }}</div>
                 <div class="delete-files">
                     <span v-for="deleteFile in deleteFiles">{{ deleteFile }}</span>
                 </div>
             </div>
             <div class="delete-actions">
-                <button class="button" v-on:click="confirm()">Delete</button>
-                <button class="button" v-on:click="close()">Close</button>
+                <button class="button" v-on:click="confirm()">{{ $t('library.deletemodal.delete') }}</button>
+                <button class="button" v-on:click="close()">{{ $t('library.deletemodal.close') }}</button>
             </div>
         </div>
     </div>

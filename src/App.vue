@@ -7,33 +7,61 @@
 
         <ContextMenu>
         </ContextMenu>
+
+        <UpdateOverlay v-if="showUpdateOverlay" v-bind:isAvailable="isUpdateAvailable"></UpdateOverlay>
     </div>
 </template>
 
 <script>
+    import { remote } from 'electron';
+    const { app, dialog } = remote;
+
     import fs from 'fs';
     import glob from 'glob';
     import path from 'path';
 
     import UserSettings from '@/modules/module.usersettings.js';
+    import SSAPI from '@/modules/module.api.js';
 
     import Navigation from '@/components/Navigation/Navigation.vue';
     import ContextMenu from '@/components/ContextMenu/ContextMenu.vue';
+    import UpdateOverlay from '@/components/Overlays/UpdateOverlay.vue';
 
     export default {
         name: 'App',
         components: {
             Navigation,
-            ContextMenu
+            ContextMenu,
+            UpdateOverlay
         },
         data: function() {
             return {
-                downloadQueue: []
+                downloadQueue: [],
+                showUpdateOverlay: false,
+                isUpdateAvailable: false
             }
         },
         mounted: function() {
             this.$root.$on('download', (url) => {
                 this.addToQueue(url);
+            });
+
+            this.$root.$on('showUpdateOverlay', (isAvailable) => {
+                this.$data.showUpdateOverlay = true;
+                this.$data.isUpdateAvailable = isAvailable;
+            });
+            this.$root.$on('hideUpdateOverlay', () => {
+                this.$data.showUpdateOverlay = false;
+                this.$data.isUpdateAvailable = false;
+            });
+
+            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+
+            ssapi.getLatestVersion().then((data) => {
+                if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {
+                    this.$data.showUpdateOverlay = true;
+                    this.$data.isUpdateAvailable = true;
+                }
             });
         },
         methods: {

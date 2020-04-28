@@ -1,26 +1,26 @@
 <template>
     <section class="section-settings">
         <div class="settings-box">
-            <div class="settings-title" locale="">SpinShare</div>
+            <div class="settings-title">{{ $t('settings.general.header') }}</div>
             <div class="settings-item">
-                <div class="settings-label" locale="">Version</div>
+                <div class="settings-label">{{ $t('settings.general.version.label') }}</div>
                 <div class="settings-input">
                     <span class="settings-input-version">{{ version }}-{{ environment }}</span>
                 </div>
             </div>
             <div class="settings-item">
-                <div class="settings-label" locale="">Update</div>
+                <div class="settings-label">{{ $t('settings.general.update.label') }}</div>
                 <div class="settings-input">
-                    <button onclick="CheckForUpdates(true)" locale="">Check for Updates</button>
+                    <button v-on:click="CheckForUpdates()">{{ $t('settings.general.update.button') }}</button>
                 </div>
             </div>
         </div>
         <div class="settings-box">
-            <div class="settings-title" locale="">Language</div>
+            <div class="settings-title">{{ $t('settings.language.header') }}</div>
             <div class="settings-item">
-                <div class="settings-label" locale="">Select Language</div>
+                <div class="settings-label">{{ $t('settings.language.selectLanguage.label') }}</div>
                 <div class="settings-input">
-                    <select onchange="SettingsChangeLanguage()" class="settings-input-language">
+                    <select v-on:change="ChangeLanguage()" v-model="settingLanguage" class="settings-input-language">
                         <option value="en">English (English)</option>
                         <option value="de">Deutsch (German)</option>
                         <option value="nl">Nederlands (Dutch)</option>
@@ -34,16 +34,17 @@
                         <option value="speen">Speen (Speen)</option>
                     </select>
                 </div>
+                <div class="settings-hint">{{ $t('settings.language.translatedBy') }}</div>
             </div>
         </div>
         <div class="settings-box">
-            <div class="settings-title" locale="">Directories</div>
+            <div class="settings-title">{{ $t('settings.directories.header') }}</div>
             <div class="settings-item">
-                <div class="settings-label" locale="">Game Directory</div>
+                <div class="settings-label">{{ $t('settings.directories.gameDirectory.label') }}</div>
                 <div class="settings-input settings-input-twobuttons">
-                    <input type="text" disabled="" class="settings-input-gamedirectory">
-                    <button onclick="SettingsSelectGameDirectory()" locale="">Change</button>
-                    <button onclick="SettingsResetGameDirectory()" locale="">Reset</button>
+                    <input type="text" class="settings-input-gamedirectory" disabled v-model="settingGameDirectory">
+                    <button v-on:click="SelectGameDirectory()">{{ $t('settings.directories.gameDirectory.changeButton') }}</button>
+                    <button v-on:click="ResetGameDirectory()">{{ $t('settings.directories.gameDirectory.resetButton') }}</button>
                 </div>
             </div>
         </div>
@@ -52,19 +53,66 @@
 
 <script>
     import { remote } from 'electron';
-    const { app } = remote;
+    const { app, dialog } = remote;
+
+    import UserSettings from '@/modules/module.usersettings.js';
+    import SSAPI from '@/modules/module.api.js';
 
     export default {
         name: 'Settings',
         data: function() {
             return {
                 version: "",
-                environment: ""
+                environment: "",
+                settingLanguage: "",
+                settingGameDirectory: ""
             }
         },
         mounted: function() {
+            let userSettings = new UserSettings();
+
             this.$data.version = app.getVersion();
             this.$data.environment = process.env.NODE_ENV;
+
+            this.$data.settingLanguage = userSettings.get('language');
+            this.$data.settingGameDirectory = userSettings.get('gameDirectory');
+        },
+        methods: {
+            SelectGameDirectory: function() {
+                let userSettings = new UserSettings();
+
+                dialog.showOpenDialog({ title: "Open Game Directory", properties: ['openDirectory'] }).then(result => {
+                    if(!result.canceled) {
+                        let directoryPath = result.filePaths[0];
+
+                        this.$data.settingGameDirectory = directoryPath;
+                        userSettings.set('gameDirectory', this.$data.settingGameDirectory);
+                    }
+                });
+            },
+            ResetGameDirectory: function() {
+                let userSettings = new UserSettings();
+
+                this.$data.settingGameDirectory = userSettings.detectGameDirectory();
+                userSettings.set('gameDirectory', this.$data.settingGameDirectory);
+            },
+            ChangeLanguage: function() {
+                let userSettings = new UserSettings();
+                userSettings.set('language', this.$data.settingLanguage);
+                
+                this.$i18n.locale = this.$data.settingLanguage;
+            },
+            CheckForUpdates: function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+
+                ssapi.getLatestVersion().then((data) => {
+                    if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {
+                        this.$root.$emit('showUpdateOverlay', true);
+                    } else {
+                        this.$root.$emit('showUpdateOverlay', false);
+                    }
+                });
+            }
         }
     }
 </script>
@@ -144,6 +192,11 @@
                         text-transform: initial;
                         font-weight: normal;
                     }
+                }
+                & .settings-hint {
+                    grid-column: 2;
+                    font-size: 12px;
+                    opacity: 0.4;
                 }
             }
         }
