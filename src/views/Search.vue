@@ -7,19 +7,21 @@
             <input type="search" placeholder="Search for songs, tags &amp; profiles..." v-on:input="search()" v-model="searchQuery">
         </div>
         <div class="search-results">
-            <UserRow title="Users" v-if="searchResultsUsers.length > 0">
+            <UserRow title="Users" v-show="searchResultsUsers.length > 0">
                 <UserItem
                     v-for="user in searchResultsUsers"
                     v-bind:key="user.id"
                     v-bind="user" />
             </UserRow>
-            <SongRow title="Songs" noactions="true" v-if="searchResultsSongs.length > 0">
-                <SongItem
-                    v-for="song in searchResultsSongs"
-                    v-bind:key="song.id"
-                    v-bind="song" />
+            <SongRow title="Songs" noactions="true" v-show="searchResultsSongs.length > 0">
+                <template v-slot:song-list>
+                    <SongItem
+                        v-for="song in searchResultsSongs"
+                        v-bind:key="song.id"
+                        v-bind="song" />
+                </template>
             </SongRow>
-            <div class="search-results-noresults" v-if="searchResultsUsers.length == 0 && searchResultsSongs.length == 0 && apiFinished">
+            <div class="search-results-noresults" v-show="searchResultsUsers.length == 0 && searchResultsSongs.length == 0 && apiFinished">
                 <div class="noresults-title">{{ searchQuery }}</div>
                 <div class="noresults-text">Your search did not match any songs or users. Make sure, that all words are spelled correctly or try a different query.</div>
             </div>
