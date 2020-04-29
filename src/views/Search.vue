@@ -1,0 +1,176 @@
+<template>
+    <section class="section-search">
+        <div class="search-bar">
+            <div class="show-all">
+                <div class="button button-label" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
+            </div>
+            <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="search()" v-model="searchQuery" ref="searchInput">
+        </div>
+        <div class="search-results">
+            <UserRow :title="$t('search.results.users.header')" v-show="searchResultsUsers.length > 0">
+                <UserItem
+                    v-for="user in searchResultsUsers"
+                    v-bind:key="user.id"
+                    v-bind="user" />
+            </UserRow>
+            <SongRow :title="$t('search.results.songs.header')" noactions="true" v-show="searchResultsSongs.length > 0">
+                <template v-slot:song-list>
+                    <SongItem
+                        v-for="song in searchResultsSongs"
+                        v-bind:key="song.id"
+                        v-bind="song" />
+                </template>
+            </SongRow>
+            <div class="search-results-noresults" v-show="searchResultsUsers.length == 0 && searchResultsSongs.length == 0 && apiFinished">
+                <div class="noresults-title">{{ searchQuery }}</div>
+                <div class="noresults-text">{{ $t('search.noresults.text') }}</div>
+            </div>
+          </div>
+    </section>
+</template>
+
+<script>
+    import SSAPI from '@/modules/module.api.js';
+    import UserRow from '@/components/User/UserRow.vue';
+    import UserItem from '@/components/User/UserItem.vue';
+    import SongRow from '@/components/Song/SongRow.vue';
+    import SongItem from '@/components/Song/SongItem.vue';
+
+    export default {
+        name: 'Search',
+        components: {
+            UserRow,
+            UserItem,
+            SongRow,
+            SongItem
+        },
+        data: function() {
+            return {
+                searchQuery: "",
+                searchResultsUsers: [],
+                searchResultsSongs: [],
+                apiFinished: false
+            }
+        },
+        mounted: function() {
+            this.$refs.searchInput.focus();
+
+            if(this.$route.params.searchQuery != "" && this.$route.params.searchQuery != undefined) {
+                this.$data.searchQuery = this.$route.params.searchQuery;
+                this.search();
+            }
+        },
+        methods: {
+            searchAll: function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+
+                this.$data.searchQuery == "";
+                this.$data.apiFinished = false;
+
+                ssapi.searchAll().then((data) => {
+                    if(data.status == 200) {
+                        this.$data.searchResultsUsers = data.data.users;
+                        this.$data.searchResultsSongs = data.data.songs;
+                        this.$data.apiFinished = true;
+                    }
+                });
+            },
+            search: function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                this.$data.apiFinished = false;
+
+                if(this.$data.searchQuery != "") {
+                    ssapi.search(this.$data.searchQuery).then((data) => {
+                        if(data.status == 200) {
+                            this.$data.searchResultsUsers = data.data.users;
+                            this.$data.searchResultsSongs = data.data.songs;
+
+                            this.$data.apiFinished = true;
+                        }
+                    });
+                } else {
+                    this.$data.searchResultsUsers = [];
+                    this.$data.searchResultsSongs = [];
+
+                    this.$data.apiFinished = false;
+                }
+            }
+        }
+    }
+</script>
+
+<style scoped lang="less">
+    .section-search {
+        grid-template-rows: auto 1fr;
+        grid-gap: 25px;
+        padding: 50px;
+        display: grid;
+
+        & .search-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+
+            & .show-all {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 10px;
+            }
+
+            input {
+                width: 100%;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                background: transparent;
+                color: #fff;
+                border-radius: 4px;
+                padding: 14px 28px;
+                border: 0px;
+                transition: 0.2s ease-in-out all;
+            
+                &:hover {
+                    background: rgba(255,255,255,0.2);
+                    color: #fff;
+                }
+                &:focus {
+                    outline: 0;
+                }
+                &::placeholder {
+                    color: rgba(255,255,255,0.6);
+                }
+            }
+        }
+        & .search-results {
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            grid-gap: 25px;
+
+            & .search-results-users {
+                display: grid;
+            }
+
+            & .search-results-songs {
+                display: grid;
+            }
+
+            & .search-results-noresults {
+                background: rgba(255,255,255,0.1);
+                border-radius: 6px;
+                padding: 25px;
+                display: block;
+
+                & .noresults-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                & .noresults-text {
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+</style>
