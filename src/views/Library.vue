@@ -1,6 +1,6 @@
 <template>
     <section class="section-library">
-        <SongRow title="Installed Songs">
+        <SongRow :title="$t('library.installed.header')">
             <template v-slot:controls>
                 <div></div>
                 <div class="item" v-on:click="refreshLibrary()"><i class="mdi mdi-refresh"></i></div>

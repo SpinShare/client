@@ -7,7 +7,7 @@ class UserSettings {
   constructor() {
     let defaults = {
       showExplicit: false,
-      gameDirectory: detectGameDirectory(),
+      gameDirectory: this.detectGameDirectory(),
       language: app.getLocale()
     };
 
@@ -33,6 +33,15 @@ class UserSettings {
   write() {
     fs.writeFileSync(this.path, JSON.stringify(this.data));
   }
+
+  // TODO: Mac/Linux Support
+  detectGameDirectory() {
+    if(process.platform == "win32") {
+        return path.join(app.getPath("userData"), "../..", "LocalLow", "Super Spin Digital", "Spin Rhythm XD", "Custom");
+    } else {
+        console.error("Unsupported system");
+    }
+  }
 }
 
 function parseDataFile(filePath, defaults) {
@@ -40,15 +49,6 @@ function parseDataFile(filePath, defaults) {
     return JSON.parse(fs.readFileSync(filePath));
   } catch(error) {
     return defaults;
-  }
-}
-
-// TODO: Mac/Linux Support
-function detectGameDirectory() {
-  if(process.platform == "win32") {
-      return path.join(app.getPath("userData"), "../..", "LocalLow", "Super Spin Digital", "Spin Rhythm XD", "Custom");
-  } else {
-      console.error("Unsupported system");
   }
 }
 

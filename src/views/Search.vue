@@ -2,18 +2,18 @@
     <section class="section-search">
         <div class="search-bar">
             <div class="show-all">
-                <div class="button button-label" v-on:click="searchAll()" locale="">Show all</div>
+                <div class="button button-label" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
             </div>
-            <input type="search" placeholder="Search for songs, tags &amp; profiles..." v-on:input="search()" v-model="searchQuery">
+            <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="search()" v-model="searchQuery" ref="searchInput">
         </div>
         <div class="search-results">
-            <UserRow title="Users" v-show="searchResultsUsers.length > 0">
+            <UserRow :title="$t('search.results.users.header')" v-show="searchResultsUsers.length > 0">
                 <UserItem
                     v-for="user in searchResultsUsers"
                     v-bind:key="user.id"
                     v-bind="user" />
             </UserRow>
-            <SongRow title="Songs" noactions="true" v-show="searchResultsSongs.length > 0">
+            <SongRow :title="$t('search.results.songs.header')" noactions="true" v-show="searchResultsSongs.length > 0">
                 <template v-slot:song-list>
                     <SongItem
                         v-for="song in searchResultsSongs"
@@ -23,7 +23,7 @@
             </SongRow>
             <div class="search-results-noresults" v-show="searchResultsUsers.length == 0 && searchResultsSongs.length == 0 && apiFinished">
                 <div class="noresults-title">{{ searchQuery }}</div>
-                <div class="noresults-text">Your search did not match any songs or users. Make sure, that all words are spelled correctly or try a different query.</div>
+                <div class="noresults-text">{{ $t('search.noresults.text') }}</div>
             </div>
           </div>
     </section>
@@ -50,6 +50,14 @@
                 searchResultsUsers: [],
                 searchResultsSongs: [],
                 apiFinished: false
+            }
+        },
+        mounted: function() {
+            this.$refs.searchInput.focus();
+
+            if(this.$route.params.searchQuery != "" && this.$route.params.searchQuery != undefined) {
+                this.$data.searchQuery = this.$route.params.searchQuery;
+                this.search();
             }
         },
         methods: {

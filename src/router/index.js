@@ -9,6 +9,7 @@ import ViewStartupHotSongs from '../views/StartupHotSongs.vue';
 import ViewStartupPopularSongs from '../views/StartupPopularSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
+import ViewSongDetail from '../views/SongDetail.vue';
 import ViewSettings from '../views/Settings.vue';
 
 Vue.use(VueRouter);
@@ -41,13 +42,17 @@ const routes = [{
         }
     ]
 }, {
-    path: '/search',
+    path: '/search/:searchQuery?',
     name: 'Search',
     component: ViewSearch
 }, {
     path: '/library',
     name: 'Library',
     component: ViewLibrary
+}, {
+    path: '/song/:id',
+    name: 'SongDetail',
+    component: ViewSongDetail
 }, {
     path: '/settings',
     name: 'Settings',

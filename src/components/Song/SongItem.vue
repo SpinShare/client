@@ -1,5 +1,5 @@
 <template>
-    <div class="song-item" v-on:contextmenu="showContextMenu($event)">
+    <router-link :to="{ name: 'SongDetail', params: { id: id } }" class="song-item" v-on:contextmenu="showContextMenu($event)">
         <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
             <div class="song-charter-info">
                 <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
@@ -16,7 +16,7 @@
                 <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -67,6 +67,8 @@
         transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
         overflow: hidden;
         border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
 
         & .song-cover {
             background: rgba(255,255,255,0.1);

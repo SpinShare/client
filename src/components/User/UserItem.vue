@@ -1,22 +1,4 @@
 <template>
-    <!-- <div class="song-item" v-on:contextmenu="showContextMenu($event)">
-        <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
-            <div class="song-charter-info">
-                <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
-            </div>
-        </div>
-        <div class="song-metadata">
-            <div class="song-title">{{ title }}</div>
-            <div class="song-artist">{{ artist }}</div>
-            <div class="song-difficulties">
-                <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
-                <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" />
-                <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" />
-                <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" />
-                <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
-            </div>
-        </div>
-    </div> -->
     <div class="user-item">
         <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
         <div class="user-metadata">

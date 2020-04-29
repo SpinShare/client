@@ -26,6 +26,22 @@ class SSAPI {
         });
     }
 
+    async getLatestVersion() {
+        let apiPath = this.apiBase + "latestVersion/" + process.platform;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+
+            return response.data.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async getPromos() {
         let apiPath = this.apiBase + "promos";
         let supportedVersion = this.supportedVersion;
