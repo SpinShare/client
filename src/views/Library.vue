@@ -53,7 +53,6 @@
             this.$on('delete', (file) => {
                 this.$data.showDeleteOverlay = true;
                 this.$data.deleteFiles = this.getConnectedFiles(file);
-                console.log(this.$data.deleteFiles);
             });
             this.$on('deleteDeny', () => {
                 this.$data.showDeleteOverlay = false;
@@ -104,7 +103,7 @@
                             isSpinShare: songSpinShareReference
                         };
 
-                        this.$data.librarySongs.push(librarySong)
+                        this.$data.librarySongs.push(librarySong);
                     });
                 });
             },
