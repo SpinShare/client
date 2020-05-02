@@ -2,7 +2,7 @@
     <section class="section-library">
         <SongRow :title="$t('library.installed.header')">
             <template v-slot:controls>
-                <div class="item"></div>
+                <div></div>
                 <div class="item" v-on:click="refreshLibrary()"><i class="mdi mdi-refresh"></i></div>
             </template>
             <template v-slot:song-list>
@@ -65,6 +65,13 @@
                 this.refreshLibrary();
                 this.$data.showDeleteOverlay = false;
                 this.$data.deleteFiles = "";
+            });
+            this.$on('deleteUnneeded', (file) => {
+                this.getUnusedFiles().then( (data) => {
+                    data.thisData.deleteFiles = data.differingAssets;
+                    data.thisData.showDeleteOverlay = true;
+                    console.log(data.thisData.deleteFiles);
+                });
             });
         },
         methods: {
@@ -149,7 +156,43 @@
                 });
 
                 return connectedFiles;
-            }
+            },
+            getUnusedFiles: async function() {
+                let userSettings = new UserSettings();
+                let allLinkedAssets = [[] , []];
+                let differingAssets = [];
+
+                //Create array of assets from the srtb files
+                let allLinkedAssetsPromise = new Promise((resolve, reject) => {
+                    glob(path.join(userSettings.get('gameDirectory'), "*.srtb"), (error, files) => {
+                        files.forEach((file) => {
+                            allLinkedAssets[0].push((this.getConnectedFiles(file)).slice(1)[0]);
+                            allLinkedAssets[1].push((this.getConnectedFiles(file)).slice(1)[1]);
+                        });
+                        resolve(allLinkedAssets);
+                    })
+                });
+
+                //Waits for resolve in order to avoid bug where all songs would be added to differingAssets
+                let allLinkedAssetsResults = await allLinkedAssetsPromise;
+
+                //Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
+                glob(path.join(userSettings.get('gameDirectory'), "AlbumArt", "*"), (error, files) => {
+                files.forEach((file) => {
+                    if (allLinkedAssetsResults[0].includes(file)){}
+                    else{differingAssets.push(file);}
+                    });
+                });
+                glob(path.join(userSettings.get('gameDirectory'), "AudioClips", "*.ogg"), (error, files) => {
+                    files.forEach((file) => {
+                        if (allLinkedAssetsResults[1].includes(file)){}
+                        else{differingAssets.push(file);}
+                    });
+                });
+                
+                let thisData = this.$data;
+                return {differingAssets, thisData};
+            },
         }
     }
 </script>
