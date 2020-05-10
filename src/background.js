@@ -1,5 +1,4 @@
-const { app, protocol, BrowserWindow, ipcMain } = require('electron');
-const DownloadManager = require("electron-download-manager");
+const { app, protocol, BrowserWindow, ipcMain, dialog } = require('electron');
 const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const fs = require('fs');
@@ -8,16 +7,57 @@ const path = require('path');
 const uniqid = require('uniqid');
 
 let win;
-let deeplinkingUrl;
-let deeplinkingType;
+let deeplinkingData;
+let deeplinkingView;
 
-DownloadManager.register({
-    downloadFolder: app.getPath("temp")
-});
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('open-url', function (event, data) {
+    event.preventDefault();
+    executeDeeplink(data);
+  });
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    let fullCommand = "";
+
+    if (process.platform == 'win32') {
+      let commandLineString = commandLine.slice(1) + '';
+      let commandLineArgs = commandLineString.split(",");
+      fullCommand = commandLineArgs[commandLineArgs.length - 1];
+    }
+
+    executeDeeplink(fullCommand);
+  });
+}
+
+function executeDeeplink(deeplink) {
+  if(deeplink.includes("spinshare-song")) {
+    deeplinkingView = "SongDetail";
+    deeplinkingData = deeplink.replace("spinshare-song://", "").replace("/", "");
+  } else if(deeplink.includes("spinshare-user")) {
+    deeplinkingView = "UserDetail";
+    deeplinkingData = deeplink.replace("spinshare-user://", "").replace("/", "");
+  }
+
+  if (win) {
+    if (win.isMinimized()) win.restore();
+    win.focus();
+    
+    win.webContents.send("deeplink", {
+      view: deeplinkingView,
+      data: deeplinkingData
+    });
+  }
+}
+
 
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
+
+app.setAsDefaultProtocolClient("spinshare-song");
+app.setAsDefaultProtocolClient("spinshare-user");
 
 function createWindow () {
   win = new BrowserWindow({
@@ -40,6 +80,12 @@ function createWindow () {
   }
 
   win.setMenuBarVisibility(false);
+
+  if (process.platform == 'win32') {
+    if(process.argv.length > 1) {
+    executeDeeplink(process.argv[1]);
+    }
+  }
 
   win.on('closed', () => {
     win = null;
@@ -102,6 +148,13 @@ ipcMain.on("download", (event, ipcData) => {
 
         win.webContents.send("download-complete", downloadItem);
     });
+});
+
+ipcMain.on("getDeeplink", (event) => {
+  win.webContents.send("deeplink", {
+    view: deeplinkingView,
+    data: deeplinkingData
+  });
 });
 
 function download(url, fileName, cb) {

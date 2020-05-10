@@ -58,6 +58,22 @@
                 e.preventDefault();
             });
 
+            ipcRenderer.send("getDeeplink");
+            ipcRenderer.on('deeplink', (event, data) => {
+                console.log(data);
+                switch(data.view) {
+                    case "Settings":
+                        this.$router.push('Settings');
+                        break;
+                    case "SongDetail":
+                        this.$router.push({ name: 'SongDetail', params: { id: data.data } });
+                        break;
+                    case "UserDetail":
+                        this.$router.push({ name: 'UserDetail', params: { id: data.data } });
+                        break;
+                }
+            });
+
             this.$root.$on('download', (url) => {
                 this.addToQueue(url);
             });
