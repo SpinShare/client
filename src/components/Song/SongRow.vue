@@ -9,6 +9,8 @@
         <div class="song-list">
             <slot name="song-list"></slot>
         </div>
+        <div class="noresults">
+        </div>
     </div>
 </template>
 

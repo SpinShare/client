@@ -1,10 +1,10 @@
 <template>
-    <div class="user-item">
+    <router-link :to="{ name: 'UserDetail', params: { id: id } }" class="user-item">
         <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
         <div class="user-metadata">
             <div class="user-username">{{ username }}</div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -51,6 +51,8 @@
         display: grid;
         padding: 10px;
         grid-gap: 15px;
+        color: #fff;
+        text-decoration: none;
         grid-template-columns: 32px 1fr;
 
         & .user-avatar {

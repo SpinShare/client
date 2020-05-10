@@ -10,6 +10,7 @@ import ViewStartupPopularSongs from '../views/StartupPopularSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
+import ViewUserDetail from '../views/UserDetail.vue';
 import ViewSettings from '../views/Settings.vue';
 
 Vue.use(VueRouter);
@@ -53,6 +54,10 @@ const routes = [{
     path: '/song/:id',
     name: 'SongDetail',
     component: ViewSongDetail
+},, {
+    path: '/user/:id',
+    name: 'UserDetail',
+    component: ViewUserDetail
 }, {
     path: '/settings',
     name: 'Settings',

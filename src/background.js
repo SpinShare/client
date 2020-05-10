@@ -2,6 +2,10 @@ const { app, protocol, BrowserWindow, ipcMain } = require('electron');
 const DownloadManager = require("electron-download-manager");
 const { createProtocol } = require('vue-cli-plugin-electron-builder/lib');
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
+const uniqid = require('uniqid');
 
 let win;
 let deeplinkingUrl;
@@ -73,19 +77,43 @@ if (isDevelopment) {
 }
 
 ipcMain.on("download", (event, ipcData) => {
-    console.log("Download: " + ipcData.queueItem.title);
+    console.log("Starting download of > " + ipcData.queueItem.title);
 
-    DownloadManager.download({url: ipcData.queueItem.downloadPath}, (error, dlInfo) => {
+    download(ipcData.queueItem.downloadPath, uniqid(), (error, dlInfo) => {
         if (error) {
             console.log(error);
+        
+            let downloadItem = {
+                id: ipcData.queueItem.id,
+                status: 1,
+                downloadPath: null
+            }
+    
+            win.webContents.send("download-complete", downloadItem);
+
             return;
         }
         
         let downloadItem = {
             id: ipcData.queueItem.id,
-            downloadPath: dlInfo.filePath
+            status: 2,
+            downloadPath: dlInfo
         }
 
         win.webContents.send("download-complete", downloadItem);
     });
 });
+
+function download(url, fileName, cb) {
+    let dest = path.join(app.getPath('temp'), fileName + ".zip");
+    let file = fs.createWriteStream(dest);
+    let request = http.get(url, function(response) {
+        response.pipe(file);
+        file.on('finish', function() {
+            file.close(cb(null, dest)); // async call of the callback
+        });
+    }).on('error', function(err) { // Handle errors
+        fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        if (cb) cb(err.message, dest);
+    });
+};

@@ -20,6 +20,9 @@
 </template>
 
 <script>
+    import { remote } from 'electron';
+    const { dialog } = remote;
+
     import fs from 'fs';
     import glob from 'glob';
     import path from 'path';
@@ -65,6 +68,9 @@
                 this.refreshLibrary();
                 this.$data.showDeleteOverlay = false;
                 this.$data.deleteFiles = "";
+            });
+            this.$on('install', () => {
+                this.install();
             });
         },
         methods: {
@@ -149,6 +155,35 @@
                 });
 
                 return connectedFiles;
+            },
+            install: function(e) {
+                dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile', 'multiSelections'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
+                    if(!result.canceled) {
+                        result.filePaths.forEach((rawFilePath) => {
+                            let filePath = glob.sync(rawFilePath);
+                            if(filePath.length > 0) {
+                                let srxdControl = new SRXD();
+                                let userSettings = new UserSettings();
+                                srxdControl.extractBackup(filePath[0], path.basename(filePath[0])).then((extractResult) => {
+                                    if(extractResult !== false) {
+                                        srxdControl.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
+                                            console.log("[COPY] Backup installed!");
+                                            setTimeout(() => {
+                                                this.refreshLibrary();
+                                            }, 250);
+                                        }).catch(error => {
+                                            console.error(error);
+                                        });
+                                    } else {
+                                        console.error("[COPY] Backup could not be installed!");
+                                    }
+                                }).catch(error => {
+                                    console.error(error);
+                                });
+                            }
+                        });
+                    }
+                });
             }
         }
     }

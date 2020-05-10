@@ -11,9 +11,6 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard } = remote;
-
     export default {
         name: 'SongInstallItem',
         data: function() {
@@ -23,7 +20,8 @@
         mounted: function() {
         },
         methods: {
-            install: function(e) {
+            install: function() {
+                this.$parent.$parent.$emit('install');
             }
         }
     }

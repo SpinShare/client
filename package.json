@@ -12,6 +12,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "adm-zip": "^0.4.14",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "electron-download-manager": "^2.1.2",

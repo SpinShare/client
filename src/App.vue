@@ -12,7 +12,7 @@
         </transition>
         
         <transition name="slideDownloadOverlay">
-            <DownloadOverlay v-if="showDownloadOverlay" v-bind:downloadQueue="downloadQueue"></DownloadOverlay>
+            <DownloadOverlay v-if="showDownloadOverlay" v-bind:downloadQueue="downloadQueue" v-bind:finishedQueue="finishedQueue" v-bind:failedQueue="failedQueue"></DownloadOverlay>
         </transition>
     </div>
 </template>
@@ -24,7 +24,6 @@
     import fs from 'fs';
     import glob from 'glob';
     import path from 'path';
-    import ncp from 'ncp';
 
     import UserSettings from '@/modules/module.usersettings.js';
     import SSAPI from '@/modules/module.api.js';
@@ -46,6 +45,8 @@
         data: function() {
             return {
                 downloadQueue: [],
+                finishedQueue: [],
+                failedQueue: [],
                 downloadQueueProcessing: false,
                 showUpdateOverlay: false,
                 showDownloadOverlay: false,
@@ -53,6 +54,10 @@
             }
         },
         mounted: function() {
+            document.addEventListener('auxclick', function(e) {
+                e.preventDefault();
+            });
+
             this.$root.$on('download', (url) => {
                 this.addToQueue(url);
             });
@@ -88,28 +93,62 @@
                 let srxdControl = new SRXD();
                 let userSettings = new UserSettings();
 
-                srxdControl.extractBackup(downloadItem.downloadPath, path.basename(downloadItem.downloadPath)).then((extractResult) => {
-                    if(extractResult) {
-                        this.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
+                let queueItem = this.$data.downloadQueue.findIndex(function(i) {
+                    return i.id === downloadItem.id;
+                });
+
+                console.info("████ #" + queueItem + " - '" + this.$data.downloadQueue[queueItem].title + "' ████");
+
+                if(downloadItem.status == 1) {
+                    // Failed, add to failed Array
+                    this.$data.failedQueue.push(queueItem);
+                    this.$data.downloadQueue.splice(queueItem, 1);
+                } else {
+                    // Finished, unpacking
+                    srxdControl.extractBackup(downloadItem.downloadPath, path.basename(downloadItem.downloadPath)).then((extractResult) => {
+                        if(extractResult !== false) {
+                            srxdControl.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
+                                console.log("[COPY] Backup installed!");
+
+                                this.$data.downloadQueueProcessing = false;
+                                console.log("[QUEUE] Remaining Items: " + this.$data.downloadQueue.length);
+
+                                this.$data.finishedQueue.push(queueItem);
+                                this.$data.downloadQueue.splice(queueItem, 1);
+
+                                if(this.$data.downloadQueue.length > 0) {
+                                    this.processQueue();
+                                }
+                            }).catch(error => {
+                                console.error(error);
+                            });
+                        } else {
+                            console.error("[COPY] Backup could not be installed!");
+
                             this.$data.downloadQueueProcessing = false;
-                            console.log("Queue Remaining: " + this.$data.downloadQueue.length);
-                    
-                            this.$data.downloadQueue.splice(this.$data.downloadQueue.findIndex(function(i) {
-                                return i.id === downloadItem.id;
-                            }), 1);
+                            console.log("[QUEUE] Remaining Items: " + this.$data.downloadQueue.length);
+
+                            this.$data.failedQueue.push(queueItem);
+                            this.$data.downloadQueue.splice(queueItem, 1);
 
                             if(this.$data.downloadQueue.length > 0) {
                                 this.processQueue();
                             }
-                        }).catch(error => {
-                            console.error(error);
-                        });
-                    } else {
-                        console.error("Backup could not be loaded!");
-                    }
-                }).catch(error => {
-                    console.error(error);
-                });
+                        }
+                    }).catch(error => {
+                        console.error(error);
+
+                        this.$data.downloadQueueProcessing = false;
+                        console.log("[QUEUE] Remaining Items: " + this.$data.downloadQueue.length);
+
+                        this.$data.failedQueue.push(queueItem);
+                        this.$data.downloadQueue.splice(queueItem, 1);
+
+                        if(this.$data.downloadQueue.length > 0) {
+                            this.processQueue();
+                        }
+                    });
+                }
             });
         },
         methods: {
@@ -133,19 +172,6 @@
             closeOverlays: function() {
                 this.$data.showUpdateOverlay = false;
                 this.$data.showDownloadOverlay = false;
-            },
-            installBackup: async function(backupLocation, gameDirLocation) {
-                await ncp(backupLocation, gameDirLocation, function(error) {
-                    if(error) {
-                        console.error(error);
-                        console.error("Couldn't copy backup!");
-                        return true;
-                    }
-                
-                    console.log("Copied Backup!");
-                });
-
-                return true;
             }
         }
     }

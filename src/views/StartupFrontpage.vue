@@ -1,14 +1,18 @@
 <template>
-    <div class="staff-promos">
-        <StaffPromoPlaceholder
-            v-if="isPromoLoading"
-            v-for="n in 2"
-            v-bind:key="n" />
-        <StaffPromo
-            v-if="!isPromoLoading"
-            v-for="staffPromo in staffPromos"
-            v-bind:key="staffPromo.id"
-            v-bind="staffPromo" />
+    <div class="frontpage">
+        <div class="staff-promos">
+            <StaffPromoPlaceholder
+                v-if="isPromoLoading"
+                v-for="n in 2"
+                v-bind:key="n" />
+            <StaffPromo
+                v-if="!isPromoLoading"
+                v-for="staffPromo in staffPromos"
+                v-bind:key="staffPromo.id"
+                v-bind="staffPromo" />
+        </div>
+
+        <Stream v-bind="streamStatus" />
     </div>
 </template>
 
@@ -16,13 +20,15 @@
     import SSAPI from '@/modules/module.api.js';
     import StaffPromo from '@/components/Startup/StaffPromo.vue';
     import StaffPromoPlaceholder from '@/components/Startup/StaffPromoPlaceholder.vue';
+    import Stream from '@/components/Startup/Stream.vue';
 
     export default {
         name: 'StartupFrontpage',
         data: function() {
             return {
                 isPromoLoading: true,
-                staffPromos: []
+                staffPromos: [],
+                streamStatus: []
             }
         },
         mounted: function() {
@@ -32,10 +38,15 @@
                 this.$data.isPromoLoading = false;
                 this.$data.staffPromos = data;
             });
+
+            ssapi.getStreamStatus().then((data) => {
+                this.$data.streamStatus = data;
+            });
         },
         components: {
             StaffPromo,
-            StaffPromoPlaceholder
+            StaffPromoPlaceholder,
+            Stream
         },
         methods: {
         }

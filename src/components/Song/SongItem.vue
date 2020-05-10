@@ -1,22 +1,22 @@
 <template>
-    <div class="song-item" v-on:contextmenu="showContextMenu($event)">
+    <div class="song-item" v-on:auxclick="shortDownload($event)" v-on:contextmenu="showContextMenu($event)">
         <router-link :to="{ name: 'SongDetail', params: { id: id } }">
-                <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
-                    <div class="song-charter-info">
-                        <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
-                    </div>
+            <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+                <div class="song-charter-info">
+                    <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
                 </div>
-                <div class="song-metadata">
-                    <div class="song-title">{{ title }}</div>
-                    <div class="song-artist">{{ artist }}</div>
-                    <div class="song-difficulties">
-                        <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
-                        <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" />
-                        <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" />
-                        <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" />
-                        <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
-                    </div>
+            </div>
+            <div class="song-metadata">
+                <div class="song-title">{{ title }}</div>
+                <div class="song-artist">{{ artist }}</div>
+                <div class="song-difficulties">
+                    <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
+                    <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" />
+                    <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" />
+                    <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" />
+                    <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
                 </div>
+            </div>
         </router-link>
     </div>
 </template>
@@ -61,7 +61,16 @@
                         { icon: "download", title: "Download", method: () => { this.download(); } }
                     ]});
             },
-            download: function() {
+            shortDownload: function(e) {
+                e.preventDefault();
+
+                if(e.which == 2) {
+                    this.download(e);
+                }
+            },
+            download: function(e) {
+                e.preventDefault();
+
                 this.$root.$emit('download', {id: this.$props.id, cover: this.$props.cover, title: this.$props.title, artist: this.$props.artist, downloadPath: this.$props.zip});
             }
         }
