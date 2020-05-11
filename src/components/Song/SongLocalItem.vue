@@ -38,8 +38,7 @@
                     x: e.pageX,
                     y: e.pageY,
                     items: [
-                        { icon: "delete", title: "Delete", method: () => { this.$parent.$parent.$emit('delete', this.$props.file); } },
-                        { icon: "delete", title: "Delete All Unneeded Files", method: () => { this.$parent.$parent.$emit('deleteUnneeded'); } }
+                        { icon: "delete", title: "Delete", method: () => { this.$parent.$parent.$emit('delete', this.$props.file); } }
                     ]});
             }
         }
