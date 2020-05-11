@@ -1,5 +1,5 @@
 <template>
-    <section class="section-library">
+    <section class="section-library" @dragover.prevent @drop.stop.prevent="drop()">
         <SongRow :title="$t('library.installed.header')">
             <template v-slot:controls>
                 <div class="item"></div>
@@ -160,30 +160,38 @@
                 dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile', 'multiSelections'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
                     if(!result.canceled) {
                         result.filePaths.forEach((rawFilePath) => {
-                            let filePath = glob.sync(rawFilePath);
-                            if(filePath.length > 0) {
-                                let srxdControl = new SRXD();
-                                let userSettings = new UserSettings();
-                                srxdControl.extractBackup(filePath[0], path.basename(filePath[0])).then((extractResult) => {
-                                    if(extractResult !== false) {
-                                        srxdControl.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
-                                            console.log("[COPY] Backup installed!");
-                                            setTimeout(() => {
-                                                this.refreshLibrary();
-                                            }, 250);
-                                        }).catch(error => {
-                                            console.error(error);
-                                        });
-                                    } else {
-                                        console.error("[COPY] Backup could not be installed!");
-                                    }
-                                }).catch(error => {
-                                    console.error(error);
-                                });
-                            }
+                            this.extract(rawFilePath)
                         });
                     }
                 });
+            },
+            drop: function(e) {
+                event.dataTransfer.files.forEach((file) => {
+                    this.extract(file.path);
+                });
+            },
+            extract: function(rawFilePath) {
+                let filePath = glob.sync(rawFilePath);
+                if(filePath.length > 0) {
+                    let srxdControl = new SRXD();
+                    let userSettings = new UserSettings();
+                    srxdControl.extractBackup(filePath[0], path.basename(filePath[0])).then((extractResult) => {
+                        if(extractResult !== false) {
+                            srxdControl.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
+                                console.log("[COPY] Backup installed!");
+                                setTimeout(() => {
+                                    this.refreshLibrary();
+                                }, 250);
+                            }).catch(error => {
+                                console.error(error);
+                            });
+                        } else {
+                            console.error("[COPY] Backup could not be installed!");
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                }
             }
         }
     }
