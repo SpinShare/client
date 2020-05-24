@@ -1,36 +1,96 @@
 <template>
-    <section class="section-song-detail">
-        <div class="song-detail-background" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'" v-if="apiFinished">
-            <div class="song-detail-dim">
-                <div class="song-detail">
-                    <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
-                        <div class="song-meta-data">
-                        <div class="song-title">{{ title }}</div>
-                        <div class="song-subtitle">{{ subtitle }}</div>
-                        <div class="song-artist">{{ artist }}</div>
-                        <div class="song-charter">{{ $t('songdetail.createdBy') + charter }}</div>
-                        <div class="song-tags">
-                            <router-link class="tag" v-for="tag in tags" v-bind:key="tag" :to="{ name: 'Search', params: { searchQuery: tag } }">{{ tag }}</router-link>
-                        </div>
-                        <div class="song-difficulties">
-                            <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
-                            <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" />
-                            <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" />
-                            <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" />
-                            <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
-                        </div>
-                        <div class="song-uploader">
-                            <UserItem v-bind="uploader" />
-                        </div>
+    <section :class="!apiFinished ? 'section-song-detail-loading' : 'section-song-detail'">
+        <div class="song-detail" v-if="apiFinished">
+            <div class="song-meta">
+                <div class="cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
+                <div class="song-metadata">
+                    <div class="song-title">{{ title }}</div>
+                    <div class="song-subtitle">{{ subtitle }}</div>
+                    <div class="song-artist">{{ artist }} &bull; {{ $t('songdetail.createdBy', { charter: charter}) }}</div>
+                </div>
+            </div>
+            <div :class="'song-actions ' + (previewIsPlaying ? 'player-active' : '')">
+                <div v-on:click="AddToQueue()" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-download"></i>
+                    </div>
+                </div>
+                <div class="action-player">
+                    <div class="icon" v-on:click="TogglePreview()">
+                        <i class="mdi mdi-play" v-if="!previewIsPlaying"></i>
+                        <i class="mdi mdi-stop" v-if="previewIsPlaying"></i>
+                    </div>
+                    <div class="volume">
+                        <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:change="UpdateVolume()" />
+                    </div>
+                </div>
+                <div v-on:click="CopyLink()" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-content-copy"></i>
+                    </div>
+                </div>
+                <div v-on:click="OpenReport()" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-flag-outline"></i>
                     </div>
                 </div>
             </div>
+            <div class="song-statistics">
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-arm-flex"></i>
+                    </div>
+                    <div class="difficulties">
+                        <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" alt="Easy Difficulty" />
+                        <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" alt="Normal Difficulty" />
+                        <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" alt="Hard Difficulty" />
+                        <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" alt="Extreme Difficulty" />
+                        <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" alt="xD Difficulty" />
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-calendar-clock"></i>
+                    </div>
+                    <div class="content">
+                    {{ uploadDate.date | formatDate}}
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-eye"></i>
+                    </div>
+                    <div class="content">
+                    {{ views ? views : 0 }}
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-download"></i>
+                    </div>
+                    <div class="content">
+                    {{ downloads ? downloads : 0 }}
+                    </div>
+                </div>
+            </div>
+            <div class="song-uploader">
+                <div class="label">{{ $t('songdetail.uploadedBy') }}</div>
+                <UserItem v-bind="uploader" />
+            </div>
+            <div class="song-description" v-if="description || tags.length > 0">
+                <div class="text" v-if="description">{{ description }}</div>
+                <div class="tags">
+                    <router-link class="tag" v-for="tag in tags" v-bind:key="tag" :to="{ name: 'Search', params: { searchQuery: tag } }">{{ tag }}</router-link>
+                </div>
+            </div>
         </div>
-        <div class="song-detail-actions" v-if="apiFinished">
-            <button class="button-download button button-primary" v-on:click="AddToQueue()">{{ $t('songdetail.actions.downloadButton') }}</button>
-            <button class="button-preview button" v-on:click="PlayPreview()">{{ $t('songdetail.actions.playPreviewButton') }}</button>
-            <button class="button-copylink button" v-on:click="CopyLink()">{{ $t('songdetail.actions.copyLinkButton') }}</button>
-            <button class="button-report button" v-on:click="OpenReport()">{{ $t('songdetail.actions.reportButton') }}</button>
+        <div class="song-social" v-if="apiFinished">
+            <div class="tab-header">
+                <router-link :to="{ name: 'SongDetailReviews', params: { id: id } }" class="tab-header-item tab-header-item-reviews"><span>{{ $t('songdetail.tabs.reviews') }}</span></router-link>
+                <router-link :to="{ name: 'SongDetailSpinPlays', params: { id: id } }" class="tab-header-item tab-header-item-spinplays"><span>{{ $t('songdetail.tabs.spinplays') }}</span></router-link>
+            </div>
+            
+            <router-view></router-view>
         </div>
 
         <Loading v-if="!apiFinished" />
@@ -67,8 +127,15 @@
                 hasXDDifficulty: false,
                 tags: [],
                 uploader: null,
+                uploadDate: null,
                 previewPath: "",
-                downloadPath: ""
+                downloadPath: "",
+                downloads: 0,
+                views: 0,
+                description: "",
+                previewIsPlaying: false,
+                currentPreviewAudio: null,
+                previewVolume: 50
             }
         },
         mounted: function() {
@@ -91,6 +158,10 @@
                 }
                 this.$data.previewPath = data.data.paths.ogg;
                 this.$data.downloadPath = data.data.paths.zip;
+                this.$data.downloads = data.data.downloads;
+                this.$data.views = data.data.views;
+                this.$data.description = data.data.description;
+                this.$data.uploadDate = data.data.uploadDate;
 
                 ssapi.getUserDetail(data.data.uploader).then((data) => {
                     this.$data.uploader = data.data;
@@ -102,148 +173,285 @@
             AddToQueue: function() {
                 this.$root.$emit('download', {id: this.$data.id, cover: this.$data.cover, title: this.$data.title, artist: this.$data.artist, downloadPath: this.$data.downloadPath});
             },
-            PlayPreview: function() {
-
-            },
             CopyLink: function() {
                 clipboard.writeText("https://spinsha.re/song/" + this.$data.id);
             },
             OpenReport: function() {
                 shell.openExternal("https://spinsha.re/report/song/" + this.$data.id);
+            },
+            TogglePreview: function() {    
+                this.$data.previewIsPlaying = !this.$data.previewIsPlaying;
+
+                if(this.$data.previewIsPlaying) {
+                    this.PlayPreview();
+                } else {
+                    this.StopPreview();
+                }
+            },
+            PlayPreview: function() {
+                this.$data.currentPreviewAudio = new Audio(this.$data.previewPath);
+                this.$data.previewVolume = 50;
+                this.$data.currentPreviewAudio.volume = this.$data.previewVolume / 100;
+                this.$data.currentPreviewAudio.play();
+                this.$data.currentPreviewAudio.onended = () => {
+                    this.StopPreview();
+                }
+                this.$data.previewIsPlaying = true;
+            },
+            StopPreview: function() {
+                if(this.$data.currentPreviewAudio) {
+                    this.$data.currentPreviewAudio.pause();
+                    this.$data.currentPreviewAudio.currentTime = 0;
+                }
+                this.$data.currentPreviewAudio = null;
+                this.$data.previewIsPlaying = false;
+            },
+            UpdateVolume: function() {
+                this.$data.currentPreviewAudio.volume = this.$data.previewVolume / 100;
             }
+        },
+        beforeDestroy: function() {
+            this.StopPreview();
         }
     }
 </script>
 
 <style scoped lang="less">
     .section-song-detail {
-        & .song-detail-background {
-            background-size: cover;
-            background-position: center;
+        display: grid;
+        grid-template-columns: 500px 1fr;
+        grid-gap: 25px;
+        padding: 50px;
+        
+        & .song-detail {
+            & .song-meta {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                background: rgba(255,255,255,0.1);
+                border-radius: 4px;
+                overflow: hidden;
 
-            & .song-detail-dim {
-                backdrop-filter: blur(10px);
-                background: linear-gradient(180deg, rgba(0,0,0,0.4), #212629);
+                & .cover {
+                    margin-left: 10px;
+                    align-self: center;
+                    justify-self: center;
+                    height: 64px;
+                    width: 64px;
+                    border-radius: 4px;
+                    background-position: center;
+                    background-size: cover;
+                }
 
-                & .song-detail {
-                    padding: 50px;
-                    display: grid;
-                    grid-template-columns: 200px 1fr;
-                    grid-gap: 25px;
+                & .song-metadata {
+                    padding: 20px;
 
-                    & .song-cover {
-                        width: 200px;
-                        height: 200px;
-                        align-self: center;
-                        background: #eee;
-                        border-radius: 6px;
-                        background-size: cover;
-                        background-position: center;
+                    & .song-title {
+                        font-weight: bold;
+                        font-size: 18px;
+                        margin-bottom: 2px;
                     }
-                    & .song-meta-data {
-                        & .song-title {
-                            font-weight: bold;
-                            font-size: 48px;
-                            word-break: break-all;
+
+                    & .song-subtitle {
+                        margin-bottom: 5px;
+                    }
+
+                    & .song-artist {
+                        opacity: 0.6;
+                    }
+                }
+            }
+            & .song-actions {
+                margin-top: 25px;
+                width: 500px;
+                display: flex;
+                transition: all 0.2s ease-in-out;
+                border-radius: 4px;
+                overflow: hidden;
+
+                & .action, & .action-player {
+                    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+                    width: 25%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #fff;
+                    text-decoration: none;
+                    transition: all 0.2s ease-in-out;
+                    cursor: pointer;
+
+                    & .icon {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 48px;
+                        width: 48px;
+                        font-size: 24px;
+                    }
+                    & .volume {
+                        width: 0px;
+                        overflow: hidden;
+                        padding-left: 0px;
+                        transition: all 0.2s ease-in-out;
+                    }
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+
+                &.player-active {
+                    & .action {
+                        width: calc((100% - 250px) / 3);
+                    }
+                    & .action-player {
+                        width: 250px;
+
+                        & .volume {
+                            width: 170px;
+                            padding-left: 20px;
                         }
-                        & .song-subtitle {
-                            font-size: 20px;
-                            word-break: break-all;
+                    }
+                }
+            }
+            & .song-statistics {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-gap: 10px;
+                background: rgba(255,255,255,0.1);
+                padding: 20px;
+                border-radius: 4px;
+                margin-top: 25px;
+
+                & .stat {
+                    display: grid;
+                    grid-template-columns: 30px 1fr;
+                    grid-gap: 15px;
+
+                    & .icon {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 22px;
+                    }
+
+                    & .difficulties {
+                        align-self: center;
+
+                        & img {
+                            height: 25px;
+                            margin-right: 5px;
+                            opacity: 0.4;
+
+                            &.active {
+                                opacity: 1;
+                            }
                         }
-                        & .song-artist {
-                            margin-top: 5px;
-                            font-size: 18px;
-                            word-break: break-all;
-                        }
-                        & .song-charter {
-                            margin-top: 10px;
-                            font-size: 14px;
+                    }
+
+                    & .content {
+                        align-self: center;
+                        opacity: 0.6;
+                    }
+                }
+            }
+            & .song-uploader {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-gap: 15px;
+                margin-top: 25px;
+
+                & .label {
+                    align-self: center;
+                    opacity: 0.6;
+                }
+            }
+            & .song-description {
+                background: rgba(255,255,255,0.1);
+                border-radius: 4px;
+                margin-top: 25px;
+                display: grid;
+                grid-gap: 0px;
+
+                & .text {
+                    line-height: 1.5em;
+                    padding: 20px;
+                    opacity: 0.7;
+                }
+                & .tags {
+                    padding: 20px;
+
+                    & .tag {
+                        margin-right: 10px;
+                        background: #fff;
+                        color: #000;
+                        border-radius: 50px;
+                        padding: 7px 14px;
+                        font-size: 12px;
+                        text-decoration: none;
+                        transition: 0.2s ease-in-out opacity;
+
+                        &:hover {
+                            cursor: pointer;
                             opacity: 0.6;
-                            word-break: break-all;
-                        }
-                        & .song-tags {
-                            margin-top: 10px;
-
-                            & .tag {
-                                display: inline-block;
-                                font-size: 12px;
-                                font-weight: bold;
-                                color: #222;
-                                background: #fff;
-                                padding: 5px 20px;
-                                border-radius: 50px;
-                                margin-right: 10px;
-                                margin-top: 5px;
-                                text-decoration: none;
-                                word-break: break-all;
-                                transition: 0.2s ease-in-out all;
-
-                                &:hover {
-                                    opacity: 0.6;
-                                    cursor: pointer;
-                                }
-                            }
-                        }
-
-                        & .song-difficulties {
-                            margin-top: 15px;
-                            height: 20px;
-                            display: flex;
-                
-                            & img {
-                                height: 20px;
-                                margin-right: 10px;
-                                opacity: 0.3;
-                
-                                &.active {
-                                    opacity: 1;
-                                }
-                            }
-                        }
-
-                        & .song-uploader {
-                            margin-top: 15px;
-                            display: flex;
-
-                            & .user-item {
-                                width: auto;
-                                padding-right: 15px;
-                            }
                         }
                     }
                 }
             }
         }
-        & .song-detail-actions {
-            padding: 50px;
-            padding-top: 0px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-gap: 25px;
+        & .song-social {
+            & .tab-header {
+                display: flex;
 
-            & .button {
-                padding: 15px 0px;
-                font-size: 16px;
-                transition: 0.2s ease-in-out all, 0.1s ease-in-out transform;
+                & .tab-header-item {
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    letter-spacing: 0.25em;
+                    padding: 15px 40px;
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                    opacity: 0.4;
+                    background: rgba(0,0,0,0.4);
+                    transition: 0.2s ease-in-out all;
+                    color: #fff;
+                    text-decoration: none;
 
-                &.button-primary {
-                    background: #fff;
-                    color: #222;
+                    &:not(.active):hover {
+                        cursor: pointer;
+                        opacity: 0.75;
+                    }
+                    &.active {
+                    }
 
-                    &:hover {
-                        background: #fff;
-                        color: #222;
+                    &.router-link-exact-active {
+                        opacity: 1;
+                        background: rgba(255,255,255,0.1);
                     }
                 }
+            }
+            & .tab {
+                background: rgba(255,255,255,0.1);
+                border-radius: 4px;
+                border-top-left-radius: 0px;
+                padding: 20px;
+                display: grid;
+                grid-gap: 25px;
+            }
+        }
+    }
+    .section-song-detail-loading {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 50px;
+    }
 
-                &:hover {
-                    background: rgba(255,255,255,0.2);
-                    color: #fff;
-                    opacity: 0.6;
-                    transform: translateY(-4px);
-                }
-                &:active {
-                    transform: translateY(-2px);
+    @media screen and (min-width: 1700px) {
+        .section-song-detail {
+            & .song-social { 
+                & .tab.tab-spinplays {
+                    & .spinplays {
+                        grid-template-columns: 1fr 1fr 1fr;
+                    }
                 }
             }
         }
