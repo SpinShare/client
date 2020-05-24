@@ -4,7 +4,7 @@
             <router-link to="/" exact class="item"><i class="mdi mdi-home-outline"></i></router-link>
             <router-link to="/search" class="item"><i class="mdi mdi-magnify"></i></router-link>
             <router-link to="/library" class="item"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
-            <div v-on:click="openExternal('https://www.patreon.com/spinshare');" class="item"><i class="mdi mdi-patreon"></i></div>
+            <div v-on:click="openExternal('https://spinsha.re/support');" class="item"><i class="mdi mdi-hand-heart"></i></div>
         </nav>
 
         <nav>
