@@ -154,6 +154,38 @@ class SSAPI {
         });
     }
 
+    async getSongDetailReviews(_songId) {
+        let apiPath = this.apiBase + "song/" + _songId + "/reviews";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getSongDetailSpinPlays(_songId) {
+        let apiPath = this.apiBase + "song/" + _songId + "/spinplays";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
     async getUserDetail(_userId) {
         let apiPath = this.apiBase + "user/" + _userId;
         let supportedVersion = this.supportedVersion;
