@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "옮긴이: jongizombie",
+	"locale.dateFormat": "YYYY년 MM월 DD일",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "닫기",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "제작자 ",
-	"songdetail.actions.downloadButton": "다운로드",
-	"songdetail.actions.playPreviewButton": "미리보기 재생",
-	"songdetail.actions.stopPreviewButton": "미리보기 중지",
-	"songdetail.actions.copyLinkButton": "링크 복사",
-	"songdetail.actions.reportButton": "신고",
+	"songdetail.createdBy": "제작자 {charter}",
 	
 	"userdetail.uploaded.header": "업로드된 곡",
 	"userdetail.uploaded.noresults": "이 사용자는 아직 곡을 업로드하지 않았습니다.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "업데이트 확인",
 	"settings.language.header": "언어",
 	"settings.language.selectLanguage.label": "언어 선택",
-	"settings.language.translatedBy": "옮긴이: jongizombie",
 	"settings.directories.header": "디렉터리",
 	"settings.directories.gameDirectory.label": "게임 디렉터리",
 	"settings.directories.gameDirectory.changeButton": "변경",

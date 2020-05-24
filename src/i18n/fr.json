@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Traduction par Frog King",
+	"locale.dateFormat": "DD/MM/YYYY",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Fermer",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Créée par ",
-	"songdetail.actions.downloadButton": "Télécharger",
-	"songdetail.actions.playPreviewButton": "Écouter un aperçu",
-	"songdetail.actions.stopPreviewButton": "Arrêter l'aperçu",
-	"songdetail.actions.copyLinkButton": "Copier le Lien",
-	"songdetail.actions.reportButton": "Signaler",
+	"songdetail.createdBy": "Créée par {charter}",
 	
 	"userdetail.uploaded.header": "Chansons Publiées",
 	"userdetail.uploaded.noresults": "Cet utilisateur n'a pas encore publié de chansons.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Vérifier les mises à jours",
 	"settings.language.header": "Langue",
 	"settings.language.selectLanguage.label": "Changer la langue",
-	"settings.language.translatedBy": "Traduction par Frog King",
 	"settings.directories.header": "Répertoire",
 	"settings.directories.gameDirectory.label": "Répertoire du Jeu",
 	"settings.directories.gameDirectory.changeButton": "Modifier",

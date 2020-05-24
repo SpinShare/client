@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Vertaling door Ellite",
+	"locale.dateFormat": "DD-MM-YYYY",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Sluit",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Gemaakt door ",
-	"songdetail.actions.downloadButton": "Download",
-	"songdetail.actions.playPreviewButton": "Speel Voorbeeld",
-	"songdetail.actions.stopPreviewButton": "Stop Voorbeeld",
-	"songdetail.actions.copyLinkButton": "Kopieer Link",
-	"songdetail.actions.reportButton": "Rapporteren",
+	"songdetail.createdBy": "Gemaakt door {charter}",
 	
 	"userdetail.uploaded.header": "Geüploade nummers",
 	"userdetail.uploaded.noresults": "Deze gebruiker heeft nog geen nummers geüpload.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Check voor Updates",
 	"settings.language.header": "Taal",
 	"settings.language.selectLanguage.label": "Selecteer Taal",
-	"settings.language.translatedBy": "Vertaling door Ellite",
 	"settings.directories.header": "Mappen",
 	"settings.directories.gameDirectory.label": "Game Directory",
 	"settings.directories.gameDirectory.changeButton": "Wijzig",

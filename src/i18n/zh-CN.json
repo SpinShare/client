@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "翻译者：AyanAmy.jy1263",
+	"locale.dateFormat": "YYYY年MM月DD日",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "关闭",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "创作家 ",
-	"songdetail.actions.downloadButton": "下载",
-	"songdetail.actions.playPreviewButton": "预览歌曲",
-	"songdetail.actions.stopPreviewButton": "暂停预览",
-	"songdetail.actions.copyLinkButton": "复制链接",
-	"songdetail.actions.reportButton": "提交报告",
+	"songdetail.createdBy": "创作家 {charter}",
 	
 	"userdetail.uploaded.header": "以上传的音乐",
 	"userdetail.uploaded.noresults": "这用户还没有上传任何音乐。",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "检查更新",
 	"settings.language.header": "语言",
 	"settings.language.selectLanguage.label": "选择语言",
-	"settings.language.translatedBy": "翻译者：AyanAmy.jy1263",
 	"settings.directories.header": "目录",
 	"settings.directories.gameDirectory.label": "游戏安装目录",
 	"settings.directories.gameDirectory.changeButton": "改变",

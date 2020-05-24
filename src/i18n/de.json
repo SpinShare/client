@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Übersetzung von thatanimeweirdo",
+	"locale.dateFormat": "DD.MM.YYYY",
+
 	"startup.tabs.frontpage": "Startseite",
 	"startup.tabs.new": "Neu",
 	"startup.tabs.hot": "Heiß",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Schließen",
 	"library.deletemodal.explorer": "Im Explorer öffnen",
 	
-	"songdetail.createdBy": "Erstellt von ",
-	"songdetail.actions.downloadButton": "Downloaden",
-	"songdetail.actions.playPreviewButton": "Vorschau abspielen",
-	"songdetail.actions.stopPreviewButton": "Vorschau abbrechen",
-	"songdetail.actions.copyLinkButton": "Link Kopieren",
-	"songdetail.actions.reportButton": "Melden",
+	"songdetail.createdBy": "Erstellt von {charter}",
 	
 	"userdetail.uploaded.header": "Hochgeladene Songs",
 	"userdetail.uploaded.noresults": "Dieser Nutzer hat noch keine Songs hochgeladen.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Auf Updates überprüfen",
 	"settings.language.header": "Sprache",
 	"settings.language.selectLanguage.label": "Sprache auswählen",
-	"settings.language.translatedBy": "Übersetzung von thatanimeweirdo",
 	"settings.directories.header": "Ordner",
 	"settings.directories.gameDirectory.label": "Spiel-Ordner",
 	"settings.directories.gameDirectory.changeButton": "Ändern",

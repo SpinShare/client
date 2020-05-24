@@ -10,6 +10,8 @@ import ViewStartupPopularSongs from '../views/StartupPopularSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
+import ViewSongDetailReviews from '../views/SongDetailReviews.vue';
+import ViewSongDetailSpinPlays from '../views/SongDetailSpinPlays.vue';
 import ViewUserDetail from '../views/UserDetail.vue';
 import ViewSettings from '../views/Settings.vue';
 
@@ -22,7 +24,7 @@ const routes = [{
     component: ViewStartup,
     children: [
         {
-            path: '/',
+            path: '',
             name: 'Frontpage',
             component: ViewStartupFrontpage
         },
@@ -53,7 +55,23 @@ const routes = [{
 }, {
     path: '/song/:id',
     name: 'SongDetail',
-    component: ViewSongDetail
+    component: ViewSongDetail,
+    redirect: {
+      name: 'SongDetailReviews'
+    },
+    children: [
+        {
+            alias: '',
+            path: 'reviews',
+            name: 'SongDetailReviews',
+            component: ViewSongDetailReviews
+        },
+        {
+            path: 'spinplays',
+            name: 'SongDetailSpinPlays',
+            component: ViewSongDetailSpinPlays
+        }
+    ]
 },, {
     path: '/user/:id',
     name: 'UserDetail',

@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Traducido por BirdHusband",
+	"locale.dateFormat": "DD/MM/YYYY",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Cerrar",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Creado por ",
-	"songdetail.actions.downloadButton": "Descargar",
-	"songdetail.actions.playPreviewButton": "Iniciar vista previa",
-	"songdetail.actions.stopPreviewButton": "Detener vista previa",
-	"songdetail.actions.copyLinkButton": "Copiar enlace",
-	"songdetail.actions.reportButton": "Reportar",
+	"songdetail.createdBy": "Creado por {charter}",
 	
 	"userdetail.uploaded.header": "Canciones subidas",
 	"userdetail.uploaded.noresults": "Este usuario no ha subido ninguna canción aún.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Buscar actualizaciones",
 	"settings.language.header": "Lenguaje",
 	"settings.language.selectLanguage.label": "Seleccionar lenguaje",
-	"settings.language.translatedBy": "Traducido por BirdHusband",
 	"settings.directories.header": "Directorios",
 	"settings.directories.gameDirectory.label": "Ubicación del juego",
 	"settings.directories.gameDirectory.changeButton": "Cambiar",

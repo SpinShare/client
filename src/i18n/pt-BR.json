@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Tradução por Tonuha",
+	"locale.dateFormat": "DD/MM/YYYY",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Fechar",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Criado por",
-	"songdetail.actions.downloadButton": "Baixar",
-	"songdetail.actions.playPreviewButton": "Ouvir Um Trecho",
-	"songdetail.actions.stopPreviewButton": "Parar Reprodução",
-	"songdetail.actions.copyLinkButton": "Copiar Link",
-	"songdetail.actions.reportButton": "Reportar",
+	"songdetail.createdBy": "Criado por {charter}",
 	
 	"userdetail.uploaded.header": "Músicas Postadas",
 	"userdetail.uploaded.noresults": "Este usuário ainda não postou nenhuma música.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Buscar Atualizações",
 	"settings.language.header": "Idioma",
 	"settings.language.selectLanguage.label": "Selecionar Idioma",
-	"settings.language.translatedBy": "Tradução por Tonuha",
 	"settings.directories.header": "Diretórios",
 	"settings.directories.gameDirectory.label": "Diretório do Jogo",
 	"settings.directories.gameDirectory.changeButton": "Mudar",

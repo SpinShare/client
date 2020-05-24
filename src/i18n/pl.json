@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Tłumaczenie autorstwa _λmbινα|eηce",
+	"locale.dateFormat": "YYYY-MM-DD",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Zamknij",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Autorstwa ",
-	"songdetail.actions.downloadButton": "Pobierz",
-	"songdetail.actions.playPreviewButton": "Pokaż Podgląd",
-	"songdetail.actions.stopPreviewButton": "Zatrzymaj Podgląd",
-	"songdetail.actions.copyLinkButton": "Kopiuj Link",
-	"songdetail.actions.reportButton": "Zgłoś",
+	"songdetail.createdBy": "Autorstwa {charter}",
 	
 	"userdetail.uploaded.header": "Przesłane Utwory",
 	"userdetail.uploaded.noresults": "Ten użytkownik nie przesłał jeszcze żadnych utworów.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Sprawdź Aktualizacje",
 	"settings.language.header": "Język",
 	"settings.language.selectLanguage.label": "Wybierz Język",
-	"settings.language.translatedBy": "Tłumaczenie autorstwa _λmbινα|eηce",
 	"settings.directories.header": "Katalog",
 	"settings.directories.gameDirectory.label": "Katalog Gry",
 	"settings.directories.gameDirectory.changeButton": "Zmień",

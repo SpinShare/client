@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "Переведено D-Core",
+	"locale.dateFormat": "DD.MM.YYYY",
+
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
 	"startup.tabs.hot": "Hot",
@@ -23,12 +26,7 @@
 	"library.deletemodal.close": "Закрыть",
 	"library.deletemodal.explorer": "Open in Explorer",
 	
-	"songdetail.createdBy": "Автор ",
-	"songdetail.actions.downloadButton": "Скачать",
-	"songdetail.actions.playPreviewButton": "Предпросмотр",
-	"songdetail.actions.stopPreviewButton": "Остановить предпросмотр",
-	"songdetail.actions.copyLinkButton": "Копировать ссылку",
-	"songdetail.actions.reportButton": "Пожаловаться",
+	"songdetail.createdBy": "Автор {charter}",
 	
 	"userdetail.uploaded.header": "Загруженные песни",
 	"userdetail.uploaded.noresults": "Этот пользователь ещё не загрузил ни одной песни.",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "Проверить обновления",
 	"settings.language.header": "Язык",
 	"settings.language.selectLanguage.label": "Выберите язык",
-	"settings.language.translatedBy": "Переведено D-Core",
 	"settings.directories.header": "Пути",
 	"settings.directories.gameDirectory.label": "Путь игры",
 	"settings.directories.gameDirectory.changeButton": "Изменить",

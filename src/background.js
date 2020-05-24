@@ -62,10 +62,10 @@ app.setAsDefaultProtocolClient("spinshare-user");
 function createWindow () {
   win = new BrowserWindow({
     title: "SpinSha.re",
-    width: 1300,
+    width: 1350,
     height: 700,
     minHeight: 700,
-    minWidth: 1300,
+    minWidth: 1350,
     webPreferences: {
       nodeIntegration: true
     }

@@ -1,4 +1,7 @@
 {
+	"locale.translatedBy": "SPEEN SPEEN SPEEN",
+	"locale.dateFormat": "SPEEN/SPEEN/SPEEN",
+
 	"startup.tabs.frontpage": "SPEEN",
 	"startup.tabs.new": "SPEEN",
 	"startup.tabs.hot": "SPEEN",
@@ -23,12 +26,7 @@
 	"library.installed.install.text": "SPEEN",
 	"library.contextmenu.delete": "SPEEN",
 	
-	"songdetail.createdBy": "SPEEN ",
-	"songdetail.actions.downloadButton": "SPEEN",
-	"songdetail.actions.playPreviewButton": "SPEEN",
-	"songdetail.actions.stopPreviewButton": "SPEEN",
-	"songdetail.actions.copyLinkButton": "SPEEN",
-	"songdetail.actions.reportButton": "SPEEN",
+	"songdetail.createdBy": "SPEEN {charter}",
 	
 	"userdetail.uploaded.header": "SPEEN",
 	"userdetail.uploaded.noresults": "SPEEN",
@@ -40,7 +38,6 @@
 	"settings.general.update.button": "SPEEN",
 	"settings.language.header": "SPEEN",
 	"settings.language.selectLanguage.label": "SPEEN",
-	"settings.language.translatedBy": "SPEEN SPEEN SPEEN",
 	"settings.directories.header": "SPEEN",
 	"settings.directories.gameDirectory.label": "SPEEN",
 	"settings.directories.gameDirectory.changeButton": "SPEEN",

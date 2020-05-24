@@ -2,7 +2,6 @@ const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
-const unzipper = require('unzipper');
 const ncp = require('ncp');
 const admzip = require('adm-zip');
 const uniqid = require('uniqid');

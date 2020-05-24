@@ -60,7 +60,6 @@
 
             ipcRenderer.send("getDeeplink");
             ipcRenderer.on('deeplink', (event, data) => {
-                console.log(data);
                 switch(data.view) {
                     case "Settings":
                         this.$router.push('Settings');

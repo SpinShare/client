@@ -34,7 +34,7 @@
                         <option value="speen">Speen (Speen)</option>
                     </select>
                 </div>
-                <div class="settings-hint">{{ $t('settings.language.translatedBy') }}</div>
+                <div class="settings-hint">{{ $t('locale.translatedBy') }}</div>
             </div>
         </div>
         <div class="settings-box">
