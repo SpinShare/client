@@ -107,7 +107,7 @@
                 left: 0px;
                 bottom: 0px;
                 right: 0px;
-                background: linear-gradient(135deg, #fd2f85, #7a34ec);
+                background: rgb(226, 44, 120);
                 opacity: 0;
                 z-index: 0;
             }

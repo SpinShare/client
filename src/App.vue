@@ -271,6 +271,39 @@
             }
         }
     }
+    input[type='range'] {
+        overflow: hidden;
+        width: 100%;
+        outline: none;
+        -webkit-appearance: none;
+        background-color: #ddd;
+    }
+    input[type='range']::-webkit-slider-runnable-track {
+        height: 10px;
+        -webkit-appearance: none;
+        color: #13bba4;
+        margin-top: -1px;
+    }
+    input[type='range']::-webkit-slider-thumb {
+        width: 10px;
+        -webkit-appearance: none;
+        height: 10px;
+        cursor: ew-resize;
+        background: #000;
+        box-shadow: -800px 0 0 800px rgb(226, 44, 120);
+    }
+    /** FF*/
+    input[type="range"]::-moz-range-progress {
+        background-color: rgb(226, 44, 120); 
+    }
+    input[type="range"]::-moz-range-track {  
+        background-color: #ddd;
+    }
+    /* IE*/
+    input[type="range"]::-ms-fill-lower {
+        background-color: rgb(226, 44, 120); 
+    }
+
     .fade-enter-active, .fade-leave-active {
         transition: opacity .2s;
     }

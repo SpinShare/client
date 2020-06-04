@@ -1,5 +1,8 @@
 <template>
     <section :class="!apiFinished ? 'section-song-detail-loading' : 'section-song-detail'">
+        <div class="song-detail-background" v-if="apiFinished" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+            <div class="song-detail-background-cover"></div>
+        </div>
         <div class="song-detail" v-if="apiFinished">
             <div class="song-meta">
                 <div class="cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
@@ -222,12 +225,32 @@
         grid-template-columns: 500px 1fr;
         grid-gap: 25px;
         padding: 50px;
+
+        & .song-detail-background {
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            top: 0px;
+            left: 60px;
+            right: 0px;
+            height: 300px;
+            z-index: -1;
+
+            & .song-detail-background-cover {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                background: linear-gradient(180deg, rgba(33,38,41,0.7) 0%, rgba(33,38,41,1) 100%);
+            }
+        }
         
         & .song-detail {
             & .song-meta {
                 display: grid;
                 grid-template-columns: auto 1fr;
-                background: rgba(255,255,255,0.1);
+                background: #383C3F;
                 border-radius: 4px;
                 overflow: hidden;
 
@@ -267,14 +290,15 @@
                 transition: all 0.2s ease-in-out;
                 border-radius: 4px;
                 overflow: hidden;
+                background: #fff;
 
                 & .action, & .action-player {
-                    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+                    background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
                     width: 25%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    color: #fff;
+                    color: #222;
                     text-decoration: none;
                     transition: all 0.2s ease-in-out;
                     cursor: pointer;
@@ -366,33 +390,37 @@
                 }
             }
             & .song-description {
-                background: rgba(255,255,255,0.1);
+                background: #383C3F;
                 border-radius: 4px;
                 margin-top: 25px;
                 display: grid;
-                grid-gap: 0px;
+                grid-gap: 20px;
+                padding: 20px;
 
                 & .text {
                     line-height: 1.5em;
-                    padding: 20px;
                     opacity: 0.7;
                 }
                 & .tags {
-                    padding: 20px;
+                    display: flex;
+                    flex-wrap: wrap;
 
                     & .tag {
+                        display: block;
                         margin-right: 10px;
-                        background: #fff;
-                        color: #000;
-                        border-radius: 50px;
-                        padding: 7px 14px;
+                        margin-bottom: 10px;
+                        color: #fff;
+                        background: rgba(255,255,255,0.2);
+                        padding: 4px 8px;
+                        border-radius: 4px;
                         font-size: 12px;
                         text-decoration: none;
-                        transition: 0.2s ease-in-out opacity;
+                        transition: 0.2s ease-in-out all;
 
                         &:hover {
                             cursor: pointer;
-                            opacity: 0.6;
+                            color: #222;
+                            background: #fff;
                         }
                     }
                 }
@@ -410,27 +438,26 @@
                     padding: 15px 40px;
                     border-top-left-radius: 4px;
                     border-top-right-radius: 4px;
-                    opacity: 0.4;
-                    background: rgba(0,0,0,0.4);
+                    background: #1C2022;
+                    color: rgba(255,255,255,0.4);
                     transition: 0.2s ease-in-out all;
-                    color: #fff;
                     text-decoration: none;
 
                     &:not(.active):hover {
                         cursor: pointer;
-                        opacity: 0.75;
-                    }
-                    &.active {
+                        background: #272c2e;
+                        color: rgba(255,255,255,0.75);
                     }
 
                     &.router-link-exact-active {
-                        opacity: 1;
-                        background: rgba(255,255,255,0.1);
+                    opacity: 1;
+                    color: rgba(255,255,255,1);
+                    background: #383C3F;
                     }
                 }
             }
             & .tab {
-                background: rgba(255,255,255,0.1);
+                background: #383C3F;
                 border-radius: 4px;
                 border-top-left-radius: 0px;
                 padding: 20px;

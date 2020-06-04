@@ -50,7 +50,9 @@
         },
         methods: {
             showContextMenu: function(e) {
-                e.preventDefault();
+                if(e != undefined) {
+                    e.preventDefault();
+                }
 
                 this.$root.$emit('showContextMenu', {
                     x: e.pageX,
@@ -62,14 +64,18 @@
                     ]});
             },
             shortDownload: function(e) {
-                e.preventDefault();
+                if(e != undefined) {
+                    e.preventDefault();
+                }
 
                 if(e.which == 2) {
                     this.download(e);
                 }
             },
             download: function(e) {
-                e.preventDefault();
+                if(e != undefined) {
+                    e.preventDefault();
+                }
 
                 this.$root.$emit('download', {id: this.$props.id, cover: this.$props.cover, title: this.$props.title, artist: this.$props.artist, downloadPath: this.$props.zip});
             }
