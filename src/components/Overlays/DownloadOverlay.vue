@@ -10,9 +10,10 @@
         </header>
 
         <div class="download-list">
-            <div class="download-item" v-for="item in downloadQueue">
+            <div class="download-item" v-for="(item,index) in downloadQueue">
                 <div class="cover" :style="'background-image: url(' + item.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
                 <div class="meta">
+                    <div v-if="index != 0" /> <!--render this divider only on the first index of the array-->
                     <div class="title">{{ item.title }}</div>
                     <div class="artist">{{ item.artist }}</div>
                 </div>
