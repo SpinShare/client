@@ -160,7 +160,18 @@ ipcMain.on("getDeeplink", (event) => {
 function download(url, fileName, cb) {
     let dest = path.join(app.getPath('temp'), fileName + ".zip");
     let file = fs.createWriteStream(dest);
+
     let request = https.get(url, function(response) {
+    
+    var partiallength = 0
+    var totallength = parseInt(response.headers['content-length'], 10);
+
+        response.on("data", function(chunk) {
+          partiallength += chunk.length
+          console.log(partiallength / totallength)
+          ipcMain.emit('downloadProgress', partiallength / totallength)
+        });
+
         response.pipe(file);
         file.on('finish', function() {
             file.close(cb(null, dest)); // async call of the callback

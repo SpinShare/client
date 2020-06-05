@@ -30,11 +30,18 @@
         props: [
             'downloadQueue'
         ],
+        mounted: function(){
+            this.$on('downloadProgress', (decimal) => {
+                this.$data.downloadProgress = decimal;
+                console.log(this.$data.downloadProgress)
+            });
+        },
         data: function() {
             return {
                 showUpdateOverlay: false,
                 showDownloadManager: false,
-                isUpdateAvailable: false
+                isUpdateAvailable: false,
+                downloadProgress: 0
             }
         },
         methods: {
