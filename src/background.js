@@ -168,7 +168,12 @@ function download(url, fileName, cb) {
 
         response.on("data", function(chunk) {
           partiallength += chunk.length
-          win.setProgressBar(partiallength / totallength)
+          if (partiallength / totallength != 1) {
+            win.setProgressBar(partiallength / totallength)
+          }
+          else {
+            win.setProgressBar(0)
+          }
           ipcMain.emit("downloadProgress", partiallength / totallength)
         });
 
