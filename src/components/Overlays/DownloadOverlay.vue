@@ -34,7 +34,7 @@
             'downloadQueue'
         ],
         mounted: function(){
-            this.$on('downloadProgress', (decimal) => {
+            this.$electron.ipcMain.on('downloadProgress', (decimal) => {
                 this.$data.downloadProgress = decimal;
                 console.log(this.$data.downloadProgress)
             });
