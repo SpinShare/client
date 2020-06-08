@@ -168,13 +168,16 @@ function download(url, fileName, cb) {
 
         response.on("data", function(chunk) {
           partiallength += chunk.length //adds each time
-          if (partiallength / totallength != 1) {
-            win.setProgressBar(partiallength / totallength) //sets progress bar to decimal
+          let decimallength = partiallength / totallength
+          if (decimallength != 1) {
+            win.setProgressBar(decimallength) //sets progress bar to decimal
+            win.webContents.send("downloadProgress", decimallength)
           }
           else {
             win.setProgressBar(0) //sets progress bar to blank when done
+            win.webContents.send("downloadProgress", 0)
           }
-          ipcMain.emit("downloadProgress", partiallength / totallength) //emits decimal for download
+          
         });
 
         response.pipe(file);

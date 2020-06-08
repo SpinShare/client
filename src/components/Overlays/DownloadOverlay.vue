@@ -18,14 +18,14 @@
                         <div class="artist">{{ item.artist }}</div>
                     </div>
                 </div>
-                <div class="progress-bar" v-if="index == 0" :style="{ width: downloadProgress * 100 + 'px' }"></div>
+                <div class="progress-bar" v-if="index == 0" :style="{ width: downloadProgress * 100 + '%' }"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { remote, ipcMain } from 'electron';
+    import { remote, ipcRenderer } from 'electron';
     const { shell } = remote;
 
     export default {
@@ -34,9 +34,8 @@
             'downloadQueue'
         ],
         mounted: function(){
-            this.$electron.ipcMain.on('downloadProgress', (decimal) => {
-                this.$data.downloadProgress = decimal;
-                console.log(this.$data.downloadProgress)
+            ipcRenderer.on('downloadProgress', (event, data) => {
+                this.$data.downloadProgress = data
             });
         },
         data: function() {
