@@ -168,8 +168,8 @@ function download(url, fileName, cb) {
 
         response.on("data", function(chunk) {
           partiallength += chunk.length
-          console.log(partiallength / totallength)
-          ipcMain.emit('downloadProgress', partiallength / totallength)
+          win.setProgressBar(partiallength / totallength)
+          ipcMain.emit("downloadProgress", partiallength / totallength)
         });
 
         response.pipe(file);
