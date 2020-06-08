@@ -163,18 +163,18 @@ function download(url, fileName, cb) {
 
     let request = https.get(url, function(response) {
     
-    var partiallength = 0
-    var totallength = parseInt(response.headers['content-length'], 10);
+    var partiallength = 0 //sets partiallength to 0
+    var totallength = parseInt(response.headers['content-length'], 10); //sets totallength of file
 
         response.on("data", function(chunk) {
-          partiallength += chunk.length
+          partiallength += chunk.length //adds each time
           if (partiallength / totallength != 1) {
-            win.setProgressBar(partiallength / totallength)
+            win.setProgressBar(partiallength / totallength) //sets progress bar to decimal
           }
           else {
-            win.setProgressBar(0)
+            win.setProgressBar(0) //sets progress bar to blank when done
           }
-          ipcMain.emit("downloadProgress", partiallength / totallength)
+          ipcMain.emit("downloadProgress", partiallength / totallength) //emits decimal for download
         });
 
         response.pipe(file);
