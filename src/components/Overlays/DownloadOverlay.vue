@@ -13,9 +13,9 @@
             <div class="download-item" v-for="(item,index) in downloadQueue">
                 <div class="cover" :style="'background-image: url(' + item.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
                 <div class="meta">
-                    <div v-if="index != 0" /> <!--render this divider only on the first index of the array-->
                     <div class="title">{{ item.title }}</div>
                     <div class="artist">{{ item.artist }}</div>
+                    <div class="progress-bar" v-if="index == 0"></div>
                 </div>
             </div>
         </div>
@@ -54,6 +54,7 @@
 </script>
 
 <style scoped lang="less">
+
     .download-overlay {
         position: fixed;
         z-index: 10;
@@ -128,6 +129,15 @@
                         opacity: 0.6;
                         overflow: hidden;
                         white-space: nowrap;
+                    }
+                    & .progress-bar{
+                        opacity: 1;
+                        color: green;
+                        background: green !important;
+                        align-self: center;
+                        z-index: 100;
+                        height: 100%;
+                        width: 100%;
                     }
                 }
             }
