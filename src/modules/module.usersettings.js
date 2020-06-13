@@ -34,7 +34,7 @@ class UserSettings {
     fs.writeFileSync(this.path, JSON.stringify(this.data));
   }
 
-  // TODO: Mac/Linux Support
+  // TODO: Custom Dir Support
   detectGameDirectory() {
     switch(process.platform) {
       default:
@@ -45,6 +45,10 @@ class UserSettings {
         break;
       case "darwin":
         return path.join(app.getPath("appData"), "Super Spin Digital", "Spin Rhythm XD", "Custom");
+        break;
+      case "linux":
+        let linuxHomedir = require('os').homedir();
+        return path.join(linuxHomedir, ".local", "share", "Steam", "steamapps", "compatdata", "1058830", "pfx", "drive_c", "users", "steamuser", "AppData", "LocalLow", "Super Spin Digital", "Spin Rhythm XD", "Custom");
         break;
     }
   }
