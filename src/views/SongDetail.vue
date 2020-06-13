@@ -13,9 +13,14 @@
                 </div>
             </div>
             <div :class="'song-actions ' + (previewIsPlaying ? 'player-active' : '')">
-                <div v-on:click="AddToQueue()" class="action">
+                <div v-on:click="AddToQueue()" class="action" v-if="!isInstalled">
                     <div class="icon">
                         <i class="mdi mdi-download"></i>
+                    </div>
+                </div>
+                <div v-on:click="ShowPlayOverlay()" class="action" v-if="isInstalled">
+                    <div class="icon">
+                        <i class="mdi mdi-gamepad-variant"></i>
                     </div>
                 </div>
                 <div class="action-player">
@@ -47,7 +52,7 @@
                         <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" alt="Easy Difficulty" />
                         <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" alt="Normal Difficulty" />
                         <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" alt="Hard Difficulty" />
-                        <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" alt="Extreme Difficulty" />
+                        <img src="@/assets/img/difficultyExtreme.svg" :class="hasExpertDifficulty ? 'active' : ''" alt="Expert Difficulty" />
                         <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" alt="xD Difficulty" />
                     </div>
                 </div>
@@ -81,7 +86,7 @@
                 <UserItem v-bind="uploader" />
             </div>
             <div class="song-description" v-if="description || tags.length > 0">
-                <div class="text" v-if="description">{{ description }}</div>
+                <CollapsableText v-bind:text="description" v-if="description" />
                 <div class="tags">
                     <router-link class="tag" v-for="tag in tags" v-bind:key="tag" :to="{ name: 'Search', params: { searchQuery: tag } }">{{ tag }}</router-link>
                 </div>
@@ -89,30 +94,46 @@
         </div>
         <div class="song-social" v-if="apiFinished">
             <div class="tab-header">
-                <router-link :to="{ name: 'SongDetailReviews', params: { id: id } }" class="tab-header-item tab-header-item-reviews"><span>{{ $t('songdetail.tabs.reviews') }}</span></router-link>
-                <router-link :to="{ name: 'SongDetailSpinPlays', params: { id: id } }" class="tab-header-item tab-header-item-spinplays"><span>{{ $t('songdetail.tabs.spinplays') }}</span></router-link>
+                <router-link :to="{ name: 'SongDetailReviews', params: { id: id } }" class="tab-header-item tab-header-item-reviews" exact><span>{{ $t('songdetail.tabs.reviews') }}</span></router-link>
+                <router-link :to="{ name: 'SongDetailSpinPlays', params: { id: id } }" class="tab-header-item tab-header-item-spinplays" exact><span>{{ $t('songdetail.tabs.spinplays') }}</span></router-link>
             </div>
             
             <router-view></router-view>
         </div>
 
         <Loading v-if="!apiFinished" />
+
+        <PlayOverlay v-if="showPlayOverlay"
+            v-bind:fileReference="fileReference"
+            v-bind:hasEasyDifficulty="hasEasyDifficulty"
+            v-bind:hasNormalDifficulty="hasNormalDifficulty"
+            v-bind:hasHardDifficulty="hasHardDifficulty"
+            v-bind:hasExpertDifficulty="hasExpertDifficulty"
+            v-bind:hasXDDifficulty="hasXDDifficulty" />
     </section>
 </template>
 
 <script>
     import { remote } from 'electron';
+    import path from 'path';
+    import fs from 'fs';
     const { clipboard, shell } = remote;
 
     import SSAPI from '@/modules/module.api.js';
+    import UserSettings from '@/modules/module.usersettings.js';
+    
     import UserItem from '@/components/User/UserItem.vue';
+    import CollapsableText from '@/components/CollapsableText.vue';
     import Loading from '@/components/Loading.vue';
+    import PlayOverlay from '@/components/Overlays/PlayOverlay.vue';
 
     export default {
         name: 'SongDetail',
         components: {
             UserItem,
-            Loading
+            CollapsableText,
+            Loading,
+            PlayOverlay
         },
         data: function() {
             return {
@@ -126,11 +147,13 @@
                 hasEasyDifficulty: false,
                 hasNormalDifficulty: false,
                 hasHardDifficulty: false,
-                hasExtremeDifficulty: false,
+                hasExpertDifficulty: false,
                 hasXDDifficulty: false,
                 tags: [],
                 uploader: null,
                 uploadDate: null,
+                fileReference: "",
+                isInstalled: false,
                 previewPath: "",
                 downloadPath: "",
                 downloads: 0,
@@ -138,11 +161,13 @@
                 description: "",
                 previewIsPlaying: false,
                 currentPreviewAudio: null,
-                previewVolume: 50
+                previewVolume: 50,
+                showPlayOverlay: false
             }
         },
         mounted: function() {
             let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let userSettings = new UserSettings();
 
             ssapi.getSongDetail(this.$route.params.id).then((data) => {
                 this.$data.id = data.data.id;
@@ -154,7 +179,7 @@
                 this.$data.hasEasyDifficulty = data.data.hasEasyDifficulty;
                 this.$data.hasNormalDifficulty = data.data.hasNormalDifficulty;
                 this.$data.hasHardDifficulty = data.data.hasHardDifficulty;
-                this.$data.hasExtremeDifficulty = data.data.hasExtremeDifficulty;
+                this.$data.hasExpertDifficulty = data.data.hasExtremeDifficulty;
                 this.$data.hasXDDifficulty = data.data.hasXDDifficulty;
                 if(data.data.tags != "") {
                     this.$data.tags = data.data.tags;
@@ -165,14 +190,25 @@
                 this.$data.views = data.data.views;
                 this.$data.description = data.data.description;
                 this.$data.uploadDate = data.data.uploadDate;
+                this.$data.fileReference = data.data.fileReference;
+
+                // Check if Song is already installed by searching for the srtb file
+                this.$data.isInstalled = fs.existsSync(path.join(userSettings.get('gameDirectory'), this.$data.fileReference + ".srtb"));
 
                 ssapi.getUserDetail(data.data.uploader).then((data) => {
                     this.$data.uploader = data.data;
                     this.$data.apiFinished = true;
                 });
             });
+            
+            this.$on('closePlayOverlay', () => {
+                this.$data.showPlayOverlay = false;
+            });
         },
         methods: {
+            ShowPlayOverlay: function() {
+                this.$data.showPlayOverlay = true;
+            },
             AddToQueue: function() {
                 this.$root.$emit('download', {id: this.$data.id, cover: this.$data.cover, title: this.$data.title, artist: this.$data.artist, downloadPath: this.$data.downloadPath});
             },
@@ -449,7 +485,7 @@
                         color: rgba(255,255,255,0.75);
                     }
 
-                    &.router-link-exact-active {
+                    &.router-link-active {
                     opacity: 1;
                     color: rgba(255,255,255,1);
                     background: #383C3F;
