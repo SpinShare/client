@@ -12,9 +12,7 @@
             <div class="actions">
             </div>
         </div>
-        <div class="comment" v-if="comment">
-            {{ comment }}
-        </div>
+        <CollapsableText v-bind:text="comment" v-if="comment" />
     </div>
 </template>
 
@@ -22,8 +20,13 @@
     import { remote } from 'electron';
     const { clipboard } = remote;
 
+    import CollapsableText from '@/components/CollapsableText.vue';
+
     export default {
         name: 'SongReview',
+        components: {
+            CollapsableText
+        },
         props: [
             'id',
             'user',
@@ -43,6 +46,9 @@
         background: rgba(255,255,255,0.1);
         border-radius: 4px;
         padding: 20px;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: break-all;
 
         & .metadata {
             display: grid;
@@ -110,10 +116,8 @@
                 }
             }
         }
-
-        & .comment {
+        & .collapsableText {
             margin-top: 15px;
-            line-height: 1.5em;
         }
     }
 </style>
