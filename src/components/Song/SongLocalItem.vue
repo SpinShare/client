@@ -1,5 +1,5 @@
 <template>
-    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)">
+    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)" v-on:click="openOnSpinShare()">
         <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
             <div class="song-charter-info">
                 <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ detail.charter ? detail.charter : "Unknown" }}</span></div>
@@ -14,7 +14,8 @@
 
 <script>
     import { remote } from 'electron';
-    const { clipboard } = remote;
+    import path from 'path';
+    const { clipboard, shell } = remote;
 
     export default {
         name: 'SongLocalItem',
@@ -34,12 +35,28 @@
         },
         methods: {
             showContextMenu: function(e) {
+                let items = [];
+                
+                if(this.isSpinShare) {
+                    items.push({ icon: "open-in-app", title: this.$t('contextmenu.openOnSpinShare'), method: () => { this.openOnSpinShare(); } });
+                }
+                
+                items.push({ icon: "folder-outline", title: this.$t('contextmenu.openInExplorer'), method: () => { this.openInExplorer(); } });
+                items.push({ icon: "delete", title: this.$t('contextmenu.delete'), method: () => { this.$parent.$parent.$emit('delete', this.$props.file); } });
+                
                 this.$root.$emit('showContextMenu', {
                     x: e.pageX,
                     y: e.pageY,
-                    items: [
-                        { icon: "delete", title: "Delete", method: () => { this.$parent.$parent.$emit('delete', this.$props.file); } }
-                    ]});
+                    items: items
+                });
+            },
+            openOnSpinShare: function() {
+                if(this.isSpinShare.includes("spinshare_")) {
+                    this.$router.push({ name: 'SongDetail', params: { id: this.isSpinShare } });
+                }
+            },
+            openInExplorer: function() {
+                shell.showItemInFolder(path.normalize(this.file));
             }
         }
     }
