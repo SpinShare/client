@@ -58,9 +58,9 @@
                     x: e.pageX,
                     y: e.pageY,
                     items: [
-                        { icon: "eye", title: "Open", method: () => { this.$router.push({ name: 'SongDetail', params: { id: this.$props.id } }) } },
-                        { icon: "link", title: "Copy Link", method: () => { clipboard.writeText('https://spinsha.re/song/' + this.$props.id) } },
-                        { icon: "download", title: "Download", method: () => { this.download(); } }
+                        { icon: "eye", title: this.$t('contextmenu.open'), method: () => { this.$router.push({ name: 'SongDetail', params: { id: this.$props.id } }) } },
+                        { icon: "link", title: this.$t('contextmenu.copyLink'), method: () => { clipboard.writeText('https://spinsha.re/song/' + this.$props.id) } },
+                        { icon: "download", title: this.$t('contextmenu.download'), method: () => { this.download(); } }
                     ]});
             },
             shortDownload: function(e) {
