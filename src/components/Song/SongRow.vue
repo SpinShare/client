@@ -1,6 +1,6 @@
 <template>
     <div class="song-row song-row-new">
-        <div class="song-header">
+        <div class="song-header" v-if="title">
             <div :class="'row-title ' + (noactions ? 'row-title-noactions' : '')">{{ title }}</div>
             <div class="row-controls" v-if="!noactions">
                 <slot name="controls"></slot>
