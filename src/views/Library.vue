@@ -1,13 +1,28 @@
 <template>
     <section class="section-library" @dragover.prevent @drop.stop.prevent="drop()">
-        <SongRow :title="$t('library.installed.header')">
-            <template v-slot:controls>
-                <div class="item"></div>
-                <div class="item" v-on:click="refreshLibrary()"><i class="mdi mdi-refresh"></i></div>
-            </template>
-            <template v-slot:song-list>
-                <SongInstallItem />
+        <header>
+            <div class="title">{{ $t('library.header') }}</div>
+            <div class="actions">
+                <div class="button" v-on:click="install()">{{ $t('library.actions.install') }}</div>
+                <div class="button" v-on:click="refreshLibrary()">{{ $t('library.actions.refresh') }}</div>
+                <div class="button" v-on:click="openLibrary()">{{ $t('library.actions.open') }}</div>
+                <span></span>
+            </div>
+        </header>
 
+        <div class="cleanup-banner" v-if="hasUnusedFiles">
+            <div class="icon">
+                <i class="mdi mdi-hand-water"></i>
+            </div>
+            <div class="text">
+                <div class="title">{{ $t('library.cleanup.title') }}</div>
+                <div class="copy">{{ $t('library.cleanup.copy') }}</div>
+            </div>
+            <div class="button" v-on:click="cleanLibrary()">{{ $t('library.cleanup.action') }}</div>
+        </div>
+
+        <SongRow noactions="true">
+            <template v-slot:song-list>
                 <SongLocalItem
                     v-for="song in librarySongs"
                     v-bind:key="song.detail.id"
@@ -21,19 +36,19 @@
 
 <script>
     import { remote } from 'electron';
-    const { dialog } = remote;
+    const { dialog, shell } = remote;
 
     import fs from 'fs';
-    import glob from 'glob';
+    import { glob, globSync } from 'glob';
     import path from 'path';
 
     import UserSettings from '@/modules/module.usersettings.js';
+    import SSAPI from '@/modules/module.api.js';
     import SRXD from '@/modules/module.srxd.js';
 
     import DeleteOverlay from '@/components/Overlays/DeleteOverlay.vue';
     import SongRow from '@/components/Song/SongRow.vue';
     import SongLocalItem from '@/components/Song/SongLocalItem.vue';
-    import SongInstallItem from '@/components/Song/SongInstallItem.vue';
 
     export default {
         name: 'Library',
@@ -41,13 +56,13 @@
             return {
                 librarySongs: [],
                 showDeleteOverlay: false,
-                deleteFiles: []
+                deleteFiles: [],
+                hasUnusedFiles: false
             }
         },
         components: {
             SongRow,
             SongLocalItem,
-            SongInstallItem,
             DeleteOverlay
         },
         mounted: function() {
@@ -74,9 +89,12 @@
             });
         },
         methods: {
-            refreshLibrary: function() {
+            // TODO: Make this truly async
+            refreshLibrary: async function() {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
                 let userSettings = new UserSettings();
 
+                this.$data.hasUnusedFiles = false;
                 this.$data.librarySongs = [];
                 
                 // Load local .srtb
@@ -99,12 +117,34 @@
                             file: file,
                             detail: songDetail,
                             cover: songCover,
+                            modifiedDate: fs.statSync(file).mtime,
                             isSpinShare: songSpinShareReference
                         };
 
                         this.$data.librarySongs.push(librarySong);
                     });
+
+                    // Order library by modifiedDate
+                    this.$data.librarySongs.sort(function(a, b) {
+                        return new Date(b.modifiedDate) - new Date(a.modifiedDate);
+                    });
                 });
+
+                this.getUnusedFiles().then((data) => {
+                    if(data.differingAssets.length > 0) {
+                        this.$data.hasUnusedFiles = true;
+                    } else {
+                        this.$data.hasUnusedFiles = false;
+                    }
+                });
+            },
+            openLibrary: function() {
+                let userSettings = new UserSettings();
+
+                shell.openExternal(userSettings.get('gameDirectory'));
+            },
+            install: function() {
+                this.$parent.$parent.$emit('install');
             },
             getSongDetail: function(filePath) {
                 let srtbContent = JSON.parse( fs.readFileSync(filePath) );
@@ -156,8 +196,39 @@
 
                 return connectedFiles;
             },
+            getUnusedFiles: async function() {
+                let userSettings = new UserSettings();
+                let allLinkedAssets = [];
+                let differingAssets = [];
+
+                // Create array of assets from the srtb files
+                let allLinkedAssetsPromise = new Promise((resolve, reject) => {
+                    glob(path.join(userSettings.get('gameDirectory'), "*.srtb"), (error, files) => {
+                        files.forEach((file) => {
+                            allLinkedAssets.push((this.getConnectedFiles(file)).slice(1)[0]);
+                            allLinkedAssets.push((this.getConnectedFiles(file)).slice(1)[1]);
+                            allLinkedAssets.push(file);
+                        });
+                        resolve(allLinkedAssets);
+                    })
+                });
+
+                // Waits for resolve in order to avoid bug where all songs would be added to differingAssets
+                let allLinkedAssetsResults = await allLinkedAssetsPromise;
+
+                // Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
+                let allFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*"));
+                allFiles.forEach((file) => {
+                    if (!allLinkedAssetsResults.includes(file) && fs.statSync(file).isFile()) {
+                        differingAssets.push(file);
+                    }
+                });
+                
+                let thisData = this.$data;
+                return {differingAssets, thisData};
+            },
             install: function(e) {
-                dialog.showOpenDialog({ title: "Open Backup", properties: ['openFile', 'multiSelections'], filters: [{"name": "Backup Archive", "extensions": ["zip"]}] }).then(result => {
+                dialog.showOpenDialog({ title: this.$t('library.installmodal.title'), properties: ['openFile', 'multiSelections'], filters: [{"name": this.$t('library.installmodal.filetype'), "extensions": ["zip"]}] }).then(result => {
                     if(!result.canceled) {
                         result.filePaths.forEach((rawFilePath) => {
                             this.extract(rawFilePath)
@@ -192,6 +263,12 @@
                         console.error(error);
                     });
                 }
+            },
+            cleanLibrary: function() {
+                this.getUnusedFiles().then( (data) => {
+                    data.thisData.deleteFiles = data.differingAssets;
+                    data.thisData.showDeleteOverlay = true;
+                });
             }
         }
     }
@@ -199,6 +276,65 @@
 
 <style scoped lang="less">
     section {
-        padding: 50px;
+        & header {
+            background: rgba(0,0,0,0.3);
+            padding: 50px;
+            padding-bottom: 25px;
+
+            & .title {
+                font-size: 32px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                font-family: 'Oswald', sans-serif;
+            }
+            & .actions {
+                display: grid;
+                grid-template-columns: auto auto auto auto 1fr;
+                grid-gap: 15px;
+            }
+        }
+        & .cleanup-banner {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 40px 1fr auto;
+            grid-gap: 15px;
+            margin: 0px 50px;
+            margin-top: 25px;
+            align-items: center;
+
+            & .icon {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                & .mdi {
+                    font-size: 32px;
+                }
+            }
+
+            & .text {
+                & .title {
+                    margin: 0;
+                    letter-spacing: 0.25em;
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+                & .text {
+                    opacity: 0.6;
+                    line-height: 1.5;
+                }
+            }
+        }
+
+        & .song-row {
+            padding: 50px;
+            padding-top: 25px;
+        }
     }
 </style>
