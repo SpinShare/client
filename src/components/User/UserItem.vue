@@ -3,7 +3,7 @@
         <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
         <div class="user-metadata">
             <div class="user-username">{{ username }}</div>
-            <div class="user-badge" v-if="patreon"><i class="mdi mdi-patreon"></i></div>
+            <div class="user-badge" v-if="isPatreon"><i class="mdi mdi-patreon"></i></div>
             <div class="user-badge" v-if="isVerified"><i class="mdi mdi-check-decagram"></i></div>
         </div>
     </router-link>
