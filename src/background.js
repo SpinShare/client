@@ -161,9 +161,26 @@ ipcMain.on("getDeeplink", (event) => {
 function download(url, fileName, cb) {
     let dest = path.join(app.getPath('temp'), fileName + ".zip");
     let file = fs.createWriteStream(dest);
+    var partiallength = 0 //sets partiallength to 0
+
     if(new URL(url).protocol == "https:") {
       let request = https.get(url, function(response) {
           response.pipe(file);
+
+          var totallength = parseInt(response.headers['content-length'], 10); //sets totallength of file
+          response.on("data", function(chunk) {
+            partiallength += chunk.length //adds each time
+            let decimallength = partiallength / totallength
+            if (decimallength != 1) {
+              win.setProgressBar(decimallength) //sets progress bar to decimal
+              win.webContents.send("downloadProgress", decimallength)
+            }
+            else {
+              win.setProgressBar(0) //sets progress bar to blank when done
+              win.webContents.send("downloadProgress", 0)
+            }
+          });
+
           file.on('finish', function() {
               file.close(cb(null, dest)); // async call of the callback
           });
@@ -171,9 +188,25 @@ function download(url, fileName, cb) {
           fs.unlink(dest); // Delete the file async. (But we don't check the result)
           if (cb) cb(err.message, dest);
       });
+
     } else {
       let request = http.get(url, function(response) {
           response.pipe(file);
+
+          var totallength = parseInt(response.headers['content-length'], 10); //sets totallength of file
+          response.on("data", function(chunk) {
+            partiallength += chunk.length //adds each time
+            let decimallength = partiallength / totallength
+            if (decimallength != 1) {
+              win.setProgressBar(decimallength) //sets progress bar to decimal
+              win.webContents.send("downloadProgress", decimallength)
+            }
+            else {
+              win.setProgressBar(0) //sets progress bar to blank when done
+              win.webContents.send("downloadProgress", 0)
+            }
+          });
+          
           file.on('finish', function() {
               file.close(cb(null, dest)); // async call of the callback
           });
@@ -182,32 +215,4 @@ function download(url, fileName, cb) {
           if (cb) cb(err.message, dest);
       });
     }
-
-    let request = https.get(url, function(response) {
-    
-    var partiallength = 0 //sets partiallength to 0
-    var totallength = parseInt(response.headers['content-length'], 10); //sets totallength of file
-
-        response.on("data", function(chunk) {
-          partiallength += chunk.length //adds each time
-          let decimallength = partiallength / totallength
-          if (decimallength != 1) {
-            win.setProgressBar(decimallength) //sets progress bar to decimal
-            win.webContents.send("downloadProgress", decimallength)
-          }
-          else {
-            win.setProgressBar(0) //sets progress bar to blank when done
-            win.webContents.send("downloadProgress", 0)
-          }
-          
-        });
-
-        response.pipe(file);
-        file.on('finish', function() {
-            file.close(cb(null, dest)); // async call of the callback
-        });
-    }).on('error', function(err) { // Handle errors
-        fs.unlink(dest); // Delete the file async. (But we don't check the result)
-        if (cb) cb(err.message, dest);
-    });
 };
