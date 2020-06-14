@@ -10,6 +10,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "locale:check": "node localeCheck.js",
+    "locale:diff": "node localeDiff.js",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
@@ -23,7 +25,6 @@
     "glob": "^7.1.6",
     "moment": "^2.26.0",
     "ncp": "^2.0.0",
-    "needle": "^2.5.0",
     "rimraf": "^3.0.2",
     "uniqid": "^5.2.0",
     "vue": "^2.6.11",
@@ -40,6 +41,8 @@
     "electron": "^6.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "chalk": "^4.1.0",
+    "chalk-table": "^1.0.2",
     "vue-cli-plugin-electron-builder": "~1.4.6",
     "vue-template-compiler": "^2.6.11"
   }

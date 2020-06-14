@@ -2,7 +2,7 @@
     <div class="download-overlay">
         <header>
             <div class="title">
-                Download Queue
+                {{ $t('download.queue.header') }}
             </div>
             <div class="icon" v-on:click="close()">
                 <i class="mdi mdi-close"></i>

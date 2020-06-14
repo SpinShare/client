@@ -1,11 +1,12 @@
 <template>
     <section class="section-search">
-        <div class="search-bar">
-            <div class="show-all">
-                <div class="button button-label" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
+        <header>
+            <div class="title">{{ $t('search.header') }}</div>
+            <div class="actions">
+                <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="search()" v-model="searchQuery" ref="searchInput">
+                <div class="button" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
             </div>
-            <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="search()" v-model="searchQuery" ref="searchInput">
-        </div>
+        </header>
         <div class="search-results">
             <UserRow :title="$t('search.results.users.header')" v-show="searchResultsUsers.length > 0">
                 <UserItem
@@ -101,16 +102,27 @@
 
 <style scoped lang="less">
     .section-search {
-        grid-template-rows: auto 1fr;
-        grid-gap: 25px;
-        padding: 50px;
-        display: grid;
+        & header {
+            background: rgba(0,0,0,0.3);
+            padding: 50px;
+            padding-bottom: 25px;
 
-        & .search-bar {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+            & .title {
+                font-size: 32px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                font-family: 'Oswald', sans-serif;
+            }
+            & .actions {
+                display: grid;
+                grid-template-columns: auto auto auto auto 1fr;
+                grid-gap: 15px;
+            }
+        & .actions {
             display: grid;
-            grid-template-columns: auto 1fr;
+            grid-template-columns: 1fr auto;
+            align-items: center;
 
             & .show-all {
                 height: 100%;
@@ -127,26 +139,31 @@
                 background: transparent;
                 color: #fff;
                 border-radius: 4px;
-                padding: 14px 28px;
+                padding: 9px 20px;
+                background: rgba(255,255,255,0.2);
                 border: 0px;
                 transition: 0.2s ease-in-out all;
             
                 &:hover {
-                    background: rgba(255,255,255,0.2);
+                    background: rgba(255,255,255,0.1);
                     color: #fff;
                 }
                 &:focus {
                     outline: 0;
+                    border-color: rgba(255,255,255,0.6);
                 }
                 &::placeholder {
                     color: rgba(255,255,255,0.6);
                 }
             }
         }
+        }
         & .search-results {
             display: grid;
             grid-template-rows: auto auto auto 1fr;
             grid-gap: 25px;
+            padding: 50px;
+            padding-top: 25px;
 
             & .search-results-users {
                 display: grid;

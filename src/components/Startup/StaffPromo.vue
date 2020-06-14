@@ -2,7 +2,7 @@
     <div :style="'background-image: url(' + image_path + ');'" :class="isLoading ? 'staff-promo promo-loading' : 'staff-promo' ">
         <div class="promo-type" :style="'color:' + color">{{ type }}</div>
         <div class="promo-title" :style="'color:' + textColor" v-html="title"></div>
-        <div class="promo-button" :style="'background-color:' + color" v-on:click="buttonClick()">CHECK IT OUT</div>
+        <div class="promo-button" :style="'background-color:' + color" v-on:click="buttonClick()">{{ $t('startup.staffpromo.action') }}</div>
     </div>
 </template>
 
@@ -14,19 +14,27 @@
         name: 'StaffPromo',
         methods: {
             buttonClick: function() {
-                switch(this.$props.buttonType) {
+                console.log(this.$props.button.type);
+                console.log(this.$props.button.data);
+                switch(this.$props.button.type) {
                     case 0:
                         // Song
+                        this.$router.push({ name: 'SongDetail', params: { id: this.$props.button.data } });
                         break;
                     case 1:
                         // Playlist (unused)
                         break;
                     case 2:
                         // Search Query
+                        this.$router.push({ name: 'Search', params: { searchQuery: this.$props.button.data } });
                         break;
                     case 3:
                         // External
-                        shell.openExternal(this.$props.buttonData);
+                        shell.openExternal(this.$props.button.data);
+                        break;
+                    case 4:
+                        // User
+                        this.$router.push({ name: 'UserDetail', params: { id: this.$props.button.data } });
                         break;
                 }
             }
@@ -36,8 +44,7 @@
             'image_path',
             'type',
             'title',
-            'buttonType',
-            'buttonData',
+            'button',
             'textColor',
             'color'
         ]

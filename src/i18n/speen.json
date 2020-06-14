@@ -1,7 +1,6 @@
 {
 	"locale.translatedBy": "SPEEN SPEEN SPEEN",
 	"locale.dateFormat": "SPEEN/SPEEN/SPEEN",
-
 	"startup.tabs.frontpage": "SPEEN",
 	"startup.tabs.new": "SPEEN",
 	"startup.tabs.hot": "SPEEN",
@@ -9,23 +8,15 @@
 	"startup.newsongs.header": "SPEEN SPEEN",
 	"startup.hotsongs.header": "SPEEN SPEEN",
 	"startup.popularsongs.header": "SPEEN SPEEN",
-	
 	"search.input.placeholder": "SPEEN...",
 	"search.results.users.header": "SPEEN",
 	"search.results.songs.header": "SPEEN",
 	"search.noresults.text": "SPEEN",
 	"search.showall.button": "SPEEN SPEEN",
-
 	"library.deletemodal.title": "SPEEN",
 	"library.deletemodal.text": "SPEEN",
 	"library.deletemodal.delete": "SPEEN",
 	"library.deletemodal.close": "SPEEN",
-	
-	"library.installed.header": "SPEEN",
-	"library.installed.install.title": "SPEEN",
-	"library.installed.install.text": "SPEEN",
-	"library.contextmenu.delete": "SPEEN",
-	
 	"songdetail.createdBy": "SPEEN {charter}",
 	"songdetail.uploadedBy": "SPEEN SPEEN ",
 	"songdetail.tabs.reviews": "SPEENS",
@@ -41,11 +32,9 @@
 	"songdetail.spinplays.add.submitVideo": "SPEEN",
 	"songdetail.spinplays.noresults.title": "SPEEN SPEEN SPEEN.",
 	"songdetail.spinplays.noresults.explaination": "SPEEN SPEEN SPEEN SPEEN!",
-	
 	"userdetail.uploaded.header": "SPEEN",
 	"userdetail.uploaded.noresults": "SPEEN",
 	"userdetail.actions.reportButton": "SPEEN",
-	
 	"settings.general.header": "SPEENSHARE",
 	"settings.general.version.label": "SPEEN",
 	"settings.general.update.label": "SPEEN",
@@ -56,12 +45,10 @@
 	"settings.directories.gameDirectory.label": "SPEEN",
 	"settings.directories.gameDirectory.changeButton": "SPEEN",
 	"settings.directories.gameDirectory.resetButton": "SPEEN",
-	
 	"connectionerror.server.title": "SPEEN :(",
 	"connectionerror.server.text": "SPEEN",
 	"connectionerror.notfound.title": "SPEEN :(",
 	"connectionerror.notfound.text": "SPEEN",
-	
 	"download.status.downloading": "SPEEN",
 	"download.status.extracting": "SPEEN",
 	"download.status.extractingFailed": "SPEEN",
@@ -69,10 +56,39 @@
 	"download.status.installingFailed": "SPEEN",
 	"download.status.done": "SPEEN :)",
 	"download.closeButton": "SPEEN",
-	
 	"update.availableText": "SPEEN",
 	"update.latestText": "SPEEN",
 	"update.download": "SPEEN!",
 	"update.later": "SPEEN...",
-	"update.close": "SPEEN"
+	"update.close": "SPEEN",
+	"startup.staffpromo.action": "SPEEN",
+	"search.header": "SPEEN",
+	"library.header": "SPEEN SPEEN",
+	"library.actions.install": "SPEEN",
+	"library.actions.refresh": "SPEEN",
+	"library.actions.open": "SPEEN SPEEN",
+	"library.cleanup.title": "SPEEN SPEEN",
+	"library.cleanup.copy": "SPEEN SPEEN SPEEN SPEEN SPEEN. SPEEN SPEEN SPEEN SPEEN!",
+	"library.cleanup.action": "SPEEN",
+	"library.installmodal.title": "SPEEN SPEEN",
+	"library.installmodal.filetype": "SPEEN SPEEN",
+	"library.deletemodal.explorer": "SPEEN SPEEN",
+	"songdetail.showmore": "SPEEN SPEEN",
+	"songdetail.showless": "SPEEN SPEEN",
+	"songdetail.playmodal.title": "SPEEN SPEEN SPEEN",
+	"songdetail.playmodal.actions.close": "SPEEN",
+	"settings.header": "SPEEN",
+	"download.queue.header": "SPEEN SPEEN",
+	"contextmenu.play": "SPEEN",
+	"contextmenu.play.easy": "SPEEN SPEEN",
+	"contextmenu.play.normal": "SPEEN SPEEN",
+	"contextmenu.play.hard": "SPEEN SPEEN",
+	"contextmenu.play.expert": "SPEEN SPEEN",
+	"contextmenu.play.xd": "SPEEN SPEEN",
+	"contextmenu.delete": "SPEEN",
+	"contextmenu.copyLink": "SPEEN SPEEN",
+	"contextmenu.download": "SPEEN",
+	"contextmenu.open": "SPEEN",
+	"contextmenu.openInExplorer": "SPEEN SPEEN SPEEN",
+	"contextmenu.openOnSpinShare": "SPEEN SPEEN SPEEN"
 }

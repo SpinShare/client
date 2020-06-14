@@ -3,6 +3,8 @@
         <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
         <div class="user-metadata">
             <div class="user-username">{{ username }}</div>
+            <div class="user-badge" v-if="patreon"><i class="mdi mdi-patreon"></i></div>
+            <div class="user-badge" v-if="isVerified"><i class="mdi mdi-check-decagram"></i></div>
         </div>
     </router-link>
 </template>
@@ -20,24 +22,9 @@
             'isPatreon',
             'isVerified'
         ],
-        data: function() {
-            return {
-                isContextMenuActive: false
-            }
-        },
         mounted: function() {
         },
         methods: {
-            showContextMenu: function(e) {
-                this.$root.$emit('showContextMenu', {
-                    x: e.pageX,
-                    y: e.pageY,
-                    items: [
-                        { icon: "eye", title: "Open", method: function() { alert('TODO') }.bind(this) },
-                        { icon: "link", title: "Copy Link", method: function() { clipboard.writeText('https://spinsha.re/song/' + this.$props.id) }.bind(this) },
-                        { icon: "download", title: "Download", method: function() { this.$root.$emit('download', this.$props.isVerified); }.bind(this) }
-                    ]});
-            }
         }
     }
 </script>
