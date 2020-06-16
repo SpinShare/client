@@ -42,6 +42,11 @@
             'hasExpertDifficulty',
             'hasXDDifficulty'
         ],
+        mounted: function() {
+            ipcRenderer.on("overlays-close", () => {
+                this.close();
+            });
+        },
         methods: {
             play: function(difficulty) {
                 shell.openExternal('steam://run/1058830//play "' + this.$props.fileReference + '.srtb" difficulty ' + difficulty);

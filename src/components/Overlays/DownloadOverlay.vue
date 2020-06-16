@@ -33,7 +33,10 @@
         props: [
             'downloadQueue'
         ],
-        mounted: function(){
+        mounted: function() {
+            ipcRenderer.on("overlays-close", () => {
+                this.close();
+            });
             ipcRenderer.on('downloadProgress', (event, data) => {
                 this.$data.downloadProgress = data
             });

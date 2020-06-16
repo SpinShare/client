@@ -185,8 +185,7 @@
                 }
             },
             closeOverlays: function() {
-                this.$data.showUpdateOverlay = false;
-                this.$data.showDownloadOverlay = false;
+                ipcRenderer.send("overlays-close");
             }
         }
     }

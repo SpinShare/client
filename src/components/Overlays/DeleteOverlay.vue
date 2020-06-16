@@ -17,7 +17,8 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
+    import { remote, ipcRenderer } from 'electron';
+    import { path } from 'path';
     const { shell } = remote;
 
     export default {
@@ -25,6 +26,11 @@
         props: [
             'deleteFiles'
         ],
+        mounted: function() {
+            ipcRenderer.on("overlays-close", () => {
+                this.close();
+            });
+        },
         methods: {
             confirm() {
                 this.$parent.$emit('deleteConfirm');
@@ -50,7 +56,7 @@
         align-items: center;
 
         & .delete-content {
-            width: 500px;
+            width: 700px;
             background: #212629;
             border-radius: 6px;
             position: relative;
@@ -71,6 +77,8 @@
                 }
                 & .delete-files {
                     font-size: 12px;
+                    max-height: 50vh;
+                    overflow-y: auto;
 
                     & span {
                         display: block;

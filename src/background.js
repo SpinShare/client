@@ -158,6 +158,10 @@ ipcMain.on("getDeeplink", (event) => {
   });
 });
 
+ipcMain.on("overlays-close", () => {
+  win.webContents.send("overlays-close");
+});
+
 function download(url, fileName, cb) {
     let dest = path.join(app.getPath('temp'), fileName + ".zip");
     let file = fs.createWriteStream(dest);

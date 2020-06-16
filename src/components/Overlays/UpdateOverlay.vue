@@ -33,6 +33,11 @@
         props: [
             'isAvailable'
         ],
+        mounted: function() {
+            ipcRenderer.on("overlays-close", () => {
+                this.close();
+            });
+        },
         methods: {
             OpenAndHideOverlay: function() {
                 // Open Update
