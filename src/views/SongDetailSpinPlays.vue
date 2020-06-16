@@ -48,8 +48,12 @@
             let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
 
             ssapi.getSongDetailSpinPlays(this.$route.params.id).then((data) => {
-                this.$data.apiFinished = true;
-                this.$data.spinPlays = data.data.spinPlays ? data.data.spinPlays : [];
+                if(data.status == 200) {
+                    this.$data.apiFinished = true;
+                    this.$data.spinPlays = data.data.spinPlays ? data.data.spinPlays : [];
+                } else {
+                    this.$router.push({ name: 'Error', params: { errorCode: data.status } });
+                }
             });
         },
         components: {

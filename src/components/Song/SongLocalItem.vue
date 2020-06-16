@@ -15,7 +15,7 @@
 <script>
     import { remote } from 'electron';
     import path from 'path';
-    const { clipboard, shell } = remote;
+    const { shell } = remote;
 
     export default {
         name: 'SongLocalItem',
@@ -51,8 +51,10 @@
                 });
             },
             openOnSpinShare: function() {
-                if(this.isSpinShare.includes("spinshare_")) {
-                    this.$router.push({ name: 'SongDetail', params: { id: this.isSpinShare } });
+                if(this.isSpinShare) {
+                    if(this.isSpinShare.includes("spinshare_")) {
+                        this.$router.push({ name: 'SongDetail', params: { id: this.isSpinShare } });
+                    }
                 }
             },
             openInExplorer: function() {

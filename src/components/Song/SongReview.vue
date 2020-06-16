@@ -17,9 +17,6 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard } = remote;
-
     import CollapsableText from '@/components/CollapsableText.vue';
 
     export default {
@@ -34,10 +31,6 @@
             'comment',
             'reviewDate'
         ],
-        mounted: function() {
-        },
-        methods: {
-        }
     }
 </script>
 

@@ -55,9 +55,13 @@
             let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
 
             ssapi.getSongDetailReviews(this.$route.params.id).then((data) => {
-                this.$data.apiFinished = true;
-                this.$data.reviewAverage = data.data.average;
-                this.$data.reviews = data.data.reviews ? data.data.reviews : [];
+                if(data.status == 200) {
+                    this.$data.apiFinished = true;
+                    this.$data.reviewAverage = data.data.average;
+                    this.$data.reviews = data.data.reviews ? data.data.reviews : [];
+                } else {
+                    this.$router.push({ name: 'Error', params: { errorCode: data.status } });
+                }
             });
         },
         components: {

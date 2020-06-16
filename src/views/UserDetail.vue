@@ -66,13 +66,17 @@
             let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
 
             ssapi.getUserDetail(this.$route.params.id).then((data) => {
-                this.$data.id = data.data.id;
-                this.$data.username = data.data.username;
-                this.$data.isVerified = data.data.isVerified;
-                this.$data.isPatreon = data.data.isPatreon;
-                this.$data.avatar = data.data.avatar;
-                this.$data.songs = data.data.songs;
-                this.$data.apiFinished = true;
+                if(data.status == 200) {
+                    this.$data.id = data.data.id;
+                    this.$data.username = data.data.username;
+                    this.$data.isVerified = data.data.isVerified;
+                    this.$data.isPatreon = data.data.isPatreon;
+                    this.$data.avatar = data.data.avatar;
+                    this.$data.songs = data.data.songs;
+                    this.$data.apiFinished = true;
+                } else {
+                    this.$router.push({ name: 'Error', params: { errorCode: data.status } });
+                }
             });
         },
         methods: {

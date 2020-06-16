@@ -30,6 +30,10 @@
             </template>
         </SongRow>
 
+        <div class="loading" v-if="!apiFinished">
+            <Loading />
+        </div>
+
         <DeleteOverlay v-if="showDeleteOverlay" v-bind:deleteFiles="deleteFiles" />
     </section>
 </template>
@@ -46,9 +50,10 @@
     import SSAPI from '@/modules/module.api.js';
     import SRXD from '@/modules/module.srxd.js';
 
-    import DeleteOverlay from '@/components/Overlays/DeleteOverlay.vue';
     import SongRow from '@/components/Song/SongRow.vue';
     import SongLocalItem from '@/components/Song/SongLocalItem.vue';
+    import Loading from '@/components/Loading.vue';
+    import DeleteOverlay from '@/components/Overlays/DeleteOverlay.vue';
 
     export default {
         name: 'Library',
@@ -57,12 +62,15 @@
                 librarySongs: [],
                 showDeleteOverlay: false,
                 deleteFiles: [],
-                hasUnusedFiles: false
+                hasUnusedFiles: false,
+                apiFinished: false,
+                useAPIForLibrary: false
             }
         },
         components: {
             SongRow,
             SongLocalItem,
+            Loading,
             DeleteOverlay
         },
         mounted: function() {
@@ -96,32 +104,46 @@
 
                 this.$data.hasUnusedFiles = false;
                 this.$data.librarySongs = [];
+                this.$data.apiFinished = false;
+
+                await ssapi.ping().then((data) => {
+                    this.$data.useAPIForLibrary = true;
+                    console.log(data);
+                }).catch((error) => {
+                    console.log(error);
+                    this.$data.useAPIForLibrary = false;
+                    console.log("ERROR WHILE PINGING API");
+                });
                 
                 // Load local .srtb
                 glob(path.join(userSettings.get('gameDirectory'), "*.srtb"), (error, files) => {
                     files.forEach((file) => {
                         // Get Detail Data
-                        let songDetail = this.getSongDetail(file);
-                        let songCover = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", songDetail.coverReference + ".*"))[0];
-                        let songSpinShareReference = false;
+                        this.getSongDetail(file).then((songDetail) => {
+                            let librarySong = {};
+                            let fileReference = false;
+                            
+                            if(path.basename(file).includes("spinshare_")) {
+                                fileReference = path.basename(file).replace(".srtb", "");
+                            }
+                            
+                            let songCover = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", songDetail.coverReference + ".*"))[0];
 
-                        if(file.split("/")[file.split("/").length - 1].replace(".srtb", "").includes("spinshare_")) {
-                            songSpinShareReference = file.split("/")[file.split("/").length - 1].replace(".srtb", "");
-                        }
+                            if(songCover) {
+                                songCover = "data:image/jpg;base64," + fs.readFileSync(songCover, { encoding: 'base64' });
+                            }
 
-                        if(songCover) {
-                            songCover = "data:image/jpg;base64," + fs.readFileSync(songCover, { encoding: 'base64' });
-                        }
+                            librarySong = {
+                                file: file,
+                                detail: songDetail,
+                                cover: songCover,
+                                modifiedDate: fs.statSync(file).mtime,
+                                isSpinShare: fileReference
+                            };
 
-                        let librarySong = {
-                            file: file,
-                            detail: songDetail,
-                            cover: songCover,
-                            modifiedDate: fs.statSync(file).mtime,
-                            isSpinShare: songSpinShareReference
-                        };
-
-                        this.$data.librarySongs.push(librarySong);
+                            this.$data.librarySongs.push(librarySong);
+                            this.$data.apiFinished = true;
+                        });
                     });
 
                     // Order library by modifiedDate
@@ -146,10 +168,12 @@
             install: function() {
                 this.$parent.$parent.$emit('install');
             },
-            getSongDetail: function(filePath) {
-                let srtbContent = JSON.parse( fs.readFileSync(filePath) );
+            getSongDetail: async function(filePath) {
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
                 let trackInfo = {};
+                let fileReference = path.basename(filePath).replace(".srtb", "");
 
+                let srtbContent = JSON.parse( fs.readFileSync(filePath) );
                 let stringValueContainers = srtbContent['largeStringValuesContainer'].values;
 
                 stringValueContainers.forEach((stringValueContainer) => {
@@ -163,7 +187,7 @@
                         };
                     }
                 });
-                        
+
                 return trackInfo;
             },
             getConnectedFiles: function(srtbFilePath) {

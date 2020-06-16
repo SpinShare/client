@@ -12,9 +12,6 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { shell } = remote;
-
     export default {
         name: 'SongItemPlaceholder',
     }

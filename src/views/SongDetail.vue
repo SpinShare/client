@@ -170,35 +170,47 @@
             let userSettings = new UserSettings();
 
             ssapi.getSongDetail(this.$route.params.id).then((data) => {
-                this.$data.id = data.data.id;
-                this.$data.cover = data.data.paths.cover;
-                this.$data.title = data.data.title;
-                this.$data.subtitle = data.data.subtitle;
-                this.$data.artist = data.data.artist;
-                this.$data.charter = data.data.charter;
-                this.$data.hasEasyDifficulty = data.data.hasEasyDifficulty;
-                this.$data.hasNormalDifficulty = data.data.hasNormalDifficulty;
-                this.$data.hasHardDifficulty = data.data.hasHardDifficulty;
-                this.$data.hasExpertDifficulty = data.data.hasExtremeDifficulty;
-                this.$data.hasXDDifficulty = data.data.hasXDDifficulty;
-                if(data.data.tags != "") {
-                    this.$data.tags = data.data.tags;
+                if(data.status == 200) {
+                    this.$data.id = data.data.id;
+                    this.$data.cover = data.data.paths.cover;
+                    this.$data.title = data.data.title;
+                    this.$data.subtitle = data.data.subtitle;
+                    this.$data.artist = data.data.artist;
+                    this.$data.charter = data.data.charter;
+                    this.$data.hasEasyDifficulty = data.data.hasEasyDifficulty;
+                    this.$data.hasNormalDifficulty = data.data.hasNormalDifficulty;
+                    this.$data.hasHardDifficulty = data.data.hasHardDifficulty;
+                    this.$data.hasExpertDifficulty = data.data.hasExtremeDifficulty;
+                    this.$data.hasXDDifficulty = data.data.hasXDDifficulty;
+                    if(data.data.tags != "") {
+                        this.$data.tags = data.data.tags;
+                    }
+                    this.$data.previewPath = data.data.paths.ogg;
+                    this.$data.downloadPath = data.data.paths.zip;
+                    this.$data.downloads = data.data.downloads;
+                    this.$data.views = data.data.views;
+                    this.$data.description = data.data.description;
+                    this.$data.uploadDate = data.data.uploadDate;
+                    this.$data.fileReference = data.data.fileReference;
+
+                    // Check if Song is already installed by searching for the srtb file
+                    this.$data.isInstalled = fs.existsSync(path.join(userSettings.get('gameDirectory'), this.$data.fileReference + ".srtb"));
+
+                    ssapi.getUserDetail(data.data.uploader).then((data) => {
+                        if(data.status == 200) {
+                            this.$data.uploader = data.data;
+                            this.$data.apiFinished = true;
+                        } else {
+                            this.$router.push({ name: 'Error', params: { errorCode: data.status } });
+                        }
+                    }).catch((error) => {
+                        this.$router.push({ name: 'Error', params: { errorCode: 500 } });
+                    });
+                }  else {
+                    this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                 }
-                this.$data.previewPath = data.data.paths.ogg;
-                this.$data.downloadPath = data.data.paths.zip;
-                this.$data.downloads = data.data.downloads;
-                this.$data.views = data.data.views;
-                this.$data.description = data.data.description;
-                this.$data.uploadDate = data.data.uploadDate;
-                this.$data.fileReference = data.data.fileReference;
-
-                // Check if Song is already installed by searching for the srtb file
-                this.$data.isInstalled = fs.existsSync(path.join(userSettings.get('gameDirectory'), this.$data.fileReference + ".srtb"));
-
-                ssapi.getUserDetail(data.data.uploader).then((data) => {
-                    this.$data.uploader = data.data;
-                    this.$data.apiFinished = true;
-                });
+            }).catch((error) => {
+                this.$router.push({ name: 'Error', params: { errorCode: 500 } });
             });
             
             this.$on('closePlayOverlay', () => {

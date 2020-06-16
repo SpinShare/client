@@ -74,7 +74,11 @@
                         this.$data.searchResultsUsers = data.data.users;
                         this.$data.searchResultsSongs = data.data.songs;
                         this.$data.apiFinished = true;
+                    } else {
+                        this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                     }
+                }).catch(() => {
+                    this.$router.push({ name: 'Error', params: { errorCode: 500 } });
                 });
             },
             search: function() {
@@ -97,7 +101,11 @@
                                 this.$data.searchResultsSongs = data.data.songs;
 
                                 this.$data.apiFinished = true;
+                            } else {
+                                this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                             }
+                        }).catch(() => {
+                            this.$router.push({ name: 'Error', params: { errorCode: 500 } });
                         });
                     } else {
                         this.$data.searchResultsUsers = [];

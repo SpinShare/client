@@ -10,9 +10,6 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard } = remote;
-
     export default {
         name: 'Useritem',
         props: [
@@ -21,11 +18,7 @@
             'username',
             'isPatreon',
             'isVerified'
-        ],
-        mounted: function() {
-        },
-        methods: {
-        }
+        ]
     }
 </script>
 

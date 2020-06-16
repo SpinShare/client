@@ -14,6 +14,7 @@ import ViewSongDetailReviews from '../views/SongDetailReviews.vue';
 import ViewSongDetailSpinPlays from '../views/SongDetailSpinPlays.vue';
 import ViewUserDetail from '../views/UserDetail.vue';
 import ViewSettings from '../views/Settings.vue';
+import ViewError from '../views/Error.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -80,6 +81,10 @@ const routes = [{
     path: '/settings',
     name: 'Settings',
     component: ViewSettings
+}, {
+    path: '/error/:errorCode',
+    name: 'Error',
+    component: ViewError
 }];
 
 const router = new VueRouter({

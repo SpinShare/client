@@ -54,6 +54,7 @@
 <style scoped lang="less">
     .staff-promo {
         background: #fff;
+        background-position: right center;
         border-radius: 6px;
         padding: 50px;
         height: 256px;
