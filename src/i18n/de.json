@@ -31,7 +31,6 @@
 	"library.deletemodal.text": "Diese Dateien werden entfernt.",
 	"library.deletemodal.delete": "Löschen",
 	"library.deletemodal.close": "Schließen",
-	"library.deletemodal.explorer": "Im Explorer öffnen",
 	
 	"songdetail.createdBy": "Erstellt von {charter}",
 	"songdetail.uploadedBy": "Hochgeladen von ",

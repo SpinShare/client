@@ -3,12 +3,7 @@
 	"locale.dateFormat": "DD/MM/YYYY",
 
 	"startup.staffpromo.action": "ALLER VOIR",
-	"startup.tabs.frontpage": "Frontpage",
-	"startup.tabs.new": "New",
-	"startup.tabs.hot": "Hot",
-	"startup.tabs.popular": "Popular",
 	"startup.newsongs.header": "Nouvelles Chansons",
-	"startup.hotsongs.header": "Hot Songs",
 	"startup.popularsongs.header": "Chansons Populaires",
 	
 	"search.header": "Rechercher",
@@ -16,13 +11,11 @@
 	"search.results.users.header": "Utilisateurs",
 	"search.results.songs.header": "Chansons",
 	"search.noresults.text": "Votre recherche n'a pas permis de trouver de chansons ou de profils. Soyez certain de l'épeler correctement ou essayez un autre terme.",
-	"search.showall.button": "Show All",
 	
 	"library.deletemodal.title": "Confirmation",
 	"library.deletemodal.text": "Ces fichiers vont être supprimés.",
 	"library.deletemodal.delete": "Effacer",
 	"library.deletemodal.close": "Fermer",
-	"library.deletemodal.explorer": "Open in Explorer",
 	"library.header": "Votre Bibliothèque",
 	"library.actions.install": "Installer",
 	"library.actions.refresh": "Rafraîchir",

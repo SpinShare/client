@@ -2,13 +2,13 @@
 	"locale.translatedBy": "Traducido por BirdHusband",
 	"locale.dateFormat": "DD/MM/YYYY",
 
-	"startup.tabs.frontpage": "Frontpage",
-	"startup.tabs.new": "New",
-	"startup.tabs.hot": "Hot",
-	"startup.tabs.popular": "Popular",
+	"startup.tabs.frontpage": "Página Inicial",
+	"startup.tabs.new": "Nuevo",
+	"startup.tabs.hot": "En alza",
+	"startup.tabs.popular": "Populares",
+	"startup.hotsongs.header": "Canciones en alza",
 	"startup.staffpromo.action": "DALE UN VISTAZO",
 	"startup.newsongs.header": "Canciones nuevas",
-	"startup.hotsongs.header": "Hot Songs",
 	"startup.popularsongs.header": "Canciones populares",
 	
 	"search.header": "Buscar",
@@ -16,7 +16,7 @@
 	"search.results.users.header": "Usuarios",
 	"search.results.songs.header": "Canciones",
 	"search.noresults.text": "Tu búsqueda no correspondió con ninguna canción o perfil. Comprueba que todas las palabras estén bien escritas o intenta buscar algo diferente.",
-	"search.showall.button": "Show All",
+	"search.showall.button": "Mostrar todo",
 	
 	"library.header": "Tu Librería",
 	"library.actions.install": "Instalar",
@@ -31,7 +31,6 @@
 	"library.deletemodal.text": "Estos archivos serán eliminados.",
 	"library.deletemodal.delete": "Eliminar",
 	"library.deletemodal.close": "Cerrar",
-	"library.deletemodal.explorer": "Open in Explorer",
 	
 	"songdetail.createdBy": "Creado por {charter}",
 	"songdetail.uploadedBy": "Subido por ",
