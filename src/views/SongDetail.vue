@@ -56,12 +56,12 @@
                         <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" alt="xD Difficulty" />
                     </div>
                 </div>
-                <div class="stat">
+                <div class="stat" v-if="uploadDate">
                     <div class="icon">
                         <i class="mdi mdi-calendar-clock"></i>
                     </div>
                     <div class="content">
-                    {{ uploadDate.date | formatDate}}
+                    {{ uploadDate }}
                     </div>
                 </div>
                 <div class="stat">
@@ -116,6 +116,7 @@
 <script>
     import { remote } from 'electron';
     import path from 'path';
+    import moment from 'moment';
     import fs from 'fs';
     const { clipboard, shell } = remote;
 
@@ -152,6 +153,7 @@
                 tags: [],
                 uploader: null,
                 uploadDate: null,
+                uploadDateValid: false,
                 fileReference: "",
                 isInstalled: false,
                 previewPath: "",
@@ -190,7 +192,7 @@
                     this.$data.downloads = data.data.downloads;
                     this.$data.views = data.data.views;
                     this.$data.description = data.data.description;
-                    this.$data.uploadDate = data.data.uploadDate;
+                    this.$data.uploadDate = moment(data.data.uploadDate.date).format(this.$t('locale.dateFormat'));
                     this.$data.fileReference = data.data.fileReference;
 
                     // Check if Song is already installed by searching for the srtb file
@@ -204,12 +206,14 @@
                             this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                         }
                     }).catch((error) => {
+                        console.error(error);
                         this.$router.push({ name: 'Error', params: { errorCode: 500 } });
                     });
                 }  else {
                     this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                 }
             }).catch((error) => {
+                console.error(error);
                 this.$router.push({ name: 'Error', params: { errorCode: 500 } });
             });
             

@@ -9,7 +9,7 @@ import { ipcRenderer } from 'electron';
 Vue.config.productionTip = false;
 
 Vue.filter('formatDate', function(value) {
-  if (value) {
+  if (value && !String(value).includes("-0001")) {
     return moment(String(value)).format(i18n.t('locale.dateFormat'))
   }
 });
