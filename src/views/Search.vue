@@ -50,7 +50,8 @@
                 searchQuery: "",
                 searchResultsUsers: [],
                 searchResultsSongs: [],
-                apiFinished: false
+                apiFinished: false,
+                searchTimeout: null
             }
         },
         mounted: function() {
@@ -77,24 +78,34 @@
                 });
             },
             search: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
-                this.$data.apiFinished = false;
+                console.log("[SEARCH] Search Timeout Initiazed...");
 
-                if(this.$data.searchQuery != "") {
-                    ssapi.search(this.$data.searchQuery).then((data) => {
-                        if(data.status == 200) {
-                            this.$data.searchResultsUsers = data.data.users;
-                            this.$data.searchResultsSongs = data.data.songs;
-
-                            this.$data.apiFinished = true;
-                        }
-                    });
-                } else {
-                    this.$data.searchResultsUsers = [];
-                    this.$data.searchResultsSongs = [];
-
-                    this.$data.apiFinished = false;
+                if(this.$data.searchTimeout) {
+                    clearTimeout(this.$data.searchTimeout);
                 }
+
+                this.$data.searchTimeout = setTimeout(() => {
+                    console.log("[SEARCH] Executing Search...");
+
+                    let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                    this.$data.apiFinished = false;
+
+                    if(this.$data.searchQuery != "") {
+                        ssapi.search(this.$data.searchQuery).then((data) => {
+                            if(data.status == 200) {
+                                this.$data.searchResultsUsers = data.data.users;
+                                this.$data.searchResultsSongs = data.data.songs;
+
+                                this.$data.apiFinished = true;
+                            }
+                        });
+                    } else {
+                        this.$data.searchResultsUsers = [];
+                        this.$data.searchResultsSongs = [];
+
+                        this.$data.apiFinished = false;
+                    }
+                }, 500);
             }
         }
     }
