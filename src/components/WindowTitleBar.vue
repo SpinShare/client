@@ -26,7 +26,9 @@
         },
         mounted: function() {
             this.$data.system = process.platform;
-            this.$data.isMaximized = remote.BrowserWindow.getFocusedWindow().isMaximized();
+            if(remote.BrowserWindow.getFocusedWindow()) {
+                this.$data.isMaximized = remote.BrowserWindow.getFocusedWindow().isMaximized();
+            }
         },
         methods: {
             NavigateBack: function() {
@@ -43,7 +45,9 @@
                     remote.BrowserWindow.getFocusedWindow().maximize();
                 }
 
-                this.$data.isMaximized = remote.BrowserWindow.getFocusedWindow().isMaximized();
+                if(remote.BrowserWindow.getFocusedWindow()) {
+                    this.$data.isMaximized = remote.BrowserWindow.getFocusedWindow().isMaximized();
+                }
             },
             WindowClose: function() {
                 remote.BrowserWindow.getFocusedWindow().close();
