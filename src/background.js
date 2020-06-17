@@ -63,9 +63,10 @@ function createWindow () {
   win = new BrowserWindow({
     title: "SpinSha.re",
     width: 1350,
-    height: 700,
-    minHeight: 700,
+    height: 730,
+    minHeight: 730,
     minWidth: 1350,
+    frame: false,
     webPreferences: {
       nodeIntegration: true
     }
