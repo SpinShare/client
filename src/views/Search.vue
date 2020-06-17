@@ -135,47 +135,43 @@
             }
             & .actions {
                 display: grid;
-                grid-template-columns: auto auto auto auto 1fr;
+                grid-template-columns: 1fr auto;
                 grid-gap: 15px;
-            }
-        & .actions {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-
-            & .show-all {
-                height: 100%;
-                display: flex;
-                justify-content: center;
                 align-items: center;
-                padding: 0px 10px;
-            }
 
-            input {
-                width: 100%;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 14px;
-                background: transparent;
-                color: #fff;
-                border-radius: 4px;
-                padding: 9px 20px;
-                background: rgba(255,255,255,0.2);
-                border: 0px;
-                transition: 0.2s ease-in-out all;
-            
-                &:hover {
-                    background: rgba(255,255,255,0.1);
+                & .show-all {
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0px 10px;
+                }
+
+                input {
+                    width: 100%;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 14px;
+                    background: transparent;
                     color: #fff;
-                }
-                &:focus {
-                    outline: 0;
-                    border-color: rgba(255,255,255,0.6);
-                }
-                &::placeholder {
-                    color: rgba(255,255,255,0.6);
+                    border-radius: 4px;
+                    padding: 9px 20px;
+                    background: rgba(255,255,255,0.2);
+                    border: 0px;
+                    transition: 0.2s ease-in-out all;
+                
+                    &:hover {
+                        background: rgba(255,255,255,0.1);
+                        color: #fff;
+                    }
+                    &:focus {
+                        outline: 0;
+                        border-color: rgba(255,255,255,0.6);
+                    }
+                    &::placeholder {
+                        color: rgba(255,255,255,0.6);
+                    }
                 }
             }
-        }
         }
         & .search-results {
             display: grid;
