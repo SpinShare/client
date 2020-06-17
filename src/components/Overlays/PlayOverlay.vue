@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
+    import { remote, ipcRenderer } from 'electron';
     const { shell } = remote;
 
     export default {
