@@ -1,5 +1,5 @@
 <template>
-    <div id="app" tabindex="-1" v-on:keydown.esc="closeOverlays()">
+    <div id="app" :class="platform != 'darwin' ? 'app' : 'app-darwin'" tabindex="-1" v-on:keydown.esc="closeOverlays()">
         <WindowTitleBar />
 
         <main>
@@ -48,6 +48,7 @@
         },
         data: function() {
             return {
+                platform: "win32",
                 downloadQueue: [],
                 finishedQueue: [],
                 failedQueue: [],
@@ -58,6 +59,8 @@
             }
         },
         mounted: function() {
+            this.$data.platform = process.platform;
+            
             document.addEventListener('auxclick', function(e) {
                 e.preventDefault();
             });
@@ -237,6 +240,9 @@
         left: 0px;
         right: 0px;
         overflow-y: scroll;
+    }
+    .app-darwin main {
+        top: 40px;
     }
     button, .button {
         font-family: 'Open Sans', sans-serif;

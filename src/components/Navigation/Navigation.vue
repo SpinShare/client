@@ -113,4 +113,7 @@
             }
         }
     }
+    .app-darwin aside {
+        top: 40px;
+    }
 </style>

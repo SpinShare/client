@@ -4,7 +4,7 @@
             <div class="back" v-on:click="NavigateBack()"><i class="mdi mdi-arrow-left"></i></div>
             <div class="text">SpinShare</div>
         </div>
-        <div class="actions-windows" v-if="platform != 'darwin'">
+        <div class="actions" v-if="platform != 'darwin'">
             <div class="action" v-on:click="WindowMinimize()"><i class="mdi mdi-window-minimize"></i></div>
             <div class="action" v-on:click="WindowMaximize()" v-if="!isMaximized"><i class="mdi mdi-window-maximize"></i></div>
             <div class="action" v-on:click="WindowMaximize()" v-if="isMaximized"><i class="mdi mdi-window-restore"></i></div>
@@ -25,7 +25,8 @@
             }
         },
         mounted: function() {
-            this.$data.system = process.platform;
+            this.$data.platform = process.platform;
+
             if(remote.BrowserWindow.getFocusedWindow()) {
                 this.$data.isMaximized = remote.BrowserWindow.getFocusedWindow().isMaximized();
             }
@@ -94,7 +95,7 @@
             }
         }
 
-        & .actions-windows {
+        & .actions {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
 
@@ -112,6 +113,17 @@
                 &.action-close:hover {
                     background: rgb(204, 28, 28);
                 }
+            }
+        }
+    }
+    .app-darwin .window-title-bar {
+        height: 40px;
+
+        & .title {
+            padding-left: 80px;
+
+            & .back {
+                height: 40px;
             }
         }
     }

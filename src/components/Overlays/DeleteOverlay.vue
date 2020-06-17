@@ -99,4 +99,7 @@
             }
         }
     }
+    .app-darwin .delete-overlay {
+        top: 40px;
+    }
 </style>

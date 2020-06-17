@@ -33,14 +33,6 @@
         props: [
             'downloadQueue'
         ],
-        mounted: function() {
-            ipcRenderer.on("overlays-close", () => {
-                this.close();
-            });
-            ipcRenderer.on('downloadProgress', (event, data) => {
-                this.$data.downloadProgress = data
-            });
-        },
         data: function() {
             return {
                 showUpdateOverlay: false,
@@ -48,6 +40,14 @@
                 isUpdateAvailable: false,
                 downloadProgress: 0
             }
+        },
+        mounted: function() {
+            ipcRenderer.on("overlays-close", () => {
+                this.close();
+            });
+            ipcRenderer.on('downloadProgress', (event, data) => {
+                this.$data.downloadProgress = data
+            });
         },
         methods: {
             close() {
@@ -149,5 +149,8 @@
                 }
             }
         }
+    }
+    .app-darwin .download-overlay {
+        top: 40px;
     }
 </style>

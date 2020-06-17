@@ -107,4 +107,7 @@
             }
         }
     }
+    .app-darwin .update-overlay {
+        top: 40px;
+    }
 </style>
