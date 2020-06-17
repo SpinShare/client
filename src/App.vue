@@ -1,5 +1,7 @@
 <template>
     <div id="app" tabindex="-1" v-on:keydown.esc="closeOverlays()">
+        <WindowTitleBar />
+
         <main>
             <Navigation v-bind:downloadQueueCount="downloadQueue.length" v-bind:downloadOverlayShown="showDownloadOverlay" />
             <router-view />
@@ -29,6 +31,7 @@
     import SSAPI from '@/modules/module.api.js';
     import SRXD from '@/modules/module.srxd.js';
 
+    import WindowTitleBar from '@/components/WindowTitleBar.vue';
     import Navigation from '@/components/Navigation/Navigation.vue';
     import ContextMenu from '@/components/ContextMenu/ContextMenu.vue';
     import UpdateOverlay from '@/components/Overlays/UpdateOverlay.vue';
@@ -37,6 +40,7 @@
     export default {
         name: 'App',
         components: {
+            WindowTitleBar,
             Navigation,
             ContextMenu,
             UpdateOverlay,
@@ -209,7 +213,7 @@
         margin: 0;
         background: #212629;
         color: #fff;
-        overflow-x: hidden;
+        overflow: hidden;
         font-family: 'Open Sans', sans-serif;
         font-size: 14px;
     }
@@ -227,7 +231,11 @@
     main {
         display: grid;
         margin-left: 60px;
-        min-height: 100vh;
+        position: absolute;
+        top: 30px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
         overflow-y: scroll;
     }
     button, .button {
