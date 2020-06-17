@@ -63,7 +63,7 @@
     .play-overlay {
         position: fixed;
         z-index: 100;
-        top: 0px;
+        top: 30px;
         left: 0px;
         right: 0px;
         bottom: 0px;

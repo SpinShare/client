@@ -62,7 +62,7 @@
     .download-overlay {
         position: fixed;
         z-index: 10;
-        top: 0px;
+        top: 30px;
         bottom: 0px;
         left: 60px;
         width: 400px;

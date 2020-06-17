@@ -45,7 +45,7 @@
         display: grid;
         position: fixed;
         z-index: 50;
-        top: 0px;
+        top: 30px;
         left: 0px;
         bottom: 0px;
         grid-template-rows: 1fr auto;
