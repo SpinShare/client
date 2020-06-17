@@ -11,6 +11,7 @@ let win;
 let deeplinkingData;
 let deeplinkingView;
 
+// Force one instance of the app
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
@@ -52,9 +53,7 @@ function executeDeeplink(deeplink) {
   }
 }
 
-
-protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
-protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
+// Setup Deeplinks
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
 
 app.setAsDefaultProtocolClient("spinshare-song");
@@ -158,6 +157,7 @@ ipcMain.on("getDeeplink", (event) => {
   });
 });
 
+// Send a global event to close all overlays
 ipcMain.on("overlays-close", () => {
   win.webContents.send("overlays-close");
 });
@@ -165,10 +165,10 @@ ipcMain.on("overlays-close", () => {
 function download(url, fileName, cb) {
     let dest = path.join(app.getPath('temp'), fileName + ".zip");
     let file = fs.createWriteStream(dest);
-    var partiallength = 0 //sets partiallength to 0
+    let partiallength = 0;
 
-    //Replaced code double up: https://stackoverflow.com/a/38465918
-    var protocol = (function() { 
+    // Adapter Switch for HTTP/HTTPS protocol: https://stackoverflow.com/a/38465918
+    let protocol = (function() { 
       var url = require('url'),
         adapters = {
           'http:': http,
@@ -182,25 +182,31 @@ function download(url, fileName, cb) {
     let request = protocol(url).get(url, function(response) {
         response.pipe(file);
 
-        var totallength = parseInt(response.headers['content-length'], 10); //sets totallength of file
+        // Figure out total length
+        let totallength = parseInt(response.headers['content-length'], 10);
+
+        // Add the length of the newly received chunk everytime we receive one
         response.on("data", function(chunk) {
-          partiallength += chunk.length //adds each time
-          let decimallength = partiallength / totallength
+          partiallength += chunk.length;
+          let decimallength = partiallength / totallength;
           if (decimallength != 1) {
-            win.setProgressBar(decimallength) //sets progress bar to decimal
-            win.webContents.send("downloadProgress", decimallength)
+            // Report back the progress
+            win.setProgressBar(decimallength);
+            win.webContents.send("downloadProgress", decimallength);
           }
           else {
-            win.setProgressBar(0) //sets progress bar to blank when done
-            win.webContents.send("downloadProgress", 0)
+            // Report back finished download
+            win.setProgressBar(0);
+            win.webContents.send("downloadProgress", 0);
           }
         });
 
+        // Call definied Callback on finish
         file.on('finish', function() {
-            file.close(cb(null, dest)); // async call of the callback
+            file.close(cb(null, dest));
         });
-    }).on('error', function(err) { // Handle errors
-        fs.unlink(dest); // Delete the file async. (But we don't check the result)
+    }).on('error', function(err) {
+        fs.unlink(dest);
         if (cb) cb(err.message, dest);
     });
 };
