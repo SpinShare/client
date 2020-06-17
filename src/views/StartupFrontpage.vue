@@ -19,6 +19,7 @@
             <div v-on:click="OpenTwitter()" class="item item-twitter"><i class="mdi mdi-twitter"></i></div>
             <div v-on:click="OpenYouTube()" class="item item-youtube"><i class="mdi mdi-youtube"></i></div>
             <div v-on:click="OpenTwitch()" class="item item-twitch"><i class="mdi mdi-twitch"></i></div>
+            <div v-on:click="OpenPatreon()" class="item item-patreon"><i class="mdi mdi-patreon"></i></div>
         </div>
     </div>
 </template>
@@ -73,6 +74,9 @@
             },
             OpenTwitch: function() {
                 shell.openExternal("https://twitch.tv/SpinShare");
+            },
+            OpenPatreon: function() {
+                shell.openExternal("https://patreon.com/spinshare");
             }
         }
     }
@@ -92,10 +96,10 @@
     }
     .social-buttons {
         display: grid;
-        width: 550px;
+        width: 650px;
         margin: 0 auto;
         margin-top: 25px;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 15px;
 
         & .item {
@@ -119,6 +123,9 @@
             }
             &.item-twitch {
                 background: linear-gradient(135deg, #b9a3e3, #6441a5);
+            }
+            &.item-patreon {
+                background: linear-gradient(135deg, #ff8575, #e75744);
             }
 
             &:hover {
