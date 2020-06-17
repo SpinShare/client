@@ -23,12 +23,17 @@
                         <i class="mdi mdi-gamepad-variant"></i>
                     </div>
                 </div>
+                <div v-on:click="AddToQueue()" class="action" v-if="isInstalled">
+                    <div class="icon">
+                        <i class="mdi mdi-refresh"></i>
+                    </div>
+                </div>
                 <div class="action-player">
                     <div class="icon" v-on:click="TogglePreview()">
                         <i class="mdi mdi-play" v-if="!previewIsPlaying"></i>
                         <i class="mdi mdi-stop" v-if="previewIsPlaying"></i>
                     </div>
-                    <div class="volume">
+                    <div class="volume" v-bind:class="{'volume-installed': isInstalled}">
                         <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:change="UpdateVolume()" />
                     </div>
                 </div>
@@ -382,9 +387,15 @@
                     & .action-player {
                         width: 250px;
 
-                        & .volume {
+                        & .volume{
                             width: 170px;
                             padding-left: 20px;
+                        }
+
+                        & .volume-installed{
+                            width: 150px;
+                            padding-left: 10px;
+                            padding-right: 10px;
                         }
                     }
                 }
