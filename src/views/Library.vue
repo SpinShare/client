@@ -240,11 +240,20 @@
                 // Waits for resolve in order to avoid bug where all songs would be added to differingAssets
                 let allLinkedAssetsResults = await allLinkedAssetsPromise;
 
+                let whitelistedFiles = [
+                    "Settings.txt",             // Programmatic's SRTB Editor
+                    "SRTB_Editor.exe",          // Programmatic's SRTB Editor
+                    "SRTB_Editor.pdb"           // Programmatic's SRTB Editor
+                ]
+
                 // Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
                 let allFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*"));
                 allFiles.forEach((file) => {
                     if (!allLinkedAssetsResults.includes(file) && fs.statSync(file).isFile()) {
-                        differingAssets.push(file);
+                        // Exclude whitelisted files & .zip files
+                        if(!whitelistedFiles.includes(path.basename(file)) && !path.basename(file).includes(".zip")) {
+                            differingAssets.push(file);
+                        }
                     }
                 });
                 
