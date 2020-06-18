@@ -42,8 +42,7 @@
     & .collapsableText {
         & .text {
             line-height: 1.5em;
-            word-wrap: break-word;
-            word-break: break-all;
+            word-break: normal;
             overflow: hidden;
             transition: 1s ease max-height;
 
