@@ -34,7 +34,7 @@
                         <i class="mdi mdi-stop" v-if="previewIsPlaying"></i>
                     </div>
                     <div class="volume" v-bind:class="{'volume-installed': isInstalled}">
-                        <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:change="UpdateVolume()" />
+                        <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:input="UpdateVolume()" />
                     </div>
                 </div>
                 <div v-on:click="CopyLink()" class="action">
