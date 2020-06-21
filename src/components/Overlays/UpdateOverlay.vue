@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
+    import { remote, ipcRenderer } from 'electron';
     const { shell } = remote;
 
     export default {
@@ -35,7 +35,7 @@
         ],
         mounted: function() {
             ipcRenderer.on("overlays-close", () => {
-                this.close();
+                this.HideOverlay();
             });
         },
         methods: {
