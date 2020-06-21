@@ -240,14 +240,20 @@
                 // Waits for resolve in order to avoid bug where all songs would be added to differingAssets
                 let allLinkedAssetsResults = await allLinkedAssetsPromise;
 
+                // Whitelisted filenames
                 let whitelistedFiles = [
                     "Settings.txt",             // Programmatic's SRTB Editor
                     "SRTB_Editor.exe",          // Programmatic's SRTB Editor
                     "SRTB_Editor.pdb"           // Programmatic's SRTB Editor
                 ]
 
-                // Creates differingAssets by seeing if each entry in the assets folder is included in the allLinkedAssets.
-                let allFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*"));
+                // Create an array of all files in the root, audioclips and albumart folders
+                let allRootFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*"));
+                let allAudioClipsFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "AudioClips", "*"));
+                let allAlbumArtFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", "*"));
+
+                let allFiles = allRootFiles.concat(allAudioClipsFiles, allAlbumArtFiles);
+
                 allFiles.forEach((file) => {
                     if (!allLinkedAssetsResults.includes(file) && fs.statSync(file).isFile()) {
                         // Exclude whitelisted files & .zip files
