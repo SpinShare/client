@@ -1,6 +1,6 @@
 <template>
     <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)" v-on:click="openOnSpinShare()">
-        <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+        <div class="song-cover" v-bind:style="{'background-image': imageUrl}" v-observe-visibility="visibilityChanged">
             <div class="song-charter-info">
                 <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ detail.charter ? detail.charter : "Unknown" }}</span></div>
             </div>
@@ -28,7 +28,13 @@
         ],
         data: function() {
             return {
-                isContextMenuActive: false
+                isContextMenuActive: false,
+                backgroundImage: "none;"
+            }
+        },
+        computed: {
+            imageUrl() {
+                return this.$data.backgroundImage
             }
         },
         mounted: function() {
@@ -59,6 +65,15 @@
             },
             openInExplorer: function() {
                 shell.showItemInFolder(path.normalize(this.file));
+            },
+            visibilityChanged (isVisible, entry) {
+                if (isVisible) {
+                    this.$data.backgroundImage = "url(" + this.$props.cover + ")"
+                } 
+                //url(" + require('@/assets/img/defaultAlbumArt.jpg') + ");
+                else {
+                    this.$data.backgroundImage = "none;"
+                }
             }
         }
     }
