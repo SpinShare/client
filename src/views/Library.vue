@@ -39,7 +39,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
+    import { remote, ipcRenderer } from 'electron';
     const { dialog, shell } = remote;
 
     import fs from 'fs';
@@ -94,6 +94,9 @@
             });
             this.$on('install', () => {
                 this.install();
+            });
+            ipcRenderer.on("download-complete", (event, downloadItem) => {
+                this.refreshLibrary();
             });
         },
         methods: {
