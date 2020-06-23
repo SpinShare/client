@@ -3,7 +3,7 @@
         <header>
             <div class="title">{{ $t('search.header') }}</div>
             <div class="actions">
-                <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="search()" v-model="searchQuery" ref="searchInput">
+                <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="searchInput()" v-model="searchQuery" ref="searchInput">
                 <div class="button" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
             </div>
         </header>
@@ -57,12 +57,24 @@
         mounted: function() {
             this.$refs.searchInput.focus();
 
+            console.log(this.$route.params.searchQuery);
+
             if(this.$route.params.searchQuery != "" && this.$route.params.searchQuery != undefined) {
                 this.$data.searchQuery = this.$route.params.searchQuery;
                 this.search();
             }
         },
         methods: {
+            searchInput: function() {
+                if(this.$data.searchTimeout) {
+                    clearTimeout(this.$data.searchTimeout);
+                }
+
+                this.$data.searchTimeout = setTimeout(() => {
+                    this.$router.push({ name: 'Search', params: { searchQuery: this.$data.searchQuery } });
+                    this.search();
+                }, 500);
+            },
             searchAll: function() {
                 let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
 
@@ -82,38 +94,28 @@
                 });
             },
             search: function() {
-                console.log("[SEARCH] Search Timeout Initiazed...");
+                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                this.$data.apiFinished = false;
 
-                if(this.$data.searchTimeout) {
-                    clearTimeout(this.$data.searchTimeout);
-                }
+                if(this.$data.searchQuery != "") {
+                    ssapi.search(this.$data.searchQuery).then((data) => {
+                        if(data.status == 200) {
+                            this.$data.searchResultsUsers = data.data.users;
+                            this.$data.searchResultsSongs = data.data.songs;
 
-                this.$data.searchTimeout = setTimeout(() => {
-                    console.log("[SEARCH] Executing Search...");
+                            this.$data.apiFinished = true;
+                        } else {
+                            this.$router.push({ name: 'Error', params: { errorCode: data.status } });
+                        }
+                    }).catch(() => {
+                        this.$router.push({ name: 'Error', params: { errorCode: 500 } });
+                    });
+                } else {
+                    this.$data.searchResultsUsers = [];
+                    this.$data.searchResultsSongs = [];
 
-                    let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
                     this.$data.apiFinished = false;
-
-                    if(this.$data.searchQuery != "") {
-                        ssapi.search(this.$data.searchQuery).then((data) => {
-                            if(data.status == 200) {
-                                this.$data.searchResultsUsers = data.data.users;
-                                this.$data.searchResultsSongs = data.data.songs;
-
-                                this.$data.apiFinished = true;
-                            } else {
-                                this.$router.push({ name: 'Error', params: { errorCode: data.status } });
-                            }
-                        }).catch(() => {
-                            this.$router.push({ name: 'Error', params: { errorCode: 500 } });
-                        });
-                    } else {
-                        this.$data.searchResultsUsers = [];
-                        this.$data.searchResultsSongs = [];
-
-                        this.$data.apiFinished = false;
-                    }
-                }, 500);
+                }
             }
         }
     }
