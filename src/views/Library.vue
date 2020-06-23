@@ -115,7 +115,6 @@
 
                 await ssapi.ping().then((data) => {
                     this.$data.useAPIForLibrary = true;
-                    console.log(data);
                 }).catch((error) => {
                     console.log(error);
                     this.$data.useAPIForLibrary = false;
