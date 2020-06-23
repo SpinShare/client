@@ -74,7 +74,10 @@
             DeleteOverlay
         },
         mounted: function() {
-            this.refreshLibrary();
+            // Put initial refresh on a timeout so the loading animation is rendered first
+            setTimeout(() => {
+                this.refreshLibrary();
+            }, 50);
             
             this.$on('delete', (file) => {
                 this.$data.showDeleteOverlay = true;
@@ -95,12 +98,13 @@
             this.$on('install', () => {
                 this.install();
             });
+
+            // Refresh if the Download Queue finished an item
             ipcRenderer.on("download-complete", (event, downloadItem) => {
                 this.refreshLibrary();
             });
         },
         methods: {
-            // TODO: Make this truly async
             refreshLibrary: async function() {
                 let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
                 let userSettings = new UserSettings();
