@@ -108,7 +108,7 @@
                 this.$i18n.locale = this.$data.settingLanguage;
             },
             CheckForUpdates: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
 
                 ssapi.getLatestVersion().then((data) => {
                     if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {

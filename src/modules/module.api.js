@@ -1,8 +1,16 @@
 const axios = require('axios');
 
 class SSAPI {
-    constructor(isDev) {
-        if(isDev) {
+    isDev() {
+        if(process.env.NODE_ENV !== 'development') {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    constructor() {
+        if(this.isDev()) {
             this.apiBase = "http://localhost/www/spinshare/server/public/index.php/api/";
         } else {
             this.apiBase = "https://spinsha.re/api/";

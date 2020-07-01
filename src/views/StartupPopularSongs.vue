@@ -35,7 +35,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
             
             ssapi.getPopularSongs(this.$data.popularSongsOffset).then((data) => {
                 this.$data.isPopularSongsLoading = false;
@@ -61,7 +61,7 @@
                 }
             },
             updatePopular: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 this.$data.isPopularSongsLoading = true;
 
                 ssapi.getPopularSongs(this.$data.popularSongsOffset).then((data) => {

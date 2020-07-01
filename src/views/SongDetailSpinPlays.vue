@@ -45,7 +45,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
 
             ssapi.getSongDetailSpinPlays(this.$route.params.id).then((data) => {
                 if(data.status == 200) {

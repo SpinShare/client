@@ -76,7 +76,7 @@
                 }, 500);
             },
             searchAll: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
 
                 this.$data.searchQuery == "";
                 this.$data.apiFinished = false;
@@ -94,7 +94,7 @@
                 });
             },
             search: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 this.$data.apiFinished = false;
 
                 if(this.$data.searchQuery != "") {

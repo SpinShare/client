@@ -35,7 +35,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
             
             ssapi.getNewSongs(this.$data.newSongsOffset).then((data) => {
                 this.$data.isNewSongsLoading = false;
@@ -61,7 +61,7 @@
                 }
             },
             updateNew: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 this.$data.isNewSongsLoading = true;
 
                 ssapi.getNewSongs(this.$data.newSongsOffset).then((data) => {

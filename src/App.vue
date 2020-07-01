@@ -102,7 +102,7 @@
                 this.$data.isUpdateAvailable = false;
             });
 
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
 
             ssapi.getLatestVersion().then((data) => {
                 if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {

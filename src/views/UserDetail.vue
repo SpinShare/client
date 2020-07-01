@@ -63,7 +63,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
 
             ssapi.getUserDetail(this.$route.params.id).then((data) => {
                 if(data.status == 200) {

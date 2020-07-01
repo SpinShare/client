@@ -35,7 +35,7 @@
             }
         },
         mounted: function() {
-            let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+            let ssapi = new SSAPI();
             
             ssapi.getHotSongs(this.$data.hotSongsOffset).then((data) => {
                 this.$data.isHotSongsLoading = false;
@@ -61,7 +61,7 @@
                 }
             },
             updateHot: function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 this.$data.isHotSongsLoading = true;
 
                 ssapi.getHotSongs(this.$data.hotSongsOffset).then((data) => {

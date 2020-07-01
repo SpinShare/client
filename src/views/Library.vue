@@ -106,7 +106,7 @@
         },
         methods: {
             refreshLibrary: async function() {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 let userSettings = new UserSettings();
 
                 this.$data.hasUnusedFiles = false;
@@ -175,7 +175,7 @@
                 this.$parent.$parent.$emit('install');
             },
             getSongDetail: async function(filePath) {
-                let ssapi = new SSAPI(process.env.NODE_ENV === 'development');
+                let ssapi = new SSAPI();
                 let trackInfo = {};
                 let fileReference = path.basename(filePath).replace(".srtb", "");
 
