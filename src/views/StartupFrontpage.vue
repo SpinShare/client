@@ -52,9 +52,7 @@
 
             ssapi.getStreamStatus().then((data) => {
                 // Gracefully fail if Twitch API is ratelimited
-                if(data.status == 200) {
-                    this.$data.streamStatus = data;
-                }
+                this.$data.streamStatus = data;
             });
         },
         components: {
