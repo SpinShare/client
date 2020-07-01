@@ -175,12 +175,15 @@
         mounted: function() {
             let ssapi = new SSAPI();
             let userSettings = new UserSettings();
+            let routeID = this.$route.params.id;
 
-            ssapi.getSongDetail(this.$route.params.id).then((data) => {
+            ssapi.getSongDetail(routeID).then((data) => {
                 if(data.status == 200) {
                     // transform filereference to id
-                    if(this.$route.params.id.includes("spinshare_")) {
-                        this.$router.push({ name: 'SongDetailReviews', params: { id: data.data.id } });
+                    if(typeof routeID === 'string') {
+                        if(routeID.includes("spinshare_")) {
+                            this.$router.push({ name: 'SongDetailReviews', params: { id: data.data.id } });
+                        }
                     }
 
                     this.$data.id = data.data.id;
