@@ -26,22 +26,22 @@ const routes = [{
     children: [
         {
             path: '',
-            name: 'Frontpage',
+            name: 'StartupFrontpage',
             component: ViewStartupFrontpage
         },
         {
             path: '/new',
-            name: 'New Songs',
+            name: 'StartupNew',
             component: ViewStartupNewSongs
         },
         {
             path: '/hot',
-            name: 'Hot Songs',
+            name: 'StartupHot',
             component: ViewStartupHotSongs
         },
         {
             path: '/popular',
-            name: 'Popular Songs',
+            name: 'StartupPopular',
             component: ViewStartupPopularSongs
         }
     ]
