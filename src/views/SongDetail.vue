@@ -178,6 +178,11 @@
 
             ssapi.getSongDetail(this.$route.params.id).then((data) => {
                 if(data.status == 200) {
+                    // transform filereference to id
+                    if(this.$route.params.id.includes("spinshare_")) {
+                        this.$router.push({ name: 'SongDetailReviews', params: { id: data.data.id } });
+                    }
+
                     this.$data.id = data.data.id;
                     this.$data.cover = data.data.paths.cover;
                     this.$data.title = data.data.title;

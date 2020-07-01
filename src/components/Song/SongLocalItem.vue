@@ -59,7 +59,7 @@
             openOnSpinShare: function() {
                 if(this.isSpinShare) {
                     if(this.isSpinShare.includes("spinshare_")) {
-                        this.$router.push({ name: 'SongDetail', params: { id: this.isSpinShare } });
+                        this.$router.push({ name: 'SongDetailReviews', params: { id: this.isSpinShare } });
                     }
                 }
             },
