@@ -6,8 +6,13 @@ import i18n from './i18n';
 import moment from 'moment'
 import { ipcRenderer } from 'electron';
 import VueObserveVisibility from 'vue-observe-visibility'
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
 
 Vue.use(VueObserveVisibility);
+
+Vue.directive('tooltip', VTooltip);
+Vue.directive('close-popover', VClosePopover);
+Vue.component('v-popover', VPopover);
 
 Vue.config.productionTip = false;
 

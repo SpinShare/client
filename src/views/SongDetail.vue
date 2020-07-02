@@ -13,23 +13,23 @@
                 </div>
             </div>
             <div :class="'song-actions ' + (previewIsPlaying ? 'player-active' : '')">
-                <div v-on:click="AddToQueue()" class="action" v-if="!isInstalled">
+                <div v-on:click="AddToQueue()" class="action" v-if="!isInstalled" v-tooltip="'Download'">
                     <div class="icon">
                         <i class="mdi mdi-download"></i>
                     </div>
                 </div>
-                <div v-on:click="ShowPlayOverlay()" class="action" v-if="isInstalled">
+                <div v-on:click="ShowPlayOverlay()" class="action" v-if="isInstalled" v-tooltip="'Play'">
                     <div class="icon">
                         <i class="mdi mdi-gamepad-variant"></i>
                     </div>
                 </div>
-                <div v-on:click="AddToQueue()" class="action" v-if="isInstalled">
+                <div v-on:click="AddToQueue()" class="action" v-if="isInstalled" v-tooltip="'Redownload'">
                     <div class="icon">
                         <i class="mdi mdi-refresh"></i>
                     </div>
                 </div>
                 <div class="action-player">
-                    <div class="icon" v-on:click="TogglePreview()">
+                    <div class="icon" v-on:click="TogglePreview()" v-tooltip="previewIsPlaying ? 'Stop Preview' : 'Play Preview'">
                         <i class="mdi mdi-play" v-if="!previewIsPlaying"></i>
                         <i class="mdi mdi-stop" v-if="previewIsPlaying"></i>
                     </div>
@@ -37,12 +37,12 @@
                         <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:input="UpdateVolume()" />
                     </div>
                 </div>
-                <div v-on:click="CopyLink()" class="action">
+                <div v-on:click="CopyLink()" class="action" v-tooltip="'Copy Link'">
                     <div class="icon">
                         <i class="mdi mdi-content-copy"></i>
                     </div>
                 </div>
-                <div v-on:click="OpenReport()" class="action">
+                <div v-on:click="OpenReport()" class="action" v-tooltip="'Report'">
                     <div class="icon">
                         <i class="mdi mdi-flag-outline"></i>
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="stat" v-if="uploadDate">
-                    <div class="icon">
+                    <div class="icon" v-tooltip="'Upload Date'">
                         <i class="mdi mdi-calendar-clock"></i>
                     </div>
                     <div class="content">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="stat">
-                    <div class="icon">
+                    <div class="icon" v-tooltip="'Views'">
                         <i class="mdi mdi-eye"></i>
                     </div>
                     <div class="content">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="stat">
-                    <div class="icon">
+                    <div class="icon" v-tooltip="'Downloads'">
                         <i class="mdi mdi-download"></i>
                     </div>
                     <div class="content">
