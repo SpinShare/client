@@ -39,7 +39,7 @@
     "@vue/cli-plugin-router": "~4.3.0",
     "@vue/cli-plugin-vuex": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
-    "electron": "^6.0.0",
+    "electron": "^7.2.4",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "chalk": "^4.1.0",
