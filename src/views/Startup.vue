@@ -39,6 +39,7 @@
                 text-align: center;
                 text-transform: uppercase;
                 opacity: 0.6;
+                border-radius: 5px;
                 transition: 0.2s ease-in-out background, 0.2s ease-in-out opacity;
 
                 & span {
