@@ -2,8 +2,8 @@
     <SongRow
         :title="$t('startup.hotsongs.header')">
         <template v-slot:controls>
-            <div :class="'item ' + (hotSongsOffset == 0 ? 'disabled' : '')" v-on:click="hotPrevious()"><i class="mdi mdi-chevron-left"></i></div>
-            <div :class="'item ' + (hotSongs.length < 11 ? 'disabled' : '')" v-on:click="hotNext()"><i class="mdi mdi-chevron-right"></i></div>
+            <div v-ripple :class="'item ' + (hotSongsOffset == 0 ? 'disabled' : '')" v-on:click="hotPrevious()"><i class="mdi mdi-chevron-left"></i></div>
+            <div v-ripple :class="'item ' + (hotSongs.length < 11 ? 'disabled' : '')" v-on:click="hotNext()"><i class="mdi mdi-chevron-right"></i></div>
         </template>
         <template v-slot:song-list>
             <SongItemPlaceholder

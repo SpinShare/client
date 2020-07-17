@@ -15,7 +15,7 @@
                 <div class="settings-item">
                     <div class="settings-label">{{ $t('settings.general.update.label') }}</div>
                     <div class="settings-input">
-                        <button v-on:click="CheckForUpdates()">{{ $t('settings.general.update.button') }}</button>
+                        <button v-ripple v-on:click="CheckForUpdates()">{{ $t('settings.general.update.button') }}</button>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                     <div class="settings-label">{{ $t('settings.directories.gameDirectory.label') }}</div>
                     <div class="settings-input settings-input-twobuttons">
                         <input type="text" class="settings-input-gamedirectory" disabled v-model="settingGameDirectory">
-                        <button v-on:click="SelectGameDirectory()">{{ $t('settings.directories.gameDirectory.changeButton') }}</button>
-                        <button v-on:click="ResetGameDirectory()">{{ $t('settings.directories.gameDirectory.resetButton') }}</button>
+                        <button v-ripple v-on:click="SelectGameDirectory()">{{ $t('settings.directories.gameDirectory.changeButton') }}</button>
+                        <button v-ripple v-on:click="ResetGameDirectory()">{{ $t('settings.directories.gameDirectory.resetButton') }}</button>
                     </div>
                 </div>
             </div>

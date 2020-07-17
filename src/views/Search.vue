@@ -4,7 +4,7 @@
             <div class="title">{{ $t('search.header') }}</div>
             <div class="actions">
                 <input type="search" :placeholder="$t('search.input.placeholder')" v-on:input="searchInput()" v-model="searchQuery" ref="searchInput">
-                <div class="button" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
+                <div v-ripple class="button" v-on:click="searchAll()">{{ $t('search.showall.button') }}</div>
             </div>
         </header>
         <div class="search-results">

@@ -2,7 +2,7 @@
     <div :style="'background-image: url(' + image_path + ');'" :class="isLoading ? 'staff-promo promo-loading' : 'staff-promo' ">
         <div class="promo-type" :style="'color:' + color">{{ type }}</div>
         <div class="promo-title" :style="'color:' + textColor" v-html="title"></div>
-        <div class="promo-button" :style="'background-color:' + color" v-on:click="buttonClick()">{{ $t('startup.staffpromo.action') }}</div>
+        <div v-ripple class="promo-button" :style="'background-color:' + color" v-on:click="buttonClick()">{{ $t('startup.staffpromo.action') }}</div>
     </div>
 </template>
 

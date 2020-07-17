@@ -3,9 +3,9 @@
         <header>
             <div class="title">{{ $t('library.header') }}</div>
             <div class="actions">
-                <div class="button" v-on:click="install()">{{ $t('library.actions.install') }}</div>
-                <div class="button" v-on:click="refreshLibrary()">{{ $t('library.actions.refresh') }}</div>
-                <div class="button" v-on:click="openLibrary()">{{ $t('library.actions.open') }}</div>
+                <div v-ripple class="button" v-on:click="install()">{{ $t('library.actions.install') }}</div>
+                <div v-ripple class="button" v-on:click="refreshLibrary()">{{ $t('library.actions.refresh') }}</div>
+                <div v-ripple class="button" v-on:click="openLibrary()">{{ $t('library.actions.open') }}</div>
                 <span></span>
             </div>
         </header>

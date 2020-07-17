@@ -1,10 +1,10 @@
 <template>
     <section class="section-startup">
         <div class="tabs">
-            <router-link to="/"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
-            <router-link to="/new"><span>{{ $t('startup.tabs.new') }}</span></router-link>
-            <router-link to="/hot"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
-            <router-link to="/popular"><span>{{ $t('startup.tabs.popular') }}</span></router-link>
+            <router-link v-ripple to="/"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
+            <router-link v-ripple to="/new"><span>{{ $t('startup.tabs.new') }}</span></router-link>
+            <router-link v-ripple to="/hot"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
+            <router-link v-ripple to="/popular"><span>{{ $t('startup.tabs.popular') }}</span></router-link>
         </div>
 
         <router-view></router-view>

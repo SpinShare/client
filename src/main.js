@@ -6,8 +6,12 @@ import i18n from './i18n';
 import moment from 'moment'
 import { ipcRenderer } from 'electron';
 import VueObserveVisibility from 'vue-observe-visibility'
+import Ripple from 'vue-ripple-directive'
 
 Vue.use(VueObserveVisibility);
+
+Ripple.color = 'rgba(255, 255, 255, 0.35)';
+Vue.directive('ripple', Ripple);
 
 Vue.config.productionTip = false;
 

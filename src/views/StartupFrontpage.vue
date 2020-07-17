@@ -15,11 +15,11 @@
         </div>
 
         <div class="social-buttons">
-            <div v-on:click="OpenDiscord()" class="item item-discord"><i class="mdi mdi-discord"></i></div>
-            <div v-on:click="OpenTwitter()" class="item item-twitter"><i class="mdi mdi-twitter"></i></div>
-            <div v-on:click="OpenYouTube()" class="item item-youtube"><i class="mdi mdi-youtube"></i></div>
-            <div v-on:click="OpenTwitch()" class="item item-twitch"><i class="mdi mdi-twitch"></i></div>
-            <div v-on:click="OpenPatreon()" class="item item-patreon"><i class="mdi mdi-patreon"></i></div>
+            <div v-ripple v-on:click="OpenDiscord()" class="item item-discord"><i class="mdi mdi-discord"></i></div>
+            <div v-ripple v-on:click="OpenTwitter()" class="item item-twitter"><i class="mdi mdi-twitter"></i></div>
+            <div v-ripple v-on:click="OpenYouTube()" class="item item-youtube"><i class="mdi mdi-youtube"></i></div>
+            <div v-ripple v-on:click="OpenTwitch()" class="item item-twitch"><i class="mdi mdi-twitch"></i></div>
+            <div v-ripple v-on:click="OpenPatreon()" class="item item-patreon"><i class="mdi mdi-patreon"></i></div>
         </div>
     </div>
 </template>
