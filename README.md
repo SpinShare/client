@@ -1,4 +1,6 @@
-# client
+# SpinSha.re Client
+
+**This repo is a mirror of our internal client repository. Please do not create pull requests or issues, as we can't answer them here**
 
 ## Project setup
 ```
@@ -9,11 +11,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
