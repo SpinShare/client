@@ -16,6 +16,7 @@ Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
 
 Ripple.color = 'rgba(255, 255, 255, 0.35)';
+Ripple.zIndex = 55;
 Vue.directive('ripple', Ripple);
 
 Vue.config.productionTip = false;

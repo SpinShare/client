@@ -13,17 +13,17 @@
                 </div>
             </div>
             <div :class="'song-actions ' + (previewIsPlaying ? 'player-active' : '')">
-                <div v-on:click="AddToQueue()" class="action" v-if="!isInstalled" v-tooltip="'Download'">
+                <div v-ripple v-on:click="AddToQueue()" class="action" v-if="!isInstalled" v-tooltip="'Download'">
                     <div class="icon">
                         <i class="mdi mdi-download"></i>
                     </div>
                 </div>
-                <div v-on:click="ShowPlayOverlay()" class="action" v-if="isInstalled" v-tooltip="'Play'">
+                <div v-ripple v-on:click="ShowPlayOverlay()" class="action" v-if="isInstalled" v-tooltip="'Play'">
                     <div class="icon">
                         <i class="mdi mdi-gamepad-variant"></i>
                     </div>
                 </div>
-                <div v-on:click="AddToQueue()" class="action" v-if="isInstalled" v-tooltip="'Redownload'">
+                <div v-ripple v-on:click="AddToQueue()" class="action" v-if="isInstalled" v-tooltip="'Redownload'">
                     <div class="icon">
                         <i class="mdi mdi-refresh"></i>
                     </div>
@@ -37,12 +37,12 @@
                         <input type="range" min="0" max="100" value="50" v-model="previewVolume" class="playerVolume" v-on:input="UpdateVolume()" />
                     </div>
                 </div>
-                <div v-on:click="CopyLink()" class="action" v-tooltip="'Copy Link'">
+                <div v-ripple v-on:click="CopyLink()" class="action" v-tooltip="'Copy Link'">
                     <div class="icon">
                         <i class="mdi mdi-content-copy"></i>
                     </div>
                 </div>
-                <div v-on:click="OpenReport()" class="action" v-tooltip="'Report'">
+                <div v-ripple v-on:click="OpenReport()" class="action" v-tooltip="'Report'">
                     <div class="icon">
                         <i class="mdi mdi-flag-outline"></i>
                     </div>
