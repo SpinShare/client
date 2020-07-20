@@ -1,19 +1,19 @@
 <template>
     <aside>
         <nav>
-            <router-link to="/" exact class="item"><i class="mdi mdi-home-outline"></i></router-link>
-            <router-link to="/search" class="item"><i class="mdi mdi-magnify"></i></router-link>
-            <router-link to="/library" class="item"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
-            <div v-on:click="openExternal('https://spinsha.re/support');" class="item"><i class="mdi mdi-hand-heart"></i></div>
+            <router-link to="/" exact class="item" v-tooltip.right="'Frontpage'"><i class="mdi mdi-home-outline"></i></router-link>
+            <router-link to="/search" class="item" v-tooltip.right="'Search'"><i class="mdi mdi-magnify"></i></router-link>
+            <router-link to="/library" class="item" v-tooltip.right="'Library'"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
+            <div v-on:click="openExternal('https://spinsha.re/support');" class="item" v-tooltip.right="'Support'"><i class="mdi mdi-hand-heart"></i></div>
         </nav>
 
         <nav>
-            <div v-on:click="openExternal('steam://run/1058830');" class="item"><i class="mdi mdi-play-outline"></i></div>
-            <div v-on:click="showDownloadOverlay();" :class="'item ' + (downloadOverlayShown ? 'router-link-active' : '')">
+            <div v-on:click="openExternal('steam://run/1058830');" class="item" v-tooltip.right="'Start SpinRhythm XD'"><i class="mdi mdi-play-outline"></i></div>
+            <div v-on:click="showDownloadOverlay();" :class="'item ' + (downloadOverlayShown ? 'router-link-active' : '')" v-tooltip.right="'Download Queue'">
                 <i class="mdi mdi-download-outline"></i>
                 <span class="badge" v-show="downloadQueueCount > 0">{{ downloadQueueCount }}</span>
             </div>
-            <router-link to="/settings" class="item"><i class="mdi mdi-cog-outline"></i></router-link>
+            <router-link to="/settings" class="item" v-tooltip.right="'Settings'"><i class="mdi mdi-cog-outline"></i></router-link>
         </nav>
     </aside>
 </template>

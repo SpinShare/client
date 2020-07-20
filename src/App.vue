@@ -327,4 +327,48 @@
     .slideDownloadOverlay-enter, .slideDownloadOverlay-leave-to {
         transform: translateX(-400px);
     }
+    .tooltip {
+        background: #000000;
+        font-size: 12px;
+        padding: 5px 15px;
+        border-radius: 4px;
+
+        &[x-placement='top'] {
+            margin-bottom: 5px;
+
+            &:after {
+                top: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(0, 0, 0, 0);
+                border-top-color: #000000;
+                border-width: 8px;
+                margin-left: -8px;
+            }
+        }
+
+        &[x-placement='right'] {
+            margin-left: 5px;
+
+            &:after {
+                right: 100%;
+                top: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border-color: rgba(0, 0, 0, 0);
+                border-right-color: #000000;
+                border-width: 8px;
+                margin-top: -8px;
+            }
+        }
+    }
 </style>
