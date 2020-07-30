@@ -60,8 +60,8 @@
         }
 
         &:hover {
-            transform: scale(1.1);
             cursor: pointer;
+            background: rgba(255,255,255,0.2);
             box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
         }
     }

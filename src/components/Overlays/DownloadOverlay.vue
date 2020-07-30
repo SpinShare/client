@@ -150,7 +150,4 @@
             }
         }
     }
-    .app-darwin .download-overlay {
-        top: 100px;
-    }
 </style>

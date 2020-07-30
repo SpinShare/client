@@ -14,7 +14,7 @@
             <div v-on:click="openExternal('steam://run/1058830');" class="item" v-tooltip.down="'Start SpinRhythm XD'"><i class="mdi mdi-play-outline"></i></div>
             <div v-on:click="showDownloadOverlay();" :class="'item ' + (downloadOverlayShown ? 'router-link-active' : '')" v-tooltip.down="'Download Queue'">
                 <i class="mdi mdi-download-outline"></i>
-                <span class="badge" v-show="downloadQueueCount > 0">{{ downloadQueueCount }}</span>
+                <span class="indicator" v-show="downloadQueueCount > 0">{{ downloadQueueCount }}</span>
             </div>
             <router-link to="/settings" class="item" v-tooltip.down="'Settings'"><i class="mdi mdi-cog-outline"></i></router-link>
         </nav>

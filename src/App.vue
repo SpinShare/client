@@ -223,7 +223,7 @@
     }
     ::-webkit-scrollbar {
         background: #212529;
-        width: 8px;
+        width: 5px;
     }
     ::-webkit-scrollbar-thumb {
         background: #fff;
