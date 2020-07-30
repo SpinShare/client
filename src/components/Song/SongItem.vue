@@ -86,7 +86,7 @@
 <style scoped lang="less">
     .song-item {
         background: rgba(255,255,255,0.1);
-        transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
+        transition: 0.2s ease-in-out transform, 0.2s ease-in-out background, 0.2s ease-in-out box-shadow;
         overflow: hidden;
         border-radius: 6px;
 
@@ -168,8 +168,8 @@
         }
 
         &:hover {
-            transform: scale(1.1);
             cursor: pointer;
+            background: rgba(255,255,255,0.2);
             box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
 
             & .song-cover {

@@ -1,6 +1,6 @@
 <template>
     <div id="app" :class="platform != 'darwin' ? 'app' : 'app-darwin'" tabindex="-1" v-on:keydown.esc="closeOverlays()">
-        <WindowTitleBar />
+        <!-- <WindowTitleBar /> -->
 
         <main>
             <Navigation v-bind:downloadQueueCount="downloadQueue.length" v-bind:downloadOverlayShown="showDownloadOverlay" />
@@ -81,6 +81,7 @@
             });
 
             this.$root.$on('download', (url) => {
+                this.$data.showDownloadOverlay = true;
                 this.addToQueue(url);
             });
             this.$root.$on('showDownloadOverlay', () => {
@@ -222,7 +223,7 @@
     }
     ::-webkit-scrollbar {
         background: #212529;
-        width: 5px;
+        width: 8px;
     }
     ::-webkit-scrollbar-thumb {
         background: #fff;
@@ -233,9 +234,8 @@
     }
     main {
         display: grid;
-        margin-left: 60px;
         position: absolute;
-        top: 30px;
+        top: 60px;
         bottom: 0px;
         left: 0px;
         right: 0px;
@@ -325,7 +325,7 @@
         transition: transform .5s;
     }
     .slideDownloadOverlay-enter, .slideDownloadOverlay-leave-to {
-        transform: translateX(-400px);
+        transform: translateX(400px);
     }
     .tooltip {
         background: #000000;
@@ -335,40 +335,14 @@
 
         &[x-placement='top'] {
             margin-bottom: 5px;
-
-            &:after {
-                top: 100%;
-                left: 50%;
-                border: solid transparent;
-                content: " ";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-                border-color: rgba(0, 0, 0, 0);
-                border-top-color: #000000;
-                border-width: 8px;
-                margin-left: -8px;
-            }
         }
 
         &[x-placement='right'] {
             margin-left: 5px;
+        }
 
-            &:after {
-                right: 100%;
-                top: 50%;
-                border: solid transparent;
-                content: " ";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-                border-color: rgba(0, 0, 0, 0);
-                border-right-color: #000000;
-                border-width: 8px;
-                margin-top: -8px;
-            }
+        &[x-placement='down'] {
+            margin-bottom: 5px;
         }
     }
 </style>

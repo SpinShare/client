@@ -62,9 +62,9 @@
     .download-overlay {
         position: fixed;
         z-index: 10;
-        top: 30px;
+        top: 60px;
         bottom: 0px;
-        left: 60px;
+        right: 0px;
         width: 400px;
         background: #383C3F;
         display: grid;
@@ -151,6 +151,6 @@
         }
     }
     .app-darwin .download-overlay {
-        top: 40px;
+        top: 100px;
     }
 </style>
