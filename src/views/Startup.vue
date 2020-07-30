@@ -22,7 +22,6 @@
 <style scoped lang="less">
     section {
         padding: 50px;
-        padding-top: 30px;
 
         & .tabs {
             display: flex;
