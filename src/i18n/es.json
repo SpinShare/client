@@ -18,12 +18,12 @@
 	"search.noresults.text": "Tu búsqueda no correspondió con ninguna canción o perfil. Comprueba que todas las palabras estén bien escritas o intenta buscar algo diferente.",
 	"search.showall.button": "Mostrar todo",
 	
-	"library.header": "Tu Librería",
+	"library.header": "Tu Colección",
 	"library.actions.install": "Instalar",
 	"library.actions.refresh": "Actualizar",
-	"library.actions.open": "Abrir Librería",
-	"library.cleanup.title": "Limpiar Librería",
-	"library.cleanup.copy": "Tu librería de Spin Rhythm tiene archivos que no están conectados a ningún mapa. ¡Estos archivos pueden ser removidos para liberar espacio!",
+	"library.actions.open": "Abrir Colección",
+	"library.cleanup.title": "Limpiar Colección",
+	"library.cleanup.copy": "Tu colección de Spin Rhythm tiene archivos que no están conectados a ningún mapa. ¡Estos archivos pueden ser eliminados para liberar espacio!",
 	"library.cleanup.action": "Limpiar",
 	"library.installmodal.title": "Abrir copia de seguridad",
 	"library.installmodal.filetype": "Historial de copias de seguridad",
@@ -69,9 +69,9 @@
 	"settings.directories.gameDirectory.resetButton": "Restablecer",
 	
 	"connectionerror.server.title": "Error de conexión",
-	"connectionerror.server.text": "Por favor, comprueba tu conexión a internet o inténtalo más tarde. Aún puedes acceder a tu librería e instalar copias de seguridad locales .zip.",
+	"connectionerror.server.text": "Por favor, comprueba tu conexión a internet o inténtalo más tarde. Aún puedes acceder a tu colección e instalar copias de seguridad locales .zip.",
 	"connectionerror.notfound.title": "404 - No encontrado",
-	"connectionerror.notfound.text": "Lo sentimos, no pudimos encontrar eso. Quizá fue removido, o nunca estuvo disponible.",
+	"connectionerror.notfound.text": "Lo sentimos, no pudimos encontrar eso. Quizá fue eliminado, o nunca estuvo disponible.",
 	
 	"download.queue.header": "Cola de Descargas",
 	"download.status.downloading": "Descargando",
