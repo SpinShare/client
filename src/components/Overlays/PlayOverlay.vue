@@ -43,6 +43,23 @@
             'hasXDDifficulty'
         ],
         mounted: function() {
+            var difficultyObject = [
+                {difficulty: 0, value: this.$props.hasEasyDifficulty},
+                {difficulty: 1, value: this.$props.hasNormalDifficulty},
+                {difficulty: 2, value: this.$props.hasHardDifficulty},
+                {difficulty: 3, value: this.$props.hasExpertDifficulty},
+                {difficulty: 4, value: this.$props.hasXDDifficulty}
+            ]
+            var trueCount = 0;
+            var singleDiff = {};
+            difficultyObject.forEach(e => {
+                if (e['value'] == true) {
+                    trueCount++
+                    singleDiff == e
+                }
+            });
+            if (trueCount == 1) {this.play(singleDiff.difficulty)}
+
             ipcRenderer.on("overlays-close", () => {
                 this.close();
             });
