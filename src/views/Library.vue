@@ -251,8 +251,8 @@
                     "Settings.txt",             // Programmatic's SRTB Editor
                     "SRTB_Editor.exe",          // Programmatic's SRTB Editor
                     "SRTB_Editor.pdb",          // Programmatic's SRTB Editor
-                    "Chart Analyzer.exe",       // Programmatic's Chart Analyzer
-                    "Chart Analyzer.pdb"        // Programmatic's Chart Analyzer
+                    "Chart_Analyzer.exe",       // Programmatic's Chart Analyzer
+                    "Chart_Analyzer.pdb"        // Programmatic's Chart Analyzer
                 ]
 
                 // Create an array of all files in the root, audioclips and albumart folders
