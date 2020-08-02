@@ -14,6 +14,7 @@ import ViewSongDetailReviews from '../views/SongDetailReviews.vue';
 import ViewSongDetailSpinPlays from '../views/SongDetailSpinPlays.vue';
 import ViewUserDetail from '../views/UserDetail.vue';
 import ViewSettings from '../views/Settings.vue';
+import ViewTournament from '../views/Tournament.vue';
 import ViewError from '../views/Error.vue';
 
 Vue.use(VueRouter);
@@ -81,6 +82,10 @@ const routes = [{
     path: '/settings',
     name: 'Settings',
     component: ViewSettings
+}, {
+    path: '/tournament',
+    name: 'Tournament',
+    component: ViewTournament
 }, {
     path: '/error/:errorCode',
     name: 'Error',

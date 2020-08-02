@@ -1,6 +1,7 @@
 <template>
     <aside>
         <nav class="items-left">
+            <div class="item" v-tooltip.down="'Back'" v-on:click="navigateBack()"><i class="mdi mdi-arrow-left"></i></div>
             <div class="logo">
               <router-link to="/"><img src="https://spinshare.b-cdn.net/assets/img/logo_colored_ondark.svg" alt="SpinShare Logo" /></router-link>
             </div>
@@ -32,6 +33,9 @@
             'downloadOverlayShown'
         ],
         methods: {
+            navigateBack: function() {
+                this.$router.back();
+            },
             showDownloadOverlay: function() {
                 this.$root.$emit('toggleDownloadOverlay');
             },
@@ -62,8 +66,8 @@
             &.items-left { justify-content: flex-start; }
             &.items-right { justify-content: flex-end; }
             & .logo {
-                width: 180px;
-                padding: 15px 30px;
+                width: 160px;
+                padding: 15px;
                 height: 60px;
                 & img {
                     height: 100%;

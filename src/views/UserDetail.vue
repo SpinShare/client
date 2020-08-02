@@ -2,26 +2,25 @@
     <section class="section-user-detail">
         <div class="user-detail-background" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'" v-if="apiFinished">
             <div class="user-detail-dim">
+                <div class="user-report" v-if="apiFinished">
+                    <button class="button-report button" v-on:click="OpenReport">{{ $t('userdetail.actions.reportButton') }}</button>
+                </div>
                 <div class="user-detail">
                     <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
                     <div class="user-meta-data">
                         <div class="user-name">{{ username }}</div>
-                        <div class="user-badge user-badge-verified">
+                        <div class="user-badge user-badge-verified" v-if="isVerified">
                             <i class="mdi mdi-check-decagram"></i>
                         </div>
-                        <div class="user-badge user-badge-patreon">
+                        <div class="user-badge user-badge-patreon" v-if="isPatreon">
                             <i class="mdi mdi-patreon"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="user-detail-actions" v-if="apiFinished">
-            <button class="button-report button" v-on:click="OpenReport">{{ $t('userdetail.actions.reportButton') }}</button>
-        </div>
         <SongRow
             class="song-row-user"
-            :title="$t('userdetail.uploaded.header')"
             v-if="apiFinished && songs.length > 0">
             <template v-slot:song-list>
                 <SongItem
@@ -100,7 +99,8 @@
                 & .user-detail {
                     padding: 50px;
                     display: grid;
-                    grid-template-columns: 200px 1fr;
+                    grid-template-columns: 1fr;
+                    justify-items: center;
                     grid-gap: 25px;
 
                     & .user-avatar {
@@ -132,17 +132,15 @@
                 }
             }
         }
-        & .user-detail-actions {
-            padding: 50px;
-            padding-top: 0px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-gap: 25px;
+        & .user-report {
+            position: absolute;
+            top: 25px;
+            right: 25px;
 
             & .button {
-                padding: 15px 0px;
+                padding: 15px 30px;
                 font-size: 16px;
-                transition: 0.2s ease-in-out all, 0.1s ease-in-out transform;
+                transition: 0.2s ease-in-out all;
 
                 &.button-primary {
                     background: #fff;
@@ -155,13 +153,8 @@
                 }
 
                 &:hover {
-                    background: rgba(255,255,255,0.2);
                     color: #fff;
                     opacity: 0.6;
-                    transform: translateY(-4px);
-                }
-                &:active {
-                    transform: translateY(-2px);
                 }
             }
         }
