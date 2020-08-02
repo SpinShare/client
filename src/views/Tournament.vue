@@ -71,6 +71,12 @@
             checkCharts: function() {
                 let userSettings = new UserSettings();
 
+                // Clear Analyzation data
+                this.$data.missingCharts = [];
+                this.$data.outdatedCharts = [];
+                this.$data.okCharts = [];
+                this.$data.analyzationDone = false;
+
                 this.$data.tournamentCharts.forEach((chart) => {
                     // Find SRTB
                     glob(path.join(userSettings.get('gameDirectory'), chart.fileReference + ".srtb"), (error, files) => {
