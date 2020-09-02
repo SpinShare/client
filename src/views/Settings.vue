@@ -53,7 +53,7 @@
                 </div>
             </div>
             <!-- Botch -->
-            <div class="settings-box">
+            <!-- <div class="settings-box">
                 <div class="settings-title">Tournament Hub</div>
                 <div class="settings-item">
                     <div class="settings-label">Open</div>
@@ -61,7 +61,7 @@
                         <router-link to="/tournament" class="button">Open WarpZone</router-link>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 </template>
