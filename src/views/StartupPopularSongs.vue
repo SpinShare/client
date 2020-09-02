@@ -1,9 +1,8 @@
 <template>
-    <SongRow
-        :title="$t('startup.popularsongs.header')">
+    <SongRow>
         <template v-slot:controls>
-            <div :class="'item ' + (popularSongsOffset == 0 ? 'disabled' : '')" v-on:click="popularPrevious()"><i class="mdi mdi-chevron-left"></i></div>
-            <div :class="'item ' + (popularSongs.length < 11 ? 'disabled' : '')" v-on:click="popularNext()"><i class="mdi mdi-chevron-right"></i></div>
+            <div :class="'button ' + (popularSongsOffset == 0 ? 'button-disabled' : '')" v-on:click="popularPrevious()"><i class="mdi mdi-chevron-left"></i> {{ $t('songrow.navigation.previous' )}}</div>
+            <div :class="'button ' + (popularSongs.length < 11 ? 'button-disabled' : '')" v-on:click="popularNext()">{{ $t('songrow.navigation.next' )}} <i class="mdi mdi-chevron-right"></i></div>
         </template>
         <template v-slot:song-list>
             <SongItemPlaceholder

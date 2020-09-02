@@ -96,5 +96,8 @@
 	"contextmenu.download": "Download",
 	"contextmenu.open": "Open",
 	"contextmenu.openInExplorer": "Open in Explorer",
-	"contextmenu.openOnSpinShare": "Open on SpinShare"
+	"contextmenu.openOnSpinShare": "Open on SpinShare",
+
+	"songrow.navigation.previous": "PREVIOUS",
+	"songrow.navigation.next": "NEXT"
 }
