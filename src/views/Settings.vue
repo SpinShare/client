@@ -22,7 +22,7 @@
             <div class="settings-box">
                 <div class="settings-title">{{ $t('settings.general.header') }}</div>
                 <div class="settings-item">
-                    <div class="settings-label">{{ $t('settings.language.selectLanguage.label') }}</div>
+                    <div class="settings-label">{{ $t('settings.general.selectLanguage.label') }}</div>
                     <div class="settings-input">
                         <select v-on:change="ChangeLanguage()" v-model="settingLanguage" class="settings-input-language">
                             <option value="en">English (English)</option>
@@ -40,16 +40,22 @@
                     </div>
                     <div class="settings-hint">{{ $t('locale.translatedBy') }}</div>
                 </div>
-            </div>
-            <div class="settings-box">
-                <div class="settings-title">{{ $t('settings.directories.header') }}</div>
+                
                 <div class="settings-item">
-                    <div class="settings-label">{{ $t('settings.directories.gameDirectory.label') }}</div>
+                    <div class="settings-label">{{ $t('settings.general.gameDirectory.label') }}</div>
                     <div class="settings-input settings-input-twobuttons">
                         <input type="text" class="settings-input-gamedirectory" disabled v-model="settingGameDirectory">
-                        <button v-on:click="SelectGameDirectory()">{{ $t('settings.directories.gameDirectory.changeButton') }}</button>
-                        <button v-on:click="ResetGameDirectory()">{{ $t('settings.directories.gameDirectory.resetButton') }}</button>
+                        <button v-on:click="SelectGameDirectory()">{{ $t('settings.general.gameDirectory.changeButton') }}</button>
+                        <button v-on:click="ResetGameDirectory()">{{ $t('settings.general.gameDirectory.resetButton') }}</button>
                     </div>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-label">{{ $t('settings.general.silentQueue.label') }}</div>
+                    <div class="settings-input">
+                        <input type="checkbox" v-on:change="ChangeSilentQueue()" class="settings-input-silentqueue" v-model="settingSilentQueue">
+                    </div>
+                    <div class="settings-hint">{{ $t('settings.general.silentQueue.explaination') }}</div>
                 </div>
             </div>
             <!-- Botch -->
@@ -80,7 +86,8 @@
                 version: "",
                 environment: "",
                 settingLanguage: "",
-                settingGameDirectory: ""
+                settingGameDirectory: "",
+                settingSilentQueue: false
             }
         },
         mounted: function() {
@@ -91,6 +98,7 @@
 
             this.$data.settingLanguage = userSettings.get('language');
             this.$data.settingGameDirectory = userSettings.get('gameDirectory');
+            this.$data.settingSilentQueue = userSettings.get('silentQueue');
         },
         methods: {
             SelectGameDirectory: function() {
@@ -116,6 +124,11 @@
                 userSettings.set('language', this.$data.settingLanguage);
                 
                 this.$i18n.locale = this.$data.settingLanguage;
+            },
+            ChangeSilentQueue: function() {
+                let userSettings = new UserSettings();
+                userSettings.set('silentQueue', this.$data.settingSilentQueue);
+
             },
             CheckForUpdates: function() {
                 let ssapi = new SSAPI();
