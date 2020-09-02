@@ -81,7 +81,10 @@
             });
 
             this.$root.$on('download', (url) => {
-                this.$data.showDownloadOverlay = true;
+                let userSettings = new UserSettings();
+                if(userSettings.get('silentQueue') != true) {
+                    this.$data.showDownloadOverlay = true;
+                }
                 this.addToQueue(url);
             });
             this.$root.$on('showDownloadOverlay', () => {
