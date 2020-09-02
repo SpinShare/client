@@ -266,19 +266,9 @@
         &:focus {
             outline: 0;
         }
-
-        &.button-label {
-            background: transparent;
-
-            &:hover {
-                background: rgba(255, 255, 255, 0.2);
-                color: #fff;
-            }
-            &:active {
-                background: #fff;
-                color: #222;
-                cursor: pointer;
-            }
+        &:disabled, &.button-disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
     }
     input[type='range'] {
