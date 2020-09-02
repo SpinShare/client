@@ -5,22 +5,22 @@
         </header>
         <div class="settings">
             <div class="settings-box">
-                <div class="settings-title">{{ $t('settings.general.header') }}</div>
+                <div class="settings-title">{{ $t('settings.client.header') }}</div>
                 <div class="settings-item">
-                    <div class="settings-label">{{ $t('settings.general.version.label') }}</div>
+                    <div class="settings-label">{{ $t('settings.client.version.label') }}</div>
                     <div class="settings-input">
                         <span class="settings-input-version">{{ version }}-{{ environment }}</span>
                     </div>
                 </div>
                 <div class="settings-item">
-                    <div class="settings-label">{{ $t('settings.general.update.label') }}</div>
+                    <div class="settings-label">{{ $t('settings.client.update.label') }}</div>
                     <div class="settings-input">
-                        <button v-on:click="CheckForUpdates()">{{ $t('settings.general.update.button') }}</button>
+                        <button v-on:click="CheckForUpdates()">{{ $t('settings.client.update.button') }}</button>
                     </div>
                 </div>
             </div>
             <div class="settings-box">
-                <div class="settings-title">{{ $t('settings.language.header') }}</div>
+                <div class="settings-title">{{ $t('settings.general.header') }}</div>
                 <div class="settings-item">
                     <div class="settings-label">{{ $t('settings.language.selectLanguage.label') }}</div>
                     <div class="settings-input">
