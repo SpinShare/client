@@ -10,11 +10,11 @@
                 <div class="song-title">{{ title }}</div>
                 <div class="song-artist">{{ artist }}</div>
                 <div class="song-difficulties">
-                    <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
-                    <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" />
-                    <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" />
-                    <img src="@/assets/img/difficultyExtreme.svg" :class="hasExtremeDifficulty ? 'active' : ''" />
-                    <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" />
+                    <div :class="hasEasyDifficulty ? 'difficulty active' : 'difficulty'"><span>E</span></div>
+                    <div :class="hasNormalDifficulty ? 'difficulty active' : 'difficulty'"><span>N</span></div>
+                    <div :class="hasHardDifficulty ? 'difficulty active' : 'difficulty'"><span>H</span></div>
+                    <div :class="hasExtremeDifficulty ? 'difficulty active' : 'difficulty'"><span>EX</span></div>
+                    <div :class="hasXDDifficulty ? 'difficulty active' : 'difficulty'"><span>XD</span></div>
                 </div>
             </div>
         </router-link>
@@ -154,12 +154,21 @@
                 margin-top: 10px;
                 height: 20px;
                 display: flex;
-    
-                & img {
-                    height: 18px;
-                    margin-right: 10px;
+
+                & .difficulty {
+                    background: #fff;
+                    color: #000;
+                    border-radius: 4px;
+                    padding: 3px 8px;
+                    margin-right: 4px;
+                    font-size: 10px;
                     opacity: 0.3;
-    
+
+                    & span {
+                        // padding-right: 3px;
+                        font-weight: bold;
+                    }
+
                     &.active {
                         opacity: 1;
                     }
