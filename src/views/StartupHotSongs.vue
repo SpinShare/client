@@ -73,4 +73,7 @@
 </script>
 
 <style scoped lang="less">
+    .song-row {
+        padding: 50px;
+    }
 </style>

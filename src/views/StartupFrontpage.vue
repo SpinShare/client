@@ -81,55 +81,59 @@
 </script>
 
 <style scoped lang="less">
-    .staff-promos {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 25px;
-        width: 1114px;
-        margin: 0 auto;
+    .frontpage {
+        padding: 50px;
 
-        &:empty {
-            display: none;
+        .staff-promos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 25px;
+            width: 1114px;
+            margin: 0 auto;
+
+            &:empty {
+                display: none;
+            }
         }
-    }
-    .social-buttons {
-        display: grid;
-        width: 650px;
-        margin: 0 auto;
-        margin-top: 25px;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 15px;
+        .social-buttons {
+            display: grid;
+            width: 650px;
+            margin: 0 auto;
+            margin-top: 25px;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
 
-        & .item {
-            height: 75px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 32px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 6px;
-            transition: 0.2s ease-in-out all;
+            & .item {
+                height: 75px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 32px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 6px;
+                transition: 0.2s ease-in-out all;
 
-            &.item-discord {
-                background: linear-gradient(135deg, #99aab5, #7289da);
-            }
-            &.item-twitter {
-                background: linear-gradient(135deg, #d0e6f7, #1da1f2);
-            }
-            &.item-youtube {
-                background: linear-gradient(135deg, #ff0000, #c20000);
-            }
-            &.item-twitch {
-                background: linear-gradient(135deg, #b9a3e3, #6441a5);
-            }
-            &.item-patreon {
-                background: linear-gradient(135deg, #ff8575, #e75744);
-            }
+                &.item-discord {
+                    background: linear-gradient(135deg, #99aab5, #7289da);
+                }
+                &.item-twitter {
+                    background: linear-gradient(135deg, #d0e6f7, #1da1f2);
+                }
+                &.item-youtube {
+                    background: linear-gradient(135deg, #ff0000, #c20000);
+                }
+                &.item-twitch {
+                    background: linear-gradient(135deg, #b9a3e3, #6441a5);
+                }
+                &.item-patreon {
+                    background: linear-gradient(135deg, #ff8575, #e75744);
+                }
 
-            &:hover {
-                transform: scale(1.1);
-            box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
-                cursor: pointer;
+                &:hover {
+                    transform: scale(1.1);
+                box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
+                    cursor: pointer;
+                }
             }
         }
     }

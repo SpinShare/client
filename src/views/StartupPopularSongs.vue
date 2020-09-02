@@ -74,6 +74,6 @@
 
 <style scoped lang="less">
     .song-row {
-        margin-top: 25px;
+        padding: 50px;
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)" v-on:click="openOnSpinShare()">
+    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)" v-on:click="openInClient()">
         <div class="song-cover" v-bind:style="'background-image: '+ backgroundImage +' , url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'" v-observe-visibility="visibilityChanged">
             <div class="song-charter-info">
                 <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ detail.charter ? detail.charter : "Unknown" }}</span></div>
