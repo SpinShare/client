@@ -1,6 +1,6 @@
 <template>
     <div class="frontpage">
-        <Stream v-bind="streamStatus" />
+        <!-- <Stream v-bind="streamStatus" /> -->
 
         <div class="staff-promos">
             <StaffPromoPlaceholder
