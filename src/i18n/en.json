@@ -7,9 +7,6 @@
 	"startup.tabs.hot": "Hot",
 	"startup.tabs.popular": "Popular",
 	"startup.staffpromo.action": "CHECK IT OUT",
-	"startup.newsongs.header": "New Songs",
-	"startup.hotsongs.header": "Hot Songs",
-	"startup.popularsongs.header": "Popular Songs",
 	
 	"search.header": "Search",
 	"search.input.placeholder": "Search for songs, tags & profiles...",
