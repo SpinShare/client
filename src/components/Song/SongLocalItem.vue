@@ -67,7 +67,7 @@
             openOnSpinShare: function() {
                 if(this.isSpinShare) {
                     if(this.isSpinShare.includes("spinshare_")) {
-                        shell.openExternal("https://spinsha.re/report/song/" + this.isSpinShare);
+                        shell.openExternal("https://spinsha.re/song/" + this.isSpinShare);
                     }
                 }
             },

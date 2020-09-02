@@ -23,7 +23,7 @@
 
 <script>
     import { remote } from 'electron';
-    const { clipboard } = remote;
+    const { clipboard, shell } = remote;
 
     export default {
         name: 'SongItem',
