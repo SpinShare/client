@@ -44,7 +44,8 @@
                 let items = [];
                 
                 if(this.isSpinShare) {
-                    items.push({ icon: "open-in-app", title: this.$t('contextmenu.openOnSpinShare'), method: () => { this.openOnSpinShare(); } });
+                    items.push({ icon: "eye", title: this.$t('contextmenu.open'), method: () => { this.openInClient(); } });
+                    items.push({ icon: "earth", title: this.$t('contextmenu.openOnSpinShare'), method: () => { this.openOnSpinShare(); } });
                 }
                 
                 items.push({ icon: "folder-outline", title: this.$t('contextmenu.openInExplorer'), method: () => { this.openInExplorer(); } });
@@ -56,10 +57,17 @@
                     items: items
                 });
             },
-            openOnSpinShare: function() {
+            openInClient: function() {
                 if(this.isSpinShare) {
                     if(this.isSpinShare.includes("spinshare_")) {
                         this.$router.push({ name: 'SongDetailReviews', params: { id: this.isSpinShare } });
+                    }
+                }
+            },
+            openOnSpinShare: function() {
+                if(this.isSpinShare) {
+                    if(this.isSpinShare.includes("spinshare_")) {
+                        shell.openExternal("https://spinsha.re/report/song/" + this.isSpinShare);
                     }
                 }
             },
@@ -68,11 +76,11 @@
             },
             visibilityChanged (isVisible, entry) {
                 if (isVisible) {
-                    this.$data.backgroundImage = "url(" + this.$props.cover + ")"
+                    this.$data.backgroundImage = "url(" + this.$props.cover + ")";
                 } 
                 //url(" + require('@/assets/img/defaultAlbumArt.jpg') + ");
                 else {
-                    this.$data.backgroundImage = "none;"
+                    this.$data.backgroundImage = "none;";
                 }
             }
         }
