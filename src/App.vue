@@ -115,6 +115,23 @@
                 }
             });
 
+            window.onbeforeunload = (e) => {
+                if (this.$data.downloadQueue.length != 0) {
+                    e.returnValue = false;
+                    const options = {
+                        type: 'question',
+                        buttons: ['No', 'Yes'],
+                        message: 'Do you really want to quit?',
+                        detail: 'Quitting while a chart is downloading may cause errors.',
+                    };
+                    dialog.showMessageBox(null, options, (response) => {
+                        if (response == 1) {
+                            remote.getCurrentWindow().destroy();
+                        }
+                    });
+                }
+            };
+
             ipcRenderer.on("download-complete", (event, downloadItem) => {
                 let srxdControl = new SRXD();
                 let userSettings = new UserSettings();
