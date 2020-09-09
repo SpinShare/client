@@ -4,10 +4,12 @@ import router from './router';
 import store from './store';
 import i18n from './i18n';
 import moment from 'moment'
+import VueTilt from 'vue-tilt.js'
 import { ipcRenderer } from 'electron';
 import VueObserveVisibility from 'vue-observe-visibility'
 import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
 
+Vue.use(VueTilt);
 Vue.use(VueObserveVisibility);
 
 Vue.directive('tooltip', VTooltip);

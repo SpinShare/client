@@ -52,6 +52,9 @@
 	"userdetail.uploaded.header": "Uploaded Songs",
 	"userdetail.uploaded.noresults": "This user did not upload any songs yet.",
 	"userdetail.actions.reportButton": "Report",
+	"userdetail.charts.noresults": "This user has no charts yet.",
+	"userdetail.reviews.noresults": "This user has no reviews yet.",
+	"userdetail.spinplays.noresults": "This user did not release any SpinPlays yet.",
 	
 	"settings.header": "Settings",
 	"settings.client.header": "SpinShare",

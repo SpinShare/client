@@ -13,6 +13,9 @@ import ViewSongDetail from '../views/SongDetail.vue';
 import ViewSongDetailReviews from '../views/SongDetailReviews.vue';
 import ViewSongDetailSpinPlays from '../views/SongDetailSpinPlays.vue';
 import ViewUserDetail from '../views/UserDetail.vue';
+import ViewUserDetailCharts from '../views/UserDetailCharts.vue';
+import ViewUserDetailReviews from '../views/UserDetailReviews.vue';
+import ViewUserDetailSpinPlays from '../views/UserDetailSpinPlays.vue';
 import ViewSettings from '../views/Settings.vue';
 import ViewTournament from '../views/Tournament.vue';
 import ViewError from '../views/Error.vue';
@@ -74,10 +77,33 @@ const routes = [{
             component: ViewSongDetailSpinPlays
         }
     ]
-},, {
+}, {
     path: '/user/:id',
     name: 'UserDetail',
-    component: ViewUserDetail
+    component: ViewUserDetail,
+    redirect: {
+      name: 'UserDetailCharts'
+    },
+    children: [
+        {
+            alias: '',
+            path: 'charts',
+            name: 'UserDetailCharts',
+            component: ViewUserDetailCharts
+        },
+        {
+            alias: '',
+            path: 'reviews',
+            name: 'UserDetailReviews',
+            component: ViewUserDetailReviews
+        },
+        {
+            alias: '',
+            path: 'spinplays',
+            name: 'UserDetailSpinPlays',
+            component: ViewUserDetailSpinPlays
+        }
+    ]
 }, {
     path: '/settings',
     name: 'Settings',
