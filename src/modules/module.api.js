@@ -9,6 +9,8 @@ class SSAPI {
         }
     }
 
+    connectAppApiKey = "c02b7d24a066adb747fdeb12deb21bfa";
+
     constructor() {
         if(this.isDev()) {
             this.apiBase = "http://localhost/www/spinshare/server/public/index.php/api/";
@@ -301,6 +303,45 @@ class SSAPI {
             }
             
             return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async getConnectToken(connectCode) {
+        let apiPath = this.apiBase + "connect/getToken?connectCode=" + connectCode + "&connectAppApiKey=" + this.connectAppApiKey;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async validateConnectToken(connectToken) {
+        let apiPath = this.apiBase + "connect/validateToken/?connectToken=" + connectToken;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+            
+            switch(response.data.status) {
+                case 200:
+                    return true;
+                case 403:
+                    return false;
+                case 500:
+                    return false;
+            }
         }).catch(function(error) {
             throw new Error(error);
         });

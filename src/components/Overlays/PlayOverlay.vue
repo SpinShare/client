@@ -147,7 +147,4 @@
             }
         }
     }
-    .app-darwin .play-overlay {
-        top: 40px;
-    }
 </style>

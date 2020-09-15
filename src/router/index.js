@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
+import ViewLogin from '../views/Login.vue';
 import ViewStartup from '../views/Startup.vue';
 import ViewStartupFrontpage from '../views/StartupFrontpage.vue';
 import ViewStartupNewSongs from '../views/StartupNewSongs.vue';
@@ -25,6 +26,10 @@ Vue.use(VueAxios, axios);
 
 const routes = [{
     path: '/',
+    name: 'Login',
+    component: ViewLogin
+}, {
+    path: '/startup',
     name: 'Startup',
     component: ViewStartup,
     children: [

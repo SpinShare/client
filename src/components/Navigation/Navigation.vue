@@ -3,9 +3,9 @@
         <nav class="items-left">
             <div class="item" v-tooltip.down="'Back'" v-on:click="navigateBack()"><i class="mdi mdi-arrow-left"></i></div>
             <div class="logo">
-              <router-link to="/"><img src="https://spinshare.b-cdn.net/assets/img/logo_colored_ondark.svg" alt="SpinShare Logo" /></router-link>
+              <router-link to="/startup"><img src="https://spinsha.re/assets/img/logo_colored_ondark.svg" alt="SpinShare Logo" /></router-link>
             </div>
-            <router-link to="/" exact class="item" v-tooltip.down="'Frontpage'"><i class="mdi mdi-home-outline"></i></router-link>
+            <router-link to="/startup" exact class="item" v-tooltip.down="'Frontpage'"><i class="mdi mdi-home-outline"></i></router-link>
             <router-link to="/search" class="item" v-tooltip.down="'Search'"><i class="mdi mdi-magnify"></i></router-link>
             <router-link to="/library" class="item" v-tooltip.down="'Library'"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
             <div v-on:click="openExternal('https://spinsha.re/support');" class="item" v-tooltip.down="'Support'"><i class="mdi mdi-hand-heart"></i></div>
@@ -290,83 +290,3 @@
         }
     }
 </style>
-
-<!-- <style scoped lang="less">
-    aside {
-        background: #383C3F;
-        display: grid;
-        position: fixed;
-        z-index: 50;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        grid-template-rows: 1fr auto;
-
-        & .item, & .external-item {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            position: relative;
-            justify-content: center;
-            align-items: center;
-            background: transparent;
-            color: #fff;
-            transition: 0.2s ease opacity, 0.2s ease background;
-
-            &:hover {
-                cursor: pointer;
-
-                & .mdi {
-                    opacity: 1;
-                }
-            }
-            &.router-link-active {
-                opacity: 1;
-                
-                &:before {
-                    transition: 0.2s ease-in-out opacity;
-                    opacity: 1;
-                }
-
-                & .mdi {
-                    opacity: 1;
-                }
-            }
-
-            & .mdi {
-                font-size: 22px;
-                opacity: 0.4;
-                position: relative;
-                z-index: 2;
-            }
-
-            & .badge {
-                position: absolute;
-                z-index: 3;
-                bottom: 5px;
-                right: 5px;
-                font-size: 12px;
-                font-weight: bold;
-                padding: 2px 6px;
-                border-radius: 5px;
-                background: rgba(255,255,255,0.2);
-            }
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                bottom: 0px;
-                right: 0px;
-                background: rgb(226, 44, 120);
-                opacity: 0;
-                z-index: 0;
-            }
-        }
-    }
-    .app-darwin aside {
-        top: 40px;
-    }
-</style>
--->

@@ -1,8 +1,6 @@
 <template>
-    <div id="app" :class="platform != 'darwin' ? 'app' : 'app-darwin'" tabindex="-1" v-on:keydown.esc="closeOverlays()">
-        <!-- <WindowTitleBar /> -->
-
-        <main>
+    <div id="app" tabindex="-1" v-on:keydown.esc="closeOverlays()">
+        <main :class="(['Login'].indexOf($route.name) > -1) ? 'hide-navigation' : ''">
             <Navigation v-bind:downloadQueueCount="downloadQueue.length" v-bind:downloadOverlayShown="showDownloadOverlay" />
             <router-view />
         </main>
@@ -31,7 +29,6 @@
     import SSAPI from '@/modules/module.api.js';
     import SRXD from '@/modules/module.srxd.js';
 
-    import WindowTitleBar from '@/components/WindowTitleBar.vue';
     import Navigation from '@/components/Navigation/Navigation.vue';
     import ContextMenu from '@/components/ContextMenu/ContextMenu.vue';
     import UpdateOverlay from '@/components/Overlays/UpdateOverlay.vue';
@@ -40,7 +37,6 @@
     export default {
         name: 'App',
         components: {
-            WindowTitleBar,
             Navigation,
             ContextMenu,
             UpdateOverlay,
@@ -260,9 +256,15 @@
         left: 0px;
         right: 0px;
         overflow-y: scroll;
-    }
-    .app-darwin main {
-        top: 40px;
+
+        &.hide-navigation {
+            top: 0px;
+            overflow: hidden;
+
+            & > aside {
+                display: none;
+            }
+        }
     }
     button, .button {
         font-family: 'Open Sans', sans-serif;
@@ -285,6 +287,14 @@
         }
         &:focus {
             outline: 0;
+        }
+        &.button-label {
+            background: transparent;
+            
+            &:hover {
+                background: rgba(255,255,255,0.15);
+                opacity: 1;
+            }
         }
         &:disabled, &.button-disabled {
             opacity: 0.4;
