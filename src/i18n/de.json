@@ -7,9 +7,6 @@
 	"startup.tabs.new": "Neu",
 	"startup.tabs.hot": "Heiß",
 	"startup.tabs.popular": "Populär",
-	"startup.newsongs.header": "Neue Songs",
-	"startup.hotsongs.header": "Heiße Songs",
-	"startup.popularsongs.header": "Populäre Songs",
 	
 	"search.header": "Suche",
 	"search.input.placeholder": "Suche nach Songs, Tags & Profilen...",
@@ -55,18 +52,22 @@
 	"userdetail.uploaded.header": "Hochgeladene Songs",
 	"userdetail.uploaded.noresults": "Dieser Nutzer hat noch keine Songs hochgeladen.",
 	"userdetail.actions.reportButton": "Melden",
+	"userdetail.charts.noresults": "Dieser Nutzer hat noch keine Songs.",
+	"userdetail.reviews.noresults": "Dieser Nutzer hat noch keine Reviews.",
+	"userdetail.spinplays.noresults": "Dieser Nutzer hat noch keine SpinPlays hochgeladen.",
 	
 	"settings.header": "Einstellungen",
 	"settings.client.header": "SpinShare",
 	"settings.client.version.label": "Version",
 	"settings.client.update.label": "Update",
 	"settings.client.update.button": "Auf Updates überprüfen",
-	"settings.language.header": "Sprache",
-	"settings.language.selectLanguage.label": "Sprache auswählen",
-	"settings.directories.header": "Ordner",
-	"settings.directories.gameDirectory.label": "Spiel-Ordner",
-	"settings.directories.gameDirectory.changeButton": "Ändern",
-	"settings.directories.gameDirectory.resetButton": "Zurücksetzen",
+	"settings.general.header": "Sprache",
+	"settings.general.selectLanguage.label": "Sprache auswählen",
+	"settings.general.gameDirectory.label": "Spiel-Ordner",
+	"settings.general.gameDirectory.changeButton": "Ändern",
+	"settings.general.gameDirectory.resetButton": "Zurücksetzen",
+	"settings.general.silentQueue.label": "Downloadliste verstecken",
+	"settings.general.silentQueue.explaination": "Wenn aktiviert, wird die Downloadliste nicht mehr angezeigt, solltest du einen Song hinzufügen.",
 	
 	"connectionerror.server.title": "Verbindungsfehler",
 	"connectionerror.server.text": "Bitte überprüfe deine Internetverbindung oder versuche es später erneut. Du kannst weiterhin deine Audiothek nutzen und lokale .zip Backups installieren.",
@@ -99,5 +100,8 @@
 	"contextmenu.download": "Herunterladen",
 	"contextmenu.open": "Öffnen",
 	"contextmenu.openInExplorer": "Im Explorer öffnen",
-	"contextmenu.openOnSpinShare": "Auf SpinShare öffnen"
+	"contextmenu.openOnSpinShare": "Auf SpinShare öffnen",
+
+	"songrow.navigation.previous": "VORHERIGE",
+	"songrow.navigation.next": "NÄCHSTE"
 }
