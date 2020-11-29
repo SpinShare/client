@@ -26,7 +26,8 @@ module.exports = {
                 dmg: {
                     backgroundColor: "#212629"
                 }
-            }
+            },
+            externals: ['keytar']
         }
     }
 }

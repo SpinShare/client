@@ -27,6 +27,9 @@
 
     import Loading from '@/components/Loading.vue';
 
+    import { remote, ipcRenderer } from 'electron';
+    import keytar from 'keytar';
+
     export default {
         name: 'Login',
         components: {
@@ -42,14 +45,16 @@
                 apiLoginServerError: false
             }
         },
-        mounted: function() {
+        mounted: async function() {
             let ssapi = new SSAPI();
             let userSettings = new UserSettings();
 
-            if(!userSettings.get("connectToken")) {
+            let token = await keytar.findPassword('Spinshare');
+            
+            if(!token) {
                 this.showLoginBox();
             } else {
-                ssapi.validateConnectToken(userSettings.get("connectToken")).then((data) => {
+                ssapi.validateConnectToken(token).then((data) => {
                     if(data) {
                         this.$router.replace({ name: 'StartupFrontpage' });
                     } else {
@@ -79,7 +84,9 @@
                     switch(data.status) {
                         case 200:
                             // Successfull
-                            userSettings.set("connectToken", data.data);
+                            ipcRenderer.send("setToken", {
+                                ConnectToken: data.data
+                            });
                             this.$router.replace({ name: 'StartupFrontpage' });
                         break;
                         case 403:
@@ -98,6 +105,9 @@
                 this.$data.apiLoginLoading = false;
                 this.$data.apiLoginCodeError = false;
                 this.$data.apiLoginServerError = false;
+            },
+            getCredentialFromStore: async function() {
+                return await keytar.findPassword('Spinshare');
             }
         },
         watch: {

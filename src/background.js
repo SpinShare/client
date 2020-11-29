@@ -6,6 +6,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const uniqid = require('uniqid');
+const keytar = require('keytar')
 
 let win;
 let deeplinkingData;
@@ -211,3 +212,7 @@ function download(url, fileName, cb) {
         if (cb) cb(err.message, dest);
     });
 };
+
+ipcMain.on("setToken", (event, ipcData) => {
+  keytar.setPassword('Spinshare', 'ConnectToken', ipcData.ConnectToken);
+})
