@@ -51,7 +51,7 @@
             } else {
                 ssapi.validateConnectToken(userSettings.get("connectToken")).then((data) => {
                     if(data) {
-                        this.$router.replace({ name: 'StartupFrontpage' });
+                        this.loadIntoProfile();
                     } else {
                         this.showLoginBox();
                     }
@@ -80,7 +80,7 @@
                         case 200:
                             // Successfull
                             userSettings.set("connectToken", data.data);
-                            this.$router.replace({ name: 'StartupFrontpage' });
+                            this.loadIntoProfile();
                         break;
                         case 403:
                         case 404:
@@ -98,6 +98,16 @@
                 this.$data.apiLoginLoading = false;
                 this.$data.apiLoginCodeError = false;
                 this.$data.apiLoginServerError = false;
+            },
+            loadIntoProfile: function() {
+                let ssapi = new SSAPI();
+                let userSettings = new UserSettings();
+
+                ssapi.getConnectProfile(userSettings.get("connectToken")).then((data) => {
+                    userSettings.set("connectProfile", data);
+                    this.$root.$emit("LoadIntoProfile", data);
+                    this.$router.replace({ name: 'StartupFrontpage' });
+                });
             }
         },
         watch: {

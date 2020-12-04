@@ -17,7 +17,41 @@
                 <i class="mdi mdi-download-outline"></i>
                 <span class="indicator" v-show="downloadQueueCount > 0">{{ downloadQueueCount }}</span>
             </div>
-            <router-link to="/settings" class="item" v-tooltip.down="'Settings'"><i class="mdi mdi-cog-outline"></i></router-link>
+            <div class="item item-user" tabindex="0" v-if="userData != null">
+                <div class="user-avatar" :style="'background-image: url(' + userData.avatar + ');'"></div>
+                <div class="user-actions">
+                    <router-link :to="{ name: 'UserDetailCharts', params: { id: userData.id } }" class="user-action-item">
+                        <i class="mdi mdi-music"></i>
+                        <span>My Charts</span>
+                    </router-link>
+                    <router-link :to="{ name: 'UserDetailReviews', params: { id: userData.id } }" class="user-action-item">
+                        <i class="mdi mdi-playlist-music"></i>
+                        <span>My Playlists</span>
+                    </router-link>
+                    <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: userData.id } }" class="user-action-item">
+                        <i class="mdi mdi-thumbs-up-down"></i>
+                        <span>My Reviews</span>
+                    </router-link>
+                    <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: userData.id } }" class="user-action-item">
+                        <i class="mdi mdi-youtube"></i>
+                        <span>My SpinPlays</span>
+                    </router-link>
+                    <div class="user-action-spacer"></div>
+                    <router-link to="/settings" class="user-action-item">
+                        <i class="mdi mdi-cog"></i>
+                        <span>App-Settings</span>
+                    </router-link>
+                    <div v-on:click="openExternal('https://spinsha.re/settings')" class="user-action-item">
+                        <i class="mdi mdi-cog"></i>
+                        <span>Account-Settings</span>
+                    </div>
+                    <div class="user-action-spacer"></div>
+                    <div v-on:click="userLogout()" class="user-action-item">
+                        <i class="mdi mdi-close-circle-outline"></i>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
         </nav>
     </aside>
 </template>
@@ -26,12 +60,33 @@
     import { remote } from 'electron';
     const { shell } = remote;
 
+    import SSAPI from '@/modules/module.api.js';
+    import UserSettings from '@/modules/module.usersettings.js';
+
     export default {
         name: 'Navigation',
         props: [
             'downloadQueueCount',
             'downloadOverlayShown'
         ],
+        data: function() {
+            return {
+                userData: {}
+            }
+        },
+        mounted: function () {
+            let userSettings = new UserSettings();
+
+            if(!userSettings.get("connectProfile")) {
+                this.$router.replace({ name: 'Login' });
+            }
+
+            this.$data.userData = userSettings.get("connectProfile");
+
+            this.$root.$on("LoadIntoProfile", (data) => {
+                this.$data.userData = data;
+            });
+        },
         methods: {
             navigateBack: function() {
                 this.$router.back();
@@ -41,6 +96,13 @@
             },
             openExternal: function(url) {
                 shell.openExternal(url);
+            },
+            userLogout: function() {
+                let userSettings = new UserSettings();
+
+                userSettings.set("connectProfile", null);
+                userSettings.set("connectToken", null);
+                window.location.reload();
             }
         }
     }
@@ -237,6 +299,7 @@
                     position: absolute;
                     top: 70px;
                     right: 10px;
+                    overflow: hidden;
                     border-radius: 4px;
                     background: #000;
                     box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
@@ -263,6 +326,12 @@
                         &:hover {
                             background: rgba(255,255,255,0.1);
                         }
+                    }
+                    & .user-action-spacer {
+                        margin: 5px 15px;
+                        height: 1px;
+                        width: auto;
+                        background: rgba(255,255,255,0.2);
                     }
 
                     &:after {

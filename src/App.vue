@@ -21,8 +21,6 @@
     import { remote, ipcRenderer } from 'electron';
     const { app, dialog } = remote;
 
-    import fs from 'fs';
-    import glob from 'glob';
     import path from 'path';
 
     import UserSettings from '@/modules/module.usersettings.js';

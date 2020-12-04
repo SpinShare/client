@@ -7,7 +7,6 @@ import ViewStartup from '../views/Startup.vue';
 import ViewStartupFrontpage from '../views/StartupFrontpage.vue';
 import ViewStartupNewSongs from '../views/StartupNewSongs.vue';
 import ViewStartupHotSongs from '../views/StartupHotSongs.vue';
-import ViewStartupPopularSongs from '../views/StartupPopularSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
@@ -30,11 +29,14 @@ const routes = [{
     component: ViewLogin
 }, {
     path: '/startup',
-    name: 'Startup',
     component: ViewStartup,
+    name: 'ViewStartup',
+    redirect: {
+        name: 'StartupFrontpage'
+    },
     children: [
         {
-            path: '',
+            path: '/frontpage',
             name: 'StartupFrontpage',
             component: ViewStartupFrontpage
         },
@@ -47,11 +49,6 @@ const routes = [{
             path: '/hot',
             name: 'StartupHot',
             component: ViewStartupHotSongs
-        },
-        {
-            path: '/popular',
-            name: 'StartupPopular',
-            component: ViewStartupPopularSongs
         }
     ]
 }, {

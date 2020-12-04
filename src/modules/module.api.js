@@ -132,22 +132,6 @@ class SSAPI {
         });
     }
 
-    async getPopularSongs(_offset) {
-        let apiPath = this.apiBase + "songs/popular/" + _offset;
-        let supportedVersion = this.supportedVersion;
-
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
-    }
-
     async getSongDetail(_songId) {
         let apiPath = this.apiBase + "song/" + _songId;
         let supportedVersion = this.supportedVersion;
@@ -277,10 +261,12 @@ class SSAPI {
     }
 
     async search(_searchQuery) {
-        let apiPath = this.apiBase + "search/" + _searchQuery;
+        let apiPath = this.apiBase + "search";
         let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
+        return axios.get(apiPath, {
+            searchQuery: _searchQuery
+        })
         .then(function(response) {
             if(response.data.version !== supportedVersion) {
                 throw new Error("Client is outdated!");
@@ -345,6 +331,22 @@ class SSAPI {
         }).catch(function(error) {
             throw new Error(error);
         });
+    }
+
+    async getConnectProfile(connectToken) {
+        let apiPath = this.apiBase + "connect/profile/?connectToken=" + connectToken;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+            .then(function(response) {
+                if(response.data.version !== supportedVersion) {
+                    throw new Error("Client is outdated!");
+                }
+
+                return response.data.data;
+            }).catch(function(error) {
+                throw new Error(error);
+            });
     }
 }
 

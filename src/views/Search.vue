@@ -97,9 +97,9 @@
                 let ssapi = new SSAPI();
                 this.$data.apiFinished = false;
 
-                if(this.$data.searchQuery != "") {
+                if(this.$data.searchQuery !== "") {
                     ssapi.search(this.$data.searchQuery).then((data) => {
-                        if(data.status == 200) {
+                        if(data.status === 200) {
                             this.$data.searchResultsUsers = data.data.users;
                             this.$data.searchResultsSongs = data.data.songs;
 

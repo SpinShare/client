@@ -2,10 +2,9 @@
     <section class="section-startup">
         <header>
             <div class="tabs">
-                <router-link to="/" class="tab"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
+                <router-link to="/frontpage" class="tab"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
                 <router-link to="/new" class="tab"><span>{{ $t('startup.tabs.new') }}</span></router-link>
                 <router-link to="/hot" class="tab"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
-                <router-link to="/popular" class="tab"><span>{{ $t('startup.tabs.popular') }}</span></router-link>
             </div>
         </header>
 
@@ -49,7 +48,7 @@
                         background: #272c2e;
                         color: rgba(255,255,255,0.75);
                     }
-                    &.router-link-exact-active {
+                    &.router-link-exact-active, &.router-link-active {
                         opacity: 1;
                         color: rgba(255,255,255,1);
                         background: #212629;
