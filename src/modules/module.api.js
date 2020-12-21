@@ -3,7 +3,7 @@ const axios = require('axios');
 class SSAPI {
     isDev() {
         if(process.env.NODE_ENV !== 'development') {
-            return true;
+            return false;
         } else {
             return false;
         }
