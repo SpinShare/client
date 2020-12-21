@@ -1,19 +1,19 @@
 <template>
     <aside>
         <nav class="items-left">
-            <div class="item" v-tooltip.down="'Back'" v-on:click="navigateBack()"><i class="mdi mdi-arrow-left"></i></div>
+            <div class="item" v-tooltip.down="$t('navigation.back')" v-on:click="navigateBack()"><i class="mdi mdi-arrow-left"></i></div>
             <div class="logo">
               <router-link to="/startup"><img src="https://spinsha.re/assets/img/logo_colored_ondark.svg" alt="SpinShare Logo" /></router-link>
             </div>
-            <router-link to="/startup" exact class="item" v-tooltip.down="'Frontpage'"><i class="mdi mdi-home-outline"></i></router-link>
-            <router-link to="/search" class="item" v-tooltip.down="'Search'"><i class="mdi mdi-magnify"></i></router-link>
-            <router-link to="/library" class="item" v-tooltip.down="'Library'"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
-            <div v-on:click="openExternal('https://spinsha.re/support');" class="item" v-tooltip.down="'Support'"><i class="mdi mdi-hand-heart"></i></div>
+            <router-link to="/startup" exact class="item" v-tooltip.down="$t('navigation.dashboard')"><i class="mdi mdi-home-outline"></i></router-link>
+            <router-link to="/search" class="item" v-tooltip.down="$t('navigation.search')"><i class="mdi mdi-magnify"></i></router-link>
+            <router-link to="/library" class="item" v-tooltip.down="$t('navigation.library')"><i class="mdi mdi-music-box-multiple-outline"></i></router-link>
+            <div v-on:click="openExternal('https://spinsha.re/support');" class="item" v-tooltip.down="$t('navigation.support')"><i class="mdi mdi-hand-heart"></i></div>
         </nav>
 
         <nav class="items-right">
-            <div v-on:click="openExternal('steam://run/1058830');" class="item" v-tooltip.down="'Start SpinRhythm XD'"><i class="mdi mdi-play-outline"></i></div>
-            <div v-on:click="showDownloadOverlay();" :class="'item ' + (downloadOverlayShown ? 'router-link-active' : '')" v-tooltip.down="'Download Queue'">
+            <div v-on:click="openExternal('steam://run/1058830');" class="item" v-tooltip.down="$t('navigation.startspinrhythm')"><i class="mdi mdi-play-outline"></i></div>
+            <div v-on:click="showDownloadOverlay();" :class="'item ' + (downloadOverlayShown ? 'router-link-active' : '')" v-tooltip.down="$t('navigation.downloadqueue')">
                 <i class="mdi mdi-download-outline"></i>
                 <span class="indicator" v-show="downloadQueueCount > 0">{{ downloadQueueCount }}</span>
             </div>
@@ -22,33 +22,33 @@
                 <div class="user-actions">
                     <router-link :to="{ name: 'UserDetailCharts', params: { id: userData.id } }" class="user-action-item">
                         <i class="mdi mdi-music"></i>
-                        <span>My Charts</span>
+                        <span>{{ $t('navigation.mycharts') }}</span>
+                    </router-link>
+                    <router-link :to="{ name: 'UserDetailPlaylists', params: { id: userData.id } }" class="user-action-item">
+                        <i class="mdi mdi-playlist-music"></i>
+                        <span>{{ $t('navigation.myplaylists') }}</span>
                     </router-link>
                     <router-link :to="{ name: 'UserDetailReviews', params: { id: userData.id } }" class="user-action-item">
-                        <i class="mdi mdi-playlist-music"></i>
-                        <span>My Playlists</span>
-                    </router-link>
-                    <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: userData.id } }" class="user-action-item">
                         <i class="mdi mdi-thumbs-up-down"></i>
-                        <span>My Reviews</span>
+                        <span>{{ $t('navigation.myreviews') }}</span>
                     </router-link>
                     <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: userData.id } }" class="user-action-item">
                         <i class="mdi mdi-youtube"></i>
-                        <span>My SpinPlays</span>
+                        <span>{{ $t('navigation.myspinplays') }}</span>
                     </router-link>
                     <div class="user-action-spacer"></div>
                     <router-link to="/settings" class="user-action-item">
                         <i class="mdi mdi-cog"></i>
-                        <span>App-Settings</span>
+                        <span>{{ $t('navigation.appsettings') }}</span>
                     </router-link>
                     <div v-on:click="openExternal('https://spinsha.re/settings')" class="user-action-item">
                         <i class="mdi mdi-cog"></i>
-                        <span>Account-Settings</span>
+                        <span>{{ $t('navigation.accountsettings') }}</span>
                     </div>
                     <div class="user-action-spacer"></div>
                     <div v-on:click="userLogout()" class="user-action-item">
                         <i class="mdi mdi-close-circle-outline"></i>
-                        <span>Logout</span>
+                        <span>{{ $t('navigation.logout') }}</span>
                     </div>
                 </div>
             </div>

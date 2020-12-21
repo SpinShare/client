@@ -57,6 +57,14 @@
                     </div>
                     <div class="settings-hint">{{ $t('settings.general.silentQueue.explaination') }}</div>
                 </div>
+
+                <div class="settings-item">
+                    <div class="settings-label">{{ $t('settings.general.clientcache.label') }}</div>
+                    <div class="settings-input settings-input-onebutton">
+                        <span>{{ cacheSize }} MB used.</span>
+                        <button v-on:click="ClearCache()">{{ $t('settings.general.clientcache.clearButton') }}</button>
+                    </div>
+                </div>
             </div>
             <!-- Botch -->
             <div class="settings-box">
@@ -75,6 +83,7 @@
 <script>
     import { remote } from 'electron';
     const { app, dialog } = remote;
+    const getSize = require('get-folder-size');
 
     import UserSettings from '@/modules/module.usersettings.js';
     import SSAPI from '@/modules/module.api.js';
@@ -87,7 +96,8 @@
                 environment: "",
                 settingLanguage: "",
                 settingGameDirectory: "",
-                settingSilentQueue: false
+                settingSilentQueue: false,
+                cacheSize: 0,
             }
         },
         mounted: function() {
@@ -99,6 +109,10 @@
             this.$data.settingLanguage = userSettings.get('language');
             this.$data.settingGameDirectory = userSettings.get('gameDirectory');
             this.$data.settingSilentQueue = userSettings.get('silentQueue');
+
+            console.log(getSize(remote.app.getPath('userData') + '/Cache', (error, size) => {
+                this.$data.cacheSize = (size / 1000 / 1000).toFixed(2);
+            }));
         },
         methods: {
             SelectGameDirectory: function() {
@@ -139,6 +153,11 @@
                     } else {
                         this.$root.$emit('showUpdateOverlay', false);
                     }
+                });
+            },
+            ClearCache: function() {
+                remote.getCurrentWindow().webContents.session.clearCache(function(){
+                    remote.getCurrentWindow().reload();
                 });
             }
         }
@@ -191,6 +210,11 @@
                         display: grid;
                         grid-template-columns: 1fr;
                         grid-gap: 5px;
+
+                        &.settings-input-onebutton {
+                            grid-template-columns: 1fr auto;
+                            align-items: center;
+                        }
 
                         &.settings-input-twobuttons {
                             grid-template-columns: 1fr auto auto;

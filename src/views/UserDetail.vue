@@ -4,9 +4,9 @@
             <div class="detail">
                 <div class="user-avatar" :style="'background-image: url(' + avatar + '), url(' + require('@/assets/img/defaultAvatar.jpg') + ');'"></div>
                 <div class="user-data">
-                    <div class="user-name">{{ username }} <i class="mdi mdi-patreon" v-if="isVerified"></i></div>
+                    <div class="user-name"><span v-if="pronouns != ''">{{ pronouns }}</span> {{ username }} <i class="mdi mdi-patreon" v-if="isVerified"></i></div>
                     <div class="user-actions">
-                        <button class="button" v-on:click="OpenReport()">{{ $t('userdetail.actions.reportButton') }}</button>
+                        <button class="button" v-on:click="OpenReport()">{{ $t('contextmenu.report') }}</button>
                     </div>
                 </div>
             </div>
@@ -16,9 +16,10 @@
             </div>
 
             <div class="tabs">
-                <router-link :to="{ name: 'UserDetailCharts', params: { id: id } }" class="tab" exact>Charts ({{ songs }})</router-link>
-                <router-link :to="{ name: 'UserDetailReviews', params: { id: id } }" class="tab" exact>Reviews ({{ reviews }})</router-link>
-                <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: id } }" class="tab" exact>SpinPlays ({{ spinplays }})</router-link>
+                <router-link :to="{ name: 'UserDetailCharts', params: { id: id } }" class="tab" exact>{{ $t('userdetail.tabs.charts', {charts: songs}) }}</router-link>
+                <router-link :to="{ name: 'UserDetailPlaylists', params: { id: id } }" class="tab" exact>{{ $t('userdetail.tabs.playlists', {playlists: playlists}) }}</router-link>
+                <router-link :to="{ name: 'UserDetailReviews', params: { id: id } }" class="tab" exact>{{ $t('userdetail.tabs.reviews', {reviews: reviews}) }}</router-link>
+                <router-link :to="{ name: 'UserDetailSpinPlays', params: { id: id } }" class="tab" exact>{{ $t('userdetail.tabs.spinplays', {spinplays: spinplays}) }}</router-link>
             </div>
         </header>
 
@@ -56,11 +57,13 @@
                 apiFinished: false,
                 id: 0,
                 username: "",
+                pronouns: "",
                 isVerified: false,
                 isPatreon: false,
                 avatar: "",
                 cards: [],
                 songs: 0,
+                playlists: 0,
                 reviews: 0,
                 spinplays: 0,
                 showCardOverlay: false,
@@ -74,11 +77,13 @@
                 if(data.status == 200) {
                     this.$data.id = data.data.id;
                     this.$data.username = data.data.username;
+                    this.$data.pronouns = data.data.pronouns;
                     this.$data.isVerified = data.data.isVerified;
                     this.$data.isPatreon = data.data.isPatreon;
                     this.$data.avatar = data.data.avatar;
                     this.$data.cards = data.data.cards;
                     this.$data.songs = data.data.songs;
+                    this.$data.playlists = data.data.playlists;
                     this.$data.reviews = data.data.reviews;
                     this.$data.spinplays = data.data.spinplays;
                     this.$data.apiFinished = true;
@@ -167,6 +172,18 @@
                     & .user-name {
                         font-size: 22px;
                         margin-bottom: 22px;
+
+                        & span {
+                            display: inline-block;
+                            background: rgba(255,255,255,0.2);
+                            color: #fff;
+                            font-size: 8px;
+                            font-weight: bold;
+                            padding: 4px 6px;
+                            border-radius: 2px;
+                            transform: translateY(-3px);
+                            margin-right: 5px;
+                        }
                     }
                     & .user-actions {
                         & .button {

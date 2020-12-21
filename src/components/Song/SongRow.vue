@@ -1,9 +1,9 @@
 <template>
     <div class="song-row">
-        <div class="song-list" v-if="!playlist">
+        <div class="song-list" v-if="playlist != 'true'">
             <slot name="song-list"></slot>
         </div>
-        <div class="song-list-playlist" v-if="playlist">
+        <div class="song-list-playlist" v-if="playlist == 'true'">
             <slot name="song-list"></slot>
         </div>
         <div class="noresults">

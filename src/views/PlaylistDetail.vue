@@ -4,8 +4,8 @@
             <div class="cover" :style="'background-image: url(' + cover + ');'">
                 <div class="shade" v-if="!isOfficial">
                     <div class="content">
-                        <div class="title">{{ title }}<span class="official-badge" v-if="isOfficial">OFFICIAL</span></div>
-                        <div class="quickinfo">{{ songs.length }} Charts</div>
+                        <div class="title">{{ title }}<span class="official-badge" v-if="isOfficial">{{ $t('playlistdetail.header.official') }}</span></div>
+                        <div class="quickinfo">{{ $t('playlistdetail.header.charts', {amountOfCharts: songs.length}) }}</div>
                     </div>
                 </div>
             </div>
@@ -16,12 +16,12 @@
                     </div>
                     <div class="playlist-actions">
                         <div class="action-row">
-                            <div v-on:click="CopyLink()" class="action">
+                            <div v-on:click="CopyLink()" class="action" v-tooltip.down="$t('contextmenu.copyLink')">
                                 <div class="icon">
                                     <i class="mdi mdi-content-copy"></i>
                                 </div>
                             </div>
-                            <div v-on:click="AddToQueue()" class="action">
+                            <div v-on:click="AddToQueue()" class="action" v-tooltip.down="$t('contextmenu.download')">
                                 <div class="icon">
                                     <i class="mdi mdi-download"></i>
                                 </div>
@@ -29,13 +29,13 @@
                         </div>
                     </div>
                     <div class="playlist-uploader" v-if="!isOfficial">
-                        <div class="label">Created by</div>
+                        <div class="label">{{ $t('playlistdetail.detail.createdby') }}</div>
                         <UserItem v-bind="user" />
                     </div>
                     <div class="playlist-charters" v-if="songs.length > 0">
-                        <div class="label">With Charts by</div>
+                        <div class="label">{{ $t('playlistdetail.detail.withchartsby') }}</div>
                         <div class="charters">
-                            charters
+                            <router-link :to="{ name: 'Search', params: { searchQuery: charter } }" v-for="charter in charters" class="username">{{ charter }}</router-link>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     </template>
                 </SongRow>
                 <div class="list-noresults" v-if="songs.length === 0">
-                    <div class="noresults-text">This playlist is empty.</div>
+                    <div class="noresults-text">{{ $t('playlistdetail.list.noresults') }}</div>
                 </div>
             </div>
         </section>
@@ -90,6 +90,7 @@ export default {
             isOfficial: false,
             user: null,
             songs: [],
+            charters: []
         }
     },
     mounted: function() {
@@ -100,12 +101,16 @@ export default {
         ssapi.getPlaylistDetail(routeID).then((data) => {
             if(data.status == 200) {
                 this.$data.id = data.data.id;
-                this.$data.cover = data.data.paths.cover;
+                this.$data.cover = data.data.cover;
                 this.$data.title = data.data.title;
                 this.$data.description = data.data.description;
                 this.$data.isOfficial = data.data.isOfficial;
                 this.$data.user = data.data.user;
                 this.$data.songs = data.data.songs;
+
+                this.$data.songs.forEach((song) => {
+                    this.$data.charters.push(song.charter);
+                });
 
                 this.$data.apiFinished = true;
             }  else {
@@ -271,9 +276,21 @@ export default {
                     &:hover {
                         opacity: 0.6;
                     }
+
+                    &:not(:last-child):after {
+                        content: ", ";
+                    }
                 }
             }
         }
     }
+}
+.list-noresults {
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 25px;
+    opacity: 0.6;
+    text-align: center;
+    align-self: start;
 }
 </style>

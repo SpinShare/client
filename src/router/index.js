@@ -16,6 +16,7 @@ import ViewUserDetail from '../views/UserDetail.vue';
 import ViewUserDetailCharts from '../views/UserDetailCharts.vue';
 import ViewUserDetailReviews from '../views/UserDetailReviews.vue';
 import ViewUserDetailSpinPlays from '../views/UserDetailSpinPlays.vue';
+import ViewUserDetailPlaylists from '../views/UserDetailPlaylists.vue';
 import ViewPlaylistDetail from '../views/PlaylistDetail.vue';
 import ViewSettings from '../views/Settings.vue';
 import ViewTournament from '../views/Tournament.vue';
@@ -99,6 +100,12 @@ const routes = [{
             path: 'reviews',
             name: 'UserDetailReviews',
             component: ViewUserDetailReviews
+        },
+        {
+            alias: '',
+            path: 'playlists',
+            name: 'UserDetailPlaylists',
+            component: ViewUserDetailPlaylists
         },
         {
             alias: '',

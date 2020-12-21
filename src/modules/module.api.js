@@ -101,6 +101,12 @@ class SSAPI {
         return this.getOpenData("user/" + _userId + "/charts", true);
     }
 
+    async getUserPlaylists(_userId) {
+        let apiPath = this.apiBase + "user/" + _userId + "/playlists";
+
+        return this.getOpenData("user/" + _userId + "/playlists", true);
+    }
+
     async getUserReviews(_userId) {
         let apiPath = this.apiBase + "user/" + _userId + "/reviews";
 

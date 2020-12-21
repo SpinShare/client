@@ -7,7 +7,7 @@
             </div>
         </header>
         <div class="error-content">
-            <div class="button" v-on:click="retry()">Try again</div>
+            <div class="button" v-on:click="retry()">{{ $t('connectionerror.tryagain') }}</div>
         </div>
     </section>
 </template>

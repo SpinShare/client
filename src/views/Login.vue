@@ -6,16 +6,16 @@
         <div class="login-box" v-if="!hasValidToken && !apiLoginLoading">
             <div class="logo"><img src="https://spinsha.re/assets/img/logo_colored_ondark.svg" alt="SpinShare Logo" /></div>
             
-            <div class="explaination">To use the SpinShare client, you need an active SpinShare user profile. Insert your connect code to log into your account. You can find your connect code in your account settings under the "Connect" tab.</div>
+            <div class="explaination">{{ $t('login.explaination') }}</div>
 
             <input type="text" maxlength="6" class="connectcodeInput" placeholder="000000" v-model="connectCode" />
 
-            <div class="error" v-if="apiLoginCodeError">The connect code is wrong or expired. Please try again!</div>
+            <div class="error" v-if="apiLoginCodeError">{{ $t('login.error.code') }}</div>
 
-            <div class="error" v-if="apiLoginServerError">Couldn't reach the SpinShare server. Please try again later!</div>
+            <div class="error" v-if="apiLoginServerError">{{ $t('login.error.server') }}</div>
 
             <div class="actions">
-                <button class="button" v-on:click="connect()" :disabled="!canConnect">Connect</button>
+                <button class="button" v-on:click="connect()" :disabled="!canConnect">{{ $t('login.action.connect') }}</button>
             </div>
         </div>
     </section>
@@ -58,10 +58,6 @@
                 }).catch(() => {
                     this.showLoginBox();
                 });
-
-                // Check if connect token is valid
-                // Show Login Startup if not
-                // Show Startup if yes
             }
         },
         methods: {
@@ -81,7 +77,7 @@
 
                         switch (data.status) {
                             case 200:
-                                // Successfull
+                                // Successful Token
                                 userSettings.set("connectToken", data.data);
                                 this.loadIntoProfile();
                                 break;

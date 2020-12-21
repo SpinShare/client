@@ -171,9 +171,6 @@
 
                 shell.openExternal(userSettings.get('gameDirectory'));
             },
-            install: function() {
-                this.$parent.$parent.$emit('install');
-            },
             getSongDetail: async function(filePath) {
                 let ssapi = new SSAPI();
                 let trackInfo = {};
