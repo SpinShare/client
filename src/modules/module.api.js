@@ -5,7 +5,7 @@ class SSAPI {
         if(process.env.NODE_ENV !== 'development') {
             return true;
         } else {
-            return true;
+            return false;
         }
     }
 
