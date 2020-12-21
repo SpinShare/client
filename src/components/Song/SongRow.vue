@@ -1,6 +1,9 @@
 <template>
     <div class="song-row">
-        <div class="song-list">
+        <div class="song-list" v-if="!playlist">
+            <slot name="song-list"></slot>
+        </div>
+        <div class="song-list-playlist" v-if="playlist">
             <slot name="song-list"></slot>
         </div>
         <div class="noresults">
@@ -16,7 +19,8 @@
         name: 'SongRow',
         props: [
             'title',
-            'noactions'
+            'noactions',
+            'playlist'
         ]
     }
 </script>
@@ -30,6 +34,11 @@
         & .song-list {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+        & .song-list-playlist {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             grid-gap: 15px;
         }
         & .song-list-noresults {
@@ -51,6 +60,28 @@
             & .button {
                 margin-left: 10px;
                 display: inline;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1600px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            }
+            & .song-list-playlist {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1300px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+            & .song-list-playlist {
+                grid-template-columns: 1fr 1fr 1fr;
             }
         }
     }

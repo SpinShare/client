@@ -3,9 +3,9 @@ const axios = require('axios');
 class SSAPI {
     isDev() {
         if(process.env.NODE_ENV !== 'development') {
-            return false;
+            return true;
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -13,313 +13,168 @@ class SSAPI {
 
     constructor() {
         if(this.isDev()) {
-            this.apiBase = "http://localhost/www/spinshare/server/public/index.php/api/";
+            this.apiBase = "http://localhost/www/spinshare/server/public/api/";
         } else {
             this.apiBase = "https://spinsha.re/api/";
         }
-        this.supportedVersion = 1;
+    }
+
+    async getOpenData(apiEndpoint, showResponseData) {
+        let apiPath = this.apiBase + apiEndpoint;
+
+        return axios.get(apiPath)
+            .then(function(response) {
+                if(showResponseData) {
+                    return response.data;
+                } else {
+                    return response.data.data;
+                }
+            }).catch(function(error) {
+                console.error(error);
+                return false;
+            });
     }
 
     async ping() {
         let apiPath = this.apiBase + "ping";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("ping", false);
     }
 
     async getStreamStatus() {
         let apiPath = this.apiBase + "streamStatus";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("streamStatus", false);
     }
 
     async getLatestVersion() {
         let apiPath = this.apiBase + "latestVersion/" + process.platform;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("latestVersion/" + process.platform, false);
     }
 
     async getPromos() {
         let apiPath = this.apiBase + "promos";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
-    }
-
-    async getLatestVersion() {
-        let apiPath = this.apiBase + "latestVersion/" + process.platform;
-        let supportedVersion = this.supportedVersion;
-
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("promos", false);
     }
 
     async getNewSongs(_offset) {
         let apiPath = this.apiBase + "songs/new/" + _offset;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("songs/new/" + _offset, false);
     }
 
     async getHotSongs(_offset) {
         let apiPath = this.apiBase + "songs/hot/" + _offset;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("songs/hot/" + _offset, false);
     }
 
     async getSongDetail(_songId) {
         let apiPath = this.apiBase + "song/" + _songId;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("song/" + _songId, true);
     }
 
     async getSongDetailReviews(_songId) {
         let apiPath = this.apiBase + "song/" + _songId + "/reviews";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("song/" + _songId + "/reviews", true);
     }
 
     async getSongDetailSpinPlays(_songId) {
         let apiPath = this.apiBase + "song/" + _songId + "/spinplays";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("song/" + _songId + "/spinplays", true);
     }
 
     async getUserDetail(_userId) {
         let apiPath = this.apiBase + "user/" + _userId;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("user/" + _userId, true);
     }
 
     async getUserCharts(_userId) {
         let apiPath = this.apiBase + "user/" + _userId + "/charts";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("user/" + _userId + "/charts", true);
     }
 
     async getUserReviews(_userId) {
         let apiPath = this.apiBase + "user/" + _userId + "/reviews";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("user/" + _userId + "/reviews", true);
     }
 
     async getUserSpinPlays(_userId) {
         let apiPath = this.apiBase + "user/" + _userId + "/spinplays";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("user/" + _userId + "/spinplays", true);
+    }
+
+    async getPlaylistDetail(_playlistId) {
+        let apiPath = this.apiBase + "playlist/" + _playlistId;
+
+        return this.getOpenData("playlist/" + _playlistId, true);
     }
 
     async searchAll() {
         let apiPath = this.apiBase + "searchAll";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("searchAll", true);
     }
 
     async search(_searchQuery) {
         let apiPath = this.apiBase + "search";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath, {
-            searchQuery: _searchQuery
-        })
+        return axios.post(apiPath, JSON.stringify({ searchQuery: _searchQuery }))
         .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
+            console.log(response);
+
             return response.data;
         }).catch(function(error) {
-            throw new Error(error);
+            console.error(error);
+            return false;
         });
     }
 
     async getTournamentMappool() {
         let apiPath = this.apiBase + "tournament/mappool";
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
+        return this.getOpenData("tournament/mappool", true);
     }
 
     async getConnectToken(connectCode) {
         let apiPath = this.apiBase + "connect/getToken?connectCode=" + connectCode + "&connectAppApiKey=" + this.connectAppApiKey;
-        let supportedVersion = this.supportedVersion;
+
+        console.log("[API] Get Token");
+
+        console.log(apiPath);
 
         return axios.get(apiPath)
         .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
+            switch(response.data.status) {
+                case 200:
+                    return response.data;
+                case 403:
+                    return false;
+                case 500:
+                    return false;
             }
-            
-            return response.data;
         }).catch(function(error) {
-            throw new Error(error);
+            console.error(error);
+            return false;
         });
     }
 
     async validateConnectToken(connectToken) {
         let apiPath = this.apiBase + "connect/validateToken/?connectToken=" + connectToken;
-        let supportedVersion = this.supportedVersion;
+
+        console.log("[API] Validate Token");
 
         return axios.get(apiPath)
         .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
             switch(response.data.status) {
                 case 200:
                     return true;
@@ -329,24 +184,15 @@ class SSAPI {
                     return false;
             }
         }).catch(function(error) {
-            throw new Error(error);
+            console.error(error);
+            return false;
         });
     }
 
     async getConnectProfile(connectToken) {
         let apiPath = this.apiBase + "connect/profile/?connectToken=" + connectToken;
-        let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
-            .then(function(response) {
-                if(response.data.version !== supportedVersion) {
-                    throw new Error("Client is outdated!");
-                }
-
-                return response.data.data;
-            }).catch(function(error) {
-                throw new Error(error);
-            });
+        return this.getOpenData("connect/profile/?connectToken=" + connectToken, false);
     }
 }
 

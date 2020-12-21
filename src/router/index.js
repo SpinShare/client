@@ -16,6 +16,7 @@ import ViewUserDetail from '../views/UserDetail.vue';
 import ViewUserDetailCharts from '../views/UserDetailCharts.vue';
 import ViewUserDetailReviews from '../views/UserDetailReviews.vue';
 import ViewUserDetailSpinPlays from '../views/UserDetailSpinPlays.vue';
+import ViewPlaylistDetail from '../views/PlaylistDetail.vue';
 import ViewSettings from '../views/Settings.vue';
 import ViewTournament from '../views/Tournament.vue';
 import ViewError from '../views/Error.vue';
@@ -106,6 +107,10 @@ const routes = [{
             component: ViewUserDetailSpinPlays
         }
     ]
+}, {
+    path: '/playlist/:id',
+    name: 'PlaylistDetail',
+    component: ViewPlaylistDetail,
 }, {
     path: '/settings',
     name: 'Settings',

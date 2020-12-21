@@ -99,11 +99,16 @@
 
                 if(this.$data.searchQuery !== "") {
                     ssapi.search(this.$data.searchQuery).then((data) => {
+                        console.log(data);
+
                         if(data.status === 200) {
                             this.$data.searchResultsUsers = data.data.users;
                             this.$data.searchResultsSongs = data.data.songs;
 
                             this.$data.apiFinished = true;
+                        } else if(data.status === 404) {
+                            this.$data.searchResultsUsers = [];
+                            this.$data.searchResultsSongs = [];
                         } else {
                             this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                         }

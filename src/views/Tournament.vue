@@ -4,7 +4,7 @@
         <header>
             <div class="title">Tournament WarpZone</div>
             <div class="description">
-                This page looks very ugly, sorry about that &dash; Andreas
+                It's gonna be better next SSSO! I promise!! &dash; Laura
             </div>
         </header>
         <div class="tournament-content" v-if="apiFinished">
@@ -15,21 +15,21 @@
             <div class="check-result" v-if="missingCharts.length > 0">
                 <div class="list-title title-missing">Missing</div>
                 <div class="item" v-for="missingChart in missingCharts" v-bind:key="missingChart.id">
-                    <div class="cover" :style="'background-image: url(' + missingChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
+                    <div class="cover" :style="'background-image: url(' + missingChart.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
                     <div class="title">{{ missingChart.title }}</div>
                 </div>
             </div>
             <div class="check-result" v-if="outdatedCharts.length > 0">
                 <div class="list-title title-outdated">Outdated</div>
                 <div class="item" v-for="outdatedChart in outdatedCharts" v-bind:key="outdatedChart.id">
-                    <div class="cover" :style="'background-image: url(' + outdatedChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
+                    <div class="cover" :style="'background-image: url(' + outdatedChart.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
                     <div class="title">{{ outdatedChart.title }}</div>
                 </div>
             </div>
             <div class="check-result" v-if="okCharts.length > 0">
                 <div class="list-title title-ok">OK</div>
                 <div class="item" v-for="okChart in okCharts" v-bind:key="okChart.id">
-                    <div class="cover" :style="'background-image: url(' + okChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
+                    <div class="cover" :style="'background-image: url(' + okChart.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
                     <div class="title">{{ okChart.title }}</div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
         mounted: function() {
             let ssapi = new SSAPI();
 
-            ssapi.getTournamentMappool().then((data) => {
+            ssapi.getPlaylistDetail(5).then((data) => {
                 this.$data.apiFinished = true;
 
-                this.$data.tournamentCharts = data.data;
+                this.$data.tournamentCharts = data.data.songs;
             });
         },
         methods: {
@@ -84,7 +84,7 @@
                             this.$data.missingCharts.push(chart);
                         } else {
                             // Check MD5
-                            if(md5File.sync(files[0]) == chart.srtbMD5) {
+                            if(md5File.sync(files[0]) == chart.currentVersion) {
                                 this.$data.okCharts.push(chart);
                             } else {
                                 this.$data.outdatedCharts.push(chart);
@@ -99,10 +99,10 @@
             downloadCharts: function() {
                 // Add to Queue
                 this.$data.missingCharts.forEach((chart) => {
-                    this.$root.$emit('download', {id: chart.id, cover: chart.paths.cover, title: chart.title, artist: chart.artist, downloadPath: chart.paths.zip});
+                    this.$root.$emit('download', {id: chart.id, cover: chart.cover, title: chart.title, artist: chart.artist, downloadPath: chart.zip});
                 });
                 this.$data.outdatedCharts.forEach((chart) => {
-                    this.$root.$emit('download', {id: chart.id, cover: chart.paths.cover, title: chart.title, artist: chart.artist, downloadPath: chart.paths.zip});
+                    this.$root.$emit('download', {id: chart.id, cover: chart.cover, title: chart.title, artist: chart.artist, downloadPath: chart.zip});
                 });
 
                 // Clear Analyzation data

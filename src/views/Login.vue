@@ -75,24 +75,32 @@
 
                 console.log("Trying connection with code '" + this.$data.connectCode + "'");
 
-                ssapi.getConnectToken(this.$data.connectCode).then((data) => {
-                    switch(data.status) {
-                        case 200:
-                            // Successfull
-                            userSettings.set("connectToken", data.data);
-                            this.loadIntoProfile();
-                        break;
-                        case 403:
-                        case 404:
-                            // Token invalid
-                            this.showLoginBox();
-                            this.$data.apiLoginCodeError = true;
-                        break;
-                    }
-                }).catch((error) => {
+                try {
+                    ssapi.getConnectToken(this.$data.connectCode).then((data) => {
+                        console.log(data);
+
+                        switch (data.status) {
+                            case 200:
+                                // Successfull
+                                userSettings.set("connectToken", data.data);
+                                this.loadIntoProfile();
+                                break;
+                            default:
+                                // Token invalid
+                                this.showLoginBox();
+                                this.$data.apiLoginCodeError = true;
+                                break;
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                        this.showLoginBox();
+                        this.$data.apiLoginServerError = true;
+                    });
+                } catch(error) {
+                    console.error(error);
                     this.showLoginBox();
                     this.$data.apiLoginServerError = true;
-                });
+                }
             },
             showLoginBox: function() {
                 this.$data.apiLoginLoading = false;
