@@ -4,7 +4,7 @@
         <header>
             <div class="title">Tournament WarpZone</div>
             <div class="description">
-                This page looks very ugly, sorry about that &dash; Andreas
+                This page looks very ugly, sorry about that &dash; Laura
             </div>
         </header>
         <div class="tournament-content" v-if="apiFinished">
