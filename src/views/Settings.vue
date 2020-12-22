@@ -27,14 +27,14 @@
                         <select v-on:change="ChangeLanguage()" v-model="settingLanguage" class="settings-input-language">
                             <option value="en">English (English)</option>
                             <option value="de">Deutsch (German)</option>
-                            <option value="nl">Nederlands (Dutch)</option>
+                            <!-- <option value="nl">Nederlands (Dutch)</option>
                             <option value="pl">Polski (Polish)</option>
                             <option value="fr">Français (French)</option>
                             <option value="pt-BR">Português Brasileiro (Brazilian Portuguese)</option>
                             <option value="es">Español (Spanish)</option>
                             <option value="ru">Русский (Russian)</option>
                             <option value="kr">한국어 (Korean)</option>
-                            <option value="zh-CN">简体中文 (Simplified Chinese)</option>
+                            <option value="zh-CN">简体中文 (Simplified Chinese)</option> -->
                             <option value="speen">Speen (Speen)</option>
                         </select>
                     </div>

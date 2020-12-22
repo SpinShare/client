@@ -104,7 +104,15 @@
             let ssapi = new SSAPI();
 
             ssapi.getLatestVersion().then((data) => {
-                if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {
+                let installedVersion = app.getVersion().split(".");
+
+                let installedMajor = parseInt(installedVersion[0]);
+                let installedMinor = parseInt(installedVersion[1]);
+                let installedPatch = parseInt(installedVersion[2]);
+
+                if(installedMajor < data.majorVersion ||
+                    installedMajor == data.majorVersion && installedMinor < data.minorVersion ||
+                    installedMajor == data.majorVersion && installedMinor == data.minorVersion && installedPatch < data.patchVersion) {
                     this.$data.showUpdateOverlay = true;
                     this.$data.isUpdateAvailable = true;
                 }
