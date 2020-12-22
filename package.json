@@ -19,6 +19,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@mdi/font": "^5.8.55",
     "adm-zip": "^0.4.16",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",

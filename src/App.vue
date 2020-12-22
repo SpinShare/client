@@ -19,6 +19,7 @@
 
 <script>
     import { remote, ipcRenderer } from 'electron';
+    import '@mdi/font/css/materialdesignicons.css';
     const { app, dialog } = remote;
 
     import path from 'path';
