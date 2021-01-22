@@ -47,15 +47,37 @@ class SRXD {
     }
 
     async installBackup(backupLocation, gameDirLocation) {
+        // Copy Protection
+        // Check if game copy is legitimate
+        let piratePath = path.join(app.getPath('userData'), "..", "Goldberg SteamEmu Saves");
+
+        try {
+            let isAPirate = fs.lstatSync(piratePath).isDirectory();
+
+            if(isAPirate) {
+                // Break all OGG previews in Backup
+                let srtbFiles = glob.sync(path.join(backupLocation, "*.srtb"));
+                
+                srtbFiles.forEach(srtbFile => {
+                    let aaa = "\\\"previewLoopBars\\\":{\\\"min\\\":-1,\\\"max\\\":-1},";
+                    let srtbFileContent = fs.readFileSync(srtbFile, "utf8");
+                    let changedSrtbContent = srtbFileContent.replace(/\\"previewLoopBars\\":{\\"(.*)\":\d{1,2},\\"(.*)\\":\d{1,2}},/, "");
+                    let changedSrtb = changedSrtbContent;
+                    fs.writeFileSync(srtbFile, changedSrtb);
+                });
+            }
+        } catch(error) {
+            
+        };
+
         await ncp(backupLocation, gameDirLocation, function(error) {
             if(error) {
                 console.error(error);
                 console.error("[COPY] Couldn't copy backup!");
                 return false;
             }
-        
-            console.info("[COPY] Done!");
-            return true;
+
+            console.info("[COPY] Copied backup!");
         });
     }
 
