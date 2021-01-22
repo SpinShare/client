@@ -10,11 +10,11 @@
                 <div class="song-title">{{ title }}</div>
                 <div class="song-artist">{{ artist }}</div>
                 <div class="song-difficulties">
-                    <div :class="hasEasyDifficulty ? 'difficulty active' : 'difficulty'"><span>E</span></div>
-                    <div :class="hasNormalDifficulty ? 'difficulty active' : 'difficulty'"><span>N</span></div>
-                    <div :class="hasHardDifficulty ? 'difficulty active' : 'difficulty'"><span>H</span></div>
-                    <div :class="hasExtremeDifficulty ? 'difficulty active' : 'difficulty'"><span>EX</span></div>
-                    <div :class="hasXDDifficulty ? 'difficulty active' : 'difficulty'"><span>XD</span></div>
+                    <div v-if="hasEasyDifficulty" class="difficulty"><span>E</span> {{ easyDifficulty ? easyDifficulty : 0 }}</div>
+                    <div v-if="hasNormalDifficulty" class="difficulty"><span>N</span> {{ normalDifficulty ? normalDifficulty : 0 }}</div>
+                    <div v-if="hasHardDifficulty" class="difficulty"><span>H</span> {{ hardDifficulty ? hardDifficulty : 0 }}</div>
+                    <div v-if="hasExtremeDifficulty" class="difficulty"><span>EX</span> {{ expertDifficulty ? expertDifficulty : 0 }}</div>
+                    <div v-if="hasXDDifficulty" class="difficulty"><span>XD</span> {{ XDDifficulty ? XDDifficulty : 0 }}</div>
                 </div>
             </div>
         </router-link>
@@ -39,6 +39,11 @@
             'hasHardDifficulty',
             'hasExtremeDifficulty',
             'hasXDDifficulty',
+            'easyDifficulty',
+            'normalDifficulty',
+            'hardDifficulty',
+            'expertDifficulty',
+            'XDDifficulty',
             'zip'
         ],
         data: function() {
@@ -160,18 +165,13 @@
                     background: #fff;
                     color: #000;
                     border-radius: 4px;
-                    padding: 3px 8px;
+                    padding: 3px 5px;
                     margin-right: 4px;
                     font-size: 10px;
-                    opacity: 0.3;
 
                     & span {
                         // padding-right: 3px;
                         font-weight: bold;
-                    }
-
-                    &.active {
-                        opacity: 1;
                     }
                 }
             }
