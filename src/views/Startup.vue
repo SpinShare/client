@@ -5,7 +5,6 @@
                 <router-link to="/" class="tab"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
                 <router-link to="/new" class="tab"><span>{{ $t('startup.tabs.new') }}</span></router-link>
                 <router-link to="/hot" class="tab"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
-                <router-link to="/popular" class="tab"><span>{{ $t('startup.tabs.popular') }}</span></router-link>
             </div>
         </header>
 
