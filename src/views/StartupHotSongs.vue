@@ -7,7 +7,7 @@
         <template v-slot:song-list>
             <SongItemPlaceholder
                 v-if="isHotSongsLoading"
-                v-for="n in 9"
+                v-for="n in 10"
                 v-bind:key="n" />
             <SongItem
                 v-if="!isHotSongsLoading"
@@ -36,7 +36,7 @@
         mounted: function() {
             let ssapi = new SSAPI();
             
-            ssapi.getHotSongs(this.$data.hotSongsOffset).then((data) => {
+            ssapi.getHotThisWeekSongs(this.$data.hotSongsOffset).then((data) => {
                 this.$data.isHotSongsLoading = false;
                 this.$data.hotSongs = data;
             });
@@ -63,7 +63,7 @@
                 let ssapi = new SSAPI();
                 this.$data.isHotSongsLoading = true;
 
-                ssapi.getHotSongs(this.$data.hotSongsOffset).then((data) => {
+                ssapi.getHotThisWeekSongs(this.$data.hotSongsOffset).then((data) => {
                     this.$data.isHotSongsLoading = false;
                     this.$data.hotSongs = data;
                 });
