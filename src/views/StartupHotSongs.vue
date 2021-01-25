@@ -2,12 +2,12 @@
     <SongRow>
         <template v-slot:controls>
             <div :class="'button ' + (hotSongsOffset == 0 ? 'button-disabled' : '')" v-on:click="hotPrevious()"><i class="mdi mdi-chevron-left"></i> {{ $t('songrow.navigation.previous' )}}</div>
-            <div :class="'button ' + (hotSongs.length < 11 ? 'button-disabled' : '')" v-on:click="hotNext()">{{ $t('songrow.navigation.next' )}} <i class="mdi mdi-chevron-right"></i></div>
+            <div :class="'button ' + (hotSongs.length < 9 ? 'button-disabled' : '')" v-on:click="hotNext()">{{ $t('songrow.navigation.next' )}} <i class="mdi mdi-chevron-right"></i></div>
         </template>
         <template v-slot:song-list>
             <SongItemPlaceholder
                 v-if="isHotSongsLoading"
-                v-for="n in 12"
+                v-for="n in 9"
                 v-bind:key="n" />
             <SongItem
                 v-if="!isHotSongsLoading"
@@ -48,7 +48,7 @@
         },
         methods: {
             hotNext: function() {
-                if(this.$data.hotSongs.length > 11) {
+                if(this.$data.hotSongs.length > 9) {
                     this.$data.hotSongsOffset++;
                     this.updateHot();
                 }
