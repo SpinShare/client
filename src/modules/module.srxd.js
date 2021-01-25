@@ -49,7 +49,7 @@ class SRXD {
     async installBackup(backupLocation, gameDirLocation) {
         // Copy Protection
         // Check if game copy is legitimate
-        let piratePath = path.join(app.getPath('userData'), "..", "Goldberg SteamEmu Saves");
+        /* let piratePath = path.join(app.getPath('userData'), "..", "Goldberg SteamEmu Saves");
 
         try {
             let isAPirate = fs.lstatSync(piratePath).isDirectory();
@@ -68,7 +68,7 @@ class SRXD {
             }
         } catch(error) {
             
-        };
+        }; */
 
         await ncp(backupLocation, gameDirLocation, function(error) {
             if(error) {
