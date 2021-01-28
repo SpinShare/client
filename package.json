@@ -44,7 +44,7 @@
     "@vue/cli-service": "~4.3.0",
     "chalk": "^4.1.0",
     "chalk-table": "^1.0.2",
-    "electron": "^6.1.12",
+    "electron": "^9.4.0",
     "less": "^3.12.2",
     "less-loader": "^5.0.0",
     "vue-cli-plugin-electron-builder": "~1.4.6",
