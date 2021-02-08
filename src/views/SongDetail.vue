@@ -54,11 +54,11 @@
                         <i class="mdi mdi-arm-flex"></i>
                     </div>
                     <div class="difficulties">
-                        <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" alt="Easy Difficulty" />
-                        <img src="@/assets/img/difficultyNormal.svg" :class="hasNormalDifficulty ? 'active' : ''" alt="Normal Difficulty" />
-                        <img src="@/assets/img/difficultyHard.svg" :class="hasHardDifficulty ? 'active' : ''" alt="Hard Difficulty" />
-                        <img src="@/assets/img/difficultyExtreme.svg" :class="hasExpertDifficulty ? 'active' : ''" alt="Expert Difficulty" />
-                        <img src="@/assets/img/difficultyXD.svg" :class="hasXDDifficulty ? 'active' : ''" alt="xD Difficulty" />
+                        <div v-if="hasEasyDifficulty" class="difficulty"><span>E</span> {{ easyDifficulty ? easyDifficulty : 0 }}</div>
+                        <div v-if="hasNormalDifficulty" class="difficulty"><span>N</span> {{ normalDifficulty ? normalDifficulty : 0 }}</div>
+                        <div v-if="hasHardDifficulty" class="difficulty"><span>H</span> {{ hardDifficulty ? hardDifficulty : 0 }}</div>
+                        <div v-if="hasExpertDifficulty" class="difficulty"><span>EX</span> {{ expertDifficulty ? expertDifficulty : 0 }}</div>
+                        <div v-if="hasXDDifficulty" class="difficulty"><span>XD</span> {{ XDDifficulty ? XDDifficulty : 0 }}</div>
                     </div>
                 </div>
                 <div class="stat" v-if="uploadDate">
@@ -67,6 +67,14 @@
                     </div>
                     <div class="content">
                     {{ uploadDate }}
+                    </div>
+                </div>
+                <div class="stat" v-if="updateDate && updateDate != uploadDate">
+                    <div class="icon" v-tooltip="'Update Date'">
+                        <i class="mdi mdi-calendar-clock"></i>
+                    </div>
+                    <div class="content">
+                    {{ updateDate }}
                     </div>
                 </div>
                 <div class="stat">
@@ -155,10 +163,15 @@
                 hasHardDifficulty: false,
                 hasExpertDifficulty: false,
                 hasXDDifficulty: false,
+                easyDifficulty: 0,
+                normalDifficulty: 0,
+                hardDifficulty: 0,
+                expertDifficulty: 0,
+                XDDifficulty: 0,
                 tags: [],
                 uploader: null,
                 uploadDate: null,
-                uploadDateValid: false,
+                updateDate: null,
                 fileReference: "",
                 isInstalled: false,
                 previewPath: "",
@@ -197,6 +210,11 @@
                     this.$data.hasHardDifficulty = data.data.hasHardDifficulty;
                     this.$data.hasExpertDifficulty = data.data.hasExtremeDifficulty;
                     this.$data.hasXDDifficulty = data.data.hasXDDifficulty;
+                    this.$data.easyDifficulty = data.data.easyDifficulty;
+                    this.$data.normalDifficulty = data.data.normalDifficulty;
+                    this.$data.hardDifficulty = data.data.hardDifficulty;
+                    this.$data.expertDifficulty = data.data.expertDifficulty;
+                    this.$data.XDDifficulty = data.data.XDDifficulty;
                     if(data.data.tags != "") {
                         this.$data.tags = data.data.tags;
                     }
@@ -205,7 +223,12 @@
                     this.$data.downloads = data.data.downloads;
                     this.$data.views = data.data.views;
                     this.$data.description = data.data.description;
-                    this.$data.uploadDate = moment(data.data.uploadDate.date).format(this.$t('locale.dateFormat'));
+                    if(data.data.uploadDate) {
+                        this.$data.uploadDate = moment(data.data.uploadDate.date).format(this.$t('locale.dateFormat'));
+                    }
+                    if(data.data.updateDate) {
+                        this.$data.updateDate = moment(data.data.updateDate.date).format(this.$t('locale.dateFormat'));
+                    }
                     this.$data.fileReference = data.data.fileReference;
 
                     // Check if Song is already installed by searching for the srtb file
@@ -431,14 +454,20 @@
 
                     & .difficulties {
                         align-self: center;
-
-                        & img {
-                            height: 25px;
-                            margin-right: 5px;
-                            opacity: 0.4;
-
-                            &.active {
-                                opacity: 1;
+                        height: 20px;
+                        display: flex;
+            
+                        & .difficulty {
+                            background: #fff;
+                            color: #000;
+                            border-radius: 4px;
+                            padding: 3px 8px;
+                            margin-right: 4px;
+                            font-size: 10px;
+            
+                            & span {
+                                // padding-right: 3px;
+                                font-weight: bold;
                             }
                         }
                     }
