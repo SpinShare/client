@@ -71,7 +71,7 @@
                 </div>
                 <div class="stat" v-if="updateDate && updateDate != uploadDate">
                     <div class="icon" v-tooltip="'Update Date'">
-                        <i class="mdi mdi-calendar-clock"></i>
+                        <i class="mdi mdi-pencil"></i>
                     </div>
                     <div class="content">
                     {{ updateDate }}
