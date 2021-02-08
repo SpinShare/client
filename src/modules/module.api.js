@@ -36,98 +36,74 @@ class SSAPI {
     }
 
     async ping() {
-        let apiPath = this.apiBase + "ping";
-
         return this.getOpenData("ping", false);
     }
 
     async getStreamStatus() {
-        let apiPath = this.apiBase + "streamStatus";
-
         return this.getOpenData("streamStatus", false);
     }
 
     async getLatestVersion() {
-        let apiPath = this.apiBase + "latestVersion/" + process.platform;
-
         return this.getOpenData("latestVersion/" + process.platform, false);
     }
 
     async getPromos() {
-        let apiPath = this.apiBase + "promos";
-
         return this.getOpenData("promos", false);
     }
 
     async getNewSongs(_offset) {
-        let apiPath = this.apiBase + "songs/new/" + _offset;
-
         return this.getOpenData("songs/new/" + _offset, false);
     }
 
-    async getHotSongs(_offset) {
-        let apiPath = this.apiBase + "songs/hot/" + _offset;
+    async getUpdatedSongs(_offset) {
+        return this.getOpenData("songs/updated/" + _offset, false);
+    }
 
-        return this.getOpenData("songs/hot/" + _offset, false);
+    async getHotThisWeekSongs(_offset) {
+        return this.getOpenData("songs/hotThisWeek/" + _offset, false);
+    }
+
+    async getHotThisMonthSongs(_offset) {
+        return this.getOpenData("songs/hotThisMonth/" + _offset, false);
     }
 
     async getSongDetail(_songId) {
-        let apiPath = this.apiBase + "song/" + _songId;
-
         return this.getOpenData("song/" + _songId, true);
     }
 
     async getSongDetailReviews(_songId) {
-        let apiPath = this.apiBase + "song/" + _songId + "/reviews";
-
         return this.getOpenData("song/" + _songId + "/reviews", true);
     }
 
     async getSongDetailSpinPlays(_songId) {
-        let apiPath = this.apiBase + "song/" + _songId + "/spinplays";
-
         return this.getOpenData("song/" + _songId + "/spinplays", true);
     }
 
     async getUserDetail(_userId) {
-        let apiPath = this.apiBase + "user/" + _userId;
-
         return this.getOpenData("user/" + _userId, true);
     }
 
     async getUserCharts(_userId) {
-        let apiPath = this.apiBase + "user/" + _userId + "/charts";
-
         return this.getOpenData("user/" + _userId + "/charts", true);
     }
 
     async getUserPlaylists(_userId) {
-        let apiPath = this.apiBase + "user/" + _userId + "/playlists";
-
         return this.getOpenData("user/" + _userId + "/playlists", true);
     }
 
     async getUserReviews(_userId) {
-        let apiPath = this.apiBase + "user/" + _userId + "/reviews";
-
         return this.getOpenData("user/" + _userId + "/reviews", true);
     }
 
     async getUserSpinPlays(_userId) {
-        let apiPath = this.apiBase + "user/" + _userId + "/spinplays";
-
         return this.getOpenData("user/" + _userId + "/spinplays", true);
     }
 
     async getPlaylistDetail(_playlistId) {
-        let apiPath = this.apiBase + "playlist/" + _playlistId;
-
         return this.getOpenData("playlist/" + _playlistId, true);
     }
 
     async searchAll() {
-        let apiPath = this.apiBase + "searchAll";
-
         return this.getOpenData("searchAll", true);
     }
 

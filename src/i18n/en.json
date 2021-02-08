@@ -24,7 +24,9 @@
 
 	"startup.tabs.frontpage": "Frontpage",
 	"startup.tabs.new": "New",
-	"startup.tabs.hot": "Hot",
+	"startup.tabs.updated": "Updated",
+	"startup.tabs.hotThisWeek": "Hot (This Week)",
+	"startup.tabs.hotThisMonth": "Hot (This Month)",
 	"startup.staffpromo.action": "CHECK IT OUT",
 	
 	"search.header": "Search",

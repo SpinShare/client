@@ -25,7 +25,9 @@
 	"startup.staffpromo.action": "CHECK ES AUS",
 	"startup.tabs.frontpage": "Startseite",
 	"startup.tabs.new": "Neu",
-	"startup.tabs.hot": "Heiß",
+	"startup.tabs.updated": "Geupdated",
+	"startup.tabs.hotThisWeek": "Heiß (Diese Woche)",
+	"startup.tabs.hotThisMonth": "Heiß (Diesen Monat)",
 	
 	"search.header": "Suche",
 	"search.input.placeholder": "Suche nach Songs, Tags & Profilen...",

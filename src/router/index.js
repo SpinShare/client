@@ -6,7 +6,9 @@ import ViewLogin from '../views/Login.vue';
 import ViewStartup from '../views/Startup.vue';
 import ViewStartupFrontpage from '../views/StartupFrontpage.vue';
 import ViewStartupNewSongs from '../views/StartupNewSongs.vue';
-import ViewStartupHotSongs from '../views/StartupHotSongs.vue';
+import ViewStartupUpdatedSongs from '../views/StartupUpdatedSongs.vue';
+import ViewStartupHotThisWeekSongs from '../views/StartupHotThisWeekSongs.vue';
+import ViewStartupHotThisMonthSongs from '../views/StartupHotThisMonthSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
@@ -43,14 +45,24 @@ const routes = [{
             component: ViewStartupFrontpage
         },
         {
-            path: '/new',
+            path: '/new/:offset?',
             name: 'StartupNew',
             component: ViewStartupNewSongs
         },
         {
-            path: '/hot',
-            name: 'StartupHot',
-            component: ViewStartupHotSongs
+            path: '/updated/:offset?',
+            name: 'StartupUpdated',
+            component: ViewStartupUpdatedSongs
+        },
+        {
+            path: '/hotThisWeek/:offset?',
+            name: 'StartupHotThisWeek',
+            component: ViewStartupHotThisWeekSongs
+        },
+        {
+            path: '/hotThisMonth/:offset?',
+            name: 'StartupHotThisMonth',
+            component: ViewStartupHotThisMonthSongs
         }
     ]
 }, {

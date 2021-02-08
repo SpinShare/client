@@ -25,7 +25,7 @@
     import SongItemPlaceholder from '@/components/Song/SongItemPlaceholder.vue';
 
     export default {
-        name: 'StartupNew',
+        name: 'StartupHotThisWeek',
         data: function() {
             return {
                 isLoading: true,
@@ -44,13 +44,13 @@
         methods: {
             newNext: function() {
                 if(this.$data.songs.length > 9) {
-                    this.$router.push({ name: 'StartupNew', params: { offset: (this.$data.offset + 1) } });
+                    this.$router.push({ name: 'StartupHotThisWeek', params: { offset: (this.$data.offset + 1) } });
                     this.loadSongs();
                 }
             },
             newPrevious: function() {
                 if(this.$data.offset > 0) {
-                    this.$router.push({ name: 'StartupNew', params: { offset: (this.$data.offset - 1) } });
+                    this.$router.push({ name: 'StartupHotThisWeek', params: { offset: (this.$data.offset - 1) } });
                     this.loadSongs();
                 }
             },
@@ -62,7 +62,7 @@
                     this.$data.offset = this.$route.params.offset;
                 }
 
-                ssapi.getNewSongs(this.$data.offset).then((data) => {
+                ssapi.getHotThisWeekSongs(this.$data.offset).then((data) => {
                     this.$data.isLoading = false;
                     this.$data.songs = data;
                 });
