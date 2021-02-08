@@ -4,7 +4,7 @@
             <div class="title">{{ $t('library.header') }}</div>
             <div class="actions">
                 <div class="button" v-on:click="install()">{{ $t('library.actions.install') }}</div>
-                <div class="button" v-on:click="refreshLibrary()">{{ $t('library.actions.refresh') }}</div>
+                <div class="button" v-on:click="refreshLibrary(true)">{{ $t('library.actions.refresh') }}</div>
                 <div class="button" v-on:click="openLibrary()">{{ $t('library.actions.open') }}</div>
                 <span></span>
             </div>
@@ -25,12 +25,12 @@
             <template v-slot:song-list>
                 <SongLocalItem
                     v-for="song in librarySongs"
-                    v-bind:key="song.detail.id"
+                    v-bind:key="song.paths.srtb"
                     v-bind="song" />
             </template>
         </SongRow>
 
-        <div class="loading" v-if="!apiFinished">
+        <div class="loading" v-if="isLoading">
             <Loading />
         </div>
 
@@ -47,6 +47,7 @@
     import path from 'path';
 
     import UserSettings from '@/modules/module.usersettings.js';
+    import ChartLibrary from '@/modules/module.library.js';
     import SSAPI from '@/modules/module.api.js';
     import SRXD from '@/modules/module.srxd.js';
 
@@ -63,8 +64,7 @@
                 showDeleteOverlay: false,
                 deleteFiles: [],
                 hasUnusedFiles: false,
-                apiFinished: false,
-                useAPIForLibrary: false
+                isLoading: false
             }
         },
         components: {
@@ -74,11 +74,8 @@
             DeleteOverlay
         },
         mounted: function() {
-            // Put initial refresh on a timeout so the loading animation is rendered first
-            setTimeout(() => {
-                this.refreshLibrary();
-            }, 50);
-            
+            this.refreshLibrary(false);
+
             this.$on('delete', (file) => {
                 this.$data.showDeleteOverlay = true;
                 this.$data.deleteFiles = this.getConnectedFiles(file);
@@ -91,7 +88,7 @@
                 this.$data.deleteFiles.forEach((file) => {
                     fs.unlinkSync(file);
                 });
-                this.refreshLibrary();
+                this.refreshLibrary(false);
                 this.$data.showDeleteOverlay = false;
                 this.$data.deleteFiles = "";
             });
@@ -101,62 +98,30 @@
 
             // Refresh if the Download Queue finished an item
             ipcRenderer.on("download-complete", (event, downloadItem) => {
-                this.refreshLibrary();
+                this.refreshLibrary(false);
             });
         },
         methods: {
-            refreshLibrary: async function() {
+            refreshLibrary: async function(hardRefresh = false) {
                 let ssapi = new SSAPI();
                 let userSettings = new UserSettings();
+                let chartLibrary = new ChartLibrary();
 
                 this.$data.hasUnusedFiles = false;
                 this.$data.librarySongs = [];
-                this.$data.apiFinished = false;
+                this.$data.isLoading = true;
 
-                await ssapi.ping().then((data) => {
-                    this.$data.useAPIForLibrary = true;
-                }).catch((error) => {
-                    console.log(error);
-                    this.$data.useAPIForLibrary = false;
-                    console.log("ERROR WHILE PINGING API");
-                });
-                
-                // Load local .srtb
-                glob(path.join(userSettings.get('gameDirectory'), "*.srtb"), (error, files) => {
-                    files.forEach((file) => {
-                        // Get Detail Data
-                        this.getSongDetail(file).then((songDetail) => {
-                            let librarySong = {};
-                            let fileReference = false;
-                            
-                            if(path.basename(file).includes("spinshare_")) {
-                                fileReference = path.basename(file).replace(".srtb", "");
-                            }
-                            
-                            let songCover = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", songDetail.coverReference + ".*"))[0];
-
-                            if(songCover) {
-                                songCover = "data:image/jpg;base64," + fs.readFileSync(songCover, { encoding: 'base64' });
-                            }
-
-                            librarySong = {
-                                file: file,
-                                detail: songDetail,
-                                cover: songCover,
-                                modifiedDate: fs.statSync(file).mtime,
-                                isSpinShare: fileReference
-                            };
-
-                            this.$data.librarySongs.push(librarySong);
-                            this.$data.apiFinished = true;
-                        });
+                if(hardRefresh) {
+                    chartLibrary.updateLibrary().then(data => {
+                        this.$data.isLoading = false;
+                        this.$data.librarySongs = data.charts;
                     });
-
-                    // Order library by modifiedDate
-                    this.$data.librarySongs.sort(function(a, b) {
-                        return new Date(b.modifiedDate) - new Date(a.modifiedDate);
+                } else {
+                    chartLibrary.getLibrary().then(data => {
+                        this.$data.isLoading = false;
+                        this.$data.librarySongs = data.charts;
                     });
-                });
+                }
 
                 this.getUnusedFiles().then((data) => {
                     if(data.differingAssets.length > 0) {
@@ -295,7 +260,7 @@
                             srxdControl.installBackup(extractResult, userSettings.get('gameDirectory')).then((result) => {
                                 console.log("[COPY] Backup installed!");
                                 setTimeout(() => {
-                                    this.refreshLibrary();
+                                    this.refreshLibrary(false);
                                 }, 250);
                             }).catch(error => {
                                 console.error(error);

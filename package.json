@@ -21,10 +21,11 @@
   "dependencies": {
     "@mdi/font": "^5.8.55",
     "adm-zip": "^0.4.16",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "get-folder-size": "^2.0.1",
     "glob": "^7.1.6",
+    "md5": "^2.3.0",
     "md5-file": "^5.0.0",
     "moment": "^2.27.0",
     "ncp": "^2.0.0",
