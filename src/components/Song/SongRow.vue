@@ -33,7 +33,7 @@
         
         & .song-list {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             grid-gap: 15px;
         }
         & .song-list-playlist {
