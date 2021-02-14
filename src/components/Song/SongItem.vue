@@ -2,6 +2,7 @@
     <div class="song-item" v-on:auxclick="shortDownload($event)" v-on:contextmenu="showContextMenu($event)">
         <router-link :to="{ name: 'SongDetail', params: { id: id } }">
             <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+                <div class="song-installed-indicator" v-if="isInstalled">INSTALLED</div>
                 <div class="song-charter-info">
                     <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
                 </div>
@@ -44,11 +45,12 @@
             'hardDifficulty',
             'expertDifficulty',
             'XDDifficulty',
-            'zip'
+            'zip',
         ],
         data: function() {
             return {
-                isContextMenuActive: false
+                isContextMenuActive: false,
+                isInstalled: false
             }
         },
         mounted: function() {
@@ -137,6 +139,20 @@
                         white-space: nowrap;
                     }
                 }
+            }
+
+            & .song-installed-indicator {
+                position: absolute;
+                color: #fff;
+                top: 10px;
+                right: 10px;
+                color: #000;
+                background: #fff;
+                border-radius: 100px;
+                padding: 2px 10px;
+                font-size: 10px;
+                font-weight: bold;
+                z-index: 10;
             }
         }
 
