@@ -5,7 +5,6 @@ const fs = require('fs');
 const { glob } = require('glob');
 const path = require('path');
 const UserSettings = require('@/modules/module.usersettings.js');
-const { createHmac } = require('crypto');
 
 class ChartLibrary {
     constructor() {
