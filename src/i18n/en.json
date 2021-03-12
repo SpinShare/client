@@ -86,6 +86,7 @@
 	"userdetail.uploaded.noresults": "This user did not upload any songs yet.",
 	"userdetail.charts.noresults": "This user has no charts yet.",
 	"userdetail.reviews.noresults": "This user has no reviews yet.",
+	"userdetail.playlists.noresults": "This user has no playlists yet.",
 	"userdetail.spinplays.noresults": "This user did not release any SpinPlays yet.",
 	
 	"settings.header": "Settings",

@@ -87,6 +87,7 @@
 	"userdetail.charts.noresults": "Dieser Nutzer hat noch keine Songs.",
 	"userdetail.reviews.noresults": "Dieser Nutzer hat noch keine Reviews.",
 	"userdetail.spinplays.noresults": "Dieser Nutzer hat noch keine SpinPlays hochgeladen.",
+	"userdetail.playlists.noresults": "This user has no playlists yet.",
 	
 	"settings.header": "Einstellungen",
 	"settings.client.header": "SpinShare",
