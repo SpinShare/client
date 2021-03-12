@@ -1,9 +1,6 @@
 <template>
     <div class="song-row">
-        <div class="song-list" v-if="playlist != 'true'">
-            <slot name="song-list"></slot>
-        </div>
-        <div class="song-list-playlist" v-if="playlist == 'true'">
+        <div :class="playlist ? 'song-list-playlist' : 'song-list'" v-if="playlist != 'true'">
             <slot name="song-list"></slot>
         </div>
         <div class="noresults">
@@ -64,7 +61,7 @@
         }
     }
 
-    @media screen and (max-width: 1600px) {
+    @media screen and (max-width: 1650px) {
         .song-row {
             & .song-list {
                 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -75,10 +72,10 @@
         }
     }
 
-    @media screen and (max-width: 1300px) {
+    @media screen and (max-width: 1450px) {
         .song-row {
             & .song-list {
-                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             }
             & .song-list-playlist {
                 grid-template-columns: 1fr 1fr 1fr;
