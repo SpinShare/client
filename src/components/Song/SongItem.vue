@@ -1,7 +1,7 @@
 <template>
     <div class="song-item" v-on:auxclick="shortDownload($event)" v-on:contextmenu="showContextMenu($event)">
         <router-link :to="{ name: 'SongDetail', params: { id: id } }">
-            <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
+            <div class="song-cover" :style="'background-image: url(' + cover + ');'">
                 <div class="song-installed-indicator" v-if="isInstalled">INSTALLED</div>
                 <div class="song-charter-info">
                     <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
