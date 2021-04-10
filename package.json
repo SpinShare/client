@@ -4,7 +4,7 @@
   "description": "SpinSha.re Client",
   "homepage": "https://spinsha.re",
   "copyright": "Copyright © SpinSha.re",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "author": "SpinSha.re",
   "private": true,
   "scripts": {
@@ -47,10 +47,10 @@
     "@vue/cli-service": "~4.3.0",
     "chalk": "^4.1.0",
     "chalk-table": "^1.0.2",
-    "electron": "^6.1.12",
+    "electron": "^12.0.2",
     "less": "^3.12.2",
     "less-loader": "^5.0.0",
-    "vue-cli-plugin-electron-builder": "~1.4.6",
+    "vue-cli-plugin-electron-builder": "^2.0.0-rc.6",
     "vue-template-compiler": "^2.6.11"
   }
 }

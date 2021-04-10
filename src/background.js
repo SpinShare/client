@@ -68,7 +68,9 @@ function createWindow () {
     minWidth: 1400,
     backgroundColor: '#212629',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
 
