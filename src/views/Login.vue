@@ -24,6 +24,7 @@
 <script>
     import SSAPI from '@/modules/module.api.js';
     import UserSettings from '@/modules/module.usersettings.js';
+    import ChartLibrary from '@/modules/module.library.js';
 
     import Loading from '@/components/Loading.vue';
 
@@ -45,6 +46,9 @@
         mounted: function() {
             let ssapi = new SSAPI();
             let userSettings = new UserSettings();
+
+            let chartLibrary = new ChartLibrary();
+            chartLibrary.updateLibrary();
 
             if(!userSettings.get("connectToken")) {
                 this.showLoginBox();
