@@ -12,6 +12,9 @@ class ChartLibrary {
         const userDataPath = app.getPath('userData');
         this.path = path.join(userDataPath, 'ChartLibrary.sqlite');
         this.db = null;
+        this.databaseReady = false;
+        this.databaseUpdating = false;
+        this.databaseUpdateProgress = 0;
     }
 
     async getLibrary() {
@@ -22,14 +25,16 @@ class ChartLibrary {
         this.db.serialize(() => {
             this.createDatabaseIfNotExists();
 
+            console.log("[ChartLibrary] Check Library Cleanness");
+
             // TODO: Check if Database is up to date and update if not
-            this.db.get('SELECT * FROM meta', (err, row) => {
+            this.db.all("SELECT * FROM meta", (err, rows) => {
                 if (err) {
                     console.error("[ChartLibrary] " + err.message);
                 }
 
-                console.log(row);
-            });
+                console.log(rows);
+            }).run();
 
             // TODO: Get Library
         });
@@ -50,47 +55,106 @@ class ChartLibrary {
         } */
     }
 
-    async updateLibrary() {
+    updateLibrary() {
+        let userSettings = new UserSettings();
+
         console.log("[ChartLibrary] Library Refresh");
 
-        this.connectToDatabase();
+        this.connectToDatabase(() => {
+            this.db.serialize(() => {
+                this.createDatabaseIfNotExists();
 
-        this.db.serialize(() => {
-            this.createDatabaseIfNotExists();
+                this.databaseReady = false;
 
-            // TODO: Update Library and Save to DB
+                console.log("[ChartLibrary] Updating Meta");
+
+                let folderMD5 = md5(userSettings.get('gameDirectory'));
+                let clientVersion = app.getVersion();
+
+                this.db.run(`
+                    INSERT OR REPLACE INTO meta (key, value)
+                    VALUES ('folderMD5', '${folderMD5}'), ('databaseVersion', 1), ('clientVersion', '${clientVersion}');
+                `);
+
+                // Clear previous entries
+                /* this.db.run(`
+                    DELETE FROM charts;
+                    VACUUM;
+                `); */
+
+                console.log("[ChartLibrary] Reading Charts");
+
+                this.databaseUpdating = true;
+
+                this.db.run("BEGIN TRANSACTION");
+
+                // Find all SRTB files
+                let srtbFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*.srtb"));
+                srtbFiles.forEach((file, index) => {
+                    // Parse SRTB file
+                    try {
+                        let chartData = this.parseSRTBFile(file);
+
+                        this.db.run(`
+                            INSERT INTO charts (
+                                title,
+                                subtitle,
+                                artist,
+                                charter,
+                                hasEasyDifficulty,
+                                hasNormalDifficulty,
+                                hasHardDifficulty,
+                                hasExpertDifficulty,
+                                hasXDDifficulty,
+                                easyDifficulty,
+                                normalDifficulty,
+                                hardDifficulty,
+                                expertDifficulty,
+                                XDDifficulty,
+                                srtbHash,
+                                srtbPath,
+                                oggPath,
+                                coverPath
+                            ) VALUES (
+                                '${chartData.title}',
+                                '${chartData.subtitle}',
+                                '${chartData.artist}',
+                                '${chartData.charter}',
+                                '${chartData.hasEasyDifficulty}',
+                                '${chartData.hasNormalDifficulty}',
+                                '${chartData.hasHardDifficulty}',
+                                '${chartData.hasExpertDifficulty}',
+                                '${chartData.hasXDDifficulty}',
+                                '${chartData.easyDifficulty}',
+                                '${chartData.normalDifficulty}',
+                                '${chartData.hardDifficulty}',
+                                '${chartData.expertDifficulty}',
+                                '${chartData.XDDifficulty}',
+                                '${chartData.srtbHash}',
+                                '${chartData.srtbPath}',
+                                '${chartData.oggPath}',
+                                '${chartData.coverPath}',
+                            );
+                        `);
+
+                        console.log(`[ChartLibrary] Progress: ${index} / ${srtbFiles.length}`);
+
+                        this.databaseUpdateProgress = srtbFiles.length / index * 100;
+                    } catch(error) {
+                        console.error(error);
+                    }
+                });
+
+                this.db.run("COMMIT");
+
+                this.databaseUpdating = false;
+                this.databaseReady = true;
+
+                console.log("[ChartLibrary] Library Refresh Done.");
+
+                this.closeDatabase();
+            });
         });
-
-        this.closeDatabase();
-
-        /*
-        let userSettings = new UserSettings();
-        let data = {
-            folderMD5: "",
-            charts: []
-        };
-
-        data.folderMD5 = md5(userSettings.get('gameDirectory'));
-
-        // Find all SRTB files
-        let srtbFiles = glob.sync(path.join(userSettings.get('gameDirectory'), "*.srtb"));
-        srtbFiles.forEach((file) => {
-            // Parse SRTB file
-            try {
-                data.charts.push(this.parseSRTBFile(file));
-            } catch(error) {
-                console.error(error);
-            }
-        });
-
-        console.log("[ChartLibrary] Library Refresh Done.");
-
-        // Save changes
-        fs.writeFileSync(this.path, JSON.stringify(data));
-        console.log("[ChartLibrary] Wrote Library to: " + this.path);
-
-        return data;
-        */
     }
 
     parseSRTBFile(srtbFilePath) {
@@ -112,18 +176,15 @@ class ChartLibrary {
             expertDifficulty: 0,
             XDDifficulty: 0,
             srtbHash: "",
-            paths: {
-                srtb: "",
-                ogg: "",
-                cover: "",
-                coverBase64: "",
-            }
+            srtbPath: "",
+            oggPath: "",
+            coverPath: "",
         }
 
         let srtbRawData = fs.readFileSync(srtbFilePath, "utf-8");
         let srtbData = JSON.parse( srtbRawData );
 
-        data.paths.srtb = srtbFilePath;
+        data.srtbPath = srtbFilePath;
         data.srtbHash = md5( srtbData );
 
         srtbData.largeStringValuesContainer.values.forEach(lSV => {
@@ -137,14 +198,7 @@ class ChartLibrary {
                 data.artist = lSVData.artistName;
                 data.charter = lSVData.charter;
 
-                data.paths.cover = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", lSVData.albumArtReference.assetName + '.*'))[0];
-                if(data.paths.cover != undefined) {
-                    try {
-                        data.paths.coverBase64 = "data:image/jpg;base64," + fs.readFileSync(data.paths.cover, { encoding: 'base64' })
-                    } catch(error) {
-                        console.error(error);
-                    }
-                }
+                data.coverPath = glob.sync(path.join(userSettings.get('gameDirectory'), "AlbumArt", lSVData.albumArtReference.assetName + '.*'))[0];
 
                 lSVData.difficulties.forEach(difficulty => {
                     if(difficulty._active) {
@@ -204,7 +258,7 @@ class ChartLibrary {
 
             // Parse ClipInfo
             if(lSV.key.includes("ClipInfo")) {
-                data.paths.ogg = glob.sync(path.join(userSettings.get('gameDirectory'), "AudioClips", lSVData.clipAssetReference.assetName + '.*'))[0];
+                data.oggPath = glob.sync(path.join(userSettings.get('gameDirectory'), "AudioClips", lSVData.clipAssetReference.assetName + '.*'))[0];
             }
         });
 
@@ -213,12 +267,14 @@ class ChartLibrary {
         return data;
     }
 
-    connectToDatabase() {
+    connectToDatabase(callback) {
         this.db = new sqlite3.Database(this.path, (err) => {
             if (err) {
                 console.error("[ChartLibrary] " + err.message);
             }
             console.log('[ChartLibrary] Connected to Database');
+
+            callback();
         });
     }
 
@@ -233,9 +289,38 @@ class ChartLibrary {
 
     createDatabaseIfNotExists() {
         // TODO: Finalize Database Structure
-        this.db.prepare(`
-            CREATE TABLE IF NOT EXISTS meta (folderMD5 TEXT, clientVersion TEXT);
-        `).run().finalize();
+        this.db.run(`
+            CREATE TABLE IF NOT EXISTS meta (
+                key TEXT,
+                value TEXT
+            );
+        `);
+
+        this.db.run(`
+            CREATE TABLE IF NOT EXISTS charts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                subtitle TEXT,
+                artist TEXT,
+                charter TEXT,
+                hasEasyDifficulty INTEGER,
+                hasNormalDifficulty INTEGER,
+                hasHardDifficulty INTEGER,
+                hasExpertDifficulty INTEGER,
+                hasXDDifficulty INTEGER,
+                easyDifficulty INTEGER,
+                normalDifficulty INTEGER,
+                hardDifficulty INTEGER,
+                expertDifficulty INTEGER,
+                XDDifficulty INTEGER,
+                srtbHash TEXT,
+                srtbPath TEXT,
+                oggPath TEXT,
+                coverPath TEXT
+            );
+        `);
+
+        console.log("[ChartLibrary] Created Tables");
     }
 }
 

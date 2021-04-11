@@ -1,5 +1,9 @@
 <template>
     <section class="section-login">
+        <div class="login-box login-loading" v-if="chartLibraryLoading">
+            <Loading /><br />
+            ChartLibrary Loading
+        </div>
         <div class="login-box login-loading" v-if="apiLoginLoading">
             <Loading />
         </div>
@@ -46,7 +50,9 @@
             let ssapi = new SSAPI();
             let userSettings = new UserSettings();
 
-            if(!userSettings.get("connectToken")) {
+            console.log("[Login] Check Login");
+
+            /* if(!userSettings.get("connectToken")) {
                 this.showLoginBox();
             } else {
                 ssapi.validateConnectToken(userSettings.get("connectToken")).then((data) => {
@@ -58,7 +64,7 @@
                 }).catch(() => {
                     this.showLoginBox();
                 });
-            }
+            } */
         },
         methods: {
             connect: function() {

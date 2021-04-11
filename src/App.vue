@@ -1,6 +1,6 @@
 <template>
     <div id="app" tabindex="-1" v-on:keydown.esc="closeOverlays()">
-        <main :class="(['Login'].indexOf($route.name) > -1) ? 'hide-navigation' : ''">
+        <main :class="(['LibraryUpdate', 'Login'].indexOf($route.name) > -1) ? 'hide-navigation' : ''">
             <Navigation v-bind:downloadQueueCount="downloadQueue.length" v-bind:downloadOverlayShown="showDownloadOverlay" />
             <router-view :key="$route.fullPath" />
         </main>

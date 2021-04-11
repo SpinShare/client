@@ -11,6 +11,7 @@ import ViewStartupHotThisWeekSongs from '../views/StartupHotThisWeekSongs.vue';
 import ViewStartupHotThisMonthSongs from '../views/StartupHotThisMonthSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
+import ViewLibraryUpdate from '../views/LibraryUpdate.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
 import ViewSongDetailReviews from '../views/SongDetailReviews.vue';
 import ViewSongDetailSpinPlays from '../views/SongDetailSpinPlays.vue';
@@ -29,6 +30,12 @@ Vue.use(VueAxios, axios);
 
 const routes = [{
     path: '/',
+    name: 'Index',
+    redirect: {
+        name: 'LibraryUpdate'
+    },
+}, {
+    path: '/login',
     name: 'Login',
     component: ViewLogin
 }, {
@@ -74,7 +81,11 @@ const routes = [{
     name: 'Library',
     component: ViewLibrary
 }, {
-    path: '/song/:id',
+    path: '/libraryUpdate',
+    name: 'LibraryUpdate',
+    component: ViewLibraryUpdate
+}, {
+    path: '/song/:id?',
     name: 'SongDetail',
     component: ViewSongDetail,
     redirect: {
@@ -94,7 +105,7 @@ const routes = [{
         }
     ]
 }, {
-    path: '/user/:id',
+    path: '/user/:id?',
     name: 'UserDetail',
     component: ViewUserDetail,
     redirect: {
@@ -127,7 +138,7 @@ const routes = [{
         }
     ]
 }, {
-    path: '/playlist/:id',
+    path: '/playlist/:id?',
     name: 'PlaylistDetail',
     component: ViewPlaylistDetail,
 }, {
