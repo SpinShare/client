@@ -3,11 +3,15 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import i18n from './i18n';
-import moment from 'moment'
-import VueTilt from 'vue-tilt.js'
+import moment from 'moment';
+import VueTilt from 'vue-tilt.js';
 import { ipcRenderer } from 'electron';
-import VueObserveVisibility from 'vue-observe-visibility'
-import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
+import VueObserveVisibility from 'vue-observe-visibility';
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip';
+import ChartLibrary from '@/modules/module.library.js';
+
+let chartLibrary = new ChartLibrary();
+chartLibrary.updateLibrary();
 
 Vue.use(VueTilt);
 Vue.use(VueObserveVisibility);
