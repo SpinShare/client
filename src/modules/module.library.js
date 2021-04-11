@@ -5,18 +5,39 @@ const fs = require('fs');
 const { glob } = require('glob');
 const path = require('path');
 const UserSettings = require('@/modules/module.usersettings.js');
+const sqlite3 = require('sqlite3').verbose();
 
 class ChartLibrary {
     constructor() {
         const userDataPath = app.getPath('userData');
-        this.path = path.join(userDataPath, 'ChartLibrary.json');
+        this.path = path.join(userDataPath, 'ChartLibrary.sqlite');
+        this.db = null;
     }
 
     async getLibrary() {
-        let userSettings = new UserSettings();
-        let data = this.parseDataFile(this.path, false);
-        
         console.log("[ChartLibrary] Get Library");
+
+        this.connectToDatabase();
+
+        this.db.serialize(() => {
+            this.createDatabaseIfNotExists();
+
+            // TODO: Check if Database is up to date and update if not
+            this.db.get('SELECT * FROM meta', (err, row) => {
+                if (err) {
+                    console.error("[ChartLibrary] " + err.message);
+                }
+
+                console.log(row);
+            });
+
+            // TODO: Get Library
+        });
+
+        this.closeDatabase();
+
+        /*
+        let data = this.parseDataFile(this.path, false);
 
         if(data == false) {
             return this.updateLibrary();
@@ -26,17 +47,28 @@ class ChartLibrary {
             } else {
                 return data;
             }
-        }
+        } */
     }
 
     async updateLibrary() {
+        console.log("[ChartLibrary] Library Refresh");
+
+        this.connectToDatabase();
+
+        this.db.serialize(() => {
+            this.createDatabaseIfNotExists();
+
+            // TODO: Update Library and Save to DB
+        });
+
+        this.closeDatabase();
+
+        /*
         let userSettings = new UserSettings();
         let data = {
             folderMD5: "",
             charts: []
         };
-
-        console.log("[ChartLibrary] Library Refresh");
 
         data.folderMD5 = md5(userSettings.get('gameDirectory'));
 
@@ -58,6 +90,7 @@ class ChartLibrary {
         console.log("[ChartLibrary] Wrote Library to: " + this.path);
 
         return data;
+        */
     }
 
     parseSRTBFile(srtbFilePath) {
@@ -180,12 +213,29 @@ class ChartLibrary {
         return data;
     }
 
-    parseDataFile(filePath, defaults) {
-        try {
-            return JSON.parse(fs.readFileSync(filePath));
-        } catch(error) {
-            return defaults;
-        }
+    connectToDatabase() {
+        this.db = new sqlite3.Database(this.path, (err) => {
+            if (err) {
+                console.error("[ChartLibrary] " + err.message);
+            }
+            console.log('[ChartLibrary] Connected to Database');
+        });
+    }
+
+    closeDatabase() {
+        this.db.close((err) => {
+            if (err) {
+                console.error("[ChartLibrary] " + err.message);
+            }
+            console.log('[ChartLibrary] Database Closed');
+        });
+    }
+
+    createDatabaseIfNotExists() {
+        // TODO: Finalize Database Structure
+        this.db.prepare(`
+            CREATE TABLE IF NOT EXISTS meta (folderMD5 TEXT, clientVersion TEXT);
+        `).run().finalize();
     }
 }
 
