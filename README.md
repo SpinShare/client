@@ -1,6 +1,6 @@
 # SpinSha.re Client
 
-**This repo is a mirror of our internal client repository. Please do not create pull requests or issues, as we can't answer them here**
+This is the main repository for the SpinSha.re client. Please check out the "connect" branch for the current development branch.
 
 ## Project setup
 ```
