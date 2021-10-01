@@ -206,7 +206,14 @@ function download(url, fileName, cb) {
         file.on('finish', function() {
             file.close(cb(null, dest));
         });
+
+        file.on('error', function(err) {
+            console.error(err);
+            fs.unlink(dest);
+            if (cb) cb(err.message, dest);
+        });
     }).on('error', function(err) {
+        console.error(err);
         fs.unlink(dest);
         if (cb) cb(err.message, dest);
     });
