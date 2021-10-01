@@ -4,12 +4,15 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
+const axios = require('axios');
 const path = require('path');
 const uniqid = require('uniqid');
 
 let win;
 let deeplinkingData;
 let deeplinkingView;
+
+require('@electron/remote/main').initialize();
 
 // Force one instance of the app
 const gotTheLock = app.requestSingleInstanceLock();
@@ -68,7 +71,9 @@ function createWindow () {
     minWidth: 1400,
     backgroundColor: '#212629',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
 
@@ -163,11 +168,64 @@ ipcMain.on("overlays-close", () => {
   win.webContents.send("overlays-close");
 });
 
-function download(url, fileName, cb) {
+async function download(url, fileName, cb) {
     let dest = path.join(app.getPath('temp'), fileName + ".zip");
     let file = fs.createWriteStream(dest);
     let partiallength = 0;
 
+    console.log("Download URL: " + url);
+
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: url,
+        responseType: 'stream'
+      });
+
+      response.data.pipe(file);
+      
+      let totallength = parseInt(response.headers['content-length'], 10);
+
+      response.data.on('end', () => {
+        file.close(cb(null, dest));
+        win.setProgressBar(0);
+        win.webContents.send("downloadProgress", 0);
+      });
+
+      response.data.on('data', (chunk) => {
+        partiallength += chunk.length;
+        let decimallength = partiallength / totallength;
+        if (decimallength != 1) {
+          // Report back the progress
+          win.setProgressBar(decimallength);
+          win.webContents.send("downloadProgress", decimallength);
+        }
+        else {
+          // Report back finished download
+          win.setProgressBar(0);
+          win.webContents.send("downloadProgress", 0);
+        }
+      });
+
+      response.data.on('error', (err) => {
+        console.error("ERROR DOWNLOADING");
+        console.error(err);
+        if (cb) cb(err.message, dest);
+        try {
+          fs.unlink(dest);
+        } catch(error) {}
+      });
+    } catch(err) {
+      console.error("ERROR DOWNLOADING");
+      console.error(err);
+      if (cb) cb(err.message, dest);
+      try {
+        fs.unlink(dest);
+      } catch(error) {}
+    }
+
+
+    /*
     // Adapter Switch for HTTP/HTTPS protocol: https://stackoverflow.com/a/38465918
     let protocol = (function() { 
       var url = require('url'),
@@ -216,5 +274,5 @@ function download(url, fileName, cb) {
         console.error(err);
         fs.unlink(dest);
         if (cb) cb(err.message, dest);
-    });
+    }); */
 };

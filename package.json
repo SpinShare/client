@@ -4,7 +4,7 @@
   "description": "SpinSha.re Client",
   "homepage": "https://spinsha.re",
   "copyright": "Copyright © SpinSha.re",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "author": "SpinSha.re",
   "private": true,
   "scripts": {
