@@ -17,7 +17,7 @@
     import { remote, ipcRenderer } from 'electron';
     import { path } from 'path';
     import moment from 'moment';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     export default {
         name: 'CardOverlay',

@@ -19,7 +19,7 @@
 <script>
     import { remote, ipcRenderer } from 'electron';
     import { path } from 'path';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     export default {
         name: 'DeleteOverlay',

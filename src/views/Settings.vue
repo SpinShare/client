@@ -73,8 +73,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { app, dialog } = remote;
+    const { app, dialog } = require('@electron/remote');
 
     import UserSettings from '@/modules/module.usersettings.js';
     import SSAPI from '@/modules/module.api.js';

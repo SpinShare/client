@@ -40,7 +40,7 @@
 
 <script>
     import { remote, ipcRenderer } from 'electron';
-    const { dialog, shell } = remote;
+    const { dialog, shell } = require('@electron/remote');
 
     import fs from 'fs';
     import { glob, globSync } from 'glob';

@@ -29,8 +29,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard, shell } = remote;
+    const { shell } = require('@electron/remote');
 
     import SSAPI from '@/modules/module.api.js';
 

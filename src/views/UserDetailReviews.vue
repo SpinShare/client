@@ -26,9 +26,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
     import moment from 'moment';
-    const { clipboard, shell } = remote;
 
     import SSAPI from '@/modules/module.api.js';
     import Loading from '@/components/Loading.vue';

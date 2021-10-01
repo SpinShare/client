@@ -11,8 +11,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     export default {
         name: 'SongSpinPlay',

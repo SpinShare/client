@@ -127,11 +127,10 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
     import path from 'path';
     import moment from 'moment';
     import fs from 'fs';
-    const { clipboard, shell } = remote;
+    const { clipboard, shell } = require('@electron/remote');
 
     import SSAPI from '@/modules/module.api.js';
     import UserSettings from '@/modules/module.usersettings.js';

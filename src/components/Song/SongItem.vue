@@ -22,8 +22,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard, shell } = remote;
+    const { clipboard, shell } = require('@electron/remote');
 
     export default {
         name: 'SongItem',

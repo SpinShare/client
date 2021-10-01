@@ -25,8 +25,7 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     import SSAPI from '@/modules/module.api.js';
     import StaffPromo from '@/components/Startup/StaffPromo.vue';

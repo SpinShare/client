@@ -1,4 +1,5 @@
-const { electron, remote } = require('electron');
+const { electron } = require('electron');
+const remote = require('@electron/remote');
 const app = remote.app;
 const path = require('path');
 const fs = require('fs');

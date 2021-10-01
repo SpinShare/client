@@ -19,6 +19,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "adm-zip": "^0.4.16",
     "axios": "^0.22.0",
     "core-js": "^3.6.4",
@@ -44,7 +45,7 @@
     "@vue/cli-service": "~4.3.0",
     "chalk": "^4.1.0",
     "chalk-table": "^1.0.2",
-    "electron": "^6.1.12",
+    "electron": "^12.1.12",
     "less": "^3.12.2",
     "less-loader": "^5.0.0",
     "vue-cli-plugin-electron-builder": "~1.4.6",

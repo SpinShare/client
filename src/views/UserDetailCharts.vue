@@ -18,9 +18,6 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
-    const { clipboard, shell } = remote;
-
     import SSAPI from '@/modules/module.api.js';
     import SongRow from '@/components/Song/SongRow.vue';
     import SongItem from '@/components/Song/SongItem.vue';

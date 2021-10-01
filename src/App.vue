@@ -20,7 +20,8 @@
 </template>
 
 <script>
-    import { remote, ipcRenderer } from 'electron';
+    import { ipcRenderer } from 'electron';
+    const remote = require('@electron/remote');
     const { app, dialog } = remote;
 
     import fs from 'fs';

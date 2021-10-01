@@ -13,9 +13,8 @@
 </template>
 
 <script>
-    import { remote } from 'electron';
     import path from 'path';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     export default {
         name: 'SongLocalItem',

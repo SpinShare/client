@@ -26,7 +26,7 @@
 
 <script>
     import { remote, ipcRenderer } from 'electron';
-    const { shell } = remote;
+    const { shell } = require('@electron/remote');
 
     export default {
         name: 'DownloadOverlay',

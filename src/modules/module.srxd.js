@@ -5,7 +5,7 @@ const rimraf = require('rimraf');
 const ncp = require('ncp');
 const admzip = require('adm-zip');
 const uniqid = require('uniqid');
-const { app } = require('electron').remote;
+const { app } = require('@electron/remote');
 const UserSettings = require('./module.usersettings');
 
 class SRXD {
