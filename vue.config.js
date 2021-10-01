@@ -1,6 +1,7 @@
 module.exports = {
     pluginOptions: {
         electronBuilder: {
+            nodeIntegration: true,
             builderOptions: {
                 productName: "SpinShare",
                 appId: "re.spinsha.client",
