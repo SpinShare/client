@@ -4,7 +4,9 @@
             <div class="tabs">
                 <router-link to="/" class="tab"><span>{{ $t('startup.tabs.frontpage') }}</span></router-link>
                 <router-link to="/new" class="tab"><span>{{ $t('startup.tabs.new') }}</span></router-link>
-                <router-link to="/hot" class="tab"><span>{{ $t('startup.tabs.hot') }}</span></router-link>
+                <router-link to="/updated" class="tab"><span>{{ $t('startup.tabs.updated') }}</span></router-link>
+                <router-link to="/hotThisWeek" class="tab"><span>{{ $t('startup.tabs.hotThisWeek') }}</span></router-link>
+                <router-link to="/hotThisMonth" class="tab"><span>{{ $t('startup.tabs.hotThisMonth') }}</span></router-link>
             </div>
         </header>
 

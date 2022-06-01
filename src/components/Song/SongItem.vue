@@ -1,20 +1,40 @@
 <template>
-    <div class="song-item" v-on:auxclick="shortDownload($event)" v-on:contextmenu="showContextMenu($event)">
+    <div
+        class="song-item"
+        v-on:auxclick="shortDownload($event)"
+        v-on:contextmenu="showContextMenu($event)"
+        v-tooltip="'Charted by ' + charter"
+    >
         <router-link :to="{ name: 'SongDetail', params: { id: id } }">
-            <div class="song-cover" :style="'background-image: url(' + cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'">
-                <div class="song-charter-info">
-                    <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ charter }}</span></div>
-                </div>
-            </div>
-            <div class="song-metadata">
-                <div class="song-title">{{ title }}</div>
-                <div class="song-artist">{{ artist }}</div>
-                <div class="song-difficulties">
-                    <div v-if="hasEasyDifficulty" class="difficulty"><span>E</span> {{ easyDifficulty ? easyDifficulty : 0 }}</div>
-                    <div v-if="hasNormalDifficulty" class="difficulty"><span>N</span> {{ normalDifficulty ? normalDifficulty : 0 }}</div>
-                    <div v-if="hasHardDifficulty" class="difficulty"><span>H</span> {{ hardDifficulty ? hardDifficulty : 0 }}</div>
-                    <div v-if="hasExtremeDifficulty" class="difficulty"><span>EX</span> {{ expertDifficulty ? expertDifficulty : 0 }}</div>
-                    <div v-if="hasXDDifficulty" class="difficulty"><span>XD</span> {{ XDDifficulty ? XDDifficulty : 0 }}</div>
+            <img
+                :src="cover"
+                @error="setDefaultCover"
+                :alt="title + ' Cover'"
+            />
+            <div class="meta">
+                <h1>{{ title }}</h1>
+                <h2>{{ artist }}</h2>
+                <div class="difficulties">
+                    <div :class="{'active': hasEasyDifficulty}">
+                        <span>E</span>
+                        <span v-if="hasEasyDifficulty">{{ easyDifficulty ? easyDifficulty : 0 }}</span>
+                    </div>
+                    <div :class="{'active': hasNormalDifficulty}">
+                        <span>N</span>
+                        <span v-if="hasNormalDifficulty">{{ normalDifficulty ? normalDifficulty : 0 }}</span>
+                    </div>
+                    <div :class="{'active': hasHardDifficulty}">
+                        <span>H</span>
+                        <span v-if="hasHardDifficulty">{{ hardDifficulty ? hardDifficulty : 0 }}</span>
+                    </div>
+                    <div :class="{'active': hasExtremeDifficulty}">
+                        <span>EX</span>
+                        <span v-if="hasExtremeDifficulty">{{ expertDifficulty ? expertDifficulty : 0 }}</span>
+                    </div>
+                    <div :class="{'active': hasXDDifficulty}">
+                        <span>XD</span>
+                        <span v-if="hasXDDifficulty">{{ XDDifficulty ? XDDifficulty : 0 }}</span>
+                    </div>
                 </div>
             </div>
         </router-link>
@@ -53,8 +73,11 @@
         mounted: function() {
         },
         methods: {
+            setDefaultCover: function(e) {
+                e.target.src = require('@/assets/img/defaultAlbumArt.jpg');
+            },
             showContextMenu: function(e) {
-                if(e != undefined) {
+                if(e !== undefined) {
                     e.preventDefault();
                 }
 
@@ -88,104 +111,70 @@
     }
 </script>
 
-<style scoped lang="less">
-    .song-item {
-        background: rgba(255,255,255,0.1);
-        transition: 0.2s ease-in-out transform, 0.2s ease-in-out background, 0.2s ease-in-out box-shadow;
-        overflow: hidden;
-        border-radius: 6px;
+<style lang="less" scoped>
+.song-item {
+    background: rgba(255,255,255,0.07);
+    padding: 15px;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out all;
 
-        & .song-cover {
-            background: rgba(255,255,255,0.1);
-            background-size: cover;
+    & a {
+        display: grid;
+        grid-gap: 15px;
+        grid-template-columns: 64px 1fr;
+        color: inherit;
+        text-decoration: none;
+
+        & img {
             width: 100%;
-            padding-top: 100%;
-            position: relative;
-            background-position: center;
-
-            & .song-charter {
-                position: absolute;
-                color: #fff;
-                text-decoration: none;
-                top: 0px;
-                left: 0px;
-                right: 0px;
-                bottom: 0px;
-                background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
-                opacity: 0;
-                padding: 15px;
-                overflow: hidden;
-                display: grid;
-                transition: 0.2s ease-in-out opacity;
-                grid-template-columns: auto 1fr;
-                grid-gap: 10px;
-                align-items: flex-end;
-
-                & .song-charter-info {
-                    display: grid;
-                    align-items: center;
-
-                    & .mdi {
-                        font-size: 18px;
-                    }
-                    & span {
-                        font-size: 12px;
-                        color: transparent;
-                        transition: 0.2s ease-in-out color;
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
-                }
-            }
+            border-radius: 4px;
         }
 
-        & .song-metadata {
-            padding: 15px;
-            color: #fff;
-            text-decoration: none;
+        & .meta {
+            & h1 {
+                font-size: 16px;
+                font-weight: normal;
+                margin: 0;
+            }
 
-            & .song-title {
-                font-weight: bold;
-                overflow: hidden;
-                white-space: nowrap;
+            & h2 {
+                margin-top: 3px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                font-weight: normal;
+                color: rgba(255, 255, 255, 0.4);
             }
-            & .song-artist {
-                margin-top: 5px;
-                opacity: 0.6;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            & .song-difficulties {
-                margin-top: 10px;
-                height: 20px;
+
+            & .difficulties {
                 display: flex;
+                grid-gap: 5px;
 
-                & .difficulty {
-                    background: #fff;
-                    color: #000;
-                    border-radius: 4px;
-                    padding: 3px 5px;
-                    margin-right: 4px;
+                & > div {
+                    padding: 3px 7px;
+                    background: rgba(255, 255, 255, 0.07);
+                    border-radius: 2px;
                     font-size: 10px;
 
-                    & span {
-                        // padding-right: 3px;
+                    & span:nth-child(1) {
                         font-weight: bold;
                     }
-                }
-            }
-        }
 
-        &:hover {
-            cursor: pointer;
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
+                    & span:nth-child(2) {
+                        margin-left: 5px;
+                    }
 
-            & .song-cover {
-                & .song-charter {
-                    opacity: 1;
+                    &:not(.active) {
+                        opacity: 0.4;
+                    }
                 }
             }
         }
     }
+
+    &:hover {
+        background: rgba(255,255,255,0.14);
+        cursor: pointer;
+    }
+}
 </style>

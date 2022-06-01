@@ -21,7 +21,7 @@
             <div class="button" v-on:click="cleanLibrary()">{{ $t('library.cleanup.action') }}</div>
         </div>
 
-        <SongRow noactions="true">
+        <SongRow noactions>
             <template v-slot:song-list>
                 <SongLocalItem
                     v-for="song in librarySongs"

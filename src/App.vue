@@ -4,7 +4,7 @@
 
         <main>
             <Navigation v-bind:downloadQueueCount="downloadQueue.length" v-bind:downloadOverlayShown="showDownloadOverlay" />
-            <router-view />
+            <router-view :key="$route.fullPath" />
         </main>
 
         <ContextMenu></ContextMenu>

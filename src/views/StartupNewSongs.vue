@@ -1,7 +1,7 @@
 <template>
     <SongRow>
         <template v-slot:controls>
-            <div :class="'button ' + (newSongsOffset == 0 ? 'button-disabled' : '')" v-on:click="newPrevious()"><i class="mdi mdi-chevron-left"></i> {{ $t('songrow.navigation.previous' )}}</div>
+            <div :class="'button ' + (newSongsOffset === 0 ? 'button-disabled' : '')" v-on:click="newPrevious()"><i class="mdi mdi-chevron-left"></i> {{ $t('songrow.navigation.previous' )}}</div>
             <div :class="'button ' + (newSongs.length < 9 ? 'button-disabled' : '')" v-on:click="newNext()">{{ $t('songrow.navigation.next' )}} <i class="mdi mdi-chevron-right"></i></div>
         </template>
         <template v-slot:song-list>

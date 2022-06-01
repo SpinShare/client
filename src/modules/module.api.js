@@ -82,22 +82,6 @@ class SSAPI {
         });
     }
 
-    async getLatestVersion() {
-        let apiPath = this.apiBase + "latestVersion/" + process.platform;
-        let supportedVersion = this.supportedVersion;
-
-        return axios.get(apiPath)
-        .then(function(response) {
-            if(response.data.version !== supportedVersion) {
-                throw new Error("Client is outdated!");
-            }
-            
-            return response.data.data;
-        }).catch(function(error) {
-            throw new Error(error);
-        });
-    }
-
     async getNewSongs(_offset) {
         let apiPath = this.apiBase + "songs/new/" + _offset;
         let supportedVersion = this.supportedVersion;
@@ -114,6 +98,22 @@ class SSAPI {
         });
     }
 
+    async getUpdatedSongs(_offset) {
+        let apiPath = this.apiBase + "songs/updated/" + _offset;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+            .then(function(response) {
+                if(response.data.version !== supportedVersion) {
+                    throw new Error("Client is outdated!");
+                }
+
+                return response.data.data;
+            }).catch(function(error) {
+                throw new Error(error);
+            });
+    }
+
     async getHotThisWeekSongs(_offset) {
         let apiPath = this.apiBase + "songs/hotThisWeek/" + _offset;
         let supportedVersion = this.supportedVersion;
@@ -128,6 +128,22 @@ class SSAPI {
         }).catch(function(error) {
             throw new Error(error);
         });
+    }
+
+    async getHotThisMonthSongs(_offset) {
+        let apiPath = this.apiBase + "songs/hotThisMonth/" + _offset;
+        let supportedVersion = this.supportedVersion;
+
+        return axios.get(apiPath)
+            .then(function(response) {
+                if(response.data.version !== supportedVersion) {
+                    throw new Error("Client is outdated!");
+                }
+
+                return response.data.data;
+            }).catch(function(error) {
+                throw new Error(error);
+            });
     }
 
     async getSongDetail(_songId) {
@@ -242,8 +258,8 @@ class SSAPI {
         });
     }
 
-    async searchAll() {
-        let apiPath = this.apiBase + "searchAll";
+    async search(_searchQuery) {
+        let apiPath = this.apiBase + "search/" + _searchQuery;
         let supportedVersion = this.supportedVersion;
 
         return axios.get(apiPath)
@@ -258,16 +274,53 @@ class SSAPI {
         });
     }
 
-    async search(_searchQuery) {
-        let apiPath = this.apiBase + "search/" + _searchQuery;
+    async searchUsers(_searchQuery) {
+        let apiPath = this.apiBase + "searchUsers";
         let supportedVersion = this.supportedVersion;
 
-        return axios.get(apiPath)
+        return axios.post(apiPath, {
+            searchQuery: _searchQuery
+        })
         .then(function(response) {
             if(response.data.version !== supportedVersion) {
                 throw new Error("Client is outdated!");
             }
-            
+
+            return response.data;
+        }).catch(function(error) {
+            throw new Error(error);
+        });
+    }
+
+    async searchCharts(
+        _searchQuery,
+        _diffEasy,
+        _diffNormal,
+        _diffHard,
+        _diffExpert,
+        _diffXD,
+        _diffRatingFrom,
+        _diffRatingTo
+    ) {
+        let apiPath = this.apiBase + "searchCharts/";
+        let supportedVersion = this.supportedVersion;
+
+        return axios.post(apiPath, {
+            searchQuery: _searchQuery,
+            diffEasy: _diffEasy,
+            diffNormal: _diffNormal,
+            diffHard: _diffHard,
+            diffExpert: _diffExpert,
+            diffXD: _diffXD,
+            diffRatingFrom: _diffRatingFrom,
+            diffRatingTo: _diffRatingTo,
+            showExplicit: true,
+        })
+        .then(function(response) {
+            if(response.data.version !== supportedVersion) {
+                throw new Error("Client is outdated!");
+            }
+
             return response.data;
         }).catch(function(error) {
             throw new Error(error);

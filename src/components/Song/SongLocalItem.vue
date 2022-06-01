@@ -1,13 +1,17 @@
 <template>
-    <div :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')" v-on:contextmenu="showContextMenu($event)" v-on:click="openInClient()">
-        <div class="song-cover" v-bind:style="'background-image: '+ backgroundImage +' , url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'" v-observe-visibility="visibilityChanged">
-            <div class="song-charter-info">
-                <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ detail.charter ? detail.charter : "Unknown" }}</span></div>
-            </div>
-        </div>
-        <div class="song-metadata">
-            <div class="song-title">{{ detail.title ? detail.title : "Untitled" }}</div>
-            <div class="song-artist">{{ detail.artist ? detail.artist : "Unknown" }}</div>
+    <div
+        :class="'song-item-local ' + (isSpinShare ? '' : 'song-item-onlylocal')"
+        v-on:contextmenu="showContextMenu($event)"
+        v-on:click="openInClient()"
+        v-tooltip="'Charted by' + detail.charter ? detail.charter : 'Unknown'"
+    >
+        <img
+            v-observe-visibility="visibilityChanged"
+            :src="src"
+        />
+        <div class="meta">
+            <h1>{{ detail.title ? detail.title : "Untitled" }}</h1>
+            <h2>{{ detail.artist ? detail.artist : "Unknown" }}</h2>
         </div>
     </div>
 </template>
@@ -28,15 +32,13 @@
         data: function() {
             return {
                 isContextMenuActive: false,
-                backgroundImage: "none;"
+                src: "none;"
             }
         },
         computed: {
             imageUrl() {
-                return this.$data.backgroundImage
+                return this.$data.src
             }
-        },
-        mounted: function() {
         },
         methods: {
             showContextMenu: function(e) {
@@ -75,11 +77,11 @@
             },
             visibilityChanged (isVisible, entry) {
                 if (isVisible) {
-                    this.$data.backgroundImage = "url(" + this.$props.cover + ")";
+                    this.$data.src = this.$props.cover;
                 } 
                 //url(" + require('@/assets/img/defaultAlbumArt.jpg') + ");
                 else {
-                    this.$data.backgroundImage = "none;";
+                    this.$data.src = "none;";
                 }
             }
         }
@@ -88,79 +90,64 @@
 
 <style scoped lang="less">
     .song-item-local {
-        background: rgba(255,255,255,0.1);
-        transition: 0.2s ease-in-out transform, 0.2s ease-in-out background, 0.2s ease-in-out box-shadow;
+        background: rgba(255,255,255,0.07);
+        padding: 15px;
         overflow: hidden;
-        border-radius: 6px;
+        border-radius: 4px;
+        transition: 0.2s ease-in-out all;
+        display: grid;
+        grid-gap: 15px;
+        grid-template-columns: 64px 1fr;
 
-        & .song-cover {
-            background: rgba(255,255,255,0.1);
-            background-size: cover;
+        & img {
             width: 100%;
-            padding-top: 100%;
-            position: relative;
-            background-position: center;
-
-            & .song-charter {
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                right: 0px;
-                bottom: 0px;
-                background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
-                opacity: 0;
-                padding: 15px;
-                overflow: hidden;
-                display: grid;
-                transition: 0.2s ease-in-out opacity;
-                grid-template-columns: auto 1fr;
-                grid-gap: 10px;
-                align-items: flex-end;
-
-                & .song-charter-info {
-                    display: grid;
-                    align-items: center;
-
-                    & .mdi {
-                        font-size: 18px;
-                    }
-                    & span {
-                        font-size: 12px;
-                        color: transparent;
-                        transition: 0.2s ease-in-out color;
-                        overflow: hidden;
-                        white-space: nowrap;
-                    }
-                }
-            }
+            border-radius: 4px;
         }
 
-        & .song-metadata {
-            padding: 15px;
-
-            & .song-title {
-                font-weight: bold;
-                overflow: hidden;
-                white-space: nowrap;
+        & .meta {
+            & h1 {
+                font-size: 16px;
+                font-weight: normal;
+                margin: 0;
             }
-            & .song-artist {
-                margin-top: 5px;
-                opacity: 0.6;
-                overflow: hidden;
-                white-space: nowrap;
+
+            & h2 {
+                margin-top: 3px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                font-weight: normal;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            & .difficulties {
+                display: flex;
+                grid-gap: 5px;
+
+                & > div {
+                    padding: 3px 7px;
+                    background: rgba(255, 255, 255, 0.07);
+                    border-radius: 2px;
+                    font-size: 10px;
+
+                    & span:nth-child(1) {
+                        font-weight: bold;
+                    }
+
+                    & span:nth-child(2) {
+                        margin-left: 5px;
+                    }
+
+                    &:not(.active) {
+                        opacity: 0.4;
+                        cursor: not-allowed;
+                    }
+                }
             }
         }
 
         &:not(.song-item-onlylocal):hover {
+            background: rgba(255,255,255,0.14);
             cursor: pointer;
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
-
-            & .song-cover {
-                & .song-charter {
-                    opacity: 1;
-                }
-            }
         }
         &.song-item-onlylocal {
             opacity: 0.6;

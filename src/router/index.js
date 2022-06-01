@@ -5,7 +5,9 @@ import axios from 'axios';
 import ViewStartup from '../views/Startup.vue';
 import ViewStartupFrontpage from '../views/StartupFrontpage.vue';
 import ViewStartupNewSongs from '../views/StartupNewSongs.vue';
-import ViewStartupHotSongs from '../views/StartupHotSongs.vue';
+import ViewStartupUpdatedSongs from '../views/StartupUpdatedSongs.vue';
+import ViewStartupHotThisMonthSongs from '../views/StartupHotThisMonthSongs.vue';
+import ViewStartupHotThisWeekSongs from '../views/StartupHotThisWeekSongs.vue';
 import ViewSearch from '../views/Search.vue';
 import ViewLibrary from '../views/Library.vue';
 import ViewSongDetail from '../views/SongDetail.vue';
@@ -38,9 +40,19 @@ const routes = [{
             component: ViewStartupNewSongs
         },
         {
-            path: '/hot',
-            name: 'StartupHot',
-            component: ViewStartupHotSongs
+            path: '/updated',
+            name: 'StartupUpdated',
+            component: ViewStartupUpdatedSongs
+        },
+        {
+            path: '/hotThisWeek',
+            name: 'StartupHotThisWeek',
+            component: ViewStartupHotThisWeekSongs
+        },
+        {
+            path: '/hotThisMonth',
+            name: 'StartupHotThisMonth',
+            component: ViewStartupHotThisMonthSongs
         }
     ]
 }, {

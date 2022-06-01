@@ -1,5 +1,10 @@
 <template>
-    <div class="song-row">
+    <div
+        class="song-row"
+        :class="{
+            'song-row--withSidebar': withSidebar
+        }"
+    >
         <div class="song-list">
             <slot name="song-list"></slot>
         </div>
@@ -14,10 +19,18 @@
 <script>
     export default {
         name: 'SongRow',
-        props: [
-            'title',
-            'noactions'
-        ]
+        props: {
+            noactions: {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+            withSidebar: {
+                type: Boolean,
+                required: false,
+                default: false,
+            }
+        }
     }
 </script>
 
@@ -29,7 +42,7 @@
         
         & .song-list {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             grid-gap: 15px;
         }
         & .song-list-noresults {
@@ -51,6 +64,76 @@
             & .button {
                 margin-left: 10px;
                 display: inline;
+            }
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            &.song-row--withSidebar {
+                & .song-list {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1300px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            &.song-row--withSidebar {
+                & .song-list {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1500px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            &.song-row--withSidebar {
+                & .song-list {
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 2200px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            }
+
+            &.song-row--withSidebar {
+                & .song-list {
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 2700px) {
+        .song-row {
+            & .song-list {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            }
+
+            &.song-row--withSidebar {
+                & .song-list {
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                }
             }
         }
     }
