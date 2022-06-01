@@ -1,7 +1,8 @@
 <template>
     <section class="section-userdetail-charts">
         <SongRow
-            v-if="apiFinished && charts.length > 0">
+            v-if="apiFinished && charts.length > 0"
+            with-sidebar>
             <template v-slot:song-list>
                 <SongItem
                     v-for="song in charts"
@@ -13,7 +14,7 @@
             <div class="noresults-text">{{ this.$t('userdetail.charts.noresults') }}</div>
         </div>
 
-        <Loading v-if="!apiFinished" style="padding: 50px 0px;" />
+        <SLoadingSpinner v-if="!apiFinished" style="margin: 100px auto;" />
     </section>
 </template>
 
@@ -21,14 +22,12 @@
     import SSAPI from '@/modules/module.api.js';
     import SongRow from '@/components/Song/SongRow.vue';
     import SongItem from '@/components/Song/SongItem.vue';
-    import Loading from '@/components/Loading.vue';
 
     export default {
         name: 'UserDetailCharts',
         components: {
             SongRow,
             SongItem,
-            Loading,
         },
         data: function() {
             return {
@@ -40,9 +39,9 @@
             let ssapi = new SSAPI();
 
             ssapi.getUserCharts(this.$route.params.id).then((data) => {
-                if(data.status == 200) {
-                    this.$data.charts = data.data;
-                    this.$data.apiFinished = true;
+                if(data.status === 200) {
+                    this.charts = data.data;
+                    this.apiFinished = true;
                 } else {
                     this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                 }
@@ -55,8 +54,6 @@
 
 <style scoped lang="less">
     .section-userdetail-charts {
-        padding: 50px;
-
         & .song-list-noresults {
             display: block;
             background: rgba(255,255,255,0.1);

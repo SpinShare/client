@@ -2,7 +2,12 @@
     <div :style="'background-image: url(' + image_path + ');'" :class="isLoading ? 'staff-promo promo-loading' : 'staff-promo' ">
         <div class="promo-type" :style="'color:' + color">{{ type }}</div>
         <div class="promo-title" :style="'color:' + textColor" v-html="title"></div>
-        <div class="promo-button" :style="'background-color:' + color" v-on:click="buttonClick()">{{ $t('startup.staffpromo.action') }}</div>
+        <SButton
+            :icon="buttonIcon"
+            :label="$t('startup.staffpromo.action')"
+            @click="buttonClick"
+            :style="'background-color:' + color"
+        />
     </div>
 </template>
 
@@ -11,10 +16,17 @@
 
     export default {
         name: 'StaffPromo',
+        props: [
+            'isLoading',
+            'image_path',
+            'type',
+            'title',
+            'button',
+            'textColor',
+            'color'
+        ],
         methods: {
             buttonClick: function() {
-                console.log(this.$props.button.type);
-                console.log(this.$props.button.data);
                 switch(this.$props.button.type) {
                     case 0:
                         // Song
@@ -38,15 +50,27 @@
                 }
             }
         },
-        props: [
-            'isLoading',
-            'image_path',
-            'type',
-            'title',
-            'button',
-            'textColor',
-            'color'
-        ]
+        computed: {
+            buttonIcon() {
+                switch(this.$props.button.type) {
+                    case 0:
+                        // Song
+                        return 'music-note';
+                    case 1:
+                        // Playlist (unused)
+                        break;
+                    case 2:
+                        // Search Query
+                        return 'magnify';
+                    case 3:
+                        // External
+                        return 'open-in-new';
+                    case 4:
+                        // User
+                        return 'account-circle';
+                }
+            }
+        },
     }
 </script>
 
@@ -77,21 +101,8 @@
             letter-spacing: -0.025em;
             color: #222;
         }
-        & .promo-button {
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 10px 25px;
-            color: #fff;
-            background: #aaa;
-            justify-self: left;
-            border-radius: 6px;
-            transition: 0.2s ease-in-out all;
-
-            &:hover {
-                cursor: pointer;
-                opacity: 0.6;
-            }
+        & button {
+            justify-self: flex-start;
         }
     }
 </style>

@@ -81,8 +81,6 @@
 
 <style scoped lang="less">
     .frontpage {
-        padding: 50px;
-
         .staff-promos {
             display: grid;
             grid-template-columns: 1fr 1fr;

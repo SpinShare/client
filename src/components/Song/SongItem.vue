@@ -8,6 +8,7 @@
         <router-link :to="{ name: 'SongDetail', params: { id: id } }">
             <img
                 :src="cover"
+                v-observe-visibility="visibilityChanged"
                 @error="setDefaultCover"
                 :alt="title + ' Cover'"
             />
@@ -106,6 +107,14 @@
                 }
 
                 this.$root.$emit('download', {id: this.$props.id, cover: this.$props.cover, title: this.$props.title, artist: this.$props.artist, downloadPath: this.$props.zip});
+            },
+            visibilityChanged (isVisible, entry) {
+                if (isVisible) {
+                    this.src = this.$props.cover;
+                }
+                else {
+                    this.src = "none;";
+                }
             }
         }
     }
@@ -127,7 +136,8 @@
         text-decoration: none;
 
         & img {
-            width: 100%;
+            width: 64px;
+            height: 64px;
             border-radius: 4px;
         }
 

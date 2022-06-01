@@ -8,7 +8,11 @@
             <div class="card-title">{{ card.title }}</div>
             <div class="card-description">{{ card.description }}</div>
             <div class="card-given">{{ renderDate(card.givenDateFormat) }}</div>
-            <div class="button" v-on:click="close()">Close</div>
+            <SButton
+                icon="close"
+                :label="$t('download.closeButton')"
+                @click="close"
+            />
         </div>
     </div>
 </template>
@@ -68,7 +72,10 @@
         }
 
         & .overlay-content {
-            max-width: 320px;
+            background: #222;
+            padding: 50px;
+            border-radius: 4px;
+            max-width: 400px;
             text-align: center;
 
             & img {

@@ -1,8 +1,18 @@
 <template>
     <SongRow>
         <template v-slot:controls>
-            <div :class="'button ' + (newSongsOffset === 0 ? 'button-disabled' : '')" v-on:click="newPrevious()"><i class="mdi mdi-chevron-left"></i> {{ $t('songrow.navigation.previous' )}}</div>
-            <div :class="'button ' + (newSongs.length < 9 ? 'button-disabled' : '')" v-on:click="newNext()">{{ $t('songrow.navigation.next' )}} <i class="mdi mdi-chevron-right"></i></div>
+            <SButton
+                :disabled="newSongsOffset === 0"
+                icon="chevron-left"
+                :label="$t('songrow.navigation.previous')"
+                @click="newPrevious"
+            />
+            <SButton
+                :disabled="newSongs.length < 11"
+                icon="chevron-right"
+                :label="$t('songrow.navigation.next')"
+                @click="newNext"
+            />
         </template>
         <template v-slot:song-list>
             <SongItemPlaceholder
@@ -71,9 +81,3 @@
         }
     }
 </script>
-
-<style scoped lang="less">
-    .song-row {
-        padding: 50px;
-    }
-</style>

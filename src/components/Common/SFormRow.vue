@@ -123,7 +123,7 @@ export default {
         }
         &:focus {
             outline: 0;
-            border-color: #fb1357;
+            border-color: rgba(227, 91, 152, 1);
         }
         & option {
             color: rgba(0,0,0,1);
@@ -167,11 +167,11 @@ export default {
             }
 
             &:checked {
-                background: rgba(255, 94, 129, 0.4);
+                background: rgba(227, 91, 152, 0.4);
 
                 &::after {
                     left: 22px;
-                    background: rgba(255, 94, 129, 1);
+                    background: rgba(227, 91, 152, 1);
                 }
 
                 & + span {

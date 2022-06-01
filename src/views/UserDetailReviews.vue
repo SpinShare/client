@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <Loading v-if="!apiFinished" style="padding: 50px 0px;" />
+        <SLoadingSpinner v-if="!apiFinished" style="margin: 100px auto;" />
     </section>
 </template>
 
@@ -29,13 +29,9 @@
     import moment from 'moment';
 
     import SSAPI from '@/modules/module.api.js';
-    import Loading from '@/components/Loading.vue';
 
     export default {
         name: 'UserDetailReviews',
-        components: {
-            Loading,
-        },
         data: function() {
             return {
                 apiFinished: false,
@@ -46,10 +42,9 @@
             let ssapi = new SSAPI();
 
             ssapi.getUserReviews(this.$route.params.id).then((data) => {
-                if(data.status == 200) {
-                    console.log(data.data);
-                    this.$data.reviews = data.data;
-                    this.$data.apiFinished = true;
+                if(data.status === 200) {
+                    this.reviews = data.data;
+                    this.apiFinished = true;
                 } else {
                     this.$router.push({ name: 'Error', params: { errorCode: data.status } });
                 }
@@ -65,8 +60,6 @@
 
 <style scoped lang="less">
     .section-userdetail-reviews {
-        padding: 50px;
-
         & .review-list {
             display: grid;
             grid-template-columns: 1fr 1fr;

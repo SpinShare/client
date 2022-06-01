@@ -17,6 +17,7 @@
         display: grid;
         grid-template-rows: 1fr;
         grid-gap: 5px;
+        align-self: flex-start;
 
         & .user-list {
             display: grid;

@@ -14,11 +14,24 @@
                 <div class="text">{{ $t('update.latestText') }}</div>
             </div>
             <div class="update-actions update-actions-available" v-if="isAvailable">
-                <button class="button" v-on:click="OpenAndHideOverlay()">{{ $t('update.download') }}</button>
-                <button class="button" v-on:click="HideOverlay()">{{ $t('update.later') }}</button>
+                <SButton
+                    color="primary"
+                    icon="download"
+                    :label="$t('update.download')"
+                    @click="OpenAndHideOverlay"
+                />
+                <SButton
+                    icon="close"
+                    :label="$t('update.later')"
+                    @click="HideOverlay"
+                />
             </div>
             <div class="update-actions update-actions-latest" v-if="!isAvailable">
-                <button class="button" v-on:click="HideOverlay()">{{ $t('update.close') }}</button>
+                <SButton
+                    icon="close"
+                    :label="$t('update.close')"
+                    @click="HideOverlay"
+                />
             </div>
         </div>
     </div>
@@ -66,7 +79,7 @@
 
         & .update-content {
             width: 500px;
-            background: #212629;
+            background: #222;
             border-radius: 6px;
             position: relative;
             overflow: hidden;
@@ -92,18 +105,15 @@
 
                 & .text {
                     text-align: center;
+                    opacity: 0.4;
                 }
             }
 
             & .update-actions {
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
                 padding: 25px;
-                background: rgba(0,0,0,0.4);
-
-                & button {
-                    margin-left: 10px;
-                }
+                grid-gap: 10px;
             }
         }
     }

@@ -236,10 +236,11 @@
         width: 100%;
         height: 100%;
         margin: 0;
-        background: #212629;
+        background: #222;
         color: #fff;
         overflow: hidden;
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Work Sans', sans-serif;
+        letter-spacing: -0.025em;
         font-size: 14px;
     }
     ::-webkit-scrollbar {
@@ -264,33 +265,6 @@
     }
     .app-darwin main {
         top: 40px;
-    }
-    button, .button {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 12px;
-        text-decoration: none;
-        border: 0px;
-        color: #fff;
-        font-size: 12px;
-        font-weight: bold;
-        letter-spacing: 0.1em;
-        background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-        padding: 10px 20px;
-        border-radius: 4px;
-        text-transform: uppercase;
-        transition: 0.2s ease-in-out all;
-        cursor: pointer;
-
-        &:hover {
-            opacity: 0.6;
-        }
-        &:focus {
-            outline: 0;
-        }
-        &:disabled, &.button-disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
     }
     input[type='range'] {
         overflow: hidden;

@@ -69,7 +69,11 @@
             <SFormRow
                 actions
             >
-                <div class="button" v-on:click="search()">{{ $t('search.search.button') }}</div>
+                <SButton
+                    icon="magnify"
+                    :label="$t('search.search.button')"
+                    @click="search"
+                />
             </SFormRow>
         </aside>
         <div class="search-results">
@@ -123,14 +127,10 @@
     import UserItem from '@/components/User/UserItem.vue';
     import SongRow from '@/components/Song/SongRow.vue';
     import SongItem from '@/components/Song/SongItem.vue';
-    import SFormRow from "@/components/Common/SFormRow";
-    import SLoadingSpinner from "@/components/Common/SLoadingSpinner";
 
     export default {
         name: 'Search',
         components: {
-            SLoadingSpinner,
-            SFormRow,
             UserRow,
             UserItem,
             SongRow,
@@ -155,13 +155,15 @@
             this.$refs.searchInput.focus();
 
             if(this.$route.params.searchQuery !== undefined) {
+                console.log(this.$route.params.searchDifficultyIncludedEasy);
+
                 this.searchType = this.$route.params.searchType || 'charts';
                 this.searchQuery = this.$route.params.searchQuery || '';
-                this.searchDifficultyIncludedEasy = this.$route.params.searchDifficultyIncludedEasy;
-                this.searchDifficultyIncludedNormal = this.$route.params.searchDifficultyIncludedNormal;
-                this.searchDifficultyIncludedHard = this.$route.params.searchDifficultyIncludedHard;
-                this.searchDifficultyIncludedExpert = this.$route.params.searchDifficultyIncludedExpert;
-                this.searchDifficultyIncludedXD = this.$route.params.searchDifficultyIncludedXD;
+                this.searchDifficultyIncludedEasy = this.$route.params.searchDifficultyIncludedEasy !== undefined ? this.$route.params.searchDifficultyIncludedEasy : true;
+                this.searchDifficultyIncludedNormal = this.$route.params.searchDifficultyIncludedNormal !== undefined ? this.$route.params.searchDifficultyIncludedNormal : true;
+                this.searchDifficultyIncludedHard = this.$route.params.searchDifficultyIncludedHard !== undefined ? this.$route.params.searchDifficultyIncludedHard : true;
+                this.searchDifficultyIncludedExpert = this.$route.params.searchDifficultyIncludedExpert !== undefined ? this.$route.params.searchDifficultyIncludedExpert : true;
+                this.searchDifficultyIncludedXD = this.$route.params.searchDifficultyIncludedXD !== undefined ? this.$route.params.searchDifficultyIncludedXD : true;
                 this.searchMinimumDifficulty = this.$route.params.searchMinimumDifficulty || 0;
                 this.searchMaximumDifficulty = this.$route.params.searchMaximumDifficulty || 99;
 
@@ -253,7 +255,7 @@
         overflow: hidden;
 
         & aside {
-            background: rgba(0,0,0,0.3);
+            background: #161616;
             padding: 25px;
             display: flex;
             grid-gap: 15px;

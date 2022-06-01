@@ -2,15 +2,31 @@
     <div class="delete-overlay">
         <div class="delete-content">
             <div class="delete-main">
-                <div class="delete-title">{{ $t('library.deletemodal.title') }}</div>
+                <header>
+                    <h1>{{ $t('library.deletemodal.title') }}</h1>
+                    <SButton
+                        icon="close"
+                        mini
+                        @click="close"
+                    />
+                </header>
                 <div class="delete-text">{{ $t('library.deletemodal.text') }}</div>
                 <div class="delete-files">
                     <span v-for="deleteFile in deleteFiles">{{ deleteFile }}</span>
                 </div>
             </div>
             <div class="delete-actions">
-                <button class="button" v-on:click="confirm()">{{ $t('library.deletemodal.delete') }}</button>
-                <button class="button" v-on:click="close()">{{ $t('library.deletemodal.close') }}</button>
+                <SButton
+                    color="primary"
+                    icon="delete"
+                    :label="$t('library.deletemodal.delete')"
+                    @click="confirm"
+                />
+                <SButton
+                    icon="close"
+                    :label="$t('library.deletemodal.close')"
+                    @click="close"
+                />
             </div>
         </div>
     </div>
@@ -57,20 +73,26 @@
 
         & .delete-content {
             width: 700px;
-            background: #212629;
+            background: #222;
             border-radius: 6px;
             position: relative;
             overflow: hidden;
 
             & .delete-main {
-                padding: 25px;
+                padding: 30px 30px 0;
 
-                & .delete-title {
-                    letter-spacing: 0.25em;
-                    font-size: 14px;
-                    font-weight: bold;
-                    text-transform: uppercase;
+                & header {
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    grid-gap: 15px;
+                    align-items: center;
+
+                    & h1 {
+                        font-size: 18px;
+                        margin: 0;
+                    }
                 }
+
                 & .delete-text {
                     padding: 15px 0px;
                     opacity: 0.6;
@@ -91,11 +113,7 @@
                 display: flex;
                 justify-content: flex-end;
                 padding: 25px;
-                background: rgba(0,0,0,0.4);
-
-                & button {
-                    margin-left: 10px;
-                }
+                grid-gap: 10px;
             }
         }
     }

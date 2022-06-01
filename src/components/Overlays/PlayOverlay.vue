@@ -2,7 +2,14 @@
     <div class="play-overlay">
         <div class="play-content">
             <div class="play-main">
-                <div class="play-title">{{ $t('songdetail.playmodal.title') }}</div>
+                <header>
+                    <h1>{{ $t('songdetail.playmodal.title') }}</h1>
+                    <SButton
+                        icon="close"
+                        mini
+                        @click="close"
+                    />
+                </header>
                 <div class="play-difficulties">
                     <div :class="hasEasyDifficulty ? 'button active' : 'button'" v-on="hasEasyDifficulty ? { click: () => play(0) } : {}">
                         <img src="@/assets/img/difficultyEasy.svg" :class="hasEasyDifficulty ? 'active' : ''" />
@@ -22,7 +29,11 @@
                 </div>
             </div>
             <div class="play-actions">
-                <div class="button" v-on:click="close()">{{ $t('songdetail.playmodal.actions.close') }}</div>
+                <SButton
+                    icon="close"
+                    :label="$t('songdetail.playmodal.actions.close')"
+                    @click="close"
+                />
             </div>
         </div>
     </div>
@@ -97,13 +108,18 @@
             overflow: hidden;
 
             & .play-main {
-                padding: 25px;
+                padding: 25px 25px 0;
 
-                & .play-title {
-                    letter-spacing: 0.25em;
-                    font-size: 14px;
-                    font-weight: bold;
-                    text-transform: uppercase;
+                & header {
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    grid-gap: 15px;
+                    align-items: center;
+
+                    & h1 {
+                        font-size: 18px;
+                        margin: 0;
+                    }
                 }
                 & .play-difficulties {
                     margin-top: 15px;
@@ -122,15 +138,38 @@
                         &.active {
                             opacity: 1;
                             cursor: pointer;
-
-                            &:hover {
-                                opacity: 0.6;
-                            }
                         }
                         & img {
                             width: 48px;
                             padding: 20px 0px;
                         }
+                    }
+                }
+
+                & .button {
+                    font-family: 'Work Sans', sans-serif;
+                    font-size: 12px;
+                    text-decoration: none;
+                    border: 0;
+                    color: #fff;
+                    font-weight: bold;
+                    letter-spacing: 0.1em;
+                    background: rgba(255,255,255,0.07);
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                    transition: 0.2s ease-in-out all;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: rgba(255,255,255,0.14);
+                    }
+                    &:focus {
+                        outline: 0;
+                    }
+                    &:disabled, &.button-disabled {
+                        opacity: 0.4;
+                        cursor: not-allowed;
                     }
                 }
             }
@@ -139,11 +178,7 @@
                 display: flex;
                 justify-content: flex-end;
                 padding: 25px;
-                background: rgba(0,0,0,0.4);
-
-                & button {
-                    margin-left: 10px;
-                }
+                grid-gap: 10px;
             }
         }
     }

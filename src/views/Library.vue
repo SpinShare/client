@@ -3,22 +3,37 @@
         <header>
             <div class="title">{{ $t('library.header') }}</div>
             <div class="actions">
-                <div class="button" v-on:click="install()">{{ $t('library.actions.install') }}</div>
-                <div class="button" v-on:click="refreshLibrary()">{{ $t('library.actions.refresh') }}</div>
-                <div class="button" v-on:click="openLibrary()">{{ $t('library.actions.open') }}</div>
-                <span></span>
+                <SButton
+                    icon="plus"
+                    :label="$t('library.actions.install')"
+                    @click="install"
+                />
+                <SButton
+                    icon="reload"
+                    :label="$t('library.actions.refresh')"
+                    @click="refreshLibrary"
+                />
+                <SButton
+                    icon="folder"
+                    :label="$t('library.actions.open')"
+                    @click="openLibrary"
+                />
             </div>
         </header>
 
         <div class="cleanup-banner" v-if="hasUnusedFiles">
-            <div class="icon">
+            <div class="cleanup-icon">
                 <i class="mdi mdi-hand-water"></i>
             </div>
             <div class="text">
                 <div class="title">{{ $t('library.cleanup.title') }}</div>
                 <div class="copy">{{ $t('library.cleanup.copy') }}</div>
             </div>
-            <div class="button" v-on:click="cleanLibrary()">{{ $t('library.cleanup.action') }}</div>
+            <SButton
+                icon="vacuum"
+                :label="$t('library.cleanup.action')"
+                @click="cleanLibrary"
+            />
         </div>
 
         <SongRow noactions>
@@ -31,7 +46,7 @@
         </SongRow>
 
         <div class="loading" v-if="!apiFinished">
-            <Loading />
+            <SLoadingSpinner />
         </div>
 
         <DeleteOverlay v-if="showDeleteOverlay" v-bind:deleteFiles="deleteFiles" />
@@ -52,7 +67,6 @@
 
     import SongRow from '@/components/Song/SongRow.vue';
     import SongLocalItem from '@/components/Song/SongLocalItem.vue';
-    import Loading from '@/components/Loading.vue';
     import DeleteOverlay from '@/components/Overlays/DeleteOverlay.vue';
 
     export default {
@@ -70,7 +84,6 @@
         components: {
             SongRow,
             SongLocalItem,
-            Loading,
             DeleteOverlay
         },
         mounted: function() {
@@ -338,7 +351,7 @@
             & .actions {
                 display: grid;
                 grid-template-columns: auto auto auto auto 1fr;
-                grid-gap: 15px;
+                grid-gap: 10px;
             }
         }
         & .cleanup-banner {
@@ -352,7 +365,7 @@
             margin-top: 25px;
             align-items: center;
 
-            & .icon {
+            & .cleanup-icon {
                 width: 40px;
                 height: 40px;
                 display: flex;
@@ -365,16 +378,17 @@
             }
 
             & .text {
+                display: grid;
+                grid-gap: 5px;
+
                 & .title {
                     margin: 0;
-                    letter-spacing: 0.25em;
-                    font-size: 14px;
+                    font-size: 18px;
                     font-weight: bold;
-                    text-transform: uppercase;
                 }
-                & .text {
+                & .copy {
                     opacity: 0.6;
-                    line-height: 1.5;
+                    line-height: 1.5em;
                 }
             }
         }
@@ -383,5 +397,10 @@
             padding: 50px;
             padding-top: 25px;
         }
+    }
+    .loading {
+        padding: 100px 0;
+        display: flex;
+        justify-content: center;
     }
 </style>

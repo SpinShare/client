@@ -77,11 +77,11 @@
             },
             visibilityChanged (isVisible, entry) {
                 if (isVisible) {
-                    this.$data.src = this.$props.cover;
+                    this.src = this.$props.cover;
                 } 
                 //url(" + require('@/assets/img/defaultAlbumArt.jpg') + ");
                 else {
-                    this.$data.src = "none;";
+                    this.src = "none;";
                 }
             }
         }
@@ -100,7 +100,8 @@
         grid-template-columns: 64px 1fr;
 
         & img {
-            width: 100%;
+            width: 64px;
+            height: 64px;
             border-radius: 4px;
         }
 

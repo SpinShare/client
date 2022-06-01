@@ -7,7 +7,11 @@
             </div>
         </header>
         <div class="error-content">
-            <div class="button" v-on:click="retry()">Try again</div>
+            <SButton
+                icon="refresh"
+                label="Try again"
+                @click="retry"
+            />
         </div>
     </section>
 </template>

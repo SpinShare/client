@@ -16,6 +16,14 @@ Vue.directive('tooltip', VTooltip);
 Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
 
+import SButton from "@/components/Common/SButton";
+import SFormRow from "@/components/Common/SFormRow";
+import SLoadingSpinner from "@/components/Common/SLoadingSpinner";
+
+Vue.component('SButton', SButton);
+Vue.component('SFormRow', SFormRow);
+Vue.component('SLoadingSpinner', SLoadingSpinner);
+
 Vue.config.productionTip = false;
 
 

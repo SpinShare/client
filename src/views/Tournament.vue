@@ -9,29 +9,53 @@
         </header>
         <div class="tournament-content" v-if="apiFinished">
             <div class="buttons">
-                <div class="button" v-on:click="checkCharts()">Check if you are tournament-ready</div>
-                <div class="button" v-on:click="downloadCharts()" v-show="analyzationDone">Download all tournament charts</div>
+                <SButton
+                    icon="update"
+                    label="Check if you're tournament-ready"
+                    @click="checkCharts"
+                />
+                <SButton
+                    icon="download"
+                    label="Download all tournament charts"
+                    @click="downloadCharts"
+                    v-show="analyzationDone"
+                />
             </div>
             <div class="check-result" v-if="missingCharts.length > 0">
                 <div class="list-title title-missing">Missing</div>
-                <div class="item" v-for="missingChart in missingCharts" v-bind:key="missingChart.id">
-                    <div class="cover" :style="'background-image: url(' + missingChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
-                    <div class="title">{{ missingChart.title }}</div>
-                </div>
+                <SongRow noactions>
+                    <template slot="song-list">
+                        <SongItem
+                            v-for="chart in missingCharts"
+                            v-bind:key="chart.id"
+                            v-bind="chart"
+                        />
+                    </template>
+                </SongRow>
             </div>
             <div class="check-result" v-if="outdatedCharts.length > 0">
                 <div class="list-title title-outdated">Outdated</div>
-                <div class="item" v-for="outdatedChart in outdatedCharts" v-bind:key="outdatedChart.id">
-                    <div class="cover" :style="'background-image: url(' + outdatedChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
-                    <div class="title">{{ outdatedChart.title }}</div>
-                </div>
+                <SongRow noactions>
+                    <template slot="song-list">
+                        <SongItem
+                            v-for="chart in outdatedCharts"
+                            v-bind:key="chart.id"
+                            v-bind="chart"
+                        />
+                    </template>
+                </SongRow>
             </div>
             <div class="check-result" v-if="okCharts.length > 0">
                 <div class="list-title title-ok">OK</div>
-                <div class="item" v-for="okChart in okCharts" v-bind:key="okChart.id">
-                    <div class="cover" :style="'background-image: url(' + okChart.paths.cover + '), url(' + require('@/assets/img/defaultAlbumArt.jpg') + ');'"></div>
-                    <div class="title">{{ okChart.title }}</div>
-                </div>
+                <SongRow noactions>
+                    <template slot="song-list">
+                        <SongItem
+                            v-for="chart in okCharts"
+                            v-bind:key="chart.id"
+                            v-bind="chart"
+                        />
+                    </template>
+                </SongRow>
             </div>
         </div>
     </section>
@@ -45,9 +69,15 @@
 
     import SSAPI from '@/modules/module.api.js';
     import UserSettings from '@/modules/module.usersettings.js';
+    import SongRow from "@/components/Song/SongRow";
+    import SongItem from "@/components/Song/SongItem";
 
     export default {
         name: 'Tournament',
+        components: {
+            SongRow,
+            SongItem
+        },
         data: function() {
             return {
                 tournamentCharts: [],
@@ -141,14 +171,12 @@
             
             & .buttons {
                 width: 100%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-gap: 25px;
+                display: flex;
+                grid-gap: 10px;
             }
             & .check-result {
                 margin-top: 25px;
                 border-radius: 4px;
-                background: rgba(255,255,255,0.1);
 
                 & .list-title {
                     font-weight: 600;
@@ -156,34 +184,17 @@
                     text-transform: uppercase;
                     letter-spacing: 0.15em;
                     padding: 10px 20px;
-                    border-top-left-radius: 4px;
-                    border-top-right-radius: 4px;
+                    border-radius: 4px;
+                    margin-bottom: 15px;
 
                     &.title-missing {
-                        background: rgba(189, 43, 43, 0.15);
+                        background: #ff1744;
                     }
                     &.title-outdated {
-                        background: rgba(224, 157, 31, 0.15);
+                        background: #ffab40;
                     }
                     &.title-ok {
-                        background: rgba(30, 202, 30, 0.15);
-                    }
-                }
-                & .item {
-                    display: grid;
-                    grid-template-columns: 22px 1fr;
-                    grid-gap: 10px;
-                    padding: 15px;
-
-                    & .cover {
-                        width: 22px;
-                        height: 22px;
-                        background-size: cover;
-                        background-position: center;
-                        border-radius: 4px;
-                    }
-                    & .title {
-                        font-size: 14px;
+                        background: #9ccc65;
                     }
                 }
             }

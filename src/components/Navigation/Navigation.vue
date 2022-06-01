@@ -84,7 +84,6 @@
                 justify-content: center;
                 align-items: center;
                 background: transparent;
-                border-bottom: 2px solid transparent;
                 color :#fff;
                 position: relative;
                 transition: 0.2s ease opacity, 0.2s ease background;
@@ -97,12 +96,23 @@
                     height: 20px;
                     font-size: 10px;
                     font-weight: bold;
-                    background: rgb(226, 44, 120);
+                    background: rgba(227, 91, 152, 1);
                     border-radius: 20px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     overflow: hidden;
+                }
+
+                &::after {
+                    content: '';
+                    background: transparent;
+                    width: 0px;
+                    height: 3px;
+                    border-radius: 10px;
+                    position: absolute;
+                    top: 50px;
+                    transition: 0.2s ease-in-out width, 0.1s ease-in-out background;
                 }
 
                 &:hover {
@@ -113,7 +123,11 @@
                     }
                 }
                 &.router-link-active {
-                    border-color: rgb(226, 44, 120);
+
+                    &::after {
+                        width: 14px;
+                        background: rgba(227, 91, 152, 1);
+                    }
 
                     & .mdi {
                         opacity: 1;

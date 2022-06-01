@@ -1,14 +1,18 @@
 <template>
     <div class="tab tab-spinplays">
         <div class="spinplay-overview" v-if="apiFinished">
-            <div class="icon">
+            <div class="spinplay-icon">
                 <i class="mdi mdi-youtube"></i>
             </div>
             <div class="text">
                     <div class="label">{{ $t('songdetail.spinplays.add.label') }}</div>
                     <div class="disclaimer">{{ $t('songdetail.spinplays.add.text') }}</div>
             </div>
-            <div v-on:click="OpenSubmitVideo()" class="action-button">{{ $t('songdetail.spinplays.add.submitVideo') }}</div>
+            <SButton
+                icon="plus"
+                :label="$t('songdetail.spinplays.add.submitVideo')"
+                @click="OpenSubmitVideo"
+            />
         </div>
         <div class="spinplays" v-if="apiFinished && spinPlays.length > 0">
             <SongSpinPlay
@@ -47,7 +51,7 @@
             let ssapi = new SSAPI();
 
             ssapi.getSongDetailSpinPlays(this.$route.params.id).then((data) => {
-                if(data.status == 200) {
+                if(data.status === 200) {
                     this.$data.apiFinished = true;
                     this.$data.spinPlays = data.data.spinPlays ? data.data.spinPlays : [];
                 } else {
@@ -77,7 +81,7 @@
             grid-gap: 25px;
             align-items: center;
 
-            & .icon {
+            & .spinplay-icon {
                 color: #fff;
                 font-size: 48px;
             }
@@ -90,23 +94,6 @@
                     text-transform: uppercase;
                 }
                 & .disclaimer {
-                    opacity: 0.6;
-                }
-            }
-            & .action-button {
-                text-decoration: none;
-                color: #fff;
-                font-size: 12px;
-                font-weight: bold;
-                letter-spacing: 0.1em;
-                background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-                padding: 10px 20px;
-                border-radius: 4px;
-                text-transform: uppercase;
-                transition: 0.2s ease-in-out all;
-                cursor: pointer;
-
-                &:hover {
                     opacity: 0.6;
                 }
             }

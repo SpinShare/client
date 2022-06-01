@@ -58,13 +58,10 @@
             }
         }
         & .pagination {
-            text-align: right;
             margin-top: 25px;
-
-            & .button {
-                margin-left: 10px;
-                display: inline;
-            }
+            display: flex;
+            grid-gap: 10px;
+            justify-content: flex-end;
         }
     }
 

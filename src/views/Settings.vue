@@ -15,7 +15,12 @@
                 <div class="settings-item">
                     <div class="settings-label">{{ $t('settings.client.update.label') }}</div>
                     <div class="settings-input">
-                        <button v-on:click="CheckForUpdates()">{{ $t('settings.client.update.button') }}</button>
+                        <SButton
+                            icon="refresh"
+                            :label="$t('settings.client.update.button')"
+                            @click="CheckForUpdates"
+                            style="justify-self: flex-start"
+                        />
                     </div>
                 </div>
             </div>
@@ -45,8 +50,16 @@
                     <div class="settings-label">{{ $t('settings.general.gameDirectory.label') }}</div>
                     <div class="settings-input settings-input-twobuttons">
                         <input type="text" class="settings-input-gamedirectory" disabled v-model="settingGameDirectory">
-                        <button v-on:click="SelectGameDirectory()">{{ $t('settings.general.gameDirectory.changeButton') }}</button>
-                        <button v-on:click="ResetGameDirectory()">{{ $t('settings.general.gameDirectory.resetButton') }}</button>
+                        <SButton
+                            icon="pencil"
+                            :label="$t('settings.general.gameDirectory.changeButton')"
+                            @click="SelectGameDirectory"
+                        />
+                        <SButton
+                            icon="refresh"
+                            :label="$t('settings.general.gameDirectory.resetButton')"
+                            @click="ResetGameDirectory"
+                        />
                     </div>
                 </div>
                 
@@ -64,7 +77,11 @@
                 <div class="settings-item">
                     <div class="settings-label">Open</div>
                     <div class="settings-input">
-                        <router-link to="/tournament" class="button">Open WarpZone</router-link>
+                        <SButton
+                            icon="tournament"
+                            label="Open WarpZone"
+                            @click="OpenWarpZone"
+                        />
                     </div>
                 </div>
             </div>
@@ -133,12 +150,15 @@
                 let ssapi = new SSAPI();
 
                 ssapi.getLatestVersion().then((data) => {
-                    if(data.stringVersion != app.getVersion() && process.env.NODE_ENV !== 'development') {
+                    if(data.stringVersion !== app.getVersion() && process.env.NODE_ENV !== 'development') {
                         this.$root.$emit('showUpdateOverlay', true);
                     } else {
                         this.$root.$emit('showUpdateOverlay', false);
                     }
                 });
+            },
+            OpenWarpZone() {
+                this.$router.push({name: 'Tournament'});
             }
         }
     }
@@ -161,20 +181,20 @@
 
         & .settings {
             padding: 25px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
             & .settings-box {
-                background: rgba(255,255,255,0.1);
-                
-                max-width: 650px;
+                background: rgba(255,255,255,0.07);
+                width: 650px;
                 padding: 25px;
                 border-radius: 6px;
                 margin-bottom: 25px;
 
                 & .settings-title {
-                    font-size: 14px;
-                    letter-spacing: 0.25em;
+                    font-size: 18px;
                     font-weight: bold;
-                    text-transform: uppercase;
                 }
                 & .settings-item {
                     display: grid;
@@ -197,7 +217,7 @@
 
                         & select, input[type="text"] {
                             width: 100%;
-                            font-family: 'Open Sans', sans-serif;
+                            font-family: 'Work Sans', sans-serif;
                             font-size: 12px;
                             color: #fff;
                             background: rgba(255,255,255,0.2);

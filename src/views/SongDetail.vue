@@ -54,11 +54,26 @@
                         <i class="mdi mdi-arm-flex"></i>
                     </div>
                     <div class="difficulties">
-                        <div v-if="hasEasyDifficulty" class="difficulty"><span>E</span> {{ easyDifficulty ? easyDifficulty : 0 }}</div>
-                        <div v-if="hasNormalDifficulty" class="difficulty"><span>N</span> {{ normalDifficulty ? normalDifficulty : 0 }}</div>
-                        <div v-if="hasHardDifficulty" class="difficulty"><span>H</span> {{ hardDifficulty ? hardDifficulty : 0 }}</div>
-                        <div v-if="hasExpertDifficulty" class="difficulty"><span>EX</span> {{ expertDifficulty ? expertDifficulty : 0 }}</div>
-                        <div v-if="hasXDDifficulty" class="difficulty"><span>XD</span> {{ XDDifficulty ? XDDifficulty : 0 }}</div>
+                        <div :class="{'active': hasEasyDifficulty}">
+                            <span>E</span>
+                            <span v-if="hasEasyDifficulty">{{ easyDifficulty ? easyDifficulty : 0 }}</span>
+                        </div>
+                        <div :class="{'active': hasNormalDifficulty}">
+                            <span>N</span>
+                            <span v-if="hasNormalDifficulty">{{ normalDifficulty ? normalDifficulty : 0 }}</span>
+                        </div>
+                        <div :class="{'active': hasHardDifficulty}">
+                            <span>H</span>
+                            <span v-if="hasHardDifficulty">{{ hardDifficulty ? hardDifficulty : 0 }}</span>
+                        </div>
+                        <div :class="{'active': hasExpertDifficulty}">
+                            <span>EX</span>
+                            <span v-if="hasExpertDifficulty">{{ expertDifficulty ? expertDifficulty : 0 }}</span>
+                        </div>
+                        <div :class="{'active': hasXDDifficulty}">
+                            <span>XD</span>
+                            <span v-if="hasXDDifficulty">{{ XDDifficulty ? XDDifficulty : 0 }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="stat" v-if="uploadDate">
@@ -114,7 +129,11 @@
             <router-view></router-view>
         </div>
 
-        <Loading v-if="!apiFinished" />
+        <div class="loading">
+            <SLoadingSpinner
+                v-if="!apiFinished"
+            />
+        </div>
 
         <PlayOverlay v-if="showPlayOverlay"
             v-bind:fileReference="fileReference"
@@ -137,7 +156,6 @@
     
     import UserItem from '@/components/User/UserItem.vue';
     import CollapsableText from '@/components/CollapsableText.vue';
-    import Loading from '@/components/Loading.vue';
     import PlayOverlay from '@/components/Overlays/PlayOverlay.vue';
 
     export default {
@@ -145,7 +163,6 @@
         components: {
             UserItem,
             CollapsableText,
-            Loading,
             PlayOverlay
         },
         data: function() {
@@ -197,8 +214,6 @@
                             this.$router.push({ name: 'SongDetailReviews', params: { id: data.data.id } });
                         }
                     }
-
-                    console.log(data.data);
 
                     this.$data.id = data.data.id;
                     this.$data.cover = data.data.paths.cover;
@@ -309,6 +324,14 @@
 </script>
 
 <style scoped lang="less">
+    .loading {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .section-song-detail {
         display: grid;
         grid-template-columns: 500px 1fr;
@@ -455,20 +478,25 @@
 
                     & .difficulties {
                         align-self: center;
-                        height: 20px;
                         display: flex;
-            
-                        & .difficulty {
-                            background: #fff;
-                            color: #000;
-                            border-radius: 4px;
-                            padding: 3px 8px;
-                            margin-right: 4px;
+                        grid-gap: 5px;
+
+                        & > div {
+                            padding: 3px 7px;
+                            background: rgba(255, 255, 255, 0.07);
+                            border-radius: 2px;
                             font-size: 10px;
-            
-                            & span {
-                                // padding-right: 3px;
+
+                            & span:nth-child(1) {
                                 font-weight: bold;
+                            }
+
+                            & span:nth-child(2) {
+                                margin-left: 5px;
+                            }
+
+                            &:not(.active) {
+                                opacity: 0.4;
                             }
                         }
                     }

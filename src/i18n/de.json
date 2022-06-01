@@ -2,13 +2,12 @@
 	"locale.translatedBy": "Übersetzung von thatanimeweirdo",
 	"locale.dateFormat": "DD.MM.YYYY",
 
-	"startup.staffpromo.action": "CHECK ES AUS",
+	"startup.staffpromo.action": "Check es aus",
 	"startup.tabs.frontpage": "Startseite",
 	"startup.tabs.new": "Neu",
 	"startup.tabs.updated": "Geupdatet",
 	"startup.tabs.hotThisWeek": "Heiß diese Woche",
 	"startup.tabs.hotThisMonth": "Heiß diesen Monat",
-	"startup.tabs.popular": "Populär",
 	
 	"search.header": "Suche",
 	"search.sidebar.searchType": "Suchen nach",

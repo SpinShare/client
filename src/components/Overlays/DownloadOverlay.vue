@@ -1,12 +1,11 @@
 <template>
     <div class="download-overlay">
         <header>
-            <div class="title">
-                {{ $t('download.queue.header') }}
-            </div>
-            <div class="icon" v-on:click="close()">
-                <i class="mdi mdi-close"></i>
-            </div>
+            <h1>{{ $t('download.queue.header') }}</h1>
+            <SButton
+                icon="close"
+                @click="close"
+            />
         </header>
 
         <div class="download-list">
@@ -18,7 +17,7 @@
                         <div class="artist">{{ item.artist }}</div>
                     </div>
                 </div>
-                <div class="progress-bar" v-if="index == 0" :style="{ width: downloadProgress * 100 + '%' }"></div>
+                <div class="progress-bar" v-if="index === 0" :style="{ width: downloadProgress * 100 + '%' }"></div>
             </div>
         </div>
     </div>
@@ -73,27 +72,15 @@
         box-shadow: 4px 0px 16px rgba(0,0,0,0.3);
 
         & header {
-            padding: 25px;
-            padding-bottom: 0px;
             display: grid;
             grid-template-columns: 1fr auto;
             grid-gap: 15px;
+            align-items: center;
+            padding: 25px 25px 0px;
 
-            & .title {
-                align-self: center;
-                letter-spacing: 0.25em;
-                font-size: 14px;
-                font-weight: bold;
-                text-transform: uppercase;
-            }
-            & .icon {
-                font-size: 22px;
-                transition: 0.2s ease-in-out opacity;
-                
-                &:hover {
-                    opacity: 0.6;
-                    cursor: pointer;
-                }
+            & h1 {
+                font-size: 18px;
+                margin: 0;
             }
         }
 

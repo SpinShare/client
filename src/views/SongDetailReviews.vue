@@ -1,7 +1,7 @@
 <template>
     <div class="tab tab-reviews">
         <div class="review-overview" v-if="apiFinished">
-            <div class="icon">
+            <div class="review-icon">
                 <i class="mdi mdi-thumbs-up-down"></i>
             </div>
             <div class="text" v-if="reviewAverage == false">
@@ -14,7 +14,11 @@
                 <div class="label">{{ $t('songdetail.reviews.recommended.label') }}</div>
                 <div class="disclaimer">{{ $t('songdetail.reviews.recommended.basedon', {amountOfReviews: reviews.length}) }}</div>
             </div>
-            <div v-on:click="OpenAddReview()" class="action-button">{{ $t('songdetail.reviews.recommended.addReview') }}</div>
+            <SButton
+                icon="plus"
+                :label="$t('songdetail.reviews.recommended.addReview')"
+                @click="OpenAddReview"
+            />
         </div>
         <div class="reviews" v-if="apiFinished && reviews.length > 0">
             <SongReview
@@ -85,7 +89,7 @@
             grid-gap: 25px;
             align-items: center;
 
-            & .icon {
+            & .review-icon {
                 color: #fff;
                 font-size: 48px;
             }
@@ -101,23 +105,6 @@
                     margin-bottom: 5px;
                 }
                 & .disclaimer {
-                    opacity: 0.6;
-                }
-            }
-            & .action-button {
-                text-decoration: none;
-                color: #fff;
-                font-size: 12px;
-                font-weight: bold;
-                letter-spacing: 0.1em;
-                background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-                padding: 10px 20px;
-                border-radius: 4px;
-                text-transform: uppercase;
-                transition: 0.2s ease-in-out all;
-                cursor: pointer;
-
-                &:hover {
                     opacity: 0.6;
                 }
             }
