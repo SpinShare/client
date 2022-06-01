@@ -1,5 +1,5 @@
 <template>
-    <div id="app" :class="platform != 'darwin' ? 'app' : 'app-darwin'" tabindex="-1" v-on:keydown.esc="closeOverlays()">
+    <div id="app" :class="platform !== 'darwin' ? 'app' : 'app-darwin'" tabindex="-1" v-on:keydown.esc="closeOverlays()">
         <!-- <WindowTitleBar /> -->
 
         <main>

@@ -20,9 +20,9 @@ class SRXD {
 
     // Extract a local backup folder
     async extractBackup(filePath, fileName) {
-        if(this.backupLocation != "") {
+        if(this.backupLocation !== "") {
             console.log("{EXTRACT] Unloading previous Backup.");
-            this.unloadBackup();
+            await this.unloadBackup();
         }
     
         console.log("[EXTRACT] Starting Extraction.");
@@ -104,10 +104,10 @@ class SRXD {
         let songOggInfo = "";
 
         srtbFile.largeStringValuesContainer.values.forEach(function(value) {
-            if(value.key == "SO_TrackInfo_TrackInfo") {
+            if(value.key === "SO_TrackInfo_TrackInfo") {
                 songTrackInfo = JSON.parse( value.val );
             }
-            if(value.key == "SO_ClipInfo_ClipInfo_0") {
+            if(value.key === "SO_ClipInfo_ClipInfo_0") {
                 songOggInfo = JSON.parse( value.val );
             }
         });
@@ -156,9 +156,8 @@ class SRXD {
     //Gets directory of files to delete
     getSongAssetDirectory(fileName, fileType) {
         let fileExtension = this.getFileExtension(fileName, path.join(this.userSettings.get('gameDirectory'), fileType));
-        if (fileExtension.join() != '') {
-        let finalPath = path.join(this.userSettings.get('gameDirectory'), fileType, fileExtension.join());
-        return finalPath;
+        if (fileExtension.join() !== '') {
+            return path.join(this.userSettings.get('gameDirectory'), fileType, fileExtension.join());
         }
         else {return fileName;}        
     }
