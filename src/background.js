@@ -17,115 +17,114 @@ require('@electron/remote/main').initialize();
 // Force one instance of the app
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
-  app.quit();
+    app.quit();
 } else {
-  app.on('open-url', function (event, data) {
-    event.preventDefault();
-    executeDeeplink(data);
-  });
-  app.on('second-instance', (event, commandLine, workingDirectory) => {
-    let fullCommand = "";
+    app.on('open-url', function (event, data) {
+        event.preventDefault();
+        executeDeeplink(data);
+    });
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        let fullCommand = "";
 
-    if (process.platform == 'win32') {
-      let commandLineString = commandLine.slice(1) + '';
-      let commandLineArgs = commandLineString.split(",");
-      fullCommand = commandLineArgs[commandLineArgs.length - 1];
-    }
+        if (process.platform === 'win32') {
+            let commandLineString = commandLine.slice(1) + '';
+            let commandLineArgs = commandLineString.split(",");
+            fullCommand = commandLineArgs[commandLineArgs.length - 1];
+        }
 
-    executeDeeplink(fullCommand);
-  });
+        executeDeeplink(fullCommand);
+    });
 }
 
 function executeDeeplink(deeplink) {
-  if(deeplink.includes("spinshare-song")) {
-    deeplinkingView = "SongDetail";
-    deeplinkingData = deeplink.replace("spinshare-song://", "").replace("/", "");
-  } else if(deeplink.includes("spinshare-user")) {
-    deeplinkingView = "UserDetail";
-    deeplinkingData = deeplink.replace("spinshare-user://", "").replace("/", "");
-  }
+    if(deeplink.includes("chart")) {
+        deeplinkingView = "SongDetail";
+        deeplinkingData = deeplink.replace("spinshare://chart/", "").replace("/", "");
+    } else if(deeplink.includes("user")) {
+        deeplinkingView = "UserDetail";
+        deeplinkingData = deeplink.replace("spinshare://user/", "").replace("/", "");
+    }
 
-  if (win) {
-    if (win.isMinimized()) win.restore();
-    win.focus();
-    
-    win.webContents.send("deeplink", {
-      view: deeplinkingView,
-      data: deeplinkingData
-    });
-  }
+    if (win) {
+        if (win.isMinimized()) win.restore();
+        win.focus();
+
+        win.webContents.send("deeplink", {
+            view: deeplinkingView,
+            data: deeplinkingData
+        });
+    }
 }
 
 // Setup Deeplinks
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
 
-app.setAsDefaultProtocolClient("spinshare-song");
-app.setAsDefaultProtocolClient("spinshare-user");
+app.setAsDefaultProtocolClient("spinshare");
 
 function createWindow () {
-  win = new BrowserWindow({
-    title: "SpinSha.re",
-    width: 1400,
-    height: 800,
-    minHeight: 800,
-    minWidth: 1400,
-    backgroundColor: '#212629',
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true
+    win = new BrowserWindow({
+        title: "SpinSha.re",
+        width: 1400,
+        height: 800,
+        minHeight: 800,
+        minWidth: 1400,
+        backgroundColor: '#222',
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
+        }
+    });
+
+    if (process.env.WEBPACK_DEV_SERVER_URL) {
+        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+        if (!process.env.IS_TEST) win.webContents.openDevTools();
+    } else {
+        createProtocol('app');
+        win.loadURL('app://./index.html');
     }
-  });
 
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-    if (!process.env.IS_TEST) win.webContents.openDevTools();
-  } else {
-    createProtocol('app');
-    win.loadURL('app://./index.html');
-  }
+    win.setMenuBarVisibility(false);
 
-  win.setMenuBarVisibility(false);
-
-  if (process.platform == 'win32') {
-    if(process.argv.length > 1) {
-    executeDeeplink(process.argv[1]);
+    if (process.platform === 'win32') {
+        if(process.argv.length > 1) {
+            executeDeeplink(process.argv[1]);
+        }
     }
-  }
 
-  win.on('closed', () => {
-    win = null;
-  });
+    win.on('closed', () => {
+        win = null;
+    });
 }
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });
 
 app.on('activate', () => {
-  if (win === null) {
-    createWindow();
-  }
+    if (win === null) {
+        createWindow();
+    }
 });
 
 app.on('ready', async () => {
-  createWindow();
+    createWindow();
 });
 
 if (isDevelopment) {
-  if (process.platform === 'win32') {
-    process.on('message', data => {
-      if (data === 'graceful-exit') {
-        app.quit();
-      }
-    });
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit();
-    });
-  }
+    if (process.platform === 'win32') {
+        process.on('message', data => {
+            if (data === 'graceful-exit') {
+                app.quit();
+            }
+        });
+    } else {
+        process.on('SIGTERM', () => {
+            app.quit();
+        });
+    }
 }
 
 ipcMain.on("download", (event, ipcData) => {
@@ -134,18 +133,18 @@ ipcMain.on("download", (event, ipcData) => {
     download(ipcData.queueItem.downloadPath, uniqid(), (error, dlInfo) => {
         if (error) {
             console.log(error);
-        
+
             let downloadItem = {
                 id: ipcData.queueItem.id,
                 status: 1,
                 downloadPath: null
             }
-    
+
             win.webContents.send("download-complete", downloadItem);
 
             return;
         }
-        
+
         let downloadItem = {
             id: ipcData.queueItem.id,
             status: 2,
@@ -157,15 +156,15 @@ ipcMain.on("download", (event, ipcData) => {
 });
 
 ipcMain.on("getDeeplink", (event) => {
-  win.webContents.send("deeplink", {
-    view: deeplinkingView,
-    data: deeplinkingData
-  });
+    win.webContents.send("deeplink", {
+        view: deeplinkingView,
+        data: deeplinkingData
+    });
 });
 
 // Send a global event to close all overlays
 ipcMain.on("overlays-close", () => {
-  win.webContents.send("overlays-close");
+    win.webContents.send("overlays-close");
 });
 
 async function download(url, fileName, cb) {
@@ -176,103 +175,51 @@ async function download(url, fileName, cb) {
     console.log("Download URL: " + url);
 
     try {
-      const response = await axios({
-        method: 'GET',
-        url: url,
-        responseType: 'stream'
-      });
+        const response = await axios({
+            method: 'GET',
+            url: url,
+            responseType: 'stream'
+        });
 
-      response.data.pipe(file);
-      
-      let totallength = parseInt(response.headers['content-length'], 10);
+        response.data.pipe(file);
 
-      response.data.on('end', () => {
-        file.close(cb(null, dest));
-        win.setProgressBar(0);
-        win.webContents.send("downloadProgress", 0);
-      });
+        let totallength = parseInt(response.headers['content-length'], 10);
 
-      response.data.on('data', (chunk) => {
-        partiallength += chunk.length;
-        let decimallength = partiallength / totallength;
-        if (decimallength != 1) {
-          // Report back the progress
-          win.setProgressBar(decimallength);
-          win.webContents.send("downloadProgress", decimallength);
-        }
-        else {
-          // Report back finished download
-          win.setProgressBar(0);
-          win.webContents.send("downloadProgress", 0);
-        }
-      });
+        response.data.on('end', () => {
+            file.close(cb(null, dest));
+            win.setProgressBar(0);
+            win.webContents.send("downloadProgress", 0);
+        });
 
-      response.data.on('error', (err) => {
+        response.data.on('data', (chunk) => {
+            partiallength += chunk.length;
+            let decimallength = partiallength / totallength;
+            if (decimallength !== 1) {
+                // Report back the progress
+                win.setProgressBar(decimallength);
+                win.webContents.send("downloadProgress", decimallength);
+            }
+            else {
+                // Report back finished download
+                win.setProgressBar(0);
+                win.webContents.send("downloadProgress", 0);
+            }
+        });
+
+        response.data.on('error', (err) => {
+            console.error("ERROR DOWNLOADING");
+            console.error(err);
+            if (cb) cb(err.message, dest);
+            try {
+                fs.unlink(dest);
+            } catch(error) {}
+        });
+    } catch(err) {
         console.error("ERROR DOWNLOADING");
         console.error(err);
         if (cb) cb(err.message, dest);
         try {
-          fs.unlink(dest);
-        } catch(error) {}
-      });
-    } catch(err) {
-      console.error("ERROR DOWNLOADING");
-      console.error(err);
-      if (cb) cb(err.message, dest);
-      try {
-        fs.unlink(dest);
-      } catch(error) {}
-    }
-
-
-    /*
-    // Adapter Switch for HTTP/HTTPS protocol: https://stackoverflow.com/a/38465918
-    let protocol = (function() { 
-      var url = require('url'),
-        adapters = {
-          'http:': http,
-          'https:': https,
-        };
-      return function(inputUrl) {
-        return adapters[url.parse(inputUrl).protocol]
-      }
-    }());
-
-    let request = protocol(url).get(url, function(response) {
-        response.pipe(file);
-
-        // Figure out total length
-        let totallength = parseInt(response.headers['content-length'], 10);
-
-        // Add the length of the newly received chunk everytime we receive one
-        response.on("data", function(chunk) {
-          partiallength += chunk.length;
-          let decimallength = partiallength / totallength;
-          if (decimallength != 1) {
-            // Report back the progress
-            win.setProgressBar(decimallength);
-            win.webContents.send("downloadProgress", decimallength);
-          }
-          else {
-            // Report back finished download
-            win.setProgressBar(0);
-            win.webContents.send("downloadProgress", 0);
-          }
-        });
-
-        // Call definied Callback on finish
-        file.on('finish', function() {
-            file.close(cb(null, dest));
-        });
-
-        file.on('error', function(err) {
-            console.error(err);
             fs.unlink(dest);
-            if (cb) cb(err.message, dest);
-        });
-    }).on('error', function(err) {
-        console.error(err);
-        fs.unlink(dest);
-        if (cb) cb(err.message, dest);
-    }); */
-};
+        } catch(error) {}
+    }
+}

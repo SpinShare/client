@@ -66,7 +66,9 @@
                 <div class="settings-item">
                     <div class="settings-label">{{ $t('settings.general.silentQueue.label') }}</div>
                     <div class="settings-input">
-                        <input type="checkbox" v-on:change="ChangeSilentQueue()" class="settings-input-silentqueue" v-model="settingSilentQueue">
+                        <label class="toggle">
+                            <input type="checkbox" v-on:change="ChangeSilentQueue()" class="settings-input-silentqueue" v-model="settingSilentQueue">
+                        </label>
                     </div>
                     <div class="settings-hint">{{ $t('settings.general.silentQueue.explaination') }}</div>
                 </div>
@@ -250,6 +252,53 @@
                         & input[type="text"] {
                             text-transform: initial;
                             font-weight: normal;
+                        }
+                        & .toggle {
+                            display: flex;
+                            grid-gap: 5px;
+                            align-items: center;
+
+                            & input {
+                                appearance: none;
+                                background: rgba(255,255,255,0.14);
+                                width: 45px;
+                                height: 25px;
+                                border-radius: 100px;
+                                position: relative;
+                                transition: 0.2s ease-in-out all;
+                                outline: none;
+                                cursor: pointer;
+
+                                &::after {
+                                    content: '';
+                                    display: block;
+                                    width: 18px;
+                                    height: 18px;
+                                    background: rgba(255,255,255,0.21);
+                                    border-radius: 100px;
+                                    position: absolute;
+                                    top: 4px;
+                                    left: 4px;
+                                    transition: 0.15s ease-in-out all;
+                                }
+
+                                & + span {
+                                    opacity: 0.4;
+                                }
+
+                                &:checked {
+                                    background: rgba(227, 91, 152, 0.4);
+
+                                    &::after {
+                                        left: 22px;
+                                        background: rgba(227, 91, 152, 1);
+                                    }
+
+                                    & + span {
+                                        opacity: 1;
+                                    }
+                                }
+                            }
                         }
                     }
                     & .settings-hint {

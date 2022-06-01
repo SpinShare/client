@@ -7,7 +7,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 6.4px solid #ff5e81;
+    border: 6.4px solid rgba(227, 91, 152, 1);
     animation: spinner-bulqg1 0.8s infinite linear alternate,
     spinner-oaa3wk 1.6s infinite linear;
 }

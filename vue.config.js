@@ -6,10 +6,9 @@ module.exports = {
                 productName: "SpinShare",
                 appId: "re.spinsha.client",
                 protocols: {
-                    name: "spinshare-song-deeplink",
+                    name: "spinshare-deeplink",
                     schemes: [
-                        "spinshare-song",
-                        "spinshare-user"
+                        "spinshare",
                     ]
                 },
                 win: {    
@@ -25,7 +24,10 @@ module.exports = {
                     icon: "build/AppIcon.icns"
                 },
                 dmg: {
-                    backgroundColor: "#212629"
+                    backgroundColor: "#222"
+                },
+                appImage: {
+
                 }
             }
         }
